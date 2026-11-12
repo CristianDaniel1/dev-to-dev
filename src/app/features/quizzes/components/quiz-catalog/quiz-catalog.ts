@@ -2,12 +2,13 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { PageHeader } from '@/shared/components/page-header/page-header';
 import { QuizContent } from '@/shared/services/quiz-content';
 import { groupByArea } from '../../lib/catalog-areas';
+import { PracticeModes } from '../practice-modes/practice-modes';
 import { TechCard } from '../tech-card/tech-card';
 
 /** Quiz catalog page, grouped by area. */
 @Component({
   selector: 'app-quiz-catalog',
-  imports: [PageHeader, TechCard],
+  imports: [PageHeader, PracticeModes, TechCard],
   templateUrl: './quiz-catalog.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

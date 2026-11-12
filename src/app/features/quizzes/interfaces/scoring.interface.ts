@@ -7,9 +7,11 @@ export interface AnswerRecord {
   confidence: Confidence;
 }
 
-export interface TopicScore {
-  slug: string;
+/** Score of one results group (a topic, or a tech in mixed sessions). */
+export interface GroupScore {
+  key: string;
   name: string;
+  color: string;
   correct: number;
   total: number;
 }
@@ -21,6 +23,9 @@ export interface SessionSummary {
   percentage: number;
   /** Right answers the user marked as a guess. */
   luckyGuesses: number;
-  byTopic: TopicScore[];
+  /** Questions left without an answer (an exam that ran out of time). */
+  unanswered: number;
+  byGroup: GroupScore[];
+  /** Wrong, guessed or unanswered questions, to retry. */
   missedIds: string[];
 }

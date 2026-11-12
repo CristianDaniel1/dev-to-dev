@@ -1,0 +1,24 @@
+@let numbers = overview();
+<dl class="grid grid-cols-2 gap-4 lg:grid-cols-4">
+  <div class="card p-5">
+    <dt class="text-sm text-ink-muted">Respondidas</dt>
+    <dd class="mt-1 text-3xl font-bold tabular-nums">{{ numbers.answered }}</dd>
+  </div>
+  <div class="card p-5">
+    <dt class="text-sm text-ink-muted">Dominadas</dt>
+    <dd class="mt-1 text-3xl font-bold tabular-nums">{{ numbers.mastered }}</dd>
+  </div>
+  <div class="card p-5">
+    <dt class="text-sm text-ink-muted">Para revisar hoje</dt>
+    <dd class="mt-1 flex items-baseline gap-3">
+      <span class="text-3xl font-bold tabular-nums">{{ numbers.due }}</span>
+      @if (numbers.due) {
+        <a routerLink="/revisao" class="link text-sm font-medium">Revisar</a>
+      }
+    </dd>
+  </div>
+  <div class="card p-5">
+    <dt class="text-sm text-ink-muted">Sessões</dt>
+    <dd class="mt-1 text-3xl font-bold tabular-nums">{{ numbers.sessions }}</dd>
+  </div>
+</dl>

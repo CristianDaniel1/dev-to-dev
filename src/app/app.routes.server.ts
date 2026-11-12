@@ -18,6 +18,11 @@ export const serverRoutes: ServerRoute[] = [
     getPrerenderParams: techPrerenderParams,
   },
   {
+    path: 'quizzes/:tech/simulado',
+    renderMode: RenderMode.Prerender,
+    getPrerenderParams: techPrerenderParams,
+  },
+  {
     path: 'recursos/colecoes/:colecao',
     renderMode: RenderMode.Prerender,
     getPrerenderParams: collectionPrerenderParams,

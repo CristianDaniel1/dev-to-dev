@@ -8,6 +8,7 @@ export const UI_TEXT = {
     homeLabel: 'Início, Dev to Dev',
     quizzes: 'Quizzes',
     resources: 'Recursos',
+    progress: 'Progresso',
     about: 'Sobre',
   },
   menu: {

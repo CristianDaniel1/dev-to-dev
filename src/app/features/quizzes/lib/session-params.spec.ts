@@ -46,12 +46,15 @@ describe('toSessionConfig', () => {
 
 describe('toSessionQuery', () => {
   it('leaves defaults out of the URL', () => {
-    expect(toSessionQuery({ topics: [], level: null, size: 10, onlyUnanswered: false })).toEqual({
-      topico: null,
-      nivel: null,
-      qtd: 10,
-      novas: null,
-    });
+    expect(
+      toSessionQuery({ topics: [], level: null, size: 10, onlyUnanswered: false, minutes: null }),
+    ).toEqual({ topico: null, nivel: null, qtd: 10, novas: null, tempo: null });
+  });
+
+  it('keeps the exam duration', () => {
+    expect(
+      toSessionQuery({ topics: [], level: null, size: 20, onlyUnanswered: false, minutes: 30 }),
+    ).toMatchObject({ qtd: 20, tempo: 30 });
   });
 
   it('round-trips with toSessionConfig', () => {
@@ -60,6 +63,7 @@ describe('toSessionQuery', () => {
       level: 'intermediate',
       size: null,
       onlyUnanswered: true,
+      minutes: null,
     });
     const config = toSessionConfig({
       topico: query.topico ?? undefined,
@@ -72,5 +76,11 @@ describe('toSessionQuery', () => {
       filters: { topics: ['semantica'], level: 'intermediate', onlyUnanswered: true, ids: [] },
       limit: null,
     });
+  });
+});
+
+describe('toSessionConfig default size', () => {
+  it('uses the given default when the URL has no size', () => {
+    expect(toSessionConfig(EMPTY_QUERY, 20).limit).toBe(20);
   });
 });

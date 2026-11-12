@@ -21,8 +21,14 @@ export interface QuestionProgress {
   nextReviewAt: number;
 }
 
+/** Kind of session: practice or exam of one tech, spaced review or a random mix. */
+export type SessionKind = 'practice' | 'exam' | 'review' | 'random';
+
 export interface SessionRecord {
+  /** Tech slug, or an empty string when the session mixed several techs. */
   tech: string;
+  /** Missing in sessions saved before modes existed; read them as practice. */
+  kind?: SessionKind;
   total: number;
   correct: number;
   finishedAt: number;

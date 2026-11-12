@@ -5,5 +5,6 @@ import { UI_TEXT } from './ui-text.data';
 export const NAV_LINKS: readonly NavLink[] = [
   { path: '/quizzes', label: UI_TEXT.nav.quizzes },
   { path: '/recursos', label: UI_TEXT.nav.resources },
+  { path: '/progresso', label: UI_TEXT.nav.progress },
   { path: '/sobre', label: UI_TEXT.nav.about },
 ];

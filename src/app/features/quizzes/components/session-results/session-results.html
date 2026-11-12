@@ -1,7 +1,7 @@
 @let result = summary();
 <section aria-labelledby="results-heading">
   <div class="card index-card p-6 sm:p-8">
-    <p class="text-sm text-ink-muted">Resultado da sessão de {{ tech().name }}</p>
+    <p class="text-sm text-ink-muted">{{ scope().title }}</p>
     <h2
       #headingElement
       id="results-heading"
@@ -16,6 +16,13 @@
       >
       ({{ result.percentage }}%)
     </p>
+    @if (result.unanswered === 1) {
+      <p class="mt-1 text-sm text-ink-muted">1 pergunta ficou sem resposta e conta como erro.</p>
+    } @else if (result.unanswered > 1) {
+      <p class="mt-1 text-sm text-ink-muted">
+        {{ result.unanswered }} perguntas ficaram sem resposta e contam como erro.
+      </p>
+    }
     @if (result.luckyGuesses === 1) {
       <p class="mt-1 text-sm text-ink-muted">1 acerto foi no chute e volta para revisão.</p>
     } @else if (result.luckyGuesses > 1) {
@@ -24,16 +31,16 @@
       </p>
     }
 
-    @if (result.byTopic.length > 1) {
+    @if (result.byGroup.length > 1) {
       <ul class="mt-6 flex flex-col gap-3">
-        @for (topic of result.byTopic; track topic.slug) {
+        @for (topic of result.byGroup; track topic.key) {
           <li class="grid grid-cols-[minmax(0,10rem)_1fr_auto] items-center gap-3 text-sm">
             <span class="truncate">{{ topic.name }}</span>
             <span class="h-1.5 overflow-hidden rounded-full bg-surface-sunken" aria-hidden="true">
               <span
                 class="block h-full rounded-full"
                 [style.width.%]="(topic.correct / topic.total) * 100"
-                [style.background-color]="tech().color"
+                [style.background-color]="topic.color"
               ></span>
             </span>
             <span class="text-ink-muted tabular-nums">{{ topic.correct }}/{{ topic.total }}</span>
@@ -44,18 +51,20 @@
 
     <div class="mt-8 flex flex-wrap gap-3">
       @if (result.missedIds.length) {
-        <a
-          class="btn btn-primary"
-          [routerLink]="['/quizzes', tech().slug, 'praticar']"
-          [queryParams]="retryParams()"
-        >
-          Refazer as {{ result.missedIds.length }} que errei ou chutei
+        <a class="btn btn-primary" [routerLink]="scope().retryRoute" [queryParams]="retryParams()">
+          @if (result.missedIds.length === 1) {
+            Refazer a que ficou para revisão
+          } @else {
+            Refazer as {{ result.missedIds.length }} que ficaram para revisão
+          }
         </a>
       }
-      <button type="button" class="btn btn-secondary" (click)="restart.emit()">
-        Nova sessão com os mesmos filtros
-      </button>
-      <a class="btn btn-ghost" [routerLink]="['/quizzes', tech().slug]">Mudar filtros</a>
+      @if (scope().restartLabel; as restartLabel) {
+        <button type="button" class="btn btn-secondary" (click)="restart.emit()">
+          {{ restartLabel }}
+        </button>
+      }
+      <a class="btn btn-ghost" [routerLink]="scope().setupLink">{{ scope().setupLabel }}</a>
     </div>
   </div>
 

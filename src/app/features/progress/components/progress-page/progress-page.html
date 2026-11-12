@@ -1,0 +1,54 @@
+<div class="container-page pb-20">
+  <app-page-header
+    heading="Seu progresso"
+    intro="Tudo fica salvo só neste navegador: sem conta, sem servidor."
+  />
+
+  @if (isHydrated()) {
+    <div class="flex flex-col gap-14">
+      <app-progress-summary [overview]="overview()" />
+
+      <div class="grid gap-14 lg:grid-cols-2">
+        <section aria-labelledby="techs-heading">
+          <h2 id="techs-heading" class="mb-5 text-xl font-bold">Por tecnologia</h2>
+          <ul class="flex flex-col gap-5">
+            @for (tech of techs; track tech.slug) {
+              <li>
+                <a [routerLink]="['/quizzes', tech.slug]" class="font-medium hover:underline">
+                  {{ tech.name }}
+                </a>
+                <app-tech-progress class="mt-2" [tech]="tech" />
+              </li>
+            }
+          </ul>
+        </section>
+
+        <div class="flex flex-col gap-14">
+          <section aria-labelledby="boxes-heading">
+            <h2 id="boxes-heading" class="text-xl font-bold">Caixas de revisão</h2>
+            <p class="mt-2 mb-4 text-sm text-ink-muted">
+              Quanto maior a caixa, mais tempo a pergunta leva para voltar.
+            </p>
+            <app-leitner-boxes [boxes]="boxes()" />
+          </section>
+
+          <section aria-labelledby="history-heading">
+            <h2 id="history-heading" class="mb-4 text-xl font-bold">Últimas sessões</h2>
+            <app-session-history [entries]="history()" />
+          </section>
+        </div>
+      </div>
+
+      <section aria-labelledby="backup-heading" class="max-w-2xl">
+        <h2 id="backup-heading" class="mb-4 text-xl font-bold">Backup</h2>
+        <app-progress-backup />
+      </section>
+    </div>
+  } @else {
+    <div class="grid grid-cols-2 gap-4 lg:grid-cols-4" aria-hidden="true">
+      @for (placeholder of [1, 2, 3, 4]; track placeholder) {
+        <div class="card h-24 animate-pulse bg-surface-sunken"></div>
+      }
+    </div>
+  }
+</div>

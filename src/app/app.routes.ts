@@ -1,5 +1,5 @@
 import type { Routes } from '@angular/router';
-import { ABOUT_SEO, NOT_FOUND_SEO } from '@/core/data/route-seo.data';
+import { ABOUT_SEO, NOT_FOUND_SEO, PROGRESS_SEO } from '@/core/data/route-seo.data';
 
 export const routes: Routes = [
   {
@@ -10,6 +10,20 @@ export const routes: Routes = [
   {
     path: 'quizzes',
     loadChildren: () => import('@/features/quizzes').then((module) => module.QUIZ_ROUTES),
+  },
+  {
+    path: 'revisao',
+    loadChildren: () => import('@/features/quizzes').then((module) => module.REVIEW_ROUTES),
+  },
+  {
+    path: 'aleatorio',
+    loadChildren: () => import('@/features/quizzes').then((module) => module.RANDOM_ROUTES),
+  },
+  {
+    path: 'progresso',
+    title: 'Seu progresso',
+    data: { seo: PROGRESS_SEO },
+    loadComponent: () => import('@/features/progress').then((module) => module.ProgressPage),
   },
   {
     path: 'recursos',

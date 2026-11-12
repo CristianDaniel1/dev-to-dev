@@ -55,7 +55,7 @@ test.describe('Practice session', () => {
     await expect(page.getByText(/converte o outro para string e concatena/)).toBeVisible();
 
     await session.nextButton.click();
-    await expect(session.retryMistakesLink).toHaveText('Refazer as 1 que errei ou chutei');
+    await expect(session.retryMistakesLink).toHaveText('Refazer a que ficou para revisão');
   });
 
   test('goes through two questions with the buttons', async ({ session }) => {

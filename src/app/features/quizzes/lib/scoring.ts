@@ -1,5 +1,6 @@
-import type { Question, TopicSummary } from '@/shared/interfaces/content.interface';
-import type { AnswerRecord, SessionSummary, TopicScore } from '../interfaces/scoring.interface';
+import type { Question } from '@/shared/interfaces/content.interface';
+import type { AnswerRecord, GroupScore, SessionSummary } from '../interfaces/scoring.interface';
+import type { ScoreGroup } from '../interfaces/session-scope.interface';
 
 /**
  * Tells whether a selection matches the correct options exactly, in any order.
@@ -23,36 +24,38 @@ export const isAnswerCorrect = (question: Question, selected: readonly string[])
 export const needsReview = (answer: AnswerRecord): boolean =>
   !answer.correct || answer.confidence === 'guess';
 
-const scoreTopics = (
+const scoreGroups = (
   questions: readonly Question[],
   answersById: ReadonlyMap<string, AnswerRecord>,
-  topics: readonly TopicSummary[],
-): TopicScore[] =>
-  topics
-    .map((topic) => {
-      const inTopic = questions.filter((question) => question.topic === topic.slug);
+  groups: readonly ScoreGroup[],
+  groupOf: (question: Question) => string,
+): GroupScore[] =>
+  groups
+    .map((group) => {
+      const inGroup = questions.filter((question) => groupOf(question) === group.key);
       return {
-        slug: topic.slug,
-        name: topic.name,
-        total: inTopic.length,
-        correct: inTopic.filter((question) => answersById.get(question.id)?.correct).length,
+        ...group,
+        total: inGroup.length,
+        correct: inGroup.filter((question) => answersById.get(question.id)?.correct).length,
       };
     })
     .filter((score) => score.total > 0);
 
 /**
- * Summarizes a finished session, with results grouped by topic in catalog order. Lucky
- * guesses count in the score but are listed for review.
+ * Summarizes a finished session, with results grouped in the given order. Lucky guesses count
+ * in the score but are listed for review; unanswered questions count as wrong.
  *
  * @param questions - Questions of the session.
  * @param answers - Answers given.
- * @param topics - Topics of the tech, in catalog order.
+ * @param groups - Result groups, in display order.
+ * @param groupOf - Picks the group key of a question.
  * @returns The session summary.
  */
 export const summarizeSession = (
   questions: readonly Question[],
   answers: readonly AnswerRecord[],
-  topics: readonly TopicSummary[],
+  groups: readonly ScoreGroup[],
+  groupOf: (question: Question) => string,
 ): SessionSummary => {
   const answersById = new Map(answers.map((answer) => [answer.questionId, answer]));
   const correct = answers.filter((answer) => answer.correct).length;
@@ -63,7 +66,13 @@ export const summarizeSession = (
     percentage: total ? Math.round((correct / total) * 100) : 0,
     luckyGuesses: answers.filter((answer) => answer.correct && answer.confidence === 'guess')
       .length,
-    byTopic: scoreTopics(questions, answersById, topics),
-    missedIds: answers.filter(needsReview).map((answer) => answer.questionId),
+    unanswered: questions.filter((question) => !answersById.has(question.id)).length,
+    byGroup: scoreGroups(questions, answersById, groups, groupOf),
+    missedIds: questions
+      .filter((question) => {
+        const answer = answersById.get(question.id);
+        return !answer || needsReview(answer);
+      })
+      .map((question) => question.id),
   };
 };

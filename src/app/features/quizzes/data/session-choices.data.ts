@@ -1,4 +1,4 @@
-import type { ConfidenceChoice, ResultBand } from '../interfaces/choice.interface';
+import type { ConfidenceChoice, ModeChoice, ResultBand } from '../interfaces/choice.interface';
 
 /** Confidence buttons, from most to least sure; each one also submits the answer. */
 export const CONFIDENCE_CHOICES: readonly ConfidenceChoice[] = [
@@ -13,6 +13,22 @@ export const RESULT_BANDS: readonly ResultBand[] = [
   { minPercentage: 70, heading: 'Mandou bem.' },
   { minPercentage: 40, heading: 'Está no caminho.' },
   { minPercentage: 0, heading: 'Hora de revisar.' },
+];
+
+/** Session modes of a tech, as offered in the setup form. */
+export const MODE_CHOICES: readonly ModeChoice[] = [
+  {
+    value: 'practice',
+    label: 'Prática',
+    description: 'Sem cronômetro, com explicação a cada resposta.',
+    action: 'Começar a praticar',
+  },
+  {
+    value: 'exam',
+    label: 'Simulado',
+    description: 'Correção só no fim, com cronômetro opcional.',
+    action: 'Começar o simulado',
+  },
 ];
 
 /** Session sizes offered in the setup form; `null` means every matching question. */

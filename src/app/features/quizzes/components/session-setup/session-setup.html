@@ -1,8 +1,24 @@
 <section class="card p-5 sm:p-6" aria-labelledby="setup-heading">
   <h2 id="setup-heading" class="text-xl font-bold">Montar sessão</h2>
-  <p class="mt-1 text-sm text-ink-muted">
-    Modo prática: sem cronômetro, com explicação a cada resposta.
-  </p>
+
+  <fieldset class="mt-5">
+    <legend class="mb-2 text-sm font-semibold">Modo</legend>
+    <div class="segmented">
+      @for (option of modes; track option.value) {
+        <label>
+          <input
+            type="radio"
+            name="mode"
+            class="sr-only"
+            [checked]="mode().value === option.value"
+            (click)="chooseMode(option)"
+          />
+          <span>{{ option.label }}</span>
+        </label>
+      }
+    </div>
+    <p class="mt-2 text-sm text-ink-muted">{{ mode().description }}</p>
+  </fieldset>
 
   <fieldset class="mt-6">
     <legend class="mb-2 text-sm font-semibold">Tópicos</legend>
@@ -76,6 +92,26 @@
     </div>
   </fieldset>
 
+  @if (isExam()) {
+    <fieldset class="mt-6">
+      <legend class="mb-2 text-sm font-semibold">Tempo</legend>
+      <div class="segmented">
+        @for (option of durations; track option) {
+          <label>
+            <input
+              type="radio"
+              name="duration"
+              class="sr-only"
+              [checked]="minutes() === option"
+              (click)="minutes.set(option)"
+            />
+            <span>{{ option ? option + ' min' : 'Sem tempo' }}</span>
+          </label>
+        }
+      </div>
+    </fieldset>
+  }
+
   <label class="mt-6 flex cursor-pointer items-start gap-3 text-sm">
     <input
       type="checkbox"
@@ -91,12 +127,8 @@
       <p class="mb-3 text-sm text-ink-muted">
         {{ sessionCount() }} de {{ availableCount() }} perguntas disponíveis
       </p>
-      <a
-        class="btn btn-primary w-full"
-        [routerLink]="['/quizzes', tech().slug, 'praticar']"
-        [queryParams]="queryParams()"
-      >
-        Começar a praticar
+      <a class="btn btn-primary w-full" [routerLink]="route()" [queryParams]="queryParams()">
+        {{ mode().action }}
       </a>
     } @else {
       <p class="text-sm text-ink-muted">

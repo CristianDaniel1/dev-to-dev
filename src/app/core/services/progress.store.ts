@@ -23,6 +23,8 @@ export class ProgressStore {
   private readonly storage = inject(PersistentStorage);
   private readonly state = signal<ProgressState>(EMPTY_PROGRESS_STATE);
 
+  /** The whole progress, read-only. */
+  readonly snapshot = this.state.asReadonly();
   readonly questions = computed(() => this.state().questions);
   readonly sessions = computed(() => this.state().sessions);
 
@@ -88,6 +90,29 @@ export class ProgressStore {
       ...state,
       sessions: [session, ...state.sessions].slice(0, MAX_SESSION_HISTORY),
     }));
+  }
+
+  /**
+   * Replaces the whole progress, as when importing a backup.
+   *
+   * @param state - Validated progress state.
+   */
+  replace(state: ProgressState): void {
+    this.update(() => state);
+  }
+
+  /** Erases every answer and session. */
+  clear(): void {
+    this.update(() => EMPTY_PROGRESS_STATE);
+  }
+
+  /**
+   * Serializes the progress for a backup file.
+   *
+   * @returns Indented JSON.
+   */
+  exportJson(): string {
+    return JSON.stringify(this.state(), null, 2);
   }
 
   private update(change: (state: ProgressState) => ProgressState): void {

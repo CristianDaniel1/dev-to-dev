@@ -1,0 +1,15 @@
+<ol class="grid grid-cols-5 gap-2">
+  @for (view of boxes(); track view.box) {
+    <li
+      class="flex flex-col items-center gap-1 rounded-control border border-line bg-surface px-1 py-3 text-center"
+    >
+      <span class="text-xs text-ink-muted">Caixa {{ view.box }}</span>
+      @if (view.count !== null) {
+        <span class="text-2xl font-bold tabular-nums">{{ view.count }}</span>
+      }
+      <span class="text-xs font-medium">
+        {{ view.days === 1 ? '1 dia' : view.days + ' dias' }}
+      </span>
+    </li>
+  }
+</ol>

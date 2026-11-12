@@ -15,6 +15,9 @@ export class QuizSessionPage {
   readonly reviewHeading: Locator;
   readonly retryMistakesLink: Locator;
   readonly emptyState: Locator;
+  readonly examSubmitButton: Locator;
+  readonly timer: Locator;
+  readonly unansweredNote: Locator;
 
   constructor(readonly page: Page) {
     this.counter = page.getByText(/Pergunta \d+ de \d+/);
@@ -29,9 +32,14 @@ export class QuizSessionPage {
     this.score = page.getByText(/\d+ de \d+ certas/);
     this.reviewHeading = page.getByRole('heading', { name: 'Revisão das perguntas' });
     this.retryMistakesLink = page.getByRole('link', {
-      name: /^Refazer as \d+ que errei ou chutei$/,
+      name: /^Refazer (a que ficou|as \d+ que ficaram) para revisão$/,
     });
     this.emptyState = page.getByRole('heading', { name: 'Nenhuma pergunta com esses filtros' });
+    this.examSubmitButton = page.getByRole('button', {
+      name: /^Responder e (seguir|ver o resultado)$/,
+    });
+    this.timer = page.getByRole('timer', { name: 'Tempo restante' });
+    this.unansweredNote = page.getByText(/ficaram? sem resposta/);
   }
 
   /**
@@ -42,6 +50,26 @@ export class QuizSessionPage {
    */
   async open(slug: string, query = '') {
     await this.page.goto(`/quizzes/${slug}/praticar${query ? `?${query}` : ''}`);
+  }
+
+  /**
+   * Opens an exam directly by URL.
+   *
+   * @param slug - Tech slug.
+   * @param query - Query string without the '?', e.g. 'tempo=10'.
+   */
+  async openExam(slug: string, query = '') {
+    await this.page.goto(`/quizzes/${slug}/simulado${query ? `?${query}` : ''}`);
+  }
+
+  /**
+   * Finds the session title in the header, e.g. 'Revisão'.
+   *
+   * @param title - Expected title.
+   * @returns The title text.
+   */
+  title(title: string): Locator {
+    return this.page.getByText(title, { exact: true }).first();
   }
 
   /**

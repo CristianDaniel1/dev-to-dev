@@ -1,0 +1,72 @@
+<div class="container-page pb-20">
+  <app-page-header
+    heading="Revisão"
+    intro="As perguntas que você errou ou acertou no chute voltam no dia seguinte. As que acerta com certeza sobem de caixa e demoram mais para voltar."
+  />
+
+  <div class="grid items-start gap-10 lg:grid-cols-[1fr_24rem]">
+    <section aria-labelledby="due-heading" aria-live="polite">
+      <h2 id="due-heading" class="sr-only">Para revisar hoje</h2>
+      @if (!isHydrated()) {
+        <div class="card h-48 animate-pulse bg-surface-sunken" aria-hidden="true"></div>
+      } @else if (!answeredCount()) {
+        <app-empty-state
+          heading="Ainda não há o que revisar"
+          description="Responda alguns quizzes primeiro. O que você errar ou acertar no chute aparece aqui no dia certo."
+        >
+          <a routerLink="/quizzes" class="btn btn-primary">Escolher um quiz</a>
+        </app-empty-state>
+      } @else if (dueCount()) {
+        <div class="card p-6 sm:p-8">
+          <p class="text-lg">
+            <span class="highlight font-semibold text-highlight-ink">
+              {{ dueCount() === 1 ? '1 pergunta' : dueCount() + ' perguntas' }} para revisar
+            </span>
+          </p>
+          <ul class="mt-5 flex flex-col gap-2">
+            @for (row of dueByTech(); track row.tech.slug) {
+              <li class="flex items-center gap-3 text-sm">
+                <span
+                  class="size-2.5 rounded-full"
+                  [style.background-color]="row.tech.color"
+                  aria-hidden="true"
+                ></span>
+                <span class="flex-1">{{ row.tech.name }}</span>
+                <span class="text-ink-muted tabular-nums">{{ row.count }}</span>
+              </li>
+            }
+          </ul>
+          <a routerLink="/revisao/praticar" class="btn btn-primary mt-6">Começar a revisão</a>
+          @if (dueCount() > sessionSize()) {
+            <p class="mt-3 text-sm text-ink-muted">
+              Cada rodada traz as {{ sessionSize() }} mais atrasadas.
+            </p>
+          }
+        </div>
+      } @else {
+        <app-empty-state
+          icon="check"
+          heading="Tudo em dia"
+          [description]="
+            nextReview()
+              ? 'A próxima revisão é ' +
+                nextReview() +
+                '. Enquanto isso, que tal praticar algo novo?'
+              : 'Nada agendado. Que tal praticar algo novo?'
+          "
+        >
+          <a routerLink="/aleatorio" class="btn btn-primary">Praticar no aleatório</a>
+        </app-empty-state>
+      }
+    </section>
+
+    <section aria-labelledby="boxes-heading">
+      <h2 id="boxes-heading" class="text-xl font-bold">Caixas de revisão</h2>
+      <p class="mt-2 mb-4 text-sm text-ink-muted">
+        Cada acerto com certeza leva a pergunta para a caixa seguinte. Errar ou chutar devolve para
+        a caixa 1.
+      </p>
+      <app-leitner-boxes [boxes]="boxes()" />
+    </section>
+  </div>
+</div>

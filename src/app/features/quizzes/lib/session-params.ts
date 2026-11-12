@@ -18,28 +18,30 @@ const parseList = (value: string | undefined): string[] =>
     .map((item) => item.trim())
     .filter(Boolean) ?? [];
 
-const parseLimit = (value: string | undefined): number | null => {
+const parseLimit = (value: string | undefined, defaultSize: number): number | null => {
   if (value === ALL_QUESTIONS_PARAM) return null;
   const parsed = Number(value);
-  return Number.isInteger(parsed) && parsed > 0
-    ? Math.min(parsed, MAX_SESSION_SIZE)
-    : DEFAULT_SESSION_SIZE;
+  return Number.isInteger(parsed) && parsed > 0 ? Math.min(parsed, MAX_SESSION_SIZE) : defaultSize;
 };
 
 /**
  * Turns the practice route query params into a session config (without the seed).
  *
  * @param query - Raw query params from the URL.
+ * @param defaultSize - Session size when the URL does not set one.
  * @returns Filters and limit of the session.
  */
-export const toSessionConfig = (query: SessionQueryInput): Omit<SessionConfig, 'seed'> => ({
+export const toSessionConfig = (
+  query: SessionQueryInput,
+  defaultSize = DEFAULT_SESSION_SIZE,
+): Omit<SessionConfig, 'seed'> => ({
   filters: {
     topics: parseList(query.topico),
     level: levelFromParam(query.nivel),
     onlyUnanswered: query.novas === '1',
     ids: parseList(query.ids),
   },
-  limit: parseLimit(query.qtd),
+  limit: parseLimit(query.qtd, defaultSize),
 });
 
 /**
@@ -53,4 +55,5 @@ export const toSessionQuery = (setup: SessionSetup): SessionQueryParams => ({
   nivel: setup.level ? LEVEL_PARAMS[setup.level] : null,
   qtd: setup.size ?? ALL_QUESTIONS_PARAM,
   novas: setup.onlyUnanswered ? '1' : null,
+  tempo: setup.minutes,
 });

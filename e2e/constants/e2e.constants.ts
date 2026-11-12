@@ -53,3 +53,9 @@ export const PT_PRACTICE_RESOURCE = 'Flexbox Froggy';
 
 /** Practice resource only in English: Exercism. */
 export const EN_PRACTICE_RESOURCE = 'Exercism';
+
+/** Topic of the two known JavaScript questions. */
+export const KNOWN_QUESTIONS_TOPIC = 'fundamentos';
+
+/** Tech of the two known questions. */
+export const KNOWN_QUESTIONS_TECH = 'javascript';

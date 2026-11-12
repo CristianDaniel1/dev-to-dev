@@ -1,17 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 import { ProgressStore } from '@/core/services/progress.store';
-import type { QuizBank } from '@/shared/interfaces/content.interface';
 import type { SessionConfig } from '../interfaces/session.interface';
+import { techScope } from '../lib/session-scope';
 import { makeQuestion } from '../testing/question.factory';
 import { makeTech, makeTopic } from '../testing/tech.factory';
 import { QuizSessionStore } from './quiz-session.store';
 
 const TECH = makeTech([makeTopic('fundamentos', { beginner: 2, intermediate: 0, advanced: 0 })]);
 const MULTIPLE = makeQuestion({ id: 'q2', kind: 'multiple', correct: ['a', 'b'] });
-const BANK: QuizBank = {
-  tech: 'html',
-  questions: [makeQuestion({ id: 'q1' }), MULTIPLE],
-};
+const PRACTICE = techScope(TECH, 'practice');
+const EXAM = techScope(TECH, 'exam');
+const QUESTIONS = [makeQuestion({ id: 'q1' }), MULTIPLE];
 const CONFIG: SessionConfig = {
   filters: { topics: [], level: null, onlyUnanswered: false, ids: [] },
   limit: null,
@@ -38,23 +37,26 @@ describe('QuizSessionStore', () => {
   };
 
   it('starts with every matching question', () => {
-    store.start(TECH, BANK, CONFIG);
+    store.start(PRACTICE, QUESTIONS, CONFIG);
     expect(store.status()).toBe('active');
     expect(store.total()).toBe(2);
   });
 
   it('reports an empty session when nothing matches', () => {
-    store.start(TECH, BANK, { ...CONFIG, filters: { ...CONFIG.filters, level: 'advanced' } });
+    store.start(PRACTICE, QUESTIONS, {
+      ...CONFIG,
+      filters: { ...CONFIG.filters, level: 'advanced' },
+    });
     expect(store.status()).toBe('empty');
   });
 
   it('replaces the selection for single choice and toggles for multiple choice', () => {
-    store.start(TECH, { ...BANK, questions: [makeQuestion({ id: 'q1' })] }, CONFIG);
+    store.start(PRACTICE, [makeQuestion({ id: 'q1' })], CONFIG);
     store.toggle('a');
     store.toggle('b');
     expect(store.selection()).toEqual(['b']);
 
-    store.start(TECH, { ...BANK, questions: [MULTIPLE] }, CONFIG);
+    store.start(PRACTICE, [MULTIPLE], CONFIG);
     store.toggle('a');
     store.toggle('b');
     store.toggle('a');
@@ -62,7 +64,7 @@ describe('QuizSessionStore', () => {
   });
 
   it('reveals the answer, records progress and locks the selection', () => {
-    store.start(TECH, BANK, CONFIG);
+    store.start(PRACTICE, QUESTIONS, CONFIG);
     answerCurrent(true);
 
     expect(store.isRevealed()).toBe(true);
@@ -74,7 +76,7 @@ describe('QuizSessionStore', () => {
   });
 
   it('toggles options by position for keyboard shortcuts', () => {
-    store.start(TECH, { ...BANK, questions: [makeQuestion({ id: 'q1' })] }, CONFIG);
+    store.start(PRACTICE, [makeQuestion({ id: 'q1' })], CONFIG);
     store.toggleAt(0);
     expect(store.selection()).toHaveLength(1);
     store.toggleAt(9);
@@ -82,13 +84,13 @@ describe('QuizSessionStore', () => {
   });
 
   it('does not submit without a selection', () => {
-    store.start(TECH, BANK, CONFIG);
+    store.start(PRACTICE, QUESTIONS, CONFIG);
     store.submit('sure');
     expect(store.isRevealed()).toBe(false);
   });
 
   it('finishes after the last question and summarizes', () => {
-    store.start(TECH, BANK, CONFIG);
+    store.start(PRACTICE, QUESTIONS, CONFIG);
     answerCurrent(true);
     store.next();
     answerCurrent(false);
@@ -97,5 +99,32 @@ describe('QuizSessionStore', () => {
     expect(store.status()).toBe('finished');
     expect(store.summary()).toMatchObject({ total: 2, correct: 1, percentage: 50 });
     expect(progress.sessions()).toHaveLength(1);
+  });
+
+  it('records exam answers without revealing them and finishes after the last', () => {
+    store.start(EXAM, QUESTIONS, CONFIG, 1000);
+    expect(store.deadline()).toBe(1000);
+
+    store.toggleAt(0);
+    store.submitExam();
+    expect(store.index()).toBe(1);
+    expect(store.isRevealed()).toBe(false);
+
+    store.toggleAt(0);
+    store.submitExam();
+    expect(store.status()).toBe('finished');
+    expect(progress.sessions()[0]).toMatchObject({ tech: 'html', kind: 'exam', total: 2 });
+  });
+
+  it('ends an exam when time runs out, counting unanswered questions as wrong', () => {
+    store.start(EXAM, QUESTIONS, CONFIG, 1000);
+    store.toggleAt(0);
+    store.submitExam();
+    store.expire();
+
+    expect(store.status()).toBe('finished');
+    expect(store.summary()).toMatchObject({ total: 2, unanswered: 1 });
+    store.toggleAt(0);
+    expect(store.selection()).toEqual([]);
   });
 });

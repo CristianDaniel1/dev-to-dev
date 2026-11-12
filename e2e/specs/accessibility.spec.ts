@@ -10,6 +10,9 @@ const STATIC_PAGES = [
   '/recursos/acessibilidade',
   '/recursos/colecoes/interface-acessivel',
   '/sobre',
+  '/revisao',
+  '/aleatorio',
+  '/progresso',
 ];
 
 test.describe('Accessibility', () => {

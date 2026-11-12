@@ -55,4 +55,17 @@ describe('ProgressStore', () => {
 
     expect(store.sessions().map((session) => session.tech)).toEqual(['css', 'html']);
   });
+
+  it('replaces, exports and clears the whole progress', () => {
+    const store = TestBed.inject(ProgressStore);
+    store.recordAnswer(QUESTION, true, 'sure', 1000);
+    const exported = store.exportJson();
+
+    store.clear();
+    expect(store.questions()).toEqual({});
+    expect(localStorage.getItem(STORAGE_KEY)).toContain('"questions":{}');
+
+    store.replace(JSON.parse(exported));
+    expect(Object.keys(store.questions())).toEqual([QUESTION.id]);
+  });
 });

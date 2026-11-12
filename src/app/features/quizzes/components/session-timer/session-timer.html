@@ -1,0 +1,9 @@
+<p
+  role="timer"
+  aria-label="Tempo restante"
+  class="font-mono text-sm font-semibold tabular-nums"
+  [class.text-wrong]="isEnding()"
+>
+  {{ label() }}
+</p>
+<p class="sr-only" aria-live="polite">{{ warning() }}</p>

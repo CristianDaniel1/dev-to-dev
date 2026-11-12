@@ -1,0 +1,99 @@
+<div class="container-page max-w-3xl pt-6 pb-8">
+  <app-session-header
+    [scope]="scope()"
+    [showProgress]="store.status() === 'active'"
+    [position]="store.index() + 1"
+    [total]="store.total()"
+    [answered]="store.answeredCount()"
+  >
+    @if (store.deadline(); as deadline) {
+      <app-session-timer [deadline]="deadline" (expired)="store.expire()" />
+    }
+  </app-session-header>
+
+  <div class="mt-6">
+    @switch (store.status()) {
+      @case ('idle') {
+        @if (loadFailed()) {
+          <app-empty-state
+            heading="Não foi possível carregar as perguntas"
+            description="Verifique sua conexão e tente de novo."
+          >
+            <button type="button" class="btn btn-primary" (click)="reload.emit()">
+              Tentar de novo
+            </button>
+          </app-empty-state>
+        } @else {
+          <app-session-loading />
+        }
+      }
+
+      @case ('empty') {
+        <app-empty-state [heading]="scope().emptyHeading" [description]="scope().emptyDescription">
+          <a [routerLink]="scope().setupLink" class="btn btn-primary">{{ scope().setupLabel }}</a>
+        </app-empty-state>
+      }
+
+      @case ('active') {
+        @if (store.current(); as item) {
+          <app-question-card
+            [item]="item"
+            [selection]="store.selection()"
+            [answer]="store.isRevealed() ? store.currentAnswer() : null"
+            (toggled)="store.toggle($event)"
+          />
+
+          @if (store.isExam()) {
+            <div class="mt-5 flex flex-wrap items-center justify-between gap-3">
+              <p class="text-sm text-ink-muted">
+                Sem correção até o fim.
+                <span class="hidden sm:inline"><span class="kbd">Enter</span> responde.</span>
+              </p>
+              <button
+                type="button"
+                class="btn btn-primary"
+                [disabled]="!store.selection().length"
+                (click)="store.submitExam()"
+              >
+                {{ store.isLast() ? 'Responder e ver o resultado' : 'Responder e seguir' }}
+              </button>
+            </div>
+          } @else {
+            <div class="mt-5" aria-live="polite">
+              @if (store.currentAnswer(); as answer) {
+                <app-answer-feedback [item]="item" [answer]="answer" />
+                <div class="mt-5 flex flex-wrap items-center justify-between gap-3">
+                  <p class="hidden text-sm text-ink-muted sm:block">
+                    <span class="kbd">Enter</span> para continuar
+                  </p>
+                  <button type="button" class="btn btn-primary" (click)="store.next()">
+                    {{ store.isLast() ? 'Ver resultado' : 'Próxima pergunta' }}
+                  </button>
+                </div>
+              }
+            </div>
+
+            @if (!store.isRevealed()) {
+              <app-confidence-prompt
+                class="mt-5"
+                [canSubmit]="!!store.selection().length"
+                (submitted)="store.submit($event)"
+              />
+            }
+          }
+        }
+      }
+
+      @case ('finished') {
+        @if (store.summary(); as result) {
+          <app-session-results
+            [scope]="scope()"
+            [summary]="result"
+            [reviewItems]="store.reviewItems()"
+            (restart)="restart.emit()"
+          />
+        }
+      }
+    }
+  </div>
+</div>

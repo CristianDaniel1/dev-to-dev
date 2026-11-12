@@ -39,12 +39,14 @@ export interface SessionQueryInput {
   ids: string | undefined;
 }
 
-/** Query params of the practice route, as built by the setup form. */
+/** Query params of the practice and exam routes, as built by the setup form. */
 export interface SessionQueryParams {
   topico: string | null;
   nivel: string | null;
   qtd: number | 'todas';
   novas: '1' | null;
+  /** Exam duration in minutes. */
+  tempo: number | null;
 }
 
 /** Choices made in the session setup form. */
@@ -53,4 +55,6 @@ export interface SessionSetup {
   level: Level | null;
   size: number | null;
   onlyUnanswered: boolean;
+  /** Exam duration in minutes, or `null` for practice or an exam without timer. */
+  minutes: number | null;
 }

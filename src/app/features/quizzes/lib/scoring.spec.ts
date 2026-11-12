@@ -1,13 +1,14 @@
 import type { AnswerRecord } from '../interfaces/scoring.interface';
+import type { ScoreGroup } from '../interfaces/session-scope.interface';
 import { makeQuestion } from '../testing/question.factory';
-import { makeTopic } from '../testing/tech.factory';
 import { isAnswerCorrect, needsReview, summarizeSession } from './scoring';
 
-const TOPICS = [
-  makeTopic('fundamentos', { beginner: 2, intermediate: 0, advanced: 0 }),
-  makeTopic('semantica', { beginner: 1, intermediate: 0, advanced: 0 }),
-  makeTopic('formularios', { beginner: 0, intermediate: 0, advanced: 0 }),
+const GROUPS: ScoreGroup[] = [
+  { key: 'fundamentos', name: 'Fundamentos', color: '#000000' },
+  { key: 'semantica', name: 'Semântica', color: '#000000' },
+  { key: 'formularios', name: 'Formulários', color: '#000000' },
 ];
+const BY_TOPIC = (question: { topic: string }) => question.topic;
 
 describe('isAnswerCorrect', () => {
   it('accepts an exact match regardless of order', () => {
@@ -44,19 +45,25 @@ describe('summarizeSession', () => {
   ];
 
   it('computes score, percentage and lucky guesses', () => {
-    const summary = summarizeSession(questions, answers, TOPICS);
+    const summary = summarizeSession(questions, answers, GROUPS, BY_TOPIC);
     expect(summary).toMatchObject({ total: 3, correct: 2, percentage: 67, luckyGuesses: 1 });
   });
 
-  it('groups by topic in catalog order and skips topics without questions', () => {
-    const summary = summarizeSession(questions, answers, TOPICS);
-    expect(summary.byTopic).toEqual([
-      { slug: 'fundamentos', name: 'Fundamentos', correct: 1, total: 2 },
-      { slug: 'semantica', name: 'Semantica', correct: 1, total: 1 },
+  it('groups in the given order and skips empty groups', () => {
+    const summary = summarizeSession(questions, answers, GROUPS, BY_TOPIC);
+    expect(summary.byGroup).toEqual([
+      { key: 'fundamentos', name: 'Fundamentos', color: '#000000', correct: 1, total: 2 },
+      { key: 'semantica', name: 'Semântica', color: '#000000', correct: 1, total: 1 },
     ]);
   });
 
+  it('counts unanswered questions as wrong and lists them for review', () => {
+    const summary = summarizeSession(questions, answers.slice(0, 1), GROUPS, BY_TOPIC);
+    expect(summary).toMatchObject({ total: 3, correct: 1, unanswered: 2 });
+    expect(summary.missedIds).toEqual(['q2', 'q3']);
+  });
+
   it('lists wrong answers and lucky guesses for review', () => {
-    expect(summarizeSession(questions, answers, TOPICS).missedIds).toEqual(['q2', 'q3']);
+    expect(summarizeSession(questions, answers, GROUPS, BY_TOPIC).missedIds).toEqual(['q2', 'q3']);
   });
 });

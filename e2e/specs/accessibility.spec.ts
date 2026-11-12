@@ -2,7 +2,15 @@ import { NOT_FOUND_RESPONSE_ERROR, STRING_CONCAT_QUESTION_ID } from '../constant
 import { expect, test } from '../fixtures/test';
 import { seriousViolations } from '../helpers/accessibility';
 
-const STATIC_PAGES = ['/', '/quizzes', '/quizzes/css', '/recursos', '/sobre'];
+const STATIC_PAGES = [
+  '/',
+  '/quizzes',
+  '/quizzes/css',
+  '/recursos',
+  '/recursos/acessibilidade',
+  '/recursos/colecoes/interface-acessivel',
+  '/sobre',
+];
 
 test.describe('Accessibility', () => {
   for (const path of STATIC_PAGES) {

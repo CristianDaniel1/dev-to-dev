@@ -1,0 +1,75 @@
+resources:
+  - id: codepen
+    name: CodePen
+    url: https://codepen.io/
+    description: 'Editor online de HTML, CSS e JavaScript com resultado ao vivo e uma comunidade enorme de exemplos.'
+    why: 'Ideal para testar uma ideia de interface e para se inspirar nos pens de outras pessoas.'
+    type: tool
+    pricing: freemium
+    languages: [en]
+    techs: [html, css, javascript]
+    featured: true
+  - id: stackblitz
+    name: StackBlitz
+    url: https://stackblitz.com/
+    description: 'Ambiente de desenvolvimento completo no navegador, com Node.js rodando localmente na aba.'
+    why: 'Abre um projeto Angular, React ou Vite em segundos, sem instalar nada.'
+    type: tool
+    pricing: freemium
+    languages: [en]
+    techs: [angular, react, vue, node]
+    featured: true
+  - id: codesandbox
+    name: CodeSandbox
+    url: https://codesandbox.io/
+    description: 'Ambiente online para projetos de frontend e full stack, com templates prontos.'
+    why: 'Muito usado para reproduzir bugs em issues de bibliotecas e para compartilhar exemplos.'
+    type: tool
+    pricing: freemium
+    languages: [en]
+    techs: [react, vue, node]
+  - id: typescript-playground
+    name: TypeScript Playground
+    url: https://www.typescriptlang.org/play
+    description: 'Editor oficial do TypeScript que mostra o JavaScript gerado e os erros de tipo.'
+    why: 'Perfeito para entender um erro de tipo ou testar um tipo utilitário isoladamente.'
+    type: tool
+    pricing: free
+    languages: [en]
+    techs: [typescript]
+  - id: tailwind-play
+    name: Tailwind Play
+    url: https://play.tailwindcss.com/
+    description: 'Playground oficial do Tailwind CSS, com autocomplete e a versão mais recente.'
+    why: 'Testa classes do Tailwind sem configurar projeto nenhum.'
+    type: tool
+    pricing: free
+    languages: [en]
+    techs: [tailwind, css]
+  - id: vue-playground
+    name: Vue SFC Playground
+    url: https://play.vuejs.org/
+    description: 'Playground oficial para componentes Vue de arquivo único.'
+    why: 'Mostra o código compilado do componente, o que ajuda a entender o que o Vue faz por baixo.'
+    type: tool
+    pricing: free
+    languages: [en]
+    techs: [vue]
+  - id: angular-playground
+    name: Angular Playground
+    url: https://angular.dev/playground
+    description: 'Playground oficial do Angular, dentro da documentação.'
+    why: 'Testa componentes, signals e templates com a versão mais recente do framework.'
+    type: tool
+    pricing: free
+    languages: [en]
+    techs: [angular]
+  - id: jsfiddle
+    name: JSFiddle
+    url: https://jsfiddle.net/
+    description: 'Um dos playgrounds mais antigos para HTML, CSS e JavaScript.'
+    why: 'Simples e rápido; ainda muito usado em respostas no Stack Overflow.'
+    type: tool
+    pricing: free
+    languages: [en]
+    techs: [html, css, javascript]

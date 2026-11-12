@@ -1,0 +1,72 @@
+resources:
+  - id: figma
+    name: Figma
+    url: https://www.figma.com/
+    description: 'Ferramenta de design de interfaces colaborativa, no navegador ou no app.'
+    why: 'É onde a maioria dos designers entrega os layouts; saber inspecionar um arquivo Figma é essencial no frontend.'
+    type: tool
+    pricing: freemium
+    languages: [pt, en]
+    featured: true
+  - id: refactoring-ui
+    name: Refactoring UI
+    url: https://www.refactoringui.com/
+    description: 'Livro pago com dicas práticas de design de interface para desenvolvedores, dos criadores do Tailwind.'
+    why: 'Transforma "está feio mas não sei por quê" em regras concretas de espaçamento, hierarquia e cor.'
+    type: reference
+    pricing: paid
+    languages: [en]
+    techs: [css]
+    featured: true
+  - id: laws-of-ux
+    name: Laws of UX
+    url: https://lawsofux.com/
+    description: 'Coleção ilustrada de princípios de psicologia aplicados a interfaces, como a Lei de Fitts e a de Hick.'
+    why: 'Dá vocabulário para justificar decisões de interface em uma discussão com o time.'
+    type: reference
+    pricing: free
+    languages: [en]
+  - id: shadcn-ui
+    name: shadcn/ui
+    url: https://ui.shadcn.com/
+    description: 'Componentes React acessíveis que você copia para o projeto e adapta, feitos com Radix e Tailwind.'
+    why: 'O código fica no seu repositório, então dá para ler, aprender e mudar tudo.'
+    type: library
+    pricing: free
+    languages: [en]
+    techs: [react, tailwind]
+  - id: radix-ui
+    name: Radix UI
+    url: https://www.radix-ui.com/
+    description: 'Componentes React sem estilo, com acessibilidade e comportamento de teclado prontos.'
+    why: 'Resolve a parte difícil (foco, teclado, ARIA) e deixa o visual por sua conta.'
+    type: library
+    pricing: free
+    languages: [en]
+    techs: [react]
+  - id: mobbin
+    name: Mobbin
+    url: https://mobbin.com/
+    description: 'Biblioteca de capturas de tela de apps e sites reais, organizadas por fluxo e componente.'
+    why: 'Quando precisa desenhar um onboarding ou um checkout, mostra como os grandes apps fazem.'
+    type: reference
+    pricing: freemium
+    languages: [en]
+  - id: penpot
+    name: Penpot
+    url: https://penpot.app/
+    description: 'Ferramenta de design de código aberto, baseada em padrões web como SVG e CSS.'
+    why: 'Alternativa gratuita ao Figma que pode ser hospedada por conta própria.'
+    type: tool
+    pricing: free
+    languages: [pt, en]
+    techs: [css]
+  - id: angular-cdk
+    name: Angular CDK
+    url: https://material.angular.dev/cdk/categories
+    description: 'Kit de comportamentos para componentes Angular: overlays, drag and drop, acessibilidade e listas virtuais.'
+    why: 'Entrega o comportamento difícil sem impor o visual do Material Design.'
+    type: library
+    pricing: free
+    languages: [en]
+    techs: [angular]

@@ -1,9 +1,11 @@
 import { test as base, expect } from '@playwright/test';
+import { stubFavicons } from '../helpers/external-requests';
 import { trackPageErrors } from '../helpers/page-errors';
 import { HomePage } from '../pages/home.page';
 import { LayoutPage } from '../pages/layout.page';
 import { QuizCatalogPage } from '../pages/quiz-catalog.page';
 import { QuizSessionPage } from '../pages/quiz-session.page';
+import { ResourceHubPage } from '../pages/resource-hub.page';
 import { TechOverviewPage } from '../pages/tech-overview.page';
 
 interface Fixtures {
@@ -11,11 +13,14 @@ interface Fixtures {
   allowedConsoleErrors: RegExp | null;
   /** Fails the test when the page threw or logged an unexpected console error. */
   failOnPageErrors: void;
+  /** Keeps third-party requests (favicons) out of the tests. */
+  offlineFavicons: void;
   layout: LayoutPage;
   home: HomePage;
   catalog: QuizCatalogPage;
   techOverview: TechOverviewPage;
   session: QuizSessionPage;
+  resources: ResourceHubPage;
 }
 
 export const test = base.extend<Fixtures>({
@@ -26,6 +31,14 @@ export const test = base.extend<Fixtures>({
       const errors = trackPageErrors(page, allowedConsoleErrors);
       await use();
       expect(errors, 'page errors').toEqual([]);
+    },
+    { auto: true },
+  ],
+
+  offlineFavicons: [
+    async ({ page }, use) => {
+      await stubFavicons(page);
+      await use();
     },
     { auto: true },
   ],
@@ -48,6 +61,10 @@ export const test = base.extend<Fixtures>({
 
   session: async ({ page }, use) => {
     await use(new QuizSessionPage(page));
+  },
+
+  resources: async ({ page }, use) => {
+    await use(new ResourceHubPage(page));
   },
 });
 

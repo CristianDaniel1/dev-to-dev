@@ -1,0 +1,15 @@
+@if (resources().length) {
+  <section aria-labelledby="tech-resources-heading">
+    <div class="flex flex-wrap items-baseline justify-between gap-3">
+      <h2 id="tech-resources-heading" class="text-2xl font-bold">Para estudar {{ name() }}</h2>
+      <a routerLink="/recursos" [queryParams]="{ tech: tech() }" class="link text-sm font-medium">
+        Ver todos os recursos de {{ name() }}
+      </a>
+    </div>
+    <ul class="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      @for (resource of resources(); track resource.id) {
+        <li><app-resource-card [resource]="resource" /></li>
+      }
+    </ul>
+  </section>
+}

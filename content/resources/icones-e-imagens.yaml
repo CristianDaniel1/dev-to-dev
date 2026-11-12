@@ -1,0 +1,68 @@
+resources:
+  - id: lucide
+    name: Lucide
+    url: https://lucide.dev/
+    description: 'Biblioteca de mais de mil ícones de traço, consistentes e de código aberto.'
+    why: 'Tem pacotes para React, Vue, Angular e Svelte, e os ícones combinam entre si.'
+    type: assets
+    pricing: free
+    languages: [en]
+    techs: [react, vue, angular, svelte]
+    featured: true
+  - id: heroicons
+    name: Heroicons
+    url: https://heroicons.com/
+    description: 'Ícones SVG em versões de traço e sólida, dos criadores do Tailwind CSS.'
+    why: 'Copie o SVG direto do site, sem instalar nada.'
+    type: assets
+    pricing: free
+    languages: [en]
+    techs: [tailwind]
+  - id: phosphor-icons
+    name: Phosphor Icons
+    url: https://phosphoricons.com/
+    description: 'Família de ícones com seis pesos, de fino a duotone.'
+    why: 'Os pesos diferentes permitem ajustar o ícone ao peso da tipografia do projeto.'
+    type: assets
+    pricing: free
+    languages: [en]
+  - id: simple-icons
+    name: Simple Icons
+    url: https://simpleicons.org/
+    description: 'Ícones SVG de milhares de marcas, com a cor oficial de cada uma.'
+    why: 'O lugar certo para o logo do GitHub, do LinkedIn ou de uma tecnologia no seu portfólio.'
+    type: assets
+    pricing: free
+    languages: [en]
+  - id: iconify
+    name: Iconify
+    url: https://icon-sets.iconify.design/
+    description: 'Busca unificada em mais de cem coleções de ícones abertas.'
+    why: 'Uma busca só para comparar o mesmo ícone em dezenas de estilos.'
+    type: assets
+    pricing: free
+    languages: [en]
+  - id: undraw
+    name: unDraw
+    url: https://undraw.co/
+    description: 'Ilustrações em SVG gratuitas, com a cor de destaque que você escolher.'
+    why: 'Resolve estados vazios e páginas de erro com ilustrações na cor da sua marca.'
+    type: assets
+    pricing: free
+    languages: [en]
+  - id: unsplash
+    name: Unsplash
+    url: https://unsplash.com/
+    description: 'Banco de fotos de alta qualidade com licença gratuita para uso comercial.'
+    why: 'Fotos melhores que as de banco de imagem tradicional, sem pagar nem dar crédito obrigatório.'
+    type: assets
+    pricing: free
+    languages: [pt, en]
+  - id: svg-repo
+    name: SVG Repo
+    url: https://www.svgrepo.com/
+    description: 'Repositório com centenas de milhares de vetores e ícones de licença aberta.'
+    why: 'Quando você precisa de um ícone muito específico que as bibliotecas comuns não têm.'
+    type: assets
+    pricing: free
+    languages: [en]

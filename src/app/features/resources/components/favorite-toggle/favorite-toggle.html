@@ -1,0 +1,11 @@
+<button
+  type="button"
+  class="btn-icon -mt-1.5 -mr-2 cursor-pointer"
+  [class.text-pen]="isSaved()"
+  [attr.aria-pressed]="isHydrated() ? isSaved() : null"
+  [attr.aria-label]="'Salvar ' + resource().name + ' nos favoritos'"
+  [title]="isSaved() ? 'Remover dos favoritos' : 'Salvar nos favoritos'"
+  (click)="toggle()"
+>
+  <app-icon [name]="isSaved() ? 'bookmark-filled' : 'bookmark'" />
+</button>

@@ -1,0 +1,46 @@
+@let item = resource();
+<article class="card flex h-full flex-col gap-3 p-5" [attr.aria-labelledby]="'resource-' + item.id">
+  <div class="flex items-start gap-3">
+    <app-resource-favicon [domain]="item.domain" [name]="item.name" />
+    <div class="min-w-0 flex-1">
+      <div
+        role="heading"
+        [attr.aria-level]="headingLevel()"
+        [id]="'resource-' + item.id"
+        class="text-base leading-snug font-bold"
+      >
+        <a
+          [href]="item.url"
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-baseline gap-1 decoration-pen/50 underline-offset-4 hover:underline"
+        >
+          {{ item.name }}
+          <app-icon name="external" [size]="14" class="text-ink-muted" />
+          <span class="sr-only">(abre em nova aba)</span>
+        </a>
+      </div>
+      <p class="truncate text-xs text-ink-muted">{{ item.domain }}</p>
+    </div>
+    <app-favorite-toggle [resource]="item" />
+  </div>
+
+  <p class="text-sm">{{ item.description }}</p>
+  <p class="border-l-[3px] border-highlight pl-3 text-sm text-ink-muted">
+    <span class="font-semibold text-ink">Por que está aqui:</span> {{ item.why }}
+  </p>
+
+  <ul class="mt-auto flex flex-wrap gap-1.5 pt-1" aria-label="Detalhes">
+    <li class="chip">{{ typeLabels[item.type] }}</li>
+    <li class="chip" [class.text-correct]="item.pricing === 'free'">
+      {{ pricingLabels[item.pricing] }}
+    </li>
+    <li class="chip">
+      <span aria-hidden="true">{{ languageTags() }}</span>
+      <span class="sr-only">{{ languageNames() }}</span>
+    </li>
+    @for (tech of item.techs; track tech) {
+      <li class="chip">{{ techLabels[tech] }}</li>
+    }
+  </ul>
+</article>

@@ -8,4 +8,6 @@ export type IconName =
   | 'check'
   | 'cross'
   | 'quiz'
-  | 'bookmark';
+  | 'bookmark'
+  | 'bookmark-filled'
+  | 'search';

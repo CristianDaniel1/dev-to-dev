@@ -1,0 +1,93 @@
+resources:
+  - id: the-odin-project
+    name: The Odin Project
+    url: https://www.theodinproject.com/
+    description: 'Currículo gratuito e de código aberto de desenvolvimento web full stack, baseado em projetos.'
+    why: 'Ensina a montar o ambiente, ler documentação e construir projetos reais, não só a seguir vídeos.'
+    type: course
+    pricing: free
+    languages: [en]
+    techs: [html, css, javascript, node, git]
+    featured: true
+  - id: freecodecamp
+    name: freeCodeCamp
+    url: https://www.freecodecamp.org/
+    description: 'Plataforma gratuita com certificações em web, JavaScript, Python e mais, com exercícios no navegador.'
+    why: 'Tudo é gratuito, os exercícios dão retorno imediato e parte do conteúdo está em português.'
+    type: course
+    pricing: free
+    languages: [pt, en]
+    techs: [html, css, javascript]
+    featured: true
+  - id: full-stack-open
+    name: Full Stack Open
+    url: https://fullstackopen.com/
+    description: 'Curso da Universidade de Helsinque sobre React, Node.js, testes, TypeScript e GraphQL.'
+    why: 'Tem o rigor de uma disciplina universitária e é gratuito; muitos usam como segundo passo depois do básico.'
+    type: course
+    pricing: free
+    languages: [pt, en]
+    techs: [react, node, typescript]
+  - id: cs50
+    name: CS50
+    url: https://cs50.harvard.edu/x/
+    description: 'Introdução à ciência da computação de Harvard, de C a Python, SQL e web.'
+    why: 'Dá a base de algoritmos e memória que falta a muita gente que começou direto pelo frontend.'
+    type: course
+    pricing: free
+    languages: [en]
+    techs: [sql]
+  - id: curso-em-video
+    name: Curso em Vídeo
+    url: https://www.cursoemvideo.com/
+    description: 'Cursos gratuitos em vídeo, em português, de HTML, CSS, JavaScript, Python e outros.'
+    why: 'Explicação calma e didática para quem está começando do zero e prefere estudar em português.'
+    type: course
+    pricing: free
+    languages: [pt]
+    techs: [html, css, javascript, git]
+  - id: rocketseat
+    name: Rocketseat
+    url: https://www.rocketseat.com.br/
+    description: 'Escola brasileira de programação com formações em React, Node.js, React Native e mais.'
+    why: 'Tem conteúdo gratuito para começar e formações pagas focadas no mercado brasileiro.'
+    type: course
+    pricing: freemium
+    languages: [pt]
+    techs: [react, node, typescript]
+  - id: origamid
+    name: Origamid
+    url: https://www.origamid.com/
+    description: 'Cursos pagos em português de design, CSS, JavaScript, React e TypeScript.'
+    why: 'Conhecida pelo cuidado com interface e pelos cursos de CSS e JavaScript bem estruturados.'
+    type: course
+    pricing: paid
+    languages: [pt]
+    techs: [css, javascript, react, typescript]
+  - id: web-dev-learn
+    name: Learn (web.dev)
+    url: https://web.dev/learn
+    description: 'Cursos gratuitos do Google sobre HTML, CSS, acessibilidade, imagens, performance e formulários.'
+    why: 'Conteúdo atualizado, escrito por quem trabalha nos navegadores, e organizado em módulos curtos.'
+    type: course
+    pricing: free
+    languages: [en]
+    techs: [html, css, javascript]
+  - id: css-for-js-devs
+    name: CSS for JavaScript Developers
+    url: https://css-for-js.dev/
+    description: 'Curso pago de CSS do Josh W. Comeau, com exercícios interativos e projetos.'
+    why: 'Ensina o modelo mental por trás do CSS, para você parar de mudar propriedades até "dar certo".'
+    type: course
+    pricing: paid
+    languages: [en]
+    techs: [css]
+  - id: frontend-masters
+    name: Frontend Masters
+    url: https://frontendmasters.com/
+    description: 'Cursos em vídeo por assinatura, ministrados por profissionais experientes.'
+    why: 'Vai fundo em temas avançados, como performance, arquitetura e internals de frameworks.'
+    type: course
+    pricing: paid
+    languages: [en]
+    techs: [javascript, typescript, react, node]

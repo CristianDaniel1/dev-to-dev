@@ -1,9 +1,10 @@
 import { readdir } from 'node:fs/promises';
+import { buildResources } from './content/build-resources';
 import { buildTech, type BuiltTech } from './content/build-tech';
 import { CodeHighlighter } from './content/code-highlighter';
 import { ContentError } from './content/content-error';
 import { QUIZ_CONTENT_DIR } from './content/content.constants';
-import { printReport } from './content/report';
+import { printReport, printResourceReport } from './content/report';
 import { writeOutputs } from './content/write-outputs';
 
 const listTechSlugs = async (): Promise<string[]> => {
@@ -32,12 +33,17 @@ const main = async (): Promise<void> => {
     const drafts = built.filter((tech) => tech.meta.draft).map((tech) => tech.summary.slug);
     const summaries = published.map((tech) => tech.summary);
 
-    await writeOutputs(
+    const resources = await buildResources();
+
+    await writeOutputs({
       summaries,
-      published.map((tech) => tech.bank),
-      highlighter.css(),
-    );
+      banks: published.map((tech) => tech.bank),
+      highlightCss: highlighter.css(),
+      resourceIndex: resources.index,
+      resourceLibrary: resources.library,
+    });
     printReport(summaries, drafts);
+    printResourceReport(resources.index);
   } finally {
     highlighter.dispose();
   }

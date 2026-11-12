@@ -1,4 +1,5 @@
 import { RenderMode, type ServerRoute } from '@angular/ssr';
+import { categoryPrerenderParams, collectionPrerenderParams } from '@/features/resources';
 import { techPrerenderParams } from '@/shared/lib/tech-prerender-params';
 
 /**
@@ -15,6 +16,16 @@ export const serverRoutes: ServerRoute[] = [
     path: 'quizzes/:tech/praticar',
     renderMode: RenderMode.Prerender,
     getPrerenderParams: techPrerenderParams,
+  },
+  {
+    path: 'recursos/colecoes/:colecao',
+    renderMode: RenderMode.Prerender,
+    getPrerenderParams: collectionPrerenderParams,
+  },
+  {
+    path: 'recursos/:categoria',
+    renderMode: RenderMode.Prerender,
+    getPrerenderParams: categoryPrerenderParams,
   },
   {
     path: '**',

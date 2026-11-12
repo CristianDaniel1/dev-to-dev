@@ -1,0 +1,82 @@
+resources:
+  - id: javascript-info
+    name: The Modern JavaScript Tutorial
+    url: https://javascript.info/
+    description: 'Tutorial de JavaScript do básico ao avançado, com exercícios ao fim de cada capítulo.'
+    why: 'Explica closures, protótipos e o event loop com uma clareza difícil de encontrar, e tem tradução parcial para o português.'
+    type: reference
+    pricing: free
+    languages: [pt, en]
+    techs: [javascript]
+    featured: true
+  - id: can-i-use
+    name: Can I use
+    url: https://caniuse.com/
+    description: 'Tabelas de suporte de recursos de HTML, CSS e JavaScript em cada navegador e versão.'
+    why: 'Responde em segundos se dá para usar um recurso novo no seu projeto.'
+    type: reference
+    pricing: free
+    languages: [en]
+    techs: [html, css, javascript]
+    featured: true
+  - id: css-tricks-flexbox
+    name: A Complete Guide to Flexbox
+    url: https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+    description: 'Guia visual de todas as propriedades do flexbox, separadas entre container e itens.'
+    why: 'A página que todo mundo deixa aberta enquanto aprende flexbox.'
+    type: reference
+    pricing: free
+    languages: [en]
+    techs: [css]
+  - id: css-tricks-grid
+    name: A Complete Guide to CSS Grid
+    url: https://css-tricks.com/snippets/css/complete-guide-grid/
+    description: 'Guia visual do CSS Grid, com diagramas para cada propriedade.'
+    why: 'Os diagramas tornam claros conceitos como linhas, áreas e `fr`.'
+    type: reference
+    pricing: free
+    languages: [en]
+    techs: [css]
+  - id: roadmap-sh
+    name: roadmap.sh
+    url: https://roadmap.sh/
+    description: 'Mapas de estudo para frontend, backend, DevOps e dezenas de outras trilhas, mantidos pela comunidade.'
+    why: 'Ajuda a ver o que estudar a seguir sem tentar aprender tudo ao mesmo tempo.'
+    type: reference
+    pricing: free
+    languages: [en]
+  - id: patterns-dev
+    name: Patterns.dev
+    url: https://www.patterns.dev/
+    description: 'Padrões de design, renderização e performance para aplicações JavaScript modernas.'
+    why: 'Explica com diagramas quando usar SSR, hidratação parcial, lazy loading e outros padrões.'
+    type: reference
+    pricing: free
+    languages: [en]
+    techs: [javascript, react]
+  - id: refactoring-guru
+    name: Refactoring.Guru
+    url: https://refactoring.guru/pt-br
+    description: 'Catálogo ilustrado de padrões de projeto e técnicas de refatoração.'
+    why: 'Os padrões do livro clássico explicados com ilustrações e exemplos em várias linguagens, inclusive em português.'
+    type: reference
+    pricing: freemium
+    languages: [pt, en]
+    techs: [typescript]
+  - id: devhints
+    name: Devhints
+    url: https://devhints.io/
+    description: 'Cheat sheets curtas de centenas de ferramentas, linguagens e bibliotecas.'
+    why: 'Quando você só precisa lembrar a sintaxe de algo, é mais rápido que procurar na documentação.'
+    type: reference
+    pricing: free
+    languages: [en]
+  - id: htmlreference
+    name: HTML Reference
+    url: https://htmlreference.io/
+    description: 'Referência visual de todos os elementos e atributos HTML, com exemplos.'
+    why: 'Mostra o elemento renderizado ao lado do código, bom para descobrir tags que você não conhecia.'
+    type: reference
+    pricing: free
+    languages: [en]
+    techs: [html]

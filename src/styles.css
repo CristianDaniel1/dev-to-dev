@@ -188,6 +188,11 @@
     @apply inline-flex size-11 items-center justify-center rounded-control text-ink transition-colors hover:bg-surface-sunken;
   }
 
+  /* Text inputs and selects. */
+  .field {
+    @apply min-h-11 w-full rounded-control border border-line-strong bg-surface px-3.5 text-sm font-normal text-ink transition-colors placeholder:text-ink-muted hover:border-ink;
+  }
+
   .link {
     @apply text-pen underline decoration-pen/40 underline-offset-4 transition-colors hover:decoration-pen;
   }

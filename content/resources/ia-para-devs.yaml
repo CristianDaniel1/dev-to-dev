@@ -1,0 +1,67 @@
+resources:
+  - id: github-copilot
+    name: GitHub Copilot
+    url: https://github.com/features/copilot
+    description: 'Assistente de código com IA integrado ao VS Code, JetBrains e ao próprio GitHub.'
+    why: 'Tem plano gratuito e funciona dentro do editor que você já usa.'
+    type: tool
+    pricing: freemium
+    languages: [pt, en]
+    featured: true
+  - id: claude
+    name: Claude
+    url: https://claude.ai/
+    description: 'Assistente de IA da Anthropic, usado para escrever, revisar e explicar código.'
+    why: 'Bom para explicar um trecho de código difícil ou revisar uma ideia antes de implementar.'
+    type: tool
+    pricing: freemium
+    languages: [pt, en]
+  - id: chatgpt
+    name: ChatGPT
+    url: https://chatgpt.com/
+    description: 'Assistente de IA da OpenAI, com suporte a código, imagens e arquivos.'
+    why: 'Útil para tirar dúvidas rápidas e gerar exemplos para estudar.'
+    type: tool
+    pricing: freemium
+    languages: [pt, en]
+  - id: cursor
+    name: Cursor
+    url: https://cursor.com/
+    description: 'Editor baseado no VS Code com IA integrada para editar vários arquivos de uma vez.'
+    why: 'Mantém as extensões e atalhos do VS Code e adiciona edição assistida por IA no projeto inteiro.'
+    type: tool
+    pricing: freemium
+    languages: [en]
+  - id: v0
+    name: v0
+    url: https://v0.app/
+    description: 'Gera interfaces em React e Tailwind a partir de uma descrição em texto.'
+    why: 'Ajuda a sair do zero em um protótipo; o código gerado é um ótimo material para estudar.'
+    type: tool
+    pricing: freemium
+    languages: [en]
+    techs: [react, tailwind, nextjs]
+  - id: hugging-face
+    name: Hugging Face
+    url: https://huggingface.co/
+    description: 'Comunidade e repositório de modelos, conjuntos de dados e demos de IA de código aberto.'
+    why: 'Onde encontrar e testar modelos abertos antes de usá-los em um projeto.'
+    type: community
+    pricing: freemium
+    languages: [en]
+  - id: ollama
+    name: Ollama
+    url: https://ollama.com/
+    description: 'Roda modelos de linguagem abertos no seu computador, com um comando.'
+    why: 'Permite experimentar IA localmente, sem enviar código para a nuvem.'
+    type: tool
+    pricing: free
+    languages: [en]
+  - id: prompting-guide
+    name: Prompt Engineering Guide
+    url: https://www.promptingguide.ai/pt
+    description: 'Guia aberto sobre técnicas para escrever instruções melhores para modelos de linguagem.'
+    why: 'Explica técnicas como few-shot e cadeia de raciocínio com exemplos.'
+    type: reference
+    pricing: free
+    languages: [pt, en]

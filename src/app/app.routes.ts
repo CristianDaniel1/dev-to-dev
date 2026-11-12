@@ -1,5 +1,5 @@
 import type { Routes } from '@angular/router';
-import { ABOUT_SEO, NOT_FOUND_SEO, RESOURCES_SEO } from '@/core/data/route-seo.data';
+import { ABOUT_SEO, NOT_FOUND_SEO } from '@/core/data/route-seo.data';
 
 export const routes: Routes = [
   {
@@ -13,9 +13,7 @@ export const routes: Routes = [
   },
   {
     path: 'recursos',
-    title: 'Recursos',
-    data: { seo: RESOURCES_SEO },
-    loadComponent: () => import('@/features/resources').then((module) => module.ResourceCatalog),
+    loadChildren: () => import('@/features/resources').then((module) => module.RESOURCE_ROUTES),
   },
   {
     path: 'sobre',

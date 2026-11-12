@@ -1,0 +1,121 @@
+<form
+  role="search"
+  aria-label="Filtrar recursos"
+  class="flex flex-col gap-5"
+  (submit)="$event.preventDefault()"
+>
+  <label class="relative block">
+    <span class="sr-only">Buscar recursos</span>
+    <app-icon
+      name="search"
+      class="pointer-events-none absolute top-1/2 left-3.5 -translate-y-1/2 text-ink-muted"
+    />
+    <input
+      #search
+      type="search"
+      class="field pl-11"
+      placeholder="Buscar por nome, assunto ou site"
+      autocomplete="off"
+      (input)="searchChange.emit(search.value)"
+    />
+  </label>
+
+  <button
+    type="button"
+    class="btn btn-secondary w-full cursor-pointer lg:hidden"
+    aria-controls="resource-filters"
+    [attr.aria-expanded]="isExpanded()"
+    (click)="isExpanded.set(!isExpanded())"
+  >
+    {{ isExpanded() ? 'Esconder filtros' : 'Mostrar filtros' }}
+    @if (activeCount()) {
+      <span class="chip chip-active">{{ activeCount() }}<span class="sr-only"> ativos</span></span>
+    }
+  </button>
+
+  <div
+    id="resource-filters"
+    class="flex-col gap-5 lg:flex"
+    [class.flex]="isExpanded()"
+    [class.hidden]="!isExpanded()"
+  >
+    <fieldset>
+      <legend class="mb-2 text-sm font-semibold">Preço</legend>
+      <div class="segmented lg:grid lg:grid-cols-2">
+        @for (option of pricingOptions(); track option.value) {
+          <label>
+            <input
+              type="radio"
+              name="pricing"
+              class="sr-only"
+              [checked]="filters().pricing === option.value"
+              (click)="filtersChange.emit({ pricing: option.value })"
+            />
+            <span>{{ option.label }}</span>
+          </label>
+        }
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend class="mb-2 text-sm font-semibold">Idioma</legend>
+      <div class="segmented">
+        @for (option of languageOptions(); track option.value) {
+          <label>
+            <input
+              type="radio"
+              name="language"
+              class="sr-only"
+              [checked]="filters().language === option.value"
+              (click)="filtersChange.emit({ language: option.value })"
+            />
+            <span>{{ option.label }}</span>
+          </label>
+        }
+      </div>
+    </fieldset>
+
+    <div class="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
+      <label class="flex flex-col gap-2 text-sm font-semibold">
+        Tipo
+        <select #typeSelect class="field" (change)="selectType(typeSelect.value)">
+          @for (option of typeOptions(); track option.value) {
+            <option [value]="option.value ?? ''" [selected]="filters().type === option.value">
+              {{ option.label }}
+            </option>
+          }
+        </select>
+      </label>
+      <label class="flex flex-col gap-2 text-sm font-semibold">
+        Tecnologia
+        <select #techSelect class="field" (change)="selectTech(techSelect.value)">
+          @for (option of techOptions(); track option.value) {
+            <option [value]="option.value ?? ''" [selected]="filters().tech === option.value">
+              {{ option.label }}
+            </option>
+          }
+        </select>
+      </label>
+      <label class="flex flex-col gap-2 text-sm font-semibold">
+        Ordem
+        <select #sortSelect class="field" (change)="selectSort(sortSelect.value)">
+          @for (option of sortOptions; track option.value) {
+            <option [value]="option.value ?? ''" [selected]="filters().sort === option.value">
+              {{ option.label }}
+            </option>
+          }
+        </select>
+      </label>
+    </div>
+
+    <label class="flex cursor-pointer items-center gap-3 text-sm">
+      <input
+        type="checkbox"
+        class="size-4 accent-pen"
+        [checked]="filters().onlyFavorites"
+        (click)="filtersChange.emit({ onlyFavorites: !filters().onlyFavorites })"
+      />
+      <span>Só meus favoritos</span>
+    </label>
+  </div>
+</form>

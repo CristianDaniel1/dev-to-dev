@@ -1,0 +1,66 @@
+resources:
+  - id: wcag-quickref
+    name: WCAG 2.2 Quick Reference
+    url: https://www.w3.org/WAI/WCAG22/quickref/
+    description: 'Referência filtrável de todos os critérios de sucesso da WCAG 2.2, com técnicas e falhas comuns.'
+    why: 'A forma mais prática de consultar a norma, sem ler a especificação inteira.'
+    type: reference
+    pricing: free
+    languages: [en]
+    techs: [html]
+    featured: true
+  - id: aria-apg
+    name: ARIA Authoring Practices Guide
+    url: https://www.w3.org/WAI/ARIA/apg/
+    description: 'Padrões oficiais para componentes acessíveis, como abas, menus, modais e combobox.'
+    why: 'Diz exatamente quais teclas e atributos cada componente precisa, com exemplos funcionando.'
+    type: reference
+    pricing: free
+    languages: [en]
+    techs: [html, javascript]
+    featured: true
+  - id: a11y-project
+    name: The A11Y Project
+    url: https://www.a11yproject.com/
+    description: 'Guias, checklist e recursos de acessibilidade escritos pela comunidade.'
+    why: 'O checklist é um bom ponto de partida para revisar uma página antes de publicar.'
+    type: reference
+    pricing: free
+    languages: [en]
+    techs: [html, css]
+  - id: webaim
+    name: WebAIM
+    url: https://webaim.org/
+    description: 'Artigos, pesquisas e ferramentas sobre acessibilidade web, da Universidade do Estado de Utah.'
+    why: 'A pesquisa anual "WebAIM Million" mostra os erros de acessibilidade mais comuns na web.'
+    type: reference
+    pricing: free
+    languages: [en]
+    techs: [html]
+  - id: axe-devtools
+    name: axe DevTools
+    url: https://www.deque.com/axe/devtools/
+    description: 'Extensão de navegador que audita a página e aponta problemas de acessibilidade.'
+    why: 'Usa o mesmo motor (axe-core) que muitos testes automatizados, então os resultados batem.'
+    type: tool
+    pricing: freemium
+    languages: [en]
+    techs: [html]
+  - id: wave
+    name: WAVE
+    url: https://wave.webaim.org/
+    description: 'Avaliador de acessibilidade que marca os problemas diretamente sobre a página.'
+    why: 'Mostrar o problema no lugar onde ele acontece facilita explicar para quem não é dev.'
+    type: tool
+    pricing: free
+    languages: [en]
+    techs: [html]
+  - id: inclusive-components
+    name: Inclusive Components
+    url: https://inclusive-components.design/
+    description: 'Artigos que constroem componentes comuns, como toggles, tooltips e cards, de forma acessível.'
+    why: 'Cada artigo mostra o raciocínio por trás das decisões, não só o código final.'
+    type: blog
+    pricing: free
+    languages: [en]
+    techs: [html, css, javascript]

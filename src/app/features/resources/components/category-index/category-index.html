@@ -1,0 +1,24 @@
+<section aria-labelledby="categories-heading">
+  <h2 id="categories-heading" class="text-2xl font-bold">Categorias</h2>
+  <ol class="mt-5 grid gap-x-10 sm:grid-cols-2 lg:grid-cols-3">
+    @for (category of categories; track category.slug) {
+      <li>
+        <a
+          [routerLink]="['/recursos', category.slug]"
+          class="group flex items-baseline gap-2 border-b border-line py-3"
+        >
+          <span class="font-medium decoration-pen/50 underline-offset-4 group-hover:underline">
+            {{ category.name }}
+          </span>
+          <span
+            class="min-w-4 flex-1 -translate-y-1 border-b border-dotted border-line-strong"
+            aria-hidden="true"
+          ></span>
+          <span class="font-mono text-sm text-ink-muted tabular-nums">
+            {{ category.resourceCount }}<span class="sr-only"> recursos</span>
+          </span>
+        </a>
+      </li>
+    }
+  </ol>
+</section>

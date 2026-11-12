@@ -1,0 +1,57 @@
+collections:
+  - slug: primeiro-projeto-frontend
+    name: Kit do primeiro projeto frontend
+    description: 'Do editor ao deploy: o mínimo para tirar um projeto do papel e publicar.'
+    items:
+      - resource: vscode
+        note: 'Instale o editor e as extensões do Prettier e do ESLint.'
+      - resource: frontend-mentor
+        note: 'Escolha um desafio iniciante: o design já vem pronto.'
+      - resource: mdn
+        note: 'Consulte sempre que não souber o que um elemento ou propriedade faz.'
+      - resource: google-fonts
+        note: 'Escolha uma ou duas fontes, não mais que isso.'
+      - resource: lucide
+        note: 'Ícones consistentes para botões e menus.'
+      - resource: webaim-contrast-checker
+        note: 'Confira se o texto é legível sobre o fundo escolhido.'
+      - resource: conventional-commits
+        note: 'Comece o histórico do Git com mensagens claras.'
+      - resource: github-pages
+        note: 'Publique e coloque o link no seu portfólio.'
+  - slug: aprender-web-do-zero
+    name: Aprender web do zero
+    description: 'Uma sequência gratuita para quem nunca programou e quer chegar ao primeiro projeto com JavaScript.'
+    items:
+      - resource: curso-em-video
+        note: 'Comece pelos cursos de HTML e CSS, em português.'
+      - resource: flexbox-froggy
+        note: 'Fixe o flexbox jogando.'
+      - resource: grid-garden
+        note: 'Depois, o grid.'
+      - resource: freecodecamp
+        note: 'Pratique com as certificações de design responsivo e JavaScript.'
+      - resource: javascript-info
+        note: 'Aprofunde o JavaScript, um capítulo por vez.'
+      - resource: javascript30
+        note: 'Aplique o que aprendeu em projetos pequenos.'
+      - resource: the-odin-project
+        note: 'Quando estiver confortável, siga o currículo completo.'
+  - slug: interface-acessivel
+    name: Interface acessível e bem resolvida
+    description: 'Para quem já sabe montar a tela e quer que ela funcione para todo mundo e pareça profissional.'
+    items:
+      - resource: refactoring-ui
+        note: 'Regras práticas de hierarquia, espaçamento e cor.'
+      - resource: laws-of-ux
+        note: 'Os princípios que explicam por que uma interface parece fácil.'
+      - resource: utopia
+        note: 'Tipografia e espaçamento que se adaptam a qualquer tela.'
+      - resource: realtime-colors
+        note: 'Teste a paleta em uma página de verdade.'
+      - resource: wcag-quickref
+        note: 'Os critérios que a interface precisa atender.'
+      - resource: aria-apg
+        note: 'O comportamento esperado de cada componente interativo.'
+      - resource: axe-devtools
+        note: 'Audite a página antes de publicar.'

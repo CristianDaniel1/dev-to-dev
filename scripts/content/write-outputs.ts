@@ -5,6 +5,10 @@ import type {
   QuizBank,
   TechSummary,
 } from '../../src/app/shared/interfaces/content.interface';
+import type {
+  ResourceIndex,
+  ResourceLibrary,
+} from '../../src/app/shared/interfaces/resource.interface';
 import { GENERATED_CSS_HEADER, GENERATED_DIR, GENERATED_TS_HEADER } from './content.constants';
 
 const catalogModule = (catalog: Catalog): string =>
@@ -12,6 +16,18 @@ const catalogModule = (catalog: Catalog): string =>
 
 const bankModule = (bank: QuizBank): string =>
   `${GENERATED_TS_HEADER}import type { QuizBank } from '../../interfaces/content.interface';\n\nconst bank: QuizBank = ${JSON.stringify(bank)};\n\nexport default bank;\n`;
+
+const resourceIndexModule = (index: ResourceIndex): string =>
+  `${GENERATED_TS_HEADER}import type { ResourceIndex } from '../interfaces/resource.interface';
+
+export const RESOURCE_INDEX: ResourceIndex = ${JSON.stringify(index, null, 2)};
+`;
+
+const resourceLibraryModule = (library: ResourceLibrary): string =>
+  `${GENERATED_TS_HEADER}import type { ResourceLibrary } from '../interfaces/resource.interface';
+
+export const RESOURCE_LIBRARY: ResourceLibrary = ${JSON.stringify(library)};
+`;
 
 const loadersModule = (banks: readonly QuizBank[]): string => {
   const entries = banks
@@ -23,29 +39,44 @@ const loadersModule = (banks: readonly QuizBank[]): string => {
   return `${GENERATED_TS_HEADER}import type { QuizBank } from '../interfaces/content.interface';\n\nexport const QUIZ_LOADERS: Readonly<Record<string, () => Promise<QuizBank>>> = {\n${entries}\n};\n`;
 };
 
+/** Everything the content build writes into the generated folder. */
+export interface ContentOutputs {
+  /** Published techs, in catalog order. */
+  summaries: TechSummary[];
+  /** Question bank of each published tech. */
+  banks: QuizBank[];
+  /** CSS collected by the code highlighter. */
+  highlightCss: string;
+  resourceIndex: ResourceIndex;
+  resourceLibrary: ResourceLibrary;
+}
+
 /**
- * Replaces the generated folder with the catalog, one module per question bank, the loader
- * registry and the code highlight stylesheet.
+ * Replaces the generated folder with the quiz catalog, one module per question bank, the loader
+ * registry, the resource index and library, and the code highlight stylesheet.
  *
- * @param summaries - Published techs, in catalog order.
- * @param banks - Question bank of each published tech.
- * @param highlightCss - CSS collected by the code highlighter.
+ * @param outputs - Built content.
  */
-export const writeOutputs = async (
-  summaries: TechSummary[],
-  banks: QuizBank[],
-  highlightCss: string,
-): Promise<void> => {
+export const writeOutputs = async (outputs: ContentOutputs): Promise<void> => {
   await rm(GENERATED_DIR, { recursive: true, force: true });
   await mkdir(join(GENERATED_DIR, 'quizzes'), { recursive: true });
 
-  await writeFile(join(GENERATED_DIR, 'catalog.ts'), catalogModule({ techs: summaries }));
-  for (const bank of banks) {
+  await writeFile(join(GENERATED_DIR, 'catalog.ts'), catalogModule({ techs: outputs.summaries }));
+  for (const bank of outputs.banks) {
     await writeFile(join(GENERATED_DIR, 'quizzes', `${bank.tech}.ts`), bankModule(bank));
   }
-  await writeFile(join(GENERATED_DIR, 'quiz-loaders.ts'), loadersModule(banks));
+  await writeFile(join(GENERATED_DIR, 'quiz-loaders.ts'), loadersModule(outputs.banks));
+  await writeFile(
+    join(GENERATED_DIR, 'resource-index.ts'),
+    resourceIndexModule(outputs.resourceIndex),
+  );
+  await writeFile(
+    join(GENERATED_DIR, 'resource-library.ts'),
+    resourceLibraryModule(outputs.resourceLibrary),
+  );
   await writeFile(
     join(GENERATED_DIR, 'code-highlight.css'),
-    `${GENERATED_CSS_HEADER}${highlightCss}\n`,
+    `${GENERATED_CSS_HEADER}${outputs.highlightCss}
+`,
   );
 };

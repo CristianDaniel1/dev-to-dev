@@ -1,0 +1,89 @@
+resources:
+  - id: vscode
+    name: Visual Studio Code
+    url: https://code.visualstudio.com/
+    description: 'Editor de código gratuito da Microsoft, com extensões para praticamente qualquer linguagem.'
+    why: 'É o editor mais usado no mercado, e a maioria dos tutoriais parte dele.'
+    type: tool
+    pricing: free
+    languages: [pt, en]
+    featured: true
+  - id: chrome-devtools
+    name: Chrome DevTools
+    url: https://developer.chrome.com/docs/devtools
+    description: 'Documentação das ferramentas de desenvolvedor do Chrome: elementos, rede, performance e depuração.'
+    why: 'Dominar o DevTools encurta qualquer depuração; os guias mostram recursos que pouca gente usa.'
+    type: docs
+    pricing: free
+    languages: [en]
+    techs: [html, css, javascript]
+    featured: true
+  - id: prettier
+    name: Prettier
+    url: https://prettier.io/
+    description: 'Formatador de código para JavaScript, TypeScript, CSS, HTML, JSON e mais.'
+    why: 'Acaba com discussões sobre estilo em code review: o código fica igual, não importa quem escreveu.'
+    type: tool
+    pricing: free
+    languages: [en]
+    techs: [javascript, typescript, css, html]
+  - id: eslint
+    name: ESLint
+    url: https://eslint.org/
+    description: 'Analisador estático que encontra erros e más práticas em JavaScript e TypeScript.'
+    why: 'Pega bugs antes de rodar o código, como variáveis não usadas e comparações suspeitas.'
+    type: tool
+    pricing: free
+    languages: [en]
+    techs: [javascript, typescript]
+  - id: regex101
+    name: regex101
+    url: https://regex101.com/
+    description: 'Editor de expressões regulares com explicação de cada parte e testes em tempo real.'
+    why: 'Explica em texto o que cada trecho da regex faz, o que ajuda a entender regex escrita por outra pessoa.'
+    type: tool
+    pricing: free
+    languages: [en]
+    techs: [javascript]
+  - id: excalidraw
+    name: Excalidraw
+    url: https://excalidraw.com/
+    description: 'Quadro branco no navegador com traço de desenho à mão, para diagramas e esboços.'
+    why: 'Ótimo para desenhar arquitetura e fluxos rapidamente, sem a seriedade de uma ferramenta de diagrama.'
+    type: tool
+    pricing: freemium
+    languages: [pt, en]
+  - id: squoosh
+    name: Squoosh
+    url: https://squoosh.app/
+    description: 'Compressor de imagens no navegador, com comparação lado a lado entre formatos.'
+    why: 'Mostra na hora quanto uma imagem fica menor em WebP ou AVIF, sem enviar o arquivo para nenhum servidor.'
+    type: tool
+    pricing: free
+    languages: [en]
+  - id: bundlephobia
+    name: Bundlephobia
+    url: https://bundlephobia.com/
+    description: 'Mostra quanto um pacote do npm adiciona ao tamanho do seu bundle.'
+    why: 'Ajuda a decidir entre duas bibliotecas antes de instalar e descobrir o custo depois.'
+    type: tool
+    pricing: free
+    languages: [en]
+    techs: [javascript]
+  - id: transform-tools
+    name: transform.tools
+    url: https://transform.tools/
+    description: 'Conversores entre formatos: JSON para TypeScript, SVG para JSX, HTML para JSX e dezenas de outros.'
+    why: 'Gerar a interface TypeScript de uma resposta JSON grande economiza muito tempo.'
+    type: tool
+    pricing: free
+    languages: [en]
+    techs: [typescript, react]
+  - id: ray-so
+    name: ray.so
+    url: https://ray.so/
+    description: 'Gera imagens bonitas de trechos de código para posts, slides e documentação.'
+    why: 'Imagens de código legíveis e no tema que você quiser, sem montar nada no editor de imagem.'
+    type: tool
+    pricing: free
+    languages: [en]

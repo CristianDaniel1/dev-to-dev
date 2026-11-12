@@ -1,0 +1,49 @@
+categories:
+  - slug: documentacao
+    name: Documentação oficial
+    description: 'A fonte primária de cada tecnologia, escrita por quem a mantém.'
+  - slug: referencias
+    name: Referências e guias
+    description: 'Guias visuais, cheat sheets e tabelas para consultar no meio do trabalho.'
+  - slug: cursos
+    name: Cursos e trilhas
+    description: 'Formações com começo, meio e fim, gratuitas e pagas, em português e inglês.'
+  - slug: pratica
+    name: Prática e desafios
+    description: 'Exercícios, jogos e projetos com layout pronto para fixar o que você estudou.'
+  - slug: ferramentas
+    name: Ferramentas de dev
+    description: 'Editor, formatação, depuração e utilitários que economizam tempo todo dia.'
+  - slug: playgrounds
+    name: Playgrounds
+    description: 'Editores no navegador para testar uma ideia ou compartilhar um exemplo em segundos.'
+  - slug: apis-e-testes
+    name: APIs e testes
+    description: 'Clientes HTTP, APIs falsas e frameworks de teste.'
+  - slug: acessibilidade
+    name: Acessibilidade
+    description: 'Diretrizes, padrões de componentes e ferramentas para testar acessibilidade.'
+  - slug: design-e-ui
+    name: Design e UI
+    description: 'Ferramentas de design, princípios de interface e bibliotecas de componentes.'
+  - slug: icones-e-imagens
+    name: Ícones e imagens
+    description: 'Ícones, ilustrações e fotos com licenças que permitem uso em projetos.'
+  - slug: cores-e-tipografia
+    name: Cores e tipografia
+    description: 'Fontes, paletas, contraste e escalas tipográficas.'
+  - slug: git-e-github
+    name: Git e GitHub
+    description: 'Para entender o Git de verdade e trabalhar bem em equipe.'
+  - slug: deploy-e-hospedagem
+    name: Deploy e hospedagem
+    description: 'Onde publicar sites e APIs, muitos com plano gratuito para projetos pessoais.'
+  - slug: bancos-de-dados
+    name: Bancos de dados
+    description: 'SQL do básico ao índice, bancos gerenciados e ferramentas de modelagem.'
+  - slug: ia-para-devs
+    name: IA para devs
+    description: 'Assistentes, editores e modelos para programar com ajuda de IA.'
+  - slug: blogs-e-newsletters
+    name: Blogs, newsletters e podcasts
+    description: 'Para acompanhar a área sem depender do algoritmo das redes sociais.'

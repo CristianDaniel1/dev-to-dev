@@ -1,0 +1,92 @@
+resources:
+  - id: frontend-mentor
+    name: Frontend Mentor
+    url: https://www.frontendmentor.io/
+    description: 'Desafios de frontend com design pronto, do componente simples à aplicação completa.'
+    why: 'Você recebe o layout e os assets, então pode focar no código e montar um portfólio.'
+    type: practice
+    pricing: freemium
+    languages: [en]
+    techs: [html, css, javascript]
+    featured: true
+  - id: exercism
+    name: Exercism
+    url: https://exercism.org/
+    description: 'Exercícios de programação em mais de 70 linguagens, com mentoria voluntária.'
+    why: 'Além de passar nos testes, você pode receber comentários de um mentor sobre o seu código.'
+    type: practice
+    pricing: free
+    languages: [en]
+    techs: [javascript, typescript]
+    featured: true
+  - id: flexbox-froggy
+    name: Flexbox Froggy
+    url: https://flexboxfroggy.com/
+    description: 'Jogo que ensina flexbox posicionando sapos em vitórias-régias.'
+    why: 'Em vinte minutos você memoriza `justify-content` e `align-items` sem perceber.'
+    type: practice
+    pricing: free
+    languages: [pt, en]
+    techs: [css]
+  - id: grid-garden
+    name: Grid Garden
+    url: https://cssgridgarden.com/
+    description: 'Jogo que ensina CSS Grid regando uma horta.'
+    why: 'Do mesmo autor do Flexbox Froggy, e tão eficiente quanto para fixar o grid.'
+    type: practice
+    pricing: free
+    languages: [pt, en]
+    techs: [css]
+  - id: css-battle
+    name: CSSBattle
+    url: https://cssbattle.dev/
+    description: 'Desafios diários para reproduzir uma imagem com o mínimo de CSS.'
+    why: 'Treina posicionamento e formas de um jeito divertido e competitivo.'
+    type: practice
+    pricing: free
+    languages: [en]
+    techs: [css, html]
+  - id: javascript30
+    name: JavaScript30
+    url: https://javascript30.com/
+    description: 'Trinta pequenos projetos em JavaScript puro, sem frameworks nem bibliotecas.'
+    why: 'Cada projeto leva menos de uma hora e ensina APIs reais do navegador.'
+    type: practice
+    pricing: free
+    languages: [en]
+    techs: [javascript]
+  - id: codewars
+    name: Codewars
+    url: https://www.codewars.com/
+    description: 'Desafios de lógica ranqueados por dificuldade, em várias linguagens.'
+    why: 'Depois de resolver, você vê as soluções de outras pessoas e aprende formas novas de escrever o mesmo código.'
+    type: practice
+    pricing: free
+    languages: [en]
+    techs: [javascript, typescript]
+  - id: leetcode
+    name: LeetCode
+    url: https://leetcode.com/
+    description: 'Problemas de algoritmos e estruturas de dados, muito usados em entrevistas técnicas.'
+    why: 'É o padrão para se preparar para entrevistas com perguntas de algoritmo.'
+    type: practice
+    pricing: freemium
+    languages: [en]
+    techs: [javascript, typescript, sql]
+  - id: advent-of-code
+    name: Advent of Code
+    url: https://adventofcode.com/
+    description: 'Um desafio de programação por dia de 1º a 25 de dezembro, em qualquer linguagem.'
+    why: 'Os problemas antigos ficam disponíveis e são ótimos para treinar uma linguagem nova.'
+    type: practice
+    pricing: free
+    languages: [en]
+  - id: beecrowd
+    name: beecrowd
+    url: https://judge.beecrowd.com/
+    description: 'Juiz online brasileiro com milhares de problemas de programação, antigo URI Online Judge.'
+    why: 'Os enunciados estão em português, o que ajuda quem ainda está aprendendo inglês.'
+    type: practice
+    pricing: free
+    languages: [pt, en]
+    techs: [javascript]

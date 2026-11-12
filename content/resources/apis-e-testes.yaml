@@ -1,0 +1,81 @@
+resources:
+  - id: hoppscotch
+    name: Hoppscotch
+    url: https://hoppscotch.io/
+    description: 'Cliente de APIs de código aberto que roda no navegador, com REST, GraphQL e WebSocket.'
+    why: 'Leve e rápido: abre na aba e você já está fazendo requisições, sem conta.'
+    type: tool
+    pricing: free
+    languages: [en]
+    featured: true
+  - id: postman
+    name: Postman
+    url: https://www.postman.com/
+    description: 'Plataforma para testar, documentar e compartilhar APIs.'
+    why: 'Muitas empresas já usam e compartilham coleções nele; vale saber usar.'
+    type: tool
+    pricing: freemium
+    languages: [en]
+  - id: bruno
+    name: Bruno
+    url: https://www.usebruno.com/
+    description: 'Cliente de APIs que guarda as coleções como arquivos de texto no seu repositório.'
+    why: 'As requisições ficam versionadas no Git junto com o código, sem depender de nuvem.'
+    type: tool
+    pricing: freemium
+    languages: [en]
+    techs: [git]
+  - id: jsonplaceholder
+    name: JSONPlaceholder
+    url: https://jsonplaceholder.typicode.com/
+    description: 'API REST falsa e gratuita com posts, usuários, comentários e tarefas.'
+    why: 'Perfeita para praticar `fetch` e listas no frontend antes de ter um backend.'
+    type: service
+    pricing: free
+    languages: [en]
+    techs: [javascript]
+    featured: true
+  - id: public-apis
+    name: Public APIs
+    url: https://github.com/public-apis/public-apis
+    description: 'Lista colaborativa de APIs públicas e gratuitas, organizadas por tema.'
+    why: 'Fonte de ideias para projetos de portfólio com dados reais, de clima a filmes.'
+    type: reference
+    pricing: free
+    languages: [en]
+  - id: mock-service-worker
+    name: Mock Service Worker
+    url: https://mswjs.io/
+    description: 'Biblioteca que intercepta requisições na camada de rede para simular APIs em testes e no desenvolvimento.'
+    why: 'O mesmo mock funciona no navegador, nos testes e no Node, sem mudar o código da aplicação.'
+    type: library
+    pricing: free
+    languages: [en]
+    techs: [javascript, typescript]
+  - id: playwright
+    name: Playwright
+    url: https://playwright.dev/
+    description: 'Framework de testes de ponta a ponta para Chromium, Firefox e WebKit.'
+    why: 'Espera os elementos automaticamente, o que reduz muito os testes instáveis.'
+    type: library
+    pricing: free
+    languages: [en]
+    techs: [javascript, typescript]
+  - id: vitest
+    name: Vitest
+    url: https://vitest.dev/
+    description: 'Framework de testes unitários rápido, compatível com a API do Jest.'
+    why: 'Usa a mesma configuração do Vite, então costuma funcionar sem ajustes.'
+    type: library
+    pricing: free
+    languages: [en]
+    techs: [javascript, typescript]
+  - id: testing-library
+    name: Testing Library
+    url: https://testing-library.com/
+    description: 'Utilitários para testar componentes do jeito que o usuário os usa, buscando por papel e texto.'
+    why: 'Testes que não quebram quando você refatora o componente, só quando o comportamento muda.'
+    type: library
+    pricing: free
+    languages: [en]
+    techs: [react, angular, vue]

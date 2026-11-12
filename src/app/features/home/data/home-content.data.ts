@@ -29,12 +29,5 @@ export const LAUNCH_TECHS: readonly string[] = [
   'SQL',
 ];
 
-/** Initial resource hub categories, shown on the home page. */
-export const RESOURCE_CATEGORIES: readonly string[] = [
-  'Documentações oficiais',
-  'Cursos e plataformas',
-  'Ferramentas de dev',
-  'Design e UI',
-  'Deploy e hospedagem',
-  'IA para devs',
-];
+/** How many resource categories the home page lists. */
+export const HOME_CATEGORY_COUNT = 6;

@@ -1,0 +1,75 @@
+resources:
+  - id: sqlbolt
+    name: SQLBolt
+    url: https://sqlbolt.com/
+    description: 'Lições interativas de SQL com exercícios executados no navegador.'
+    why: 'Em uma tarde você vai de `SELECT` a `JOIN`, praticando em cada passo.'
+    type: practice
+    pricing: free
+    languages: [en]
+    techs: [sql]
+    featured: true
+  - id: postgresql-docs
+    name: PostgreSQL
+    url: https://www.postgresql.org/docs/current/
+    description: 'Documentação oficial do PostgreSQL, com tutorial e referência completa.'
+    why: 'Uma das documentações mais bem escritas que existem, e o tutorial inicial é excelente.'
+    type: docs
+    pricing: free
+    languages: [en]
+    techs: [sql]
+  - id: use-the-index-luke
+    name: Use The Index, Luke
+    url: https://use-the-index-luke.com/pt
+    description: 'Guia sobre índices e performance de SQL para desenvolvedores.'
+    why: 'Explica por que uma consulta está lenta e como um índice resolve, para vários bancos.'
+    type: reference
+    pricing: free
+    languages: [pt, en]
+    techs: [sql]
+  - id: supabase
+    name: Supabase
+    url: https://supabase.com/
+    description: 'PostgreSQL gerenciado com autenticação, armazenamento de arquivos e APIs geradas automaticamente.'
+    why: 'Dá a um projeto de frontend um banco de verdade, com SQL, sem montar servidor.'
+    type: service
+    pricing: freemium
+    languages: [en]
+    techs: [sql, javascript]
+    featured: true
+  - id: neon
+    name: Neon
+    url: https://neon.com/
+    description: 'PostgreSQL serverless com branches de banco, como branches do Git.'
+    why: 'Criar uma cópia do banco para cada pull request facilita testar migrações.'
+    type: service
+    pricing: freemium
+    languages: [en]
+    techs: [sql]
+  - id: mongodb-atlas
+    name: MongoDB Atlas
+    url: https://www.mongodb.com/atlas
+    description: 'MongoDB gerenciado na nuvem, com um cluster gratuito para começar.'
+    why: 'O jeito mais simples de usar um banco de documentos sem instalar nada.'
+    type: service
+    pricing: freemium
+    languages: [en]
+    techs: [node]
+  - id: db-fiddle
+    name: DB Fiddle
+    url: https://www.db-fiddle.com/
+    description: 'Playground de SQL para PostgreSQL, MySQL e SQLite, com link compartilhável.'
+    why: 'Ótimo para testar uma consulta ou mostrar um problema em uma pergunta.'
+    type: tool
+    pricing: free
+    languages: [en]
+    techs: [sql]
+  - id: dbdiagram
+    name: dbdiagram.io
+    url: https://dbdiagram.io/
+    description: 'Desenha diagramas de banco de dados a partir de um texto simples.'
+    why: 'Modelar as tabelas antes de escrever as migrações evita retrabalho.'
+    type: tool
+    pricing: freemium
+    languages: [en]
+    techs: [sql]

@@ -1,0 +1,55 @@
+resources:
+  - id: vercel
+    name: Vercel
+    url: https://vercel.com/
+    description: 'Plataforma de deploy para sites e aplicações de frontend, com previews a cada pull request.'
+    why: 'Conecta ao GitHub e publica em minutos; o plano gratuito cobre projetos pessoais. Este site roda nela.'
+    type: service
+    pricing: freemium
+    languages: [en]
+    techs: [nextjs, react, angular]
+    featured: true
+  - id: netlify
+    name: Netlify
+    url: https://www.netlify.com/
+    description: 'Hospedagem de sites estáticos e funções serverless, com deploy automático pelo Git.'
+    why: 'Formulários e redirecionamentos simples de configurar, além de um plano gratuito generoso.'
+    type: service
+    pricing: freemium
+    languages: [en]
+  - id: cloudflare-pages
+    name: Cloudflare Pages
+    url: https://pages.cloudflare.com/
+    description: 'Hospedagem de sites estáticos e full stack na rede global da Cloudflare.'
+    why: 'Banda ilimitada no plano gratuito, ótima para sites com muito tráfego.'
+    type: service
+    pricing: freemium
+    languages: [en]
+  - id: github-pages
+    name: GitHub Pages
+    url: https://pages.github.com/
+    description: 'Hospedagem gratuita de sites estáticos direto de um repositório do GitHub.'
+    why: 'O caminho mais curto para colocar o primeiro portfólio no ar.'
+    type: service
+    pricing: free
+    languages: [en]
+    techs: [html, css, git]
+    featured: true
+  - id: render
+    name: Render
+    url: https://render.com/
+    description: 'Hospedagem de APIs, sites, bancos PostgreSQL e tarefas agendadas.'
+    why: 'Bom para publicar um backend em Node.js sem configurar servidor; o plano gratuito hiberna quando fica parado.'
+    type: service
+    pricing: freemium
+    languages: [en]
+    techs: [node, sql]
+  - id: firebase
+    name: Firebase
+    url: https://firebase.google.com/
+    description: 'Plataforma do Google com hospedagem, autenticação, banco de dados em tempo real e funções.'
+    why: 'Permite ter login e dados salvos em um projeto de frontend sem escrever um backend.'
+    type: service
+    pricing: freemium
+    languages: [pt, en]
+    techs: [javascript]

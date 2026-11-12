@@ -1,0 +1,43 @@
+@if (collection(); as current) {
+  <div class="container-page pb-20">
+    <app-breadcrumb [parents]="trail" [current]="current.name" />
+    <header class="pt-6 pb-12">
+      <h1 class="text-3xl font-extrabold [font-stretch:78%] sm:text-[3.25rem] sm:leading-none">
+        {{ current.name }}
+      </h1>
+      <p class="prose-width mt-4 text-lg text-ink-muted">{{ current.description }}</p>
+    </header>
+
+    <ol class="flex max-w-3xl flex-col gap-10">
+      @for (entry of entries(); track entry.resource.id; let index = $index) {
+        <li class="grid gap-x-6 gap-y-3 sm:grid-cols-[3.5rem_1fr]">
+          <span
+            class="font-mono text-4xl leading-none font-bold text-ink-muted/60 tabular-nums"
+            aria-hidden="true"
+            >{{ index + 1 }}</span
+          >
+          <div class="flex flex-col gap-3">
+            <p class="font-medium">
+              <span class="highlight text-highlight-ink">{{ entry.note }}</span>
+            </p>
+            <app-resource-card [resource]="entry.resource" [headingLevel]="2" />
+          </div>
+        </li>
+      }
+    </ol>
+
+    <a routerLink="/recursos" class="link mt-14 inline-block font-medium">
+      Ver todos os recursos
+    </a>
+  </div>
+} @else {
+  <div class="container-page py-16">
+    <app-empty-state
+      icon="bookmark"
+      heading="Coleção não encontrada"
+      description="Não existe uma coleção com esse endereço. Veja as coleções na central de recursos."
+    >
+      <a routerLink="/recursos" class="btn btn-primary">Ver recursos</a>
+    </app-empty-state>
+  </div>
+}

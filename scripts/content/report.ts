@@ -1,3 +1,4 @@
+import type { ResourceIndex } from '../../src/app/shared/interfaces/resource.interface';
 import { LEVELS } from '../../src/app/shared/constants/content.constants';
 import type { TechSummary } from '../../src/app/shared/interfaces/content.interface';
 
@@ -18,4 +19,20 @@ export const printReport = (summaries: readonly TechSummary[], drafts: readonly 
   console.log(`content: ${total} questions in ${summaries.length} techs`);
   console.log(summaries.map(reportRow).join('\n'));
   if (drafts.length) console.log(`  drafts skipped: ${drafts.join(', ')}`);
+};
+
+/**
+ * Prints how many resources each category has and how many collections exist.
+ *
+ * @param index - Built resource index.
+ */
+export const printResourceReport = (index: ResourceIndex): void => {
+  const total = index.categories.reduce((sum, category) => sum + category.resourceCount, 0);
+  console.log(
+    `resources: ${total} in ${index.categories.length} categories, ${index.collections.length} collections`,
+  );
+  const rows = index.categories.map(
+    (category) => `  ${category.slug.padEnd(22)} ${String(category.resourceCount).padStart(3)}`,
+  );
+  console.log(rows.join('\n'));
 };

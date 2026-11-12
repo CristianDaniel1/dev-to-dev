@@ -1,10 +1,6 @@
 @if (summary(); as tech) {
   <div class="container-page">
-    <nav aria-label="Trilha de navegação" class="pt-8 text-sm">
-      <a routerLink="/quizzes" class="text-ink-muted hover:text-ink">Quizzes</a>
-      <span class="mx-2 text-ink-muted" aria-hidden="true">/</span>
-      <span aria-current="page">{{ tech.name }}</span>
-    </nav>
+    <app-breadcrumb [parents]="trail" [current]="tech.name" />
 
     <header class="flex flex-col gap-5 pt-6 pb-10 sm:flex-row sm:items-center">
       <app-tech-badge [tech]="tech" size="lg" />
@@ -20,6 +16,8 @@
       <app-topic-list [tech]="tech" />
       <app-session-setup class="lg:sticky lg:top-[calc(var(--header-h)+1.5rem)]" [tech]="tech" />
     </div>
+
+    <app-tech-resources class="mt-20 block pb-20" [tech]="tech.slug" [name]="tech.name" />
   </div>
 } @else {
   <div class="container-page py-16">

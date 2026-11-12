@@ -15,6 +15,8 @@ test.describe('Practice session', () => {
       await test.step('start a five-question session', async () => {
         await techOverview.open('html');
         await techOverview.chooseSize('5');
+        // The link is rendered on the next change detection; wait for it before clicking.
+        await expect(techOverview.startButton).toHaveAttribute('href', /qtd=5/);
         await techOverview.startButton.click();
         await expect(page).toHaveURL(/praticar\?.*qtd=5/);
       });

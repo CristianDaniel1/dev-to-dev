@@ -14,6 +14,7 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 import { routes } from './app.routes';
 import { AppErrorHandler } from '@/core/services/app-error-handler';
 import { SeoTitleStrategy } from '@/core/services/seo-title-strategy';
+import { skipSamePageTransition } from '@/core/lib/view-transition';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,7 +22,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(
       routes,
       withComponentInputBinding(),
-      withViewTransitions(),
+      withViewTransitions({ onViewTransitionCreated: skipSamePageTransition }),
       withInMemoryScrolling({ scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled' }),
     ),
     provideClientHydration(withEventReplay()),

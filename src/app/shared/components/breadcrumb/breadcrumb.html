@@ -1,0 +1,15 @@
+<nav aria-label="Trilha de navegação" class="pt-8 text-sm">
+  <ol class="flex flex-wrap items-center gap-x-2 text-ink-muted">
+    @for (parent of parents(); track parent.link) {
+      <li class="flex items-center gap-2">
+        <a
+          [routerLink]="parent.link"
+          class="underline decoration-line-strong underline-offset-4 hover:text-ink hover:decoration-ink"
+          >{{ parent.label }}</a
+        >
+        <span aria-hidden="true">/</span>
+      </li>
+    }
+    <li aria-current="page" class="text-ink">{{ current() }}</li>
+  </ol>
+</nav>

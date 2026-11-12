@@ -1,11 +1,22 @@
 /** localStorage key of the quiz progress (app: core/constants/storage.constants.ts). */
 export const PROGRESS_STORAGE_KEY = 'd2d:v1:progress';
 
+/** localStorage key of the favorite resources (app: core/constants/storage.constants.ts). */
+export const FAVORITES_STORAGE_KEY = 'd2d:v1:favorites';
+
 /** localStorage key of the theme preference (app: core/constants/storage.constants.ts). */
 export const THEME_STORAGE_KEY = 'd2d:theme';
 
 /** Prerendered pages that must render their content without JavaScript. */
-export const PRERENDERED_PAGES = ['/', '/quizzes', '/quizzes/html', '/recursos', '/sobre'] as const;
+export const PRERENDERED_PAGES = [
+  '/',
+  '/quizzes',
+  '/quizzes/html',
+  '/recursos',
+  '/recursos/ferramentas',
+  '/recursos/colecoes/primeiro-projeto-frontend',
+  '/sobre',
+] as const;
 
 /** Question id whose right answer is known: `'2' + 2` prints "22". */
 export const STRING_CONCAT_QUESTION_ID = 'javascript-fundamentos-002';
@@ -27,3 +38,18 @@ export const MISSING_QUESTION_ID = 'missing-question-000';
 
 /** Tech, topic and level with no question yet (update when such questions are written). */
 export const EMPTY_FILTER = { tech: 'react', topic: 'Estado', level: 'Avançado' } as const;
+
+/** Favicon service the resource cards load icons from; stubbed so tests stay offline. */
+export const FAVICON_SERVICE_PATTERN = 'https://icons.duckduckgo.com/**';
+
+/** A 1×1 transparent PNG, served in place of external images. */
+export const TRANSPARENT_PNG = Buffer.from(
+  'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=',
+  'base64',
+);
+
+/** Resource in Portuguese and free: Flexbox Froggy (practice). */
+export const PT_PRACTICE_RESOURCE = 'Flexbox Froggy';
+
+/** Practice resource only in English: Exercism. */
+export const EN_PRACTICE_RESOURCE = 'Exercism';

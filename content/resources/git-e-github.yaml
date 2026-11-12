@@ -1,0 +1,75 @@
+resources:
+  - id: pro-git
+    name: Pro Git
+    url: https://git-scm.com/book/pt-br/v2
+    description: 'Livro oficial e gratuito sobre Git, do básico aos detalhes internos.'
+    why: 'O capítulo sobre branches explica de vez o que é um commit e por que o rebase reescreve a história.'
+    type: reference
+    pricing: free
+    languages: [pt, en]
+    techs: [git]
+    featured: true
+  - id: learn-git-branching
+    name: Learn Git Branching
+    url: https://learngitbranching.js.org/?locale=pt_BR
+    description: 'Tutorial interativo que desenha a árvore de commits enquanto você digita comandos.'
+    why: 'Ver os commits se moverem a cada `rebase` ou `cherry-pick` faz os comandos finalmente fazerem sentido.'
+    type: practice
+    pricing: free
+    languages: [pt, en]
+    techs: [git]
+    featured: true
+  - id: oh-shit-git
+    name: Oh Shit, Git!?!
+    url: https://ohshitgit.com/pt_BR
+    description: 'Soluções curtas para os apuros mais comuns no Git, como commitar no branch errado.'
+    why: 'Escrito em linguagem simples para os momentos de pânico.'
+    type: reference
+    pricing: free
+    languages: [pt, en]
+    techs: [git]
+  - id: github-docs
+    name: GitHub Docs
+    url: https://docs.github.com/pt
+    description: 'Documentação oficial do GitHub: pull requests, Actions, Pages, segurança e mais.'
+    why: 'Os guias de GitHub Actions ajudam a automatizar testes e deploy desde o primeiro projeto.'
+    type: docs
+    pricing: free
+    languages: [pt, en]
+    techs: [git]
+  - id: github-skills
+    name: GitHub Skills
+    url: https://skills.github.com/
+    description: 'Cursos interativos que acontecem dentro de repositórios reais do GitHub.'
+    why: 'Você aprende pull requests, Actions e Pages fazendo, guiado por um bot no próprio repositório.'
+    type: course
+    pricing: free
+    languages: [en]
+    techs: [git]
+  - id: conventional-commits
+    name: Conventional Commits
+    url: https://www.conventionalcommits.org/pt-br/v1.0.0/
+    description: 'Convenção para mensagens de commit, como `feat:` e `fix:`, legível por pessoas e ferramentas.'
+    why: 'Deixa o histórico fácil de ler e permite gerar changelogs e versões automaticamente.'
+    type: reference
+    pricing: free
+    languages: [pt, en]
+    techs: [git]
+  - id: gitignore-generator
+    name: gitignore.io
+    url: https://www.toptal.com/developers/gitignore
+    description: 'Gera arquivos `.gitignore` combinando sistemas operacionais, editores e linguagens.'
+    why: 'Evita commitar `node_modules`, arquivos do editor e segredos logo no primeiro commit.'
+    type: tool
+    pricing: free
+    languages: [en]
+    techs: [git]
+  - id: git-docs
+    name: Documentação do Git
+    url: https://git-scm.com/docs
+    description: 'Referência oficial de todos os comandos e opções do Git.'
+    why: 'Quando um comando tem uma opção que você nunca viu, a resposta está aqui.'
+    type: docs
+    pricing: free
+    languages: [en]
+    techs: [git]

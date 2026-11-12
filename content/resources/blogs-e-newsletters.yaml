@@ -1,0 +1,81 @@
+resources:
+  - id: josh-comeau
+    name: Josh W. Comeau
+    url: https://www.joshwcomeau.com/
+    description: 'Blog com artigos interativos sobre CSS, React e animação.'
+    why: 'Os artigos têm demos que você manipula, e explicam o porquê de cada técnica.'
+    type: blog
+    pricing: free
+    languages: [en]
+    techs: [css, react]
+    featured: true
+  - id: smashing-magazine
+    name: Smashing Magazine
+    url: https://www.smashingmagazine.com/
+    description: 'Revista online sobre desenvolvimento web, design, UX e acessibilidade.'
+    why: 'Artigos longos e bem editados, escritos por profissionais da área.'
+    type: blog
+    pricing: free
+    languages: [en]
+    techs: [css, html, javascript]
+  - id: css-tricks
+    name: CSS-Tricks
+    url: https://css-tricks.com/
+    description: 'Site com milhares de artigos e guias sobre CSS e frontend.'
+    why: 'Quase toda dúvida de CSS já tem um artigo lá, com exemplos.'
+    type: blog
+    pricing: free
+    languages: [en]
+    techs: [css]
+  - id: javascript-weekly
+    name: JavaScript Weekly
+    url: https://javascriptweekly.com/
+    description: 'Newsletter semanal com as principais notícias, artigos e lançamentos de JavaScript.'
+    why: 'Uma leitura por semana substitui horas tentando acompanhar tudo nas redes sociais.'
+    type: newsletter
+    pricing: free
+    languages: [en]
+    techs: [javascript, node]
+  - id: frontend-focus
+    name: Frontend Focus
+    url: https://frontendfoc.us/
+    description: 'Newsletter semanal sobre HTML, CSS, navegadores e acessibilidade.'
+    why: 'Bom filtro do que realmente mudou na plataforma web a cada semana.'
+    type: newsletter
+    pricing: free
+    languages: [en]
+    techs: [html, css]
+  - id: syntax-fm
+    name: Syntax
+    url: https://syntax.fm/
+    description: 'Podcast sobre desenvolvimento web com episódios curtos e longos várias vezes por semana.'
+    why: 'Descontraído e prático, ótimo para ouvir no trajeto e conhecer ferramentas novas.'
+    type: podcast
+    pricing: free
+    languages: [en]
+    techs: [javascript, css]
+  - id: overreacted
+    name: overreacted
+    url: https://overreacted.io/
+    description: 'Blog do Dan Abramov, um dos autores do React, sobre o modelo mental por trás da biblioteca.'
+    why: 'Os textos sobre efeitos e renderização mudam a forma como você pensa componentes.'
+    type: blog
+    pricing: free
+    languages: [en]
+    techs: [react]
+  - id: filipe-deschamps-newsletter
+    name: Newsletter do Filipe Deschamps
+    url: https://filipedeschamps.com.br/newsletter
+    description: 'Newsletter diária e gratuita com notícias de tecnologia, em português.'
+    why: 'Resumos curtos que cabem no café da manhã, sem precisar ler em inglês.'
+    type: newsletter
+    pricing: free
+    languages: [pt]
+  - id: tabnews
+    name: TabNews
+    url: https://www.tabnews.com.br/
+    description: 'Comunidade brasileira onde devs publicam artigos, dúvidas e notícias.'
+    why: 'Conteúdo em português escrito por quem trabalha na área, com discussões nos comentários.'
+    type: community
+    pricing: free
+    languages: [pt]

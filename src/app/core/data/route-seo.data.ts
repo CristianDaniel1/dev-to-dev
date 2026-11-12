@@ -1,11 +1,5 @@
 import type { RouteSeo } from '../interfaces/route-seo.interface';
 
-/** SEO data of the resource hub page. */
-export const RESOURCES_SEO: RouteSeo = {
-  description:
-    'Curadoria de documentações, ferramentas, cursos e referências para desenvolvedores, cada uma com o motivo da recomendação.',
-};
-
 /** SEO data of the about page. */
 export const ABOUT_SEO: RouteSeo = {
   description: 'O que é o Dev to Dev, como o conteúdo é produzido e como seu progresso é salvo.',

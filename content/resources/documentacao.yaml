@@ -1,0 +1,93 @@
+resources:
+  - id: mdn
+    name: MDN Web Docs
+    url: https://developer.mozilla.org/pt-BR/
+    description: 'Documentação de HTML, CSS, JavaScript e das APIs do navegador, mantida pela Mozilla e pela comunidade.'
+    why: 'É a referência mais completa da web, com exemplos, tabelas de compatibilidade e boa parte traduzida para o português.'
+    type: docs
+    pricing: free
+    languages: [pt, en]
+    techs: [html, css, javascript]
+    featured: true
+  - id: react-dev
+    name: React
+    url: https://react.dev/
+    description: 'Documentação oficial do React, com tutorial, guias de conceitos e referência de cada API.'
+    why: 'Foi reescrita do zero com hooks e exemplos interativos; as seções "Thinking in React" e "You Might Not Need an Effect" valem por um curso.'
+    type: docs
+    pricing: free
+    languages: [pt, en]
+    techs: [react]
+    featured: true
+  - id: angular-dev
+    name: Angular
+    url: https://angular.dev/
+    description: 'Documentação oficial do Angular, com tutoriais no navegador e guias de signals, SSR e roteamento.'
+    why: 'O site novo cobre o Angular moderno (standalone, signals, controle de fluxo) e tem um playground embutido.'
+    type: docs
+    pricing: free
+    languages: [en]
+    techs: [angular, typescript]
+  - id: typescript-handbook
+    name: TypeScript Handbook
+    url: https://www.typescriptlang.org/docs/handbook/intro.html
+    description: 'O guia oficial do TypeScript, dos tipos básicos aos genéricos e tipos condicionais.'
+    why: 'É curto para o que cobre e explica o porquê de cada recurso, não só a sintaxe.'
+    type: docs
+    pricing: free
+    languages: [en]
+    techs: [typescript]
+  - id: vue-docs
+    name: Vue.js
+    url: https://vuejs.org/guide/introduction.html
+    description: 'Guia oficial do Vue, com versões para a Composition API e a Options API.'
+    why: 'Uma das documentações mais didáticas entre os frameworks, boa até para entender reatividade em geral.'
+    type: docs
+    pricing: free
+    languages: [en]
+    techs: [vue]
+  - id: svelte-docs
+    name: Svelte
+    url: https://svelte.dev/docs
+    description: 'Documentação do Svelte e do SvelteKit, com um tutorial interativo completo.'
+    why: 'O tutorial roda no navegador e ensina o framework inteiro em pequenos passos.'
+    type: docs
+    pricing: free
+    languages: [en]
+    techs: [svelte]
+  - id: nextjs-docs
+    name: Next.js
+    url: https://nextjs.org/docs
+    description: 'Documentação do Next.js, framework React para sites renderizados no servidor e estáticos.'
+    why: 'Explica bem renderização no servidor, cache e rotas, temas que valem para qualquer framework.'
+    type: docs
+    pricing: free
+    languages: [en]
+    techs: [nextjs, react]
+  - id: node-docs
+    name: Node.js
+    url: https://nodejs.org/docs/latest/api/
+    description: 'Referência oficial das APIs do Node.js: arquivos, rede, streams, processos e mais.'
+    why: 'Muita coisa que se instala via npm já existe nativa no Node, como o test runner e o `fetch`.'
+    type: docs
+    pricing: free
+    languages: [en]
+    techs: [node, javascript]
+  - id: tailwind-docs
+    name: Tailwind CSS
+    url: https://tailwindcss.com/docs
+    description: 'Documentação do Tailwind, com cada utilitário, variantes e configuração de tema.'
+    why: 'A busca é rápida e cada página mostra o CSS gerado, o que ajuda a aprender CSS junto.'
+    type: docs
+    pricing: free
+    languages: [en]
+    techs: [tailwind, css]
+  - id: vite-docs
+    name: Vite
+    url: https://vite.dev/guide/
+    description: 'Documentação do Vite, ferramenta de build e servidor de desenvolvimento usada por boa parte dos frameworks.'
+    why: 'Entender o Vite ajuda a resolver problemas de build em React, Vue, Svelte e outros.'
+    type: docs
+    pricing: free
+    languages: [en]
+    techs: [javascript, typescript]

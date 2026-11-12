@@ -9,6 +9,7 @@ test.describe('Session setup', () => {
     await techOverview.chooseSize('Todas');
 
     await expect(techOverview.availability).toContainText(/\d+ de \d+ perguntas disponíveis/);
+    await expect(techOverview.startButton).toHaveAttribute('href', /qtd=todas/);
     await techOverview.startButton.click();
 
     await expect(page).toHaveURL(/\/quizzes\/css\/praticar\?/);

@@ -5,7 +5,7 @@ const tseslint = require('typescript-eslint');
 const angular = require('angular-eslint');
 
 module.exports = defineConfig([
-  globalIgnores(['dist/', '.angular/', 'coverage/']),
+  globalIgnores(['dist/', '.angular/', 'coverage/', 'src/app/shared/generated/']),
   {
     files: ['**/*.ts'],
     extends: [
@@ -26,7 +26,8 @@ module.exports = defineConfig([
       ],
       '@angular-eslint/prefer-on-push-component-change-detection': 'error',
       '@angular-eslint/prefer-signals': 'error',
-      '@angular-eslint/no-host-metadata-property': 'off',
+      '@angular-eslint/component-max-inline-declarations': ['error', { template: 0, styles: 0 }],
+      'func-style': ['error', 'expression'],
       '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
       '@typescript-eslint/consistent-type-imports': [
         'error',

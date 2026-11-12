@@ -49,3 +49,5 @@ Thumbs.db
 /playwright/.cache
 
 .claude
+# Generated content
+/src/app/shared/generated

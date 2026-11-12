@@ -1,0 +1,60 @@
+questions:
+  - id: html-links-e-midia-001
+    level: beginner
+    prompt: 'Qual atributo de `<a>` faz o link abrir em uma nova aba quando recebe o valor `_blank`?'
+    options:
+      - text: '`target`'
+        correct: true
+        explanation: '`target="_blank"` abre o destino em uma nova aba ou janela.'
+      - text: '`href`'
+        explanation: '`href` define para onde o link aponta, não onde ele abre.'
+      - text: '`rel`'
+        explanation: '`rel` descreve a relação com o destino (como `noopener` ou `nofollow`), não onde o link abre.'
+      - text: '`src`'
+        explanation: '`src` indica a origem de recursos como imagens e scripts. Links não usam `src`.'
+    explanation: 'Abrir links em nova aba tira o controle do usuário. Use com moderação e avise visualmente ou com texto que o link abre em outra aba.'
+
+  - id: html-links-e-midia-002
+    level: beginner
+    prompt: 'Qual elemento insere uma imagem na página?'
+    options:
+      - text: '`<img>`'
+        correct: true
+        explanation: '`<img src="foto.jpg" alt="...">` é o elemento de imagem. Ele é vazio: não tem tag de fechamento.'
+      - text: '`<image>`'
+        explanation: '`<image>` existe em SVG. No HTML, os navegadores até o convertem para `<img>`, mas ele não é válido.'
+      - text: '`<picture>`'
+        explanation: '`<picture>` envolve um `<img>` e oferece fontes alternativas (formatos ou tamanhos). Sozinho, não mostra nada.'
+      - text: '`<pic>`'
+        explanation: 'Não existe um elemento `<pic>` no HTML.'
+    explanation: 'Sempre defina `alt` e, de preferência, `width` e `height`. Com as dimensões, o navegador reserva o espaço e evita que o layout pule.'
+
+  - id: html-links-e-midia-003
+    level: intermediate
+    prompt: 'Qual atributo faz o navegador adiar o carregamento de uma imagem até ela se aproximar da área visível?'
+    options:
+      - text: '`loading="lazy"`'
+        correct: true
+        explanation: 'É o lazy loading nativo: a imagem só é baixada quando o usuário rola até perto dela.'
+      - text: '`defer`'
+        explanation: '`defer` existe em `<script>`, para executar o script após o parse do HTML.'
+      - text: '`async`'
+        explanation: '`async` também é um atributo de `<script>`. Em `<img>`, o relacionado é `decoding="async"`, que trata da decodificação.'
+      - text: '`lazy="true"`'
+        explanation: 'Não existe o atributo `lazy`. O correto é `loading="lazy"`.'
+    explanation: 'Não use `loading="lazy"` na imagem principal do topo da página: isso atrasa justamente o que o usuário vê primeiro.'
+
+  - id: html-links-e-midia-004
+    level: advanced
+    prompt: 'Qual atributo de `<img>` oferece ao navegador uma lista de arquivos da mesma imagem em resoluções diferentes, para ele escolher o mais adequado?'
+    options:
+      - text: '`srcset`'
+        correct: true
+        explanation: 'Exemplo: `srcset="foto-480.jpg 480w, foto-960.jpg 960w"`. O navegador escolhe conforme a tela e a densidade de pixels.'
+      - text: '`sizes`'
+        explanation: '`sizes` complementa o `srcset`, informando a largura que a imagem terá no layout. Sozinho, não oferece arquivos.'
+      - text: '`src-set`'
+        explanation: 'O nome correto é `srcset`, sem hífen.'
+      - text: '`data-src`'
+        explanation: 'Atributos `data-*` são para dados próprios da aplicação e não têm efeito no carregamento.'
+    explanation: 'Com `srcset` e `sizes`, celulares baixam arquivos menores e telas de alta densidade recebem versões mais nítidas, sem JavaScript.'

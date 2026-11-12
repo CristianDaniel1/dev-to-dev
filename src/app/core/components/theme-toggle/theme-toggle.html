@@ -1,0 +1,11 @@
+<button
+  type="button"
+  class="btn-icon"
+  [attr.aria-pressed]="isHydrated() ? theme.isDark() : null"
+  [attr.aria-label]="text.toggle"
+  [title]="text.toggle"
+  (click)="theme.toggle()"
+>
+  <span class="inline-flex dark:hidden"><app-icon name="moon" /></span>
+  <span class="hidden dark:inline-flex"><app-icon name="sun" /></span>
+</button>

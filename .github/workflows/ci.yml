@@ -23,6 +23,8 @@ jobs:
       - run: npm ci
       - run: npm run format:check
       - run: npm run lint
+      - run: npm run content
+      - run: npm run typecheck
       - run: npm test
       - run: npm run build
 
@@ -33,5 +35,7 @@ jobs:
         if: failure()
         with:
           name: playwright-report
-          path: test-results/
+          path: |
+            test-results/
+            playwright-report/
           retention-days: 7

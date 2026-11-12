@@ -1,0 +1,68 @@
+questions:
+  - id: javascript-arrays-e-objetos-001
+    level: beginner
+    prompt: 'Qual método adiciona um ou mais elementos ao final de um array?'
+    options:
+      - text: '`push()`'
+        correct: true
+        explanation: '`push` adiciona ao final e retorna o novo tamanho do array.'
+      - text: '`pop()`'
+        explanation: '`pop` remove o último elemento.'
+      - text: '`shift()`'
+        explanation: '`shift` remove o primeiro elemento.'
+      - text: '`unshift()`'
+        explanation: '`unshift` adiciona no início, não no final.'
+    explanation: 'Para adicionar sem alterar o original (útil em estado imutável), use spread: `[...lista, novoItem]`.'
+
+  - id: javascript-arrays-e-objetos-002
+    level: intermediate
+    prompt: 'Qual método cria um novo array transformando cada elemento do original?'
+    options:
+      - text: '`map()`'
+        correct: true
+        explanation: '`map` aplica a função a cada item e retorna um array novo, do mesmo tamanho.'
+      - text: '`forEach()`'
+        explanation: '`forEach` só percorre o array e sempre retorna `undefined`.'
+      - text: '`filter()`'
+        explanation: '`filter` retorna um array novo, mas só com os itens que passam no teste. Não transforma os itens.'
+      - text: '`reduce()`'
+        explanation: '`reduce` acumula os itens em um único resultado, como uma soma.'
+    explanation: 'Escolha o método pela intenção: transformar (`map`), selecionar (`filter`), acumular (`reduce`), só percorrer (`forEach`).'
+
+  - id: javascript-arrays-e-objetos-003
+    level: intermediate
+    prompt: 'Quais destes métodos alteram (mutam) o array original?'
+    options:
+      - text: '`push()`'
+        correct: true
+        explanation: 'Adiciona itens ao próprio array.'
+      - text: '`sort()`'
+        correct: true
+        explanation: '`sort` ordena no lugar. Para uma cópia ordenada, use `toSorted()`.'
+      - text: '`map()`'
+        explanation: '`map` retorna um array novo e mantém o original intacto.'
+      - text: '`slice()`'
+        explanation: '`slice` retorna uma cópia de um trecho. Não confunda com `splice`, que muta.'
+    explanation: 'Em React e em outras ferramentas que comparam referências, mutar o array original impede a detecção de mudanças.'
+
+  - id: javascript-arrays-e-objetos-004
+    level: advanced
+    prompt: 'O que este código imprime no console?'
+    code:
+      lang: javascript
+      source: |
+        const original = { usuario: { nome: 'Ana' } };
+        const copia = { ...original };
+        copia.usuario.nome = 'Bia';
+        console.log(original.usuario.nome);
+    options:
+      - text: '`"Bia"`'
+        correct: true
+        explanation: 'O spread faz uma cópia rasa: `copia.usuario` aponta para o mesmo objeto que `original.usuario`.'
+      - text: '`"Ana"`'
+        explanation: 'Seria o resultado de uma cópia profunda, como a de `structuredClone(original)`.'
+      - text: '`undefined`'
+        explanation: 'A propriedade continua existindo nos dois objetos.'
+      - text: 'Um `TypeError`'
+        explanation: 'O objeto não está congelado, então pode ser alterado.'
+    explanation: 'Para copiar estruturas aninhadas, use `structuredClone` ou copie cada nível com spread.'

@@ -1,0 +1,35 @@
+<dialog
+  #dialog
+  id="mobile-menu"
+  [attr.aria-label]="text.nav.label"
+  class="m-0 h-dvh max-h-none w-full max-w-none bg-paper p-0 text-ink"
+  (close)="open.set(false)"
+>
+  <div class="container-page flex h-(--header-h) items-center justify-end">
+    <button
+      type="button"
+      class="btn-icon"
+      [attr.aria-label]="text.menu.close"
+      (click)="open.set(false)"
+    >
+      <app-icon name="close" />
+    </button>
+  </div>
+  <nav class="container-page pt-4">
+    <ul class="flex flex-col">
+      @for (link of links(); track link.path) {
+        <li class="border-b border-line">
+          <a
+            [routerLink]="link.path"
+            routerLinkActive="highlight"
+            ariaCurrentWhenActive="page"
+            class="inline-block py-5 text-3xl font-bold [font-stretch:82%]"
+            (click)="open.set(false)"
+          >
+            {{ link.label }}
+          </a>
+        </li>
+      }
+    </ul>
+  </nav>
+</dialog>

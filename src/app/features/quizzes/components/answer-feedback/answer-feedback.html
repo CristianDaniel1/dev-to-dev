@@ -1,0 +1,54 @@
+<div class="rounded-card border border-line bg-surface p-5 sm:p-6">
+  <p
+    class="text-lg font-bold [font-stretch:100%]"
+    [class.text-correct]="answer().correct"
+    [class.text-wrong]="!answer().correct"
+  >
+    {{ answer().correct ? 'Você acertou.' : 'Não foi dessa vez.' }}
+  </p>
+  @if (isLuckyGuess()) {
+    <p class="mt-1 text-sm text-ink-muted">
+      Como foi no chute, esta pergunta volta para revisão nos próximos dias.
+    </p>
+  }
+
+  <div class="mt-4 flex flex-col gap-3 text-sm">
+    @for (option of groups().wrongPicks; track option.id) {
+      <p class="rich-text">
+        <span class="font-semibold text-wrong">Você marcou </span>
+        <span [innerHTML]="option.html"></span>.
+        <span [innerHTML]="option.explanationHtml"></span>
+      </p>
+    }
+    @for (option of groups().correct; track option.id) {
+      <p class="rich-text">
+        <span class="font-semibold text-correct">
+          {{ groups().correct.length > 1 ? 'Correta: ' : 'Resposta: ' }}
+        </span>
+        <span [innerHTML]="option.html"></span>.
+        <span [innerHTML]="option.explanationHtml"></span>
+      </p>
+    }
+  </div>
+
+  <p
+    class="rich-text mt-4 border-t border-line pt-4 text-sm"
+    [innerHTML]="item().question.explanationHtml"
+  ></p>
+
+  @if (groups().others.length) {
+    <details class="group mt-4 text-sm">
+      <summary class="cursor-pointer font-medium text-pen">
+        Por que as outras alternativas estão erradas
+      </summary>
+      <ul class="mt-3 flex flex-col gap-2">
+        @for (option of groups().others; track option.id) {
+          <li class="rich-text">
+            <span [innerHTML]="option.html"></span>:
+            <span class="text-ink-muted" [innerHTML]="option.explanationHtml"></span>
+          </li>
+        }
+      </ul>
+    </details>
+  }
+</div>

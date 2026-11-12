@@ -1,0 +1,136 @@
+questions:
+  - id: css-fundamentos-001
+    level: beginner
+    prompt: 'Qual propriedade altera apenas a cor de fundo de um elemento?'
+    options:
+      - text: '`background-color`'
+        correct: true
+        explanation: '`background-color` define só a cor de fundo, sem afetar imagens ou outras camadas do fundo.'
+      - text: '`color`'
+        explanation: '`color` muda a cor do texto, não do fundo.'
+      - text: '`bgcolor`'
+        explanation: '`bgcolor` era um atributo HTML antigo (`<body bgcolor>`). Não existe como propriedade CSS.'
+      - text: '`background-image`'
+        explanation: '`background-image` define imagens ou gradientes de fundo, não uma cor sólida.'
+    explanation: 'A propriedade abreviada `background` também aceita uma cor, mas redefine todas as outras propriedades de fundo ao mesmo tempo.'
+
+  - id: css-fundamentos-002
+    level: intermediate
+    prompt: 'Quais destas declarações deixam o fundo de um elemento vermelho?'
+    options:
+      - text: '`background-color: red;`'
+        correct: true
+        explanation: 'Define diretamente a cor de fundo.'
+      - text: '`background: red;`'
+        correct: true
+        explanation: 'A abreviação `background` aceita uma cor. As demais propriedades de fundo voltam ao valor inicial.'
+      - text: '`color: red;`'
+        explanation: '`color` muda a cor do texto.'
+      - text: '`bgcolor: red;`'
+        explanation: '`bgcolor` não é uma propriedade CSS e é ignorada pelo navegador.'
+    explanation: 'Cuidado com abreviações: `background: red` depois de um `background-image` apaga a imagem, porque redefine todas as subpropriedades.'
+
+  - id: css-fundamentos-003
+    level: beginner
+    prompt: 'Como escrever um comentário em um arquivo CSS?'
+    options:
+      - text: '`/* Este é um comentário */`'
+        correct: true
+        explanation: 'É a única sintaxe de comentário do CSS e pode ocupar várias linhas.'
+      - text: '`// Este é um comentário`'
+        explanation: 'CSS não tem comentário de linha. O `//` invalida a regra seguinte, o que causa bugs difíceis de achar.'
+      - text: '`<!-- Este é um comentário -->`'
+        explanation: 'Essa é a sintaxe de comentário do HTML.'
+      - text: '`# Este é um comentário`'
+        explanation: '`#` inicia um seletor de id no CSS, não um comentário.'
+    explanation: 'Pré-processadores como Sass aceitam `//`, mas no CSS puro só existe `/* */`.'
+
+  - id: css-fundamentos-004
+    level: beginner
+    prompt: 'Qual propriedade altera a cor do texto?'
+    options:
+      - text: '`color`'
+        correct: true
+        explanation: '`color` define a cor do texto e é o valor de `currentColor`, usado por bordas e ícones SVG.'
+      - text: '`text-color`'
+        explanation: 'Não existe `text-color` no CSS.'
+      - text: '`font-color`'
+        explanation: 'Não existe `font-color` no CSS.'
+      - text: '`text-style`'
+        explanation: 'Não existe `text-style` no CSS.'
+    explanation: 'Por ser herdada, `color` definida no `body` vale para toda a página, a menos que algum elemento a sobrescreva.'
+
+  - id: css-fundamentos-005
+    level: beginner
+    prompt: 'Qual seletor seleciona todos os parágrafos `<p>` da página?'
+    options:
+      - text: '`p { }`'
+        correct: true
+        explanation: 'É um seletor de tipo: o nome da tag seleciona todos os elementos daquele tipo.'
+      - text: '`.p { }`'
+        explanation: 'O ponto seleciona elementos com `class="p"`.'
+      - text: '`#p { }`'
+        explanation: 'A cerquilha seleciona o elemento com `id="p"`.'
+      - text: '`all.p { }`'
+        explanation: 'Selecionaria elementos `<all>` com a classe `p`, que não existem.'
+    explanation: 'Seletores de tipo têm a menor especificidade entre os seletores comuns, então são ótimos para estilos base.'
+
+  - id: css-fundamentos-006
+    level: beginner
+    prompt: 'Qual propriedade altera o tamanho da fonte?'
+    options:
+      - text: '`font-size`'
+        correct: true
+        explanation: '`font-size` aceita valores como `16px`, `1rem` ou `1.25em`.'
+      - text: '`text-size`'
+        explanation: 'Não existe `text-size` no CSS.'
+      - text: '`font-style`'
+        explanation: '`font-style` controla o itálico (`italic`, `normal`).'
+      - text: '`font-scale`'
+        explanation: 'Não existe `font-scale` no CSS.'
+    explanation: 'Prefira `rem` para tamanhos de fonte: assim o texto acompanha o tamanho que o usuário configurou no navegador.'
+
+  - id: css-fundamentos-007
+    level: beginner
+    prompt: 'Como deixar um texto em negrito com CSS?'
+    options:
+      - text: '`font-weight: bold;`'
+        correct: true
+        explanation: '`font-weight` controla a espessura. `bold` equivale a `700`.'
+      - text: '`font-style: bold;`'
+        explanation: '`font-style` só aceita valores como `normal`, `italic` e `oblique`.'
+      - text: '`text-weight: bold;`'
+        explanation: 'Não existe `text-weight` no CSS.'
+      - text: '`text-decoration: bold;`'
+        explanation: '`text-decoration` controla sublinhado e tachado, não a espessura.'
+    explanation: 'Fontes variáveis aceitam qualquer valor entre 100 e 900, como `font-weight: 650`.'
+
+  - id: css-fundamentos-008
+    level: beginner
+    prompt: 'Qual declaração centraliza horizontalmente o texto dentro de um parágrafo?'
+    options:
+      - text: '`text-align: center;`'
+        correct: true
+        explanation: '`text-align` alinha o conteúdo em linha (texto, imagens inline) dentro do bloco.'
+      - text: '`margin: 0 auto;`'
+        explanation: 'Centraliza o próprio bloco (se ele tiver largura definida), não o texto dentro dele.'
+      - text: '`align: center;`'
+        explanation: 'Não existe a propriedade `align` no CSS.'
+      - text: '`text-center: true;`'
+        explanation: 'Isso parece uma classe utilitária. Não é uma propriedade CSS.'
+    explanation: 'Centralizar texto (`text-align`) e centralizar uma caixa (`margin: auto`, flex ou grid) são problemas diferentes.'
+
+  - id: css-fundamentos-009
+    level: beginner
+    prompt: 'Como selecionar o elemento com `id="header"`?'
+    options:
+      - text: '`#header`'
+        correct: true
+        explanation: 'A cerquilha seleciona pelo `id`.'
+      - text: '`.header`'
+        explanation: 'O ponto seleciona pela classe.'
+      - text: '`header`'
+        explanation: 'Sem prefixo, seleciona elementos `<header>`.'
+      - text: '`*header`'
+        explanation: '`*` é o seletor universal e não é usado assim.'
+    explanation: 'Seletores de id têm especificidade alta e são difíceis de sobrescrever. Para estilização, prefira classes.'

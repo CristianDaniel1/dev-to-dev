@@ -1,0 +1,40 @@
+questions:
+  - id: css-cascata-001
+    level: intermediate
+    prompt: 'Qual cor o link terá, considerando o HTML `<nav id="menu" class="nav"><a class="active">Início</a></nav>`?'
+    code:
+      lang: css
+      source: |
+        #menu a {
+          color: blue;
+        }
+
+        .nav a.active {
+          color: red;
+        }
+    options:
+      - text: 'Azul'
+        correct: true
+        explanation: '`#menu a` tem especificidade (1, 0, 1). `.nav a.active` tem (0, 2, 1). Um único id vence qualquer quantidade de classes.'
+      - text: 'Vermelho'
+        explanation: 'A segunda regra vem depois, mas a ordem só desempata quando as especificidades são iguais.'
+      - text: 'A cor padrão de link do navegador'
+        explanation: 'As duas regras selecionam o link, e qualquer uma delas vence o estilo padrão do navegador.'
+      - text: 'Depende do navegador'
+        explanation: 'O cálculo de especificidade é padronizado e igual em todos os navegadores.'
+    explanation: 'A especificidade é comparada por colunas: ids, depois classes/atributos/pseudo-classes, depois tipos. Por isso, ids são difíceis de sobrescrever.'
+
+  - id: css-cascata-002
+    level: intermediate
+    prompt: 'Qual destas propriedades é herdada pelos elementos filhos por padrão?'
+    options:
+      - text: '`color`'
+        correct: true
+        explanation: 'Propriedades de texto, como `color`, `font-family` e `line-height`, são herdadas.'
+      - text: '`border`'
+        explanation: 'Bordas não são herdadas. Se fossem, cada filho repetiria a borda do pai.'
+      - text: '`margin`'
+        explanation: 'Propriedades de espaçamento não são herdadas.'
+      - text: '`background-color`'
+        explanation: 'Não é herdada. O fundo do pai só aparece por trás porque o filho é transparente por padrão.'
+    explanation: 'Para forçar a herança de qualquer propriedade, use o valor `inherit`, por exemplo `border-color: inherit`.'

@@ -1,0 +1,46 @@
+questions:
+  - id: html-formularios-001
+    level: beginner
+    prompt: 'Como associar um `<label>` ao campo `<input id="email">`?'
+    options:
+      - text: '`<label for="email">E-mail</label>`'
+        correct: true
+        explanation: 'O atributo `for` aponta para o `id` do campo. Clicar no rótulo foca o campo, e leitores de tela anunciam o nome.'
+      - text: '`<label name="email">E-mail</label>`'
+        explanation: '`name` identifica o valor enviado no formulário e pertence ao campo, não ao rótulo.'
+      - text: '`<label id="email">E-mail</label>`'
+        explanation: 'Dar ao rótulo o mesmo `id` do campo gera ids duplicados e não cria associação.'
+      - text: '`<label input="email">E-mail</label>`'
+        explanation: 'Não existe o atributo `input` em `<label>`.'
+    explanation: 'Outra forma válida é envolver o campo: `<label>E-mail <input type="email"></label>`. O que não pode é deixar o campo sem rótulo.'
+
+  - id: html-formularios-002
+    level: intermediate
+    prompt: 'Qual atributo impede o envio do formulário enquanto o campo estiver vazio?'
+    options:
+      - text: '`required`'
+        correct: true
+        explanation: 'Com `required`, o navegador bloqueia o envio e mostra uma mensagem de validação nativa.'
+      - text: '`aria-required="true"`'
+        explanation: 'Só informa às tecnologias assistivas que o campo é obrigatório. Não bloqueia o envio.'
+      - text: '`mandatory`'
+        explanation: 'Não existe o atributo `mandatory` no HTML.'
+      - text: '`validate`'
+        explanation: 'Não existe `validate`. O oposto existe: `novalidate` no `<form>` desativa a validação nativa.'
+    explanation: 'Validação no navegador melhora a experiência, mas não protege nada: os dados sempre precisam ser validados de novo no servidor.'
+
+  - id: html-formularios-003
+    level: intermediate
+    prompt: 'Dentro de um `<form>`, quais destes botões enviam o formulário ao serem clicados?'
+    options:
+      - text: '`<button>Enviar</button>`'
+        correct: true
+        explanation: 'Sem `type`, um `<button>` dentro de formulário é do tipo `submit` por padrão.'
+      - text: '`<button type="submit">Enviar</button>`'
+        correct: true
+        explanation: 'Declarar `type="submit"` deixa a intenção explícita.'
+      - text: '`<button type="button">Enviar</button>`'
+        explanation: '`type="button"` não tem comportamento padrão. Ele só faz algo se você adicionar JavaScript.'
+      - text: '`<input type="reset">`'
+        explanation: '`reset` restaura os valores iniciais dos campos e não envia nada.'
+    explanation: 'Um erro comum é esquecer o `type` em botões que não deveriam enviar o formulário, como "Mostrar senha". Declare `type="button"` neles.'

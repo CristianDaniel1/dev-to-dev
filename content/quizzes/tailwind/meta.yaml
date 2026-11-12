@@ -1,0 +1,12 @@
+name: Tailwind CSS
+description: 'Classes utilitárias para espaçamento, tipografia, cores e layout.'
+area: frontend
+badge: Tw
+color: '#38bdf8'
+onColor: '#0c1229'
+order: 60
+draft: true
+topics:
+  - slug: utilitarios
+    name: Utilitários
+    description: 'Espaçamento, tipografia, cores e layout com classes.'

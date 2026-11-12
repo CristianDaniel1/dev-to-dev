@@ -3,16 +3,21 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "content": "tsx scripts/build-content.ts",
+    "prestart": "npm run content",
     "start": "ng serve",
+    "prebuild": "npm run content",
     "build": "ng build",
-    "postbuild": "node scripts/postbuild.mjs",
+    "postbuild": "tsx scripts/postbuild.ts",
     "watch": "ng build --watch --configuration development",
+    "pretest": "npm run content",
     "test": "ng test --watch=false",
     "lint": "ng lint",
+    "typecheck": "tsc -p scripts/tsconfig.json && tsc -p e2e/tsconfig.json --noEmit",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "preview": "npx --yes serve dist/dev-to-dev/browser",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "preview": "npx --yes serve dist/dev-to-dev/browser"
   },
   "private": true,
   "packageManager": "npm@11.20.0",
@@ -35,6 +40,7 @@
     "@axe-core/playwright": "^4.14.0",
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.65.0",
+    "@shikijs/transformers": "^4.6.0",
     "@tailwindcss/postcss": "^4.1.12",
     "@types/node": "^22.12.0",
     "angular-eslint": "22.6.0",
@@ -44,10 +50,14 @@
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "serve": "^14.2.7",
+    "shiki": "^4.6.0",
     "tailwindcss": "^4.1.12",
+    "tsx": "^4.23.15",
     "typescript": "~6.0.2",
     "typescript-eslint": "8.71.0",
-    "vitest": "^5.1.0"
+    "vitest": "^5.1.0",
+    "yaml": "^2.9.1",
+    "zod": "^4.6.7"
   },
   "engines": {
     "node": ">=22.12"

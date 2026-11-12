@@ -1,0 +1,68 @@
+questions:
+  - id: css-box-model-001
+    level: beginner
+    prompt: 'Qual propriedade cria espaço entre o conteúdo e a borda do elemento?'
+    options:
+      - text: '`padding`'
+        correct: true
+        explanation: '`padding` é o espaço interno, entre o conteúdo e a borda. Ele recebe o fundo do elemento.'
+      - text: '`margin`'
+        explanation: '`margin` é o espaço externo, entre a borda e os elementos vizinhos.'
+      - text: '`border`'
+        explanation: '`border` é a borda em si, entre o padding e a margem.'
+      - text: '`spacing`'
+        explanation: 'Não existe `spacing` no CSS. Para espaço entre itens de flex e grid, use `gap`.'
+    explanation: 'De dentro para fora, o modelo de caixa é: conteúdo, padding, borda, margem.'
+
+  - id: css-box-model-002
+    level: intermediate
+    prompt: 'Sem nenhum `box-sizing` definido, qual é a largura total ocupada por este elemento?'
+    code:
+      lang: css
+      source: |
+        .card {
+          width: 200px;
+          padding: 20px;
+          border: 2px solid;
+        }
+    options:
+      - text: '244px'
+        correct: true
+        explanation: 'No padrão `content-box`, `width` vale só para o conteúdo: 200 + 20 + 20 + 2 + 2 = 244px.'
+      - text: '200px'
+        explanation: 'Isso só aconteceria com `box-sizing: border-box`.'
+      - text: '240px'
+        explanation: 'Esse valor soma o padding dos dois lados, mas esquece as bordas.'
+      - text: '222px'
+        explanation: 'Esse valor soma padding e borda de um lado só.'
+    explanation: 'O padrão `content-box` faz o tamanho final depender do padding e da borda, por isso tantos projetos aplicam `border-box` globalmente.'
+
+  - id: css-box-model-003
+    level: intermediate
+    prompt: 'Com `box-sizing: border-box`, um elemento com `width: 200px`, `padding: 20px` e `border: 2px solid` ocupa quantos pixels de largura?'
+    options:
+      - text: '200px'
+        correct: true
+        explanation: 'Em `border-box`, `width` inclui padding e borda. O conteúdo encolhe para 156px, mas a caixa continua com 200px.'
+      - text: '244px'
+        explanation: 'Essa é a conta do `content-box`, o comportamento padrão.'
+      - text: '156px'
+        explanation: '156px é a largura que sobra para o conteúdo, não a largura total.'
+      - text: '240px'
+        explanation: 'Esse valor não corresponde a nenhum dos dois modelos.'
+    explanation: 'Um reset comum é `*, *::before, *::after { box-sizing: border-box; }`, que torna os tamanhos mais previsíveis.'
+
+  - id: css-box-model-004
+    level: intermediate
+    prompt: 'Dois parágrafos empilhados: o primeiro tem `margin-bottom: 24px` e o segundo tem `margin-top: 16px`. Qual é o espaço entre eles?'
+    options:
+      - text: '24px'
+        correct: true
+        explanation: 'Margens verticais adjacentes colapsam: prevalece a maior das duas.'
+      - text: '40px'
+        explanation: 'As margens se somariam se não colapsassem, como acontece entre itens de flex e grid.'
+      - text: '16px'
+        explanation: 'No colapso vale a maior margem, não a menor.'
+      - text: '8px'
+        explanation: 'As margens não se subtraem.'
+    explanation: 'O colapso só ocorre entre margens verticais de blocos no fluxo normal. Em containers flex ou grid, as margens não colapsam.'

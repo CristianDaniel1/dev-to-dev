@@ -1,0 +1,28 @@
+<p class="mb-3 text-sm font-semibold" id="confidence-label">
+  @if (canSubmit()) {
+    Quão seguro você está?
+  } @else {
+    Escolha uma alternativa para responder.
+  }
+</p>
+<div class="grid gap-2 sm:grid-cols-3" role="group" aria-labelledby="confidence-label">
+  @for (choice of choices; track choice.value; let first = $first) {
+    <button
+      type="button"
+      class="btn"
+      [class.btn-primary]="first"
+      [class.btn-secondary]="!first"
+      [disabled]="!canSubmit()"
+      (click)="submitted.emit(choice.value)"
+    >
+      {{ choice.label }}
+    </button>
+  }
+</div>
+<p class="mt-3 hidden text-xs text-ink-muted sm:block">
+  Atalhos: <span class="kbd">A</span>–<span class="kbd">D</span> ou <span class="kbd">1</span>–<span
+    class="kbd"
+    >4</span
+  >
+  para marcar.
+</p>

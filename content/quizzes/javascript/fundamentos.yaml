@@ -1,0 +1,166 @@
+questions:
+  - id: javascript-fundamentos-001
+    level: beginner
+    prompt: 'Qual destas opções **não** é um tipo de dado do JavaScript?'
+    options:
+      - text: 'Character'
+        correct: true
+        explanation: 'JavaScript não tem um tipo para um único caractere. Um caractere é só uma string de tamanho 1.'
+      - text: 'String'
+        explanation: 'String é um tipo primitivo para texto.'
+      - text: 'Number'
+        explanation: 'Number é o tipo primitivo para números, inteiros ou decimais.'
+      - text: 'Boolean'
+        explanation: 'Boolean é o tipo primitivo para `true` e `false`.'
+    explanation: 'Os tipos primitivos são string, number, bigint, boolean, undefined, null e symbol. Todo o resto é objeto.'
+
+  - id: javascript-fundamentos-002
+    level: beginner
+    prompt: 'O que este código imprime no console?'
+    code:
+      lang: javascript
+      source: |
+        console.log('2' + 2);
+    options:
+      - text: '`"22"`'
+        correct: true
+        explanation: 'Quando um dos lados do `+` é string, o JavaScript converte o outro para string e concatena.'
+      - text: '`4`'
+        explanation: 'Seria 4 com dois números. Com uma string envolvida, o `+` concatena.'
+      - text: '`NaN`'
+        explanation: '`NaN` aparece em operações numéricas inválidas. Aqui não há operação numérica.'
+      - text: 'Um `TypeError`'
+        explanation: 'JavaScript faz a conversão de tipo implicitamente, sem lançar erro.'
+    explanation: 'Outros operadores aritméticos convertem para número: `"2" * 2` resulta em `4`. Só o `+` tem esse comportamento duplo.'
+
+  - id: javascript-fundamentos-003
+    level: beginner
+    prompt: 'Qual é o operador de atribuição em JavaScript?'
+    options:
+      - text: '`=`'
+        correct: true
+        explanation: '`=` guarda um valor em uma variável, como em `let total = 10`.'
+      - text: '`==`'
+        explanation: '`==` compara valores, com conversão de tipo.'
+      - text: '`===`'
+        explanation: '`===` compara valor e tipo, sem conversão.'
+      - text: '`:=`'
+        explanation: '`:=` é usado em linguagens como Go e Pascal, não em JavaScript.'
+    explanation: 'Um erro clássico é usar `=` dentro de um `if` querendo comparar: `if (x = 5)` atribui 5 e a condição sempre é verdadeira.'
+
+  - id: javascript-fundamentos-004
+    level: beginner
+    prompt: 'Qual é a forma correta de escrever uma condição `if`?'
+    options:
+      - text: '`if (idade >= 18) { ... }`'
+        correct: true
+        explanation: 'A condição vai entre parênteses e o bloco entre chaves.'
+      - text: '`if idade >= 18 then { ... }`'
+        explanation: '`then` não existe em JavaScript, e os parênteses são obrigatórios.'
+      - text: '`if idade >= 18: ...`'
+        explanation: 'Essa é a sintaxe do Python.'
+      - text: '`if [idade >= 18] { ... }`'
+        explanation: 'Colchetes criam um array. A condição precisa estar entre parênteses.'
+    explanation: 'As chaves são opcionais para uma única instrução, mas usá-las sempre evita bugs ao adicionar linhas depois.'
+
+  - id: javascript-fundamentos-005
+    level: beginner
+    prompt: 'Qual método converte uma string para letras maiúsculas?'
+    options:
+      - text: '`toUpperCase()`'
+        correct: true
+        explanation: '`"olá".toUpperCase()` retorna `"OLÁ"`.'
+      - text: '`toUpper()`'
+        explanation: 'Esse método não existe em JavaScript.'
+      - text: '`upperCase()`'
+        explanation: 'Esse método não existe em JavaScript.'
+      - text: '`capitalize()`'
+        explanation: 'Não existe nativamente. Para deixar só a primeira letra maiúscula, é preciso combinar métodos.'
+    explanation: 'Strings são imutáveis: `toUpperCase()` retorna uma nova string e não altera a original.'
+
+  - id: javascript-fundamentos-006
+    level: beginner
+    prompt: 'Como escrever um comentário de uma linha em JavaScript?'
+    options:
+      - text: '`// Este é um comentário`'
+        correct: true
+        explanation: '`//` comenta até o fim da linha. Para várias linhas, use `/* */`.'
+      - text: '`<!-- Este é um comentário -->`'
+        explanation: 'Essa é a sintaxe de comentário do HTML.'
+      - text: '`# Este é um comentário`'
+        explanation: '`#` comenta em Python e no shell. Em JavaScript, `#` marca campos privados de classes.'
+      - text: '`-- Este é um comentário`'
+        explanation: '`--` comenta em SQL. Em JavaScript é o operador de decremento.'
+    explanation: 'Bons comentários explicam o porquê de uma decisão. O que o código faz deve ficar claro pelos nomes.'
+
+  - id: javascript-fundamentos-007
+    level: intermediate
+    prompt: 'O que este código imprime no console?'
+    code:
+      lang: javascript
+      source: |
+        console.log(typeof null);
+    options:
+      - text: '`"object"`'
+        correct: true
+        explanation: 'É um bug da primeira versão do JavaScript, mantido para não quebrar sites existentes.'
+      - text: '`"null"`'
+        explanation: '`typeof` nunca retorna `"null"` para nenhum valor.'
+      - text: '`"undefined"`'
+        explanation: '`"undefined"` é o resultado para variáveis sem valor atribuído, não para `null`.'
+      - text: 'Um `TypeError`'
+        explanation: '`typeof` nunca lança erro, nem com variáveis que não foram declaradas.'
+    explanation: 'Para verificar se algo é `null`, compare diretamente: `valor === null`.'
+
+  - id: javascript-fundamentos-008
+    level: intermediate
+    prompt: 'O que este código imprime no console?'
+    code:
+      lang: javascript
+      source: |
+        console.log(0.1 + 0.2 === 0.3);
+    options:
+      - text: '`false`'
+        correct: true
+        explanation: '`0.1 + 0.2` resulta em `0.30000000000000004` por causa da representação binária de ponto flutuante.'
+      - text: '`true`'
+        explanation: 'Matematicamente seria, mas 0.1 e 0.2 não têm representação exata em binário.'
+      - text: '`NaN`'
+        explanation: 'A soma é um número válido, e a comparação retorna um booleano.'
+      - text: 'Um `SyntaxError`'
+        explanation: 'O código é válido.'
+    explanation: 'Isso acontece em quase todas as linguagens que usam IEEE 754. Para dinheiro, trabalhe com centavos inteiros ou bibliotecas decimais.'
+
+  - id: javascript-fundamentos-009
+    level: intermediate
+    prompt: 'Qual declaração cria uma variável que não pode ser reatribuída?'
+    options:
+      - text: '`const`'
+        correct: true
+        explanation: '`const` impede uma nova atribuição. Se o valor for um objeto, o conteúdo dele ainda pode ser alterado.'
+      - text: '`let`'
+        explanation: '`let` tem escopo de bloco, mas permite reatribuição.'
+      - text: '`var`'
+        explanation: '`var` permite reatribuição e tem escopo de função, uma fonte comum de bugs.'
+      - text: '`static`'
+        explanation: '`static` define membros de classe, não variáveis.'
+    explanation: 'Use `const` por padrão e `let` apenas quando a variável precisar mudar. Evite `var` em código novo.'
+
+  - id: javascript-fundamentos-010
+    level: intermediate
+    prompt: 'O que este código imprime no console?'
+    code:
+      lang: javascript
+      source: |
+        console.log(0 == '0', 0 === '0');
+    options:
+      - text: '`true false`'
+        correct: true
+        explanation: '`==` converte a string para número antes de comparar. `===` compara também o tipo, e number é diferente de string.'
+      - text: '`true true`'
+        explanation: '`===` não converte tipos, então number e string nunca são iguais.'
+      - text: '`false false`'
+        explanation: 'Com `==`, `"0"` vira `0` antes da comparação.'
+      - text: '`false true`'
+        explanation: 'O contrário: `==` é o operador mais permissivo.'
+    explanation: 'Prefira `===`. As regras de conversão do `==` têm armadilhas, como `"" == 0` ser `true`.'

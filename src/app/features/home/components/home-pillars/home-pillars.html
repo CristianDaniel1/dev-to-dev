@@ -1,0 +1,31 @@
+<div class="container-page grid gap-16 py-16 lg:grid-cols-2 lg:gap-20 lg:py-24">
+  <section aria-labelledby="quizzes-heading">
+    <h2 id="quizzes-heading" class="text-2xl font-bold">Quizzes por tecnologia</h2>
+    <p class="mt-3 max-w-prose text-ink-muted">
+      Do HTML ao SQL, em três níveis. Novas áreas, como backend, bancos de dados e DevOps, entram
+      depois do lançamento.
+    </p>
+    <ul class="mt-6 flex flex-wrap gap-2">
+      @for (tech of techs; track tech) {
+        <li class="chip text-sm">{{ tech }}</li>
+      }
+    </ul>
+    <a routerLink="/quizzes" class="link mt-8 inline-block font-medium">Ver todos os quizzes</a>
+  </section>
+
+  <section aria-labelledby="resources-heading">
+    <h2 id="resources-heading" class="text-2xl font-bold">Recursos selecionados</h2>
+    <p class="mt-3 max-w-prose text-ink-muted">
+      Ferramentas e materiais escolhidos a dedo, cada um com o motivo da recomendação. Nada de lista
+      infinita de links.
+    </p>
+    <ul class="mt-6 border-t border-line">
+      @for (category of categories; track category) {
+        <li class="border-b border-line py-3 font-medium">{{ category }}</li>
+      }
+    </ul>
+    <a routerLink="/recursos" class="link mt-8 inline-block font-medium"
+      >Ver a central de recursos</a
+    >
+  </section>
+</div>

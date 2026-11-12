@@ -1,0 +1,39 @@
+questions:
+  - id: react-estado-001
+    level: intermediate
+    prompt: 'Começando em `0`, quanto vale `count` depois de um clique no botão?'
+    code:
+      lang: jsx
+      source: |
+        const [count, setCount] = useState(0);
+
+        function handleClick() {
+          setCount(count + 1);
+          setCount(count + 1);
+        }
+    options:
+      - text: '`1`'
+        correct: true
+        explanation: 'As duas chamadas usam o mesmo `count` daquela renderização (0), então ambas pedem `0 + 1`.'
+      - text: '`2`'
+        explanation: 'Seria 2 com a forma de função: `setCount((anterior) => anterior + 1)` duas vezes.'
+      - text: '`0`'
+        explanation: 'O estado é atualizado, só que com o mesmo valor duas vezes.'
+      - text: 'Gera um erro por atualizar o estado duas vezes'
+        explanation: 'Chamar o setter várias vezes é permitido. O React agrupa as atualizações em uma renderização.'
+    explanation: 'Dentro de uma renderização, o estado é um valor fixo. Quando a atualização depende do valor anterior, use a forma de função.'
+
+  - id: react-estado-002
+    level: intermediate
+    prompt: 'Qual recurso nativo do React compartilha dados entre componentes distantes sem passar props por todos os níveis?'
+    options:
+      - text: 'Context (`createContext` e `useContext`)'
+        correct: true
+        explanation: 'Um Provider disponibiliza o valor para qualquer componente abaixo dele na árvore.'
+      - text: '`useRef`'
+        explanation: '`useRef` guarda um valor dentro de um único componente.'
+      - text: 'Redux'
+        explanation: 'Redux resolve esse problema, mas é uma biblioteca externa.'
+      - text: '`useMemo`'
+        explanation: '`useMemo` memoriza cálculos e não compartilha nada entre componentes.'
+    explanation: 'Context é ótimo para dados que mudam pouco, como tema ou usuário logado. Para estado global que muda muito, bibliotecas dedicadas costumam render menos vezes.'

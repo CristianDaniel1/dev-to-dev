@@ -1,0 +1,18 @@
+<div class="flex items-center gap-3">
+  <app-tech-badge [tech]="tech()" size="sm" />
+  <p class="font-semibold">{{ tech().name }}</p>
+  <a [routerLink]="['/quizzes', tech().slug]" class="btn btn-ghost ml-auto min-h-9 px-3">Sair</a>
+</div>
+
+@if (showProgress()) {
+  <div class="mt-4 flex items-center gap-3">
+    <div class="h-1.5 flex-1 overflow-hidden rounded-full bg-surface-sunken" aria-hidden="true">
+      <div
+        class="h-full rounded-full transition-[width] duration-500"
+        [style.width.%]="progressPercent()"
+        [style.background-color]="tech().color"
+      ></div>
+    </div>
+    <p class="text-sm text-ink-muted tabular-nums">Pergunta {{ position() }} de {{ total() }}</p>
+  </div>
+}

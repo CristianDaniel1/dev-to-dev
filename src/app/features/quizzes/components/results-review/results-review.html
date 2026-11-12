@@ -1,0 +1,43 @@
+<h3 class="text-xl font-bold">Revisão das perguntas</h3>
+<ol class="mt-4 flex flex-col gap-3">
+  @for (item of items(); track item.question.id; let index = $index) {
+    <li>
+      <details class="card p-4 sm:p-5" [open]="isMissed(item)">
+        <summary class="flex cursor-pointer list-none items-start gap-3">
+          @if (item.answer?.correct) {
+            <app-icon name="check" class="mt-0.5 text-correct" />
+            <span class="sr-only">Certa:</span>
+          } @else {
+            <app-icon name="cross" class="mt-0.5 text-wrong" />
+            <span class="sr-only">Errada:</span>
+          }
+          <span class="font-mono text-sm text-ink-muted" aria-hidden="true">{{ index + 1 }}</span>
+          <span class="rich-text flex-1 font-medium" [innerHTML]="item.question.promptHtml"></span>
+          @if (isLuckyGuess(item)) {
+            <span class="chip shrink-0">No chute</span>
+          }
+        </summary>
+        <div class="mt-4 flex flex-col gap-2 border-t border-line pt-4 text-sm">
+          @if (item.question.code; as code) {
+            <div class="code-block mb-2" [innerHTML]="code.html"></div>
+          }
+          @if (!item.answer?.correct) {
+            <p class="rich-text">
+              <span class="font-semibold text-wrong">Sua resposta: </span>
+              @for (option of picked(item); track option.id; let last = $last) {
+                <span [innerHTML]="option.html"></span>{{ last ? '' : ', ' }}
+              }
+            </p>
+          }
+          <p class="rich-text">
+            <span class="font-semibold text-correct">Correta: </span>
+            @for (option of correct(item); track option.id; let last = $last) {
+              <span [innerHTML]="option.html"></span>{{ last ? '' : ', ' }}
+            }
+          </p>
+          <p class="rich-text text-ink-muted" [innerHTML]="item.question.explanationHtml"></p>
+        </div>
+      </details>
+    </li>
+  }
+</ol>

@@ -1,0 +1,77 @@
+questions:
+  - id: javascript-funcoes-001
+    level: beginner
+    prompt: 'Qual é a forma correta de declarar uma função?'
+    options:
+      - text: '`function somar(a, b) { return a + b; }`'
+        correct: true
+        explanation: 'Essa é uma declaração de função: palavra-chave, nome, parâmetros e corpo.'
+      - text: '`function: somar(a, b) { return a + b; }`'
+        explanation: 'Não há dois-pontos depois de `function`.'
+      - text: '`somar function(a, b) { return a + b; }`'
+        explanation: 'A palavra `function` vem antes do nome.'
+      - text: '`def somar(a, b): return a + b`'
+        explanation: 'Essa é a sintaxe do Python.'
+    explanation: 'Também é comum usar arrow functions: `const somar = (a, b) => a + b;`.'
+
+  - id: javascript-funcoes-002
+    level: beginner
+    prompt: 'Como chamar uma função chamada `saudar`?'
+    options:
+      - text: '`saudar()`'
+        correct: true
+        explanation: 'Os parênteses executam a função. Os argumentos vão dentro deles.'
+      - text: '`call saudar`'
+        explanation: '`call` não é palavra-chave em JavaScript. Existe o método `saudar.call()`, mas ele é para casos específicos.'
+      - text: '`saudar`'
+        explanation: 'Sem parênteses, você só faz referência à função, sem executá-la. Isso é útil para passá-la como callback.'
+      - text: '`run saudar()`'
+        explanation: '`run` não existe em JavaScript.'
+    explanation: 'Um bug comum é escrever `botao.addEventListener("click", saudar())`: a função executa na hora, em vez de no clique.'
+
+  - id: javascript-funcoes-003
+    level: intermediate
+    prompt: 'O que este código imprime no console?'
+    code:
+      lang: javascript
+      source: |
+        function criarContador() {
+          let total = 0;
+          return () => ++total;
+        }
+
+        const proximo = criarContador();
+        proximo();
+        proximo();
+        console.log(proximo());
+    options:
+      - text: '`3`'
+        correct: true
+        explanation: 'A função retornada mantém acesso a `total` (uma closure). Cada chamada incrementa a mesma variável.'
+      - text: '`1`'
+        explanation: '`total` não é recriado a cada chamada de `proximo`, só a cada chamada de `criarContador`.'
+      - text: '`0`'
+        explanation: '`++total` incrementa antes de retornar.'
+      - text: '`undefined`'
+        explanation: 'A arrow function retorna o resultado de `++total` implicitamente.'
+    explanation: 'Closures permitem estado privado: nada fora de `criarContador` consegue alterar `total` diretamente.'
+
+  - id: javascript-funcoes-004
+    level: advanced
+    prompt: 'O que acontece ao executar este código?'
+    code:
+      lang: javascript
+      source: |
+        console.log(nome);
+        let nome = 'Ana';
+    options:
+      - text: 'Lança um `ReferenceError`'
+        correct: true
+        explanation: '`let` e `const` são içadas, mas ficam na "zona morta temporal" até a declaração. Acessá-las antes gera erro.'
+      - text: 'Imprime `undefined`'
+        explanation: 'Esse seria o resultado com `var`, que é içada e inicializada com `undefined`.'
+      - text: 'Imprime `"Ana"`'
+        explanation: 'A atribuição só acontece na segunda linha.'
+      - text: 'Imprime `null`'
+        explanation: 'Nenhuma variável é inicializada com `null` automaticamente.'
+    explanation: 'A zona morta temporal transforma em erro um bug que `var` esconderia silenciosamente.'

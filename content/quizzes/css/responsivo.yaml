@@ -1,0 +1,45 @@
+questions:
+  - id: css-responsivo-001
+    level: beginner
+    prompt: 'Qual media query aplica estilos apenas em telas com pelo menos 768px de largura?'
+    options:
+      - text: '`@media (min-width: 768px) { ... }`'
+        correct: true
+        explanation: '`min-width` aplica as regras a partir de 768px. É a base da abordagem mobile-first.'
+      - text: '`@media (max-width: 768px) { ... }`'
+        explanation: '`max-width` faz o contrário: aplica as regras até 768px.'
+      - text: '`@screen (width > 768) { ... }`'
+        explanation: '`@screen` não existe no CSS (é uma diretiva antiga do Tailwind).'
+      - text: '`@media width >= 768px { ... }`'
+        explanation: 'A sintaxe de intervalo existe, mas exige parênteses: `@media (width >= 768px)`.'
+    explanation: 'No mobile-first, os estilos base valem para telas pequenas e as media queries com `min-width` acrescentam ajustes para telas maiores.'
+
+  - id: css-responsivo-002
+    level: intermediate
+    prompt: 'A unidade `rem` é relativa a quê?'
+    options:
+      - text: 'Ao tamanho da fonte do elemento raiz (`<html>`)'
+        correct: true
+        explanation: '`1rem` é igual ao `font-size` do `<html>`, normalmente 16px, ou o que o usuário configurou no navegador.'
+      - text: 'Ao tamanho da fonte do elemento pai'
+        explanation: 'Essa é a unidade `em`, que se acumula em elementos aninhados.'
+      - text: 'À largura da janela'
+        explanation: 'Essa é a unidade `vw`: 1vw equivale a 1% da largura da janela.'
+      - text: 'A um valor fixo de 16 pixels'
+        explanation: '16px é só o padrão comum. Se o usuário aumentar a fonte no navegador, o `rem` acompanha.'
+    explanation: 'Usar `rem` respeita a preferência de tamanho de fonte do usuário, algo importante para acessibilidade.'
+
+  - id: css-responsivo-003
+    level: advanced
+    prompt: 'O que faz a declaração `font-size: clamp(1rem, 2.5vw, 2rem);`?'
+    options:
+      - text: 'A fonte acompanha 2.5% da largura da janela, mas nunca fica menor que 1rem nem maior que 2rem'
+        correct: true
+        explanation: '`clamp(mínimo, ideal, máximo)` usa o valor ideal enquanto ele estiver entre os limites.'
+      - text: 'Escolhe aleatoriamente um dos três valores'
+        explanation: 'Não há nada aleatório: o resultado é determinístico.'
+      - text: 'Usa 1rem no celular, 2.5vw no tablet e 2rem no desktop'
+        explanation: '`clamp` não depende de breakpoints. A transição é contínua.'
+      - text: 'Soma os três valores'
+        explanation: '`clamp` limita um valor entre um mínimo e um máximo. Para somar, existe `calc()`.'
+    explanation: 'Para não ignorar o zoom do usuário, combine `rem` com `vw` no valor ideal, por exemplo `clamp(1rem, 0.8rem + 1vw, 2rem)`.'

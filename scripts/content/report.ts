@@ -1,0 +1,21 @@
+import { LEVELS } from '../../src/app/shared/constants/content.constants';
+import type { TechSummary } from '../../src/app/shared/interfaces/content.interface';
+
+const reportRow = (tech: TechSummary): string => {
+  const levels = LEVELS.map((level) => `${level.charAt(0)}:${tech.levelCounts[level]}`).join(' ');
+  const count = String(tech.questionCount).padStart(3);
+  return `  ${tech.slug.padEnd(12)} ${count} questions  ${levels}  (${tech.topics.length} topics)`;
+};
+
+/**
+ * Prints how many questions each published tech has, by level and topic count.
+ *
+ * @param summaries - Published techs.
+ * @param drafts - Slugs of the techs skipped as drafts.
+ */
+export const printReport = (summaries: readonly TechSummary[], drafts: readonly string[]): void => {
+  const total = summaries.reduce((sum, tech) => sum + tech.questionCount, 0);
+  console.log(`content: ${total} questions in ${summaries.length} techs`);
+  console.log(summaries.map(reportRow).join('\n'));
+  if (drafts.length) console.log(`  drafts skipped: ${drafts.join(', ')}`);
+};

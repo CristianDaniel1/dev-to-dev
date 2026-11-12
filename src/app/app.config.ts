@@ -12,8 +12,8 @@ import {
 } from '@angular/router';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { routes } from './app.routes';
-import { AppErrorHandler } from '@/core/error/report-error';
-import { SeoTitleStrategy } from '@/core/seo/seo-title-strategy';
+import { AppErrorHandler } from '@/core/services/app-error-handler';
+import { SeoTitleStrategy } from '@/core/services/seo-title-strategy';
 
 export const appConfig: ApplicationConfig = {
   providers: [

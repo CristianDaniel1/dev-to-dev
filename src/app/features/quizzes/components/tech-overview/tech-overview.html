@@ -1,0 +1,33 @@
+@if (summary(); as tech) {
+  <div class="container-page">
+    <nav aria-label="Trilha de navegação" class="pt-8 text-sm">
+      <a routerLink="/quizzes" class="text-ink-muted hover:text-ink">Quizzes</a>
+      <span class="mx-2 text-ink-muted" aria-hidden="true">/</span>
+      <span aria-current="page">{{ tech.name }}</span>
+    </nav>
+
+    <header class="flex flex-col gap-5 pt-6 pb-10 sm:flex-row sm:items-center">
+      <app-tech-badge [tech]="tech" size="lg" />
+      <div>
+        <h1 class="text-3xl font-extrabold [font-stretch:78%] sm:text-[3.25rem] sm:leading-none">
+          Quiz de {{ tech.name }}
+        </h1>
+        <p class="prose-width mt-3 text-lg text-ink-muted">{{ tech.description }}</p>
+      </div>
+    </header>
+
+    <div class="grid items-start gap-10 lg:grid-cols-[1fr_22rem]">
+      <app-topic-list [tech]="tech" />
+      <app-session-setup class="lg:sticky lg:top-[calc(var(--header-h)+1.5rem)]" [tech]="tech" />
+    </div>
+  </div>
+} @else {
+  <div class="container-page py-16">
+    <app-empty-state
+      heading="Quiz não encontrado"
+      description="Não existe um quiz com esse endereço. Veja as tecnologias disponíveis no catálogo."
+    >
+      <a routerLink="/quizzes" class="btn btn-primary">Ver quizzes</a>
+    </app-empty-state>
+  </div>
+}

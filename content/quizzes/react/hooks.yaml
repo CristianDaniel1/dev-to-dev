@@ -1,0 +1,30 @@
+questions:
+  - id: react-hooks-001
+    level: beginner
+    prompt: 'Qual hook adiciona estado a um componente de função?'
+    options:
+      - text: '`useState`'
+        correct: true
+        explanation: '`const [valor, setValor] = useState(inicial)` cria um estado e uma função para atualizá-lo.'
+      - text: '`useEffect`'
+        explanation: '`useEffect` sincroniza o componente com algo externo, como uma API ou um timer.'
+      - text: '`useContext`'
+        explanation: '`useContext` lê um valor compartilhado por um Provider acima na árvore.'
+      - text: '`useRef`'
+        explanation: '`useRef` guarda um valor que persiste entre renderizações, mas alterá-lo não renderiza o componente de novo.'
+    explanation: 'Para estados com muitas transições relacionadas, `useReducer` organiza melhor a lógica.'
+
+  - id: react-hooks-002
+    level: beginner
+    prompt: 'Qual hook sincroniza um componente com sistemas externos, como assinaturas, timers ou APIs do navegador?'
+    options:
+      - text: '`useEffect`'
+        correct: true
+        explanation: 'O efeito roda depois da renderização, e a função retornada faz a limpeza.'
+      - text: '`useState`'
+        explanation: '`useState` guarda estado e não executa efeitos colaterais.'
+      - text: '`useMemo`'
+        explanation: '`useMemo` memoriza o resultado de um cálculo durante a renderização.'
+      - text: '`useContext`'
+        explanation: '`useContext` lê um contexto.'
+    explanation: 'Se você só quer calcular algo a partir de props ou estado, não precisa de efeito: calcule direto durante a renderização.'

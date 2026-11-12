@@ -1,0 +1,23 @@
+name: JavaScript
+description: 'Tipos, funções, arrays, assincronismo e DOM: a linguagem da web na prática.'
+area: frontend
+badge: JS
+color: '#f7df1e'
+onColor: '#17203a'
+order: 30
+topics:
+  - slug: fundamentos
+    name: Fundamentos
+    description: 'Tipos, operadores, variáveis e comparações.'
+  - slug: funcoes
+    name: Funções
+    description: 'Declaração, escopo, closures e hoisting.'
+  - slug: arrays-e-objetos
+    name: Arrays e objetos
+    description: 'Métodos de array, mutação e cópias.'
+  - slug: assincrono
+    name: Assincronismo
+    description: 'Promises, async/await e o event loop.'
+  - slug: dom
+    name: DOM
+    description: 'Selecionar, alterar e reagir a elementos da página.'

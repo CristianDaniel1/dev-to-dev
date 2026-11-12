@@ -1,0 +1,22 @@
+<div class="container-page">
+  <app-page-header
+    heading="Quizzes"
+    intro="Escolha uma tecnologia para praticar. Cada alternativa tem explicação, e o que você errar volta para revisão."
+  />
+
+  @for (area of areas; track area.slug) {
+    <section class="mb-14" [attr.aria-labelledby]="'area-' + area.slug">
+      <h2 [id]="'area-' + area.slug" class="mb-5 text-xl font-bold">{{ area.label }}</h2>
+      <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        @for (tech of area.techs; track tech.slug) {
+          <li><app-tech-card [tech]="tech" /></li>
+        }
+      </ul>
+    </section>
+  }
+
+  <p class="text-sm text-ink-muted">
+    TypeScript, Angular, Git e SQL estão sendo escritos. Backend, bancos de dados e DevOps chegam
+    depois do lançamento.
+  </p>
+</div>

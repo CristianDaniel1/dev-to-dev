@@ -1,0 +1,17 @@
+name: React
+description: 'Componentes, JSX, props, estado e hooks na biblioteca de UI mais usada.'
+area: frontend
+badge: Re
+color: '#087ea4'
+onColor: '#ffffff'
+order: 50
+topics:
+  - slug: fundamentos
+    name: Fundamentos
+    description: 'Componentes, JSX, props e renderização de listas.'
+  - slug: hooks
+    name: Hooks
+    description: 'useState, useEffect e as regras dos hooks.'
+  - slug: estado
+    name: Estado
+    description: 'Atualizações de estado e compartilhamento entre componentes.'

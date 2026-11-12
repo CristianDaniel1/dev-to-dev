@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import './app/shared/generated/code-highlight.css';
 
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
 
@@ -222,6 +223,56 @@
 
   .highlight-draw {
     animation: highlight-draw 600ms var(--ease-out-soft) both;
+  }
+
+  .chip-active {
+    @apply border-ink bg-ink text-paper;
+  }
+
+  /* Segmented control built from visually hidden radio inputs (`input.peer` + `span`). */
+  .segmented {
+    @apply flex flex-wrap gap-1 rounded-control border border-line bg-surface-sunken p-1;
+
+    & label {
+      @apply flex-1;
+    }
+
+    & span {
+      @apply flex min-h-9 cursor-pointer items-center justify-center rounded-[calc(var(--radius-control)-0.25rem)] px-3 text-sm font-medium whitespace-nowrap text-ink-muted transition-colors hover:text-ink;
+    }
+
+    & input:checked + span {
+      @apply bg-surface text-ink shadow-card;
+    }
+
+    & input:focus-visible + span {
+      outline: 3px solid var(--color-pen);
+      outline-offset: 2px;
+    }
+  }
+
+  /* Inline code inside content rendered from markdown. */
+  .rich-text code {
+    @apply rounded bg-surface-sunken px-1.5 py-0.5 font-mono text-[0.9em] text-ink;
+  }
+
+  .highlight code,
+  .highlight.rich-text code {
+    background: transparent;
+    color: inherit;
+  }
+
+  /* Highlighted code blocks; colors come from the generated code-highlight.css. */
+  .code-block pre {
+    @apply overflow-x-auto rounded-control border border-line bg-surface-sunken px-4 py-3 font-mono text-sm leading-relaxed;
+  }
+
+  .code-block span {
+    color: var(--shiki-light);
+  }
+
+  [data-theme='dark'] .code-block span {
+    color: var(--shiki-dark);
   }
 
   /* Ruled index card used by question cards. */

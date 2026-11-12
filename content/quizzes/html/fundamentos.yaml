@@ -1,0 +1,120 @@
+questions:
+  - id: html-fundamentos-001
+    level: beginner
+    prompt: 'Como escrever um comentário em HTML?'
+    options:
+      - text: '`<!-- Este é um comentário -->`'
+        correct: true
+        explanation: 'Essa é a sintaxe de comentário do HTML: o navegador ignora tudo entre `<!--` e `-->`.'
+      - text: '`// Este é um comentário`'
+        explanation: '`//` comenta uma linha em JavaScript. No HTML, esse texto apareceria na página.'
+      - text: '`/* Este é um comentário */`'
+        explanation: '`/* */` é a sintaxe de comentário do CSS e do JavaScript, não do HTML.'
+      - text: '`<comment>Este é um comentário</comment>`'
+        explanation: 'Não existe um elemento `<comment>`. O navegador trataria a tag como desconhecida e mostraria o texto.'
+    explanation: 'Comentários HTML não aparecem na página, mas continuam visíveis no código-fonte. Nunca coloque informações sensíveis neles.'
+
+  - id: html-fundamentos-002
+    level: beginner
+    prompt: 'Qual elemento cria uma lista numerada?'
+    options:
+      - text: '`<ol>`'
+        correct: true
+        explanation: '`<ol>` (ordered list) indica que a ordem dos itens importa, e o navegador numera cada `<li>`.'
+      - text: '`<ul>`'
+        explanation: '`<ul>` (unordered list) é para listas em que a ordem não importa. Por padrão, mostra marcadores.'
+      - text: '`<dl>`'
+        explanation: '`<dl>` é uma lista de descrições: pares de termo (`<dt>`) e definição (`<dd>`).'
+      - text: '`<list>`'
+        explanation: 'Não existe um elemento `<list>` no HTML.'
+    explanation: 'Escolha entre `<ol>` e `<ul>` pelo significado (a ordem importa?), não pela aparência. Os marcadores podem ser trocados no CSS.'
+
+  - id: html-fundamentos-003
+    level: beginner
+    prompt: 'Qual elemento representa cada item de uma lista `<ul>` ou `<ol>`?'
+    options:
+      - text: '`<li>`'
+        correct: true
+        explanation: '`<li>` (list item) é o único filho direto válido de `<ul>` e `<ol>`.'
+      - text: '`<item>`'
+        explanation: 'Não existe um elemento `<item>` no HTML.'
+      - text: '`<dt>`'
+        explanation: '`<dt>` é o termo de uma lista de descrições (`<dl>`), não um item de `<ul>` ou `<ol>`.'
+      - text: '`<ul>`'
+        explanation: '`<ul>` é a lista em si. Ele pode aparecer dentro de um `<li>` para criar sublistas.'
+    explanation: 'Listas aninhadas são feitas colocando um novo `<ul>` ou `<ol>` dentro de um `<li>`, nunca diretamente dentro de outra lista.'
+
+  - id: html-fundamentos-004
+    level: beginner
+    prompt: 'Qual elemento representa um parágrafo de texto?'
+    options:
+      - text: '`<p>`'
+        correct: true
+        explanation: '`<p>` marca um parágrafo. O navegador adiciona margens acima e abaixo por padrão.'
+      - text: '`<para>`'
+        explanation: 'Não existe um elemento `<para>` no HTML.'
+      - text: '`<text>`'
+        explanation: '`<text>` existe dentro de SVG, não no HTML comum.'
+      - text: '`<span>`'
+        explanation: '`<span>` é um container em linha sem significado. Serve para estilizar trechos dentro de um texto.'
+    explanation: 'Use `<p>` para blocos de texto corrido. Usar `<br>` repetido para separar parágrafos prejudica a semântica e a acessibilidade.'
+
+  - id: html-fundamentos-005
+    level: beginner
+    prompt: 'Qual elemento insere uma quebra de linha dentro de um texto, como nas linhas de um endereço ou de um poema?'
+    options:
+      - text: '`<br>`'
+        correct: true
+        explanation: '`<br>` quebra a linha sem criar um novo parágrafo. É indicado quando a quebra faz parte do conteúdo.'
+      - text: '`<break>`'
+        explanation: 'Não existe um elemento `<break>` no HTML.'
+      - text: '`<lb>`'
+        explanation: 'Não existe um elemento `<lb>` no HTML.'
+      - text: '`<hr>`'
+        explanation: '`<hr>` representa uma mudança de assunto (quebra temática), não uma simples quebra de linha.'
+    explanation: '`<br>` é um elemento vazio: não tem tag de fechamento. Para criar espaço entre blocos, use margens no CSS em vez de vários `<br>`.'
+
+  - id: html-fundamentos-006
+    level: beginner
+    prompt: 'Qual elemento representa uma mudança de assunto entre parágrafos e é exibido como uma linha horizontal?'
+    options:
+      - text: '`<hr>`'
+        correct: true
+        explanation: '`<hr>` marca uma quebra temática, como a troca de cena em uma história. A linha é só a aparência padrão.'
+      - text: '`<line>`'
+        explanation: '`<line>` é um elemento de SVG, não do HTML.'
+      - text: '`<br>`'
+        explanation: '`<br>` quebra a linha dentro de um texto, sem indicar mudança de assunto.'
+      - text: '`<tr>`'
+        explanation: '`<tr>` é uma linha de tabela (table row).'
+    explanation: 'Se você só quer uma linha decorativa, use uma borda no CSS. `<hr>` tem significado e é anunciado por leitores de tela como separador.'
+
+  - id: html-fundamentos-007
+    level: beginner
+    prompt: 'Qual tag declara que a página usa a codificação de caracteres UTF-8?'
+    options:
+      - text: '`<meta charset="UTF-8">`'
+        correct: true
+        explanation: 'Essa é a forma moderna e mais curta de declarar a codificação. Deve vir no início do `<head>`.'
+      - text: '`<meta encoding="UTF-8">`'
+        explanation: 'O atributo `encoding` não existe na tag `<meta>`.'
+      - text: '`<html charset="UTF-8">`'
+        explanation: 'O elemento `<html>` não tem atributo `charset`. Ele aceita, por exemplo, `lang`.'
+      - text: '`<meta lang="UTF-8">`'
+        explanation: '`lang` define o idioma do conteúdo, não a codificação, e é usado no `<html>`.'
+    explanation: 'Sem a codificação correta, acentos e caracteres como "ç" podem aparecer quebrados. A declaração precisa estar nos primeiros 1024 bytes do documento.'
+
+  - id: html-fundamentos-008
+    level: intermediate
+    prompt: 'Qual é a função do `<!DOCTYPE html>` no início de um documento?'
+    options:
+      - text: 'Faz o navegador renderizar a página no modo padrão (standards mode)'
+        correct: true
+        explanation: 'Sem o doctype, os navegadores entram no "quirks mode" e imitam comportamentos antigos e inconsistentes.'
+      - text: 'Importa a especificação do HTML5 para a página'
+        explanation: 'O doctype não baixa nem importa nada. Ele só sinaliza qual modo de renderização usar.'
+      - text: 'Define a codificação de caracteres da página'
+        explanation: 'A codificação é definida com `<meta charset="UTF-8">`.'
+      - text: 'É exigido apenas por validadores, sem efeito no navegador'
+        explanation: 'Ele muda de verdade a renderização: em quirks mode, o modelo de caixa e alguns cálculos de layout mudam.'
+    explanation: 'O doctype do HTML atual é curto de propósito: `<!DOCTYPE html>`, sem versão. Deve ser a primeira linha do arquivo.'

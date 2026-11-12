@@ -1,0 +1,60 @@
+questions:
+  - id: css-layout-001
+    level: beginner
+    prompt: 'Qual é o valor padrão de `flex-direction` em um container com `display: flex`?'
+    options:
+      - text: '`row`'
+        correct: true
+        explanation: 'Por padrão, os itens ficam lado a lado, na direção do texto (da esquerda para a direita em português).'
+      - text: '`column`'
+        explanation: '`column` empilha os itens verticalmente, mas precisa ser declarado.'
+      - text: '`row-reverse`'
+        explanation: '`row-reverse` inverte a ordem visual e também precisa ser declarado.'
+      - text: '`wrap`'
+        explanation: '`wrap` é um valor de `flex-wrap`, não de `flex-direction`.'
+    explanation: 'A direção define o eixo principal. `justify-content` atua nesse eixo e `align-items` no eixo cruzado.'
+
+  - id: css-layout-002
+    level: intermediate
+    prompt: 'Em um container com `display: flex` e direção padrão, qual combinação centraliza um item nos dois eixos?'
+    options:
+      - text: '`justify-content: center;` e `align-items: center;`'
+        correct: true
+        explanation: '`justify-content` centraliza no eixo principal (horizontal) e `align-items` no eixo cruzado (vertical).'
+      - text: '`text-align: center;` e `vertical-align: middle;`'
+        explanation: 'Essas propriedades valem para conteúdo em linha e células de tabela, não para itens flex.'
+      - text: '`align-content: center;` apenas'
+        explanation: '`align-content` distribui linhas quando há quebra (`flex-wrap`). Com uma linha só, não centraliza o item.'
+      - text: '`justify-items: center;` e `align-items: center;`'
+        explanation: '`justify-items` é ignorado em flexbox. Ele funciona em grid.'
+    explanation: 'Em grid, existe um atalho: `display: grid; place-items: center;` centraliza nos dois eixos.'
+
+  - id: css-layout-003
+    level: intermediate
+    prompt: 'O que a declaração `grid-template-columns: repeat(3, 1fr);` cria?'
+    options:
+      - text: 'Três colunas que dividem igualmente o espaço disponível'
+        correct: true
+        explanation: '`fr` é uma fração do espaço livre. Três colunas de `1fr` recebem partes iguais.'
+      - text: 'Três colunas de 1 pixel cada'
+        explanation: '`fr` não é pixel: é uma fração do espaço disponível.'
+      - text: 'Uma coluna que se repete três vezes na vertical'
+        explanation: '`grid-template-columns` define colunas, lado a lado. Linhas são definidas por `grid-template-rows`.'
+      - text: 'Três linhas de altura igual'
+        explanation: 'Linhas são definidas por `grid-template-rows`.'
+    explanation: 'Para grids responsivos sem media query, combine com `auto-fit` e `minmax`: `repeat(auto-fit, minmax(240px, 1fr))`.'
+
+  - id: css-layout-004
+    level: advanced
+    prompt: 'Um elemento com `position: sticky` não gruda no topo ao rolar a página. Qual é a causa mais comum?'
+    options:
+      - text: 'Faltou definir um deslocamento, como `top: 0`'
+        correct: true
+        explanation: 'Sem `top` (ou `bottom`, `left`, `right`), o navegador não sabe em que ponto o elemento deve grudar.'
+      - text: '`sticky` só funciona dentro de containers com `display: flex`'
+        explanation: '`sticky` funciona em qualquer contexto de layout.'
+      - text: 'O elemento precisa de `z-index` para grudar'
+        explanation: '`z-index` só controla a sobreposição com outros elementos, não o comportamento de grudar.'
+      - text: '`position: sticky` foi removido do CSS'
+        explanation: 'É suportado por todos os navegadores modernos.'
+    explanation: 'Outra causa frequente é um ancestral com `overflow: hidden` ou `auto`: o elemento gruda dentro dele, não na janela.'

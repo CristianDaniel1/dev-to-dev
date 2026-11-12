@@ -1,0 +1,90 @@
+questions:
+  - id: react-fundamentos-001
+    level: beginner
+    prompt: 'Qual é a forma recomendada hoje de escrever componentes em React?'
+    options:
+      - text: 'Funções que retornam JSX'
+        correct: true
+        explanation: 'Componentes de função com hooks são o padrão da documentação oficial desde 2019.'
+      - text: 'Classes que estendem `React.Component`'
+        explanation: 'Ainda funcionam, mas são consideradas legado. Recursos novos chegam primeiro para componentes de função.'
+      - text: 'Objetos com um método `render`'
+        explanation: 'Esse formato (`createClass`) foi removido do React há anos.'
+      - text: 'Templates HTML em arquivos separados'
+        explanation: 'Esse é o modelo de frameworks como Angular e Vue. Em React, a marcação fica no JSX.'
+    explanation: 'Você ainda vai encontrar componentes de classe em projetos antigos, por isso vale saber lê-los.'
+
+  - id: react-fundamentos-002
+    level: beginner
+    prompt: 'O que é JSX?'
+    options:
+      - text: 'Uma extensão de sintaxe do JavaScript que é convertida em chamadas de função'
+        correct: true
+        explanation: '`<h1>Oi</h1>` vira algo como `jsx("h1", { children: "Oi" })` na etapa de build.'
+      - text: 'Uma linguagem de programação separada do JavaScript'
+        explanation: 'JSX não é uma linguagem: é uma sintaxe que compiladores como Babel, esbuild e SWC transformam em JavaScript.'
+      - text: 'Uma ferramenta de build'
+        explanation: 'Ferramentas de build transformam o JSX, mas ele próprio é apenas sintaxe.'
+      - text: 'Uma biblioteca de componentes prontos'
+        explanation: 'JSX não traz componentes. Ele só descreve a interface.'
+    explanation: 'Como JSX vira JavaScript, você pode usar qualquer expressão dentro de `{}`, mas não instruções como `if` ou `for`.'
+
+  - id: react-fundamentos-003
+    level: beginner
+    prompt: 'Como um componente pai envia dados para um componente filho?'
+    options:
+      - text: 'Por props'
+        correct: true
+        explanation: 'Props são os parâmetros do componente: `<Avatar nome="Ana" />` chega como `props.nome`.'
+      - text: 'Alterando o state do filho diretamente'
+        explanation: 'O state é privado de cada componente. O pai não tem acesso a ele.'
+      - text: 'Chamando o método `render` do filho'
+        explanation: 'Quem chama os componentes é o React. Você nunca os executa diretamente.'
+      - text: 'Por variáveis globais em `window`'
+        explanation: 'Funciona tecnicamente, mas o React não reage a essas mudanças e o fluxo de dados fica imprevisível.'
+    explanation: 'Em React, os dados fluem de cima para baixo. Para o filho avisar o pai, o pai passa uma função como prop.'
+
+  - id: react-fundamentos-004
+    level: beginner
+    prompt: 'Em JSX, qual atributo aplica uma classe CSS a um elemento?'
+    options:
+      - text: '`className`'
+        correct: true
+        explanation: 'JSX segue os nomes das propriedades do DOM, e `class` é palavra reservada em JavaScript.'
+      - text: '`class`'
+        explanation: 'O React até aplica o atributo, mas emite um aviso. O nome correto é `className`.'
+      - text: '`cssClass`'
+        explanation: 'Esse atributo não existe.'
+      - text: '`styleName`'
+        explanation: 'Esse atributo não existe no React (era usado por um plugin antigo de CSS Modules).'
+    explanation: 'Pelo mesmo motivo, `for` vira `htmlFor` em JSX.'
+
+  - id: react-fundamentos-005
+    level: intermediate
+    prompt: 'O que é um Fragment (`<>...</>`) em React?'
+    options:
+      - text: 'Um wrapper que agrupa elementos sem adicionar um nó extra ao DOM'
+        correct: true
+        explanation: 'Um componente precisa retornar um único elemento raiz, e o Fragment cumpre esse papel sem criar um `<div>`.'
+      - text: 'Uma ferramenta para gerenciar estado'
+        explanation: 'Fragments não têm relação com estado.'
+      - text: 'Um tipo especial de prop'
+        explanation: 'Fragment é um componente. A única prop que ele aceita é `key`.'
+      - text: 'Uma biblioteca externa'
+        explanation: 'Faz parte do próprio React.'
+    explanation: 'Quando precisar de `key`, como em listas, use a forma longa: `<Fragment key={id}>`.'
+
+  - id: react-fundamentos-006
+    level: intermediate
+    prompt: 'Por que cada item de uma lista renderizada com `map` precisa de uma `key` estável?'
+    options:
+      - text: 'Para o React identificar cada item entre renderizações e preservar o estado certo'
+        correct: true
+        explanation: 'Com keys estáveis, o React sabe qual item foi adicionado, removido ou movido.'
+      - text: 'Para deixar a lista ordenada automaticamente'
+        explanation: '`key` não ordena nada. A ordem é a do array.'
+      - text: 'Porque a key vira o `id` do elemento no HTML'
+        explanation: 'A key é usada só internamente pelo React e não aparece no DOM.'
+      - text: 'É apenas uma convenção, sem efeito prático'
+        explanation: 'Keys erradas causam bugs reais, como campos de formulário trocando de valor entre itens.'
+    explanation: 'Evite usar o índice do array como key em listas que mudam de ordem. Prefira um id dos próprios dados.'

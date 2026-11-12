@@ -1,0 +1,49 @@
+import { readdir } from 'node:fs/promises';
+import { buildTech, type BuiltTech } from './content/build-tech';
+import { CodeHighlighter } from './content/code-highlighter';
+import { ContentError } from './content/content-error';
+import { QUIZ_CONTENT_DIR } from './content/content.constants';
+import { printReport } from './content/report';
+import { writeOutputs } from './content/write-outputs';
+
+const listTechSlugs = async (): Promise<string[]> => {
+  const entries = await readdir(QUIZ_CONTENT_DIR, { withFileTypes: true });
+  return entries.filter((entry) => entry.isDirectory()).map((entry) => entry.name);
+};
+
+const buildAll = async (highlighter: CodeHighlighter): Promise<BuiltTech[]> => {
+  const seenIds = new Set<string>();
+  const slugs = await listTechSlugs();
+  const built: BuiltTech[] = [];
+  for (const slug of slugs) {
+    const tech = await buildTech(slug, highlighter, seenIds);
+    built.push(tech);
+  }
+  return built;
+};
+
+const main = async (): Promise<void> => {
+  const highlighter = await CodeHighlighter.create();
+  try {
+    const built = await buildAll(highlighter);
+    const published = built
+      .filter((tech) => !tech.meta.draft)
+      .sort((left, right) => left.meta.order - right.meta.order);
+    const drafts = built.filter((tech) => tech.meta.draft).map((tech) => tech.summary.slug);
+    const summaries = published.map((tech) => tech.summary);
+
+    await writeOutputs(
+      summaries,
+      published.map((tech) => tech.bank),
+      highlighter.css(),
+    );
+    printReport(summaries, drafts);
+  } finally {
+    highlighter.dispose();
+  }
+};
+
+main().catch((error: unknown) => {
+  console.error(error instanceof ContentError ? `content error: ${error.message}` : error);
+  process.exit(1);
+});

@@ -1,0 +1,37 @@
+questions:
+  - id: javascript-assincrono-001
+    level: intermediate
+    prompt: 'O que uma função declarada com `async` sempre retorna?'
+    options:
+      - text: 'Uma `Promise`'
+        correct: true
+        explanation: 'Mesmo com `return 5`, quem chama recebe uma Promise que resolve com 5.'
+      - text: 'O valor do `return`, diretamente'
+        explanation: 'O valor sempre chega embrulhado em uma Promise. Para obtê-lo, use `await` ou `.then()`.'
+      - text: '`undefined`'
+        explanation: 'Só seria `undefined` se a Promise resolvesse sem valor.'
+      - text: 'Um callback'
+        explanation: '`async/await` foi criado justamente para substituir o encadeamento de callbacks.'
+    explanation: 'Se a função lança um erro, a Promise é rejeitada. Trate com `try/catch` em volta do `await`.'
+
+  - id: javascript-assincrono-002
+    level: advanced
+    prompt: 'Em que ordem as letras são impressas?'
+    code:
+      lang: javascript
+      source: |
+        console.log('A');
+        setTimeout(() => console.log('B'), 0);
+        Promise.resolve().then(() => console.log('C'));
+        console.log('D');
+    options:
+      - text: 'A, D, C, B'
+        correct: true
+        explanation: 'Primeiro roda o código síncrono (A, D), depois as microtarefas (Promise: C) e, por fim, as tarefas (setTimeout: B).'
+      - text: 'A, B, C, D'
+        explanation: 'Mesmo com 0ms, o `setTimeout` agenda o callback para depois do código síncrono.'
+      - text: 'A, D, B, C'
+        explanation: 'Callbacks de Promise são microtarefas e rodam antes do próximo `setTimeout`.'
+      - text: 'A, C, D, B'
+        explanation: 'O `.then` nunca executa antes de o código síncrono atual terminar.'
+    explanation: 'O event loop esvazia toda a fila de microtarefas antes de pegar a próxima tarefa.'

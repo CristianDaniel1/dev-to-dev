@@ -1,0 +1,23 @@
+name: HTML
+description: 'Estrutura, semântica, formulários e acessibilidade: a base de toda página web.'
+area: frontend
+badge: HTML
+color: '#c4401c'
+onColor: '#ffffff'
+order: 10
+topics:
+  - slug: fundamentos
+    name: Fundamentos
+    description: 'Estrutura do documento, tags e atributos essenciais.'
+  - slug: semantica
+    name: Semântica
+    description: 'Elementos que dão significado ao conteúdo, além da aparência.'
+  - slug: links-e-midia
+    name: Links e mídia
+    description: 'Links, imagens e carregamento de recursos.'
+  - slug: formularios
+    name: Formulários
+    description: 'Campos, rótulos, validação nativa e envio.'
+  - slug: acessibilidade
+    name: Acessibilidade
+    description: 'Como tornar a página usável por teclado e leitores de tela.'

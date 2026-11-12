@@ -1,0 +1,79 @@
+<article class="card index-card overflow-hidden" aria-labelledby="demo-question-prompt">
+  <header class="flex flex-wrap items-center gap-2 border-b border-line px-5 py-3">
+    <span class="chip">{{ question.tech }}</span>
+    <span class="chip">{{ question.level }}</span>
+    <span class="ml-auto text-xs text-ink-muted">Pergunta de exemplo</span>
+  </header>
+
+  <div class="p-5 sm:p-6">
+    <h2 id="demo-question-prompt" class="text-lg font-semibold [font-stretch:100%]">
+      {{ question.prompt }}
+    </h2>
+
+    <pre
+      class="mt-4 overflow-x-auto rounded-control border border-line bg-surface-sunken px-4 py-3 text-sm"
+    ><code>{{ question.code }}</code></pre>
+
+    <ul class="mt-5 flex flex-col gap-2.5">
+      @for (option of question.options; track option.id) {
+        @let state = stateOf(option);
+        <li>
+          <button
+            type="button"
+            class="flex w-full items-center gap-3 rounded-control border px-3.5 py-3 text-left transition-[border-color,opacity] duration-200"
+            [class]="optionClasses[state]"
+            [attr.aria-disabled]="isAnswered()"
+            [attr.aria-pressed]="option.id === selectedId()"
+            (click)="select(option)"
+          >
+            <span class="kbd shrink-0 uppercase" aria-hidden="true">{{ option.id }}</span>
+            <span class="font-mono text-sm" [class]="optionTextClasses[state]">{{
+              option.text
+            }}</span>
+            @if (state === 'correct') {
+              <app-icon name="check" class="ml-auto text-correct" />
+              <span class="sr-only">(resposta correta)</span>
+            } @else if (state === 'wrong') {
+              <app-icon name="cross" class="ml-auto text-wrong" />
+              <span class="sr-only">(sua resposta, incorreta)</span>
+            }
+          </button>
+        </li>
+      }
+    </ul>
+
+    <div aria-live="polite" class="mt-5 empty:mt-0">
+      @if (isAnswered()) {
+        @let selected = selectedOption();
+        @let correct = correctOption();
+        <div class="rounded-control border border-line bg-paper p-4 text-sm">
+          <p
+            class="font-semibold"
+            [class.text-correct]="isCorrect()"
+            [class.text-wrong]="!isCorrect()"
+          >
+            {{ isCorrect() ? 'Você acertou.' : 'Não foi dessa vez.' }}
+          </p>
+          @if (selected && !isCorrect()) {
+            <p class="mt-2">
+              Você marcou <span class="font-mono">{{ selected.text }}</span>.
+              {{ selected.explanation }}
+            </p>
+          }
+          @if (correct) {
+            <p class="mt-2">
+              @if (!isCorrect()) {
+                A resposta é <span class="font-mono">{{ correct.text }}</span>.
+              }
+              {{ correct.explanation }}
+            </p>
+          }
+          <p class="mt-3 text-ink-muted">{{ question.takeaway }}</p>
+          <button type="button" class="link mt-3 text-sm font-medium" (click)="reset()">
+            Responder de novo
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+</article>

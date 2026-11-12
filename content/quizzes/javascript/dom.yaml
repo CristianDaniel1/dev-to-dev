@@ -1,0 +1,45 @@
+questions:
+  - id: javascript-dom-001
+    level: beginner
+    prompt: 'Qual é a forma correta de carregar um arquivo JavaScript externo?'
+    options:
+      - text: '`<script src="app.js"></script>`'
+        correct: true
+        explanation: '`src` aponta para o arquivo. A tag de fechamento é obrigatória.'
+      - text: '`<script href="app.js"></script>`'
+        explanation: '`href` é usado em `<a>` e `<link>`, não em `<script>`.'
+      - text: '`<link rel="script" href="app.js">`'
+        explanation: '`<link>` carrega recursos como CSS. Scripts precisam de `<script>`.'
+      - text: '`<script file="app.js" />`'
+        explanation: 'O atributo `file` não existe, e `<script>` não pode ser auto-fechado.'
+    explanation: 'Use `defer` (`<script src="app.js" defer>`) para baixar o script em paralelo e executá-lo só depois de o HTML ser lido.'
+
+  - id: javascript-dom-002
+    level: intermediate
+    prompt: 'O que `document.querySelector(".item")` retorna quando há vários elementos com essa classe?'
+    options:
+      - text: 'O primeiro elemento encontrado'
+        correct: true
+        explanation: '`querySelector` para no primeiro resultado, na ordem do documento.'
+      - text: 'Um array com todos os elementos'
+        explanation: 'Para pegar todos, use `querySelectorAll`. Mesmo assim, ele retorna uma NodeList, não um array.'
+      - text: 'Uma NodeList com todos os elementos'
+        explanation: 'É isso que `querySelectorAll` retorna.'
+      - text: '`null`, porque o seletor é ambíguo'
+        explanation: 'Só retorna `null` quando nenhum elemento corresponde.'
+    explanation: 'Uma NodeList tem `forEach`. Para usar `map` e `filter`, converta com `Array.from()` ou spread.'
+
+  - id: javascript-dom-003
+    level: intermediate
+    prompt: 'Para exibir na página um texto digitado pelo usuário, qual propriedade é segura contra injeção de código?'
+    options:
+      - text: '`textContent`'
+        correct: true
+        explanation: '`textContent` trata tudo como texto: tags viram caracteres visíveis e nunca são executadas.'
+      - text: '`innerHTML`'
+        explanation: '`innerHTML` interpreta o conteúdo como HTML. Um usuário poderia injetar algo como `<img src=x onerror=...>` (XSS).'
+      - text: '`outerHTML`'
+        explanation: 'Também interpreta HTML e ainda substitui o próprio elemento.'
+      - text: '`document.write()`'
+        explanation: 'Interpreta HTML, é desaconselhado e pode apagar a página se chamado depois do carregamento.'
+    explanation: 'Frameworks como Angular e React escapam o texto por padrão. O risco aparece quando você força a inserção de HTML.'

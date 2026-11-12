@@ -1,0 +1,107 @@
+<section class="card p-5 sm:p-6" aria-labelledby="setup-heading">
+  <h2 id="setup-heading" class="text-xl font-bold">Montar sessão</h2>
+  <p class="mt-1 text-sm text-ink-muted">
+    Modo prática: sem cronômetro, com explicação a cada resposta.
+  </p>
+
+  <fieldset class="mt-6">
+    <legend class="mb-2 text-sm font-semibold">Tópicos</legend>
+    <div class="flex flex-wrap gap-2">
+      <button
+        type="button"
+        class="chip cursor-pointer"
+        [class.chip-active]="!topics().length"
+        [attr.aria-pressed]="!topics().length"
+        (click)="topics.set([])"
+      >
+        Todos
+      </button>
+      @for (topic of tech().topics; track topic.slug) {
+        <button
+          type="button"
+          class="chip cursor-pointer"
+          [class.chip-active]="isTopicSelected(topic.slug)"
+          [attr.aria-pressed]="isTopicSelected(topic.slug)"
+          (click)="toggleTopic(topic.slug)"
+        >
+          {{ topic.name }}
+        </button>
+      }
+    </div>
+  </fieldset>
+
+  <fieldset class="mt-6">
+    <legend class="mb-2 text-sm font-semibold">Nível</legend>
+    <div class="segmented">
+      <label>
+        <input
+          type="radio"
+          name="level"
+          class="sr-only"
+          [checked]="level() === null"
+          (click)="level.set(null)"
+        />
+        <span>Todos</span>
+      </label>
+      @for (option of levels; track option) {
+        <label>
+          <input
+            type="radio"
+            name="level"
+            class="sr-only"
+            [checked]="level() === option"
+            (click)="level.set(option)"
+          />
+          <span>{{ levelLabels[option] }}</span>
+        </label>
+      }
+    </div>
+  </fieldset>
+
+  <fieldset class="mt-6">
+    <legend class="mb-2 text-sm font-semibold">Perguntas por sessão</legend>
+    <div class="segmented">
+      @for (option of sizes; track option) {
+        <label>
+          <input
+            type="radio"
+            name="size"
+            class="sr-only"
+            [checked]="size() === option"
+            (click)="size.set(option)"
+          />
+          <span>{{ option ?? 'Todas' }}</span>
+        </label>
+      }
+    </div>
+  </fieldset>
+
+  <label class="mt-6 flex cursor-pointer items-start gap-3 text-sm">
+    <input
+      type="checkbox"
+      class="mt-0.5 size-4 accent-pen"
+      [checked]="onlyUnanswered()"
+      (click)="onlyUnanswered.set(!onlyUnanswered())"
+    />
+    <span>Só perguntas que ainda não respondi</span>
+  </label>
+
+  <div class="mt-6 border-t border-line pt-5" aria-live="polite">
+    @if (availableCount()) {
+      <p class="mb-3 text-sm text-ink-muted">
+        {{ sessionCount() }} de {{ availableCount() }} perguntas disponíveis
+      </p>
+      <a
+        class="btn btn-primary w-full"
+        [routerLink]="['/quizzes', tech().slug, 'praticar']"
+        [queryParams]="queryParams()"
+      >
+        Começar a praticar
+      </a>
+    } @else {
+      <p class="text-sm text-ink-muted">
+        Nenhuma pergunta com esses filtros. Escolha outro nível ou mais tópicos.
+      </p>
+    }
+  </div>
+</section>

@@ -1,0 +1,29 @@
+@let summary = tech();
+<a
+  [routerLink]="['/quizzes', summary.slug]"
+  class="group card relative flex h-full flex-col gap-4 overflow-hidden p-5 transition-[border-color,box-shadow] hover:border-line-strong hover:shadow-lifted"
+>
+  <span
+    class="absolute inset-x-0 top-0 h-1"
+    [style.background-color]="summary.color"
+    aria-hidden="true"
+  ></span>
+  <div class="flex items-center gap-3">
+    <app-tech-badge [tech]="summary" />
+    <div>
+      <h3 class="text-lg leading-tight font-bold group-hover:underline">{{ summary.name }}</h3>
+      <p class="text-xs text-ink-muted">
+        {{ summary.questionCount }} perguntas em {{ summary.topics.length }} tópicos
+      </p>
+    </div>
+  </div>
+  <p class="text-sm text-ink-muted">{{ summary.description }}</p>
+  <div class="mt-auto">
+    @defer (on idle) {
+      <app-tech-progress [tech]="summary" />
+    } @placeholder {
+      <div class="h-1.5 rounded-full bg-surface-sunken"></div>
+      <div class="mt-2 h-4"></div>
+    }
+  </div>
+</a>

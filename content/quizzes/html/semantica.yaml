@@ -1,0 +1,60 @@
+questions:
+  - id: html-semantica-001
+    level: beginner
+    prompt: 'Qual elemento representa o título de nível mais alto de uma página?'
+    options:
+      - text: '`<h1>`'
+        correct: true
+        explanation: 'Os títulos vão de `<h1>` (mais importante) a `<h6>`. O `<h1>` costuma ser o título principal da página.'
+      - text: '`<header>`'
+        explanation: '`<header>` agrupa o conteúdo introdutório de uma página ou seção (logo, navegação, título), mas não é um título.'
+      - text: '`<h6>`'
+        explanation: '`<h6>` é o título de menor nível da hierarquia.'
+      - text: '`<head>`'
+        explanation: '`<head>` guarda metadados do documento (título da aba, CSS, meta tags) e não aparece na página.'
+    explanation: 'Leitores de tela usam os títulos para navegar. Mantenha a hierarquia sem pular níveis e escolha o nível pelo significado, não pelo tamanho da fonte.'
+
+  - id: html-semantica-002
+    level: intermediate
+    prompt: 'Qual elemento é mais adequado para um post de blog, que faz sentido sozinho e poderia ser compartilhado fora da página?'
+    options:
+      - text: '`<article>`'
+        correct: true
+        explanation: '`<article>` representa conteúdo independente e reutilizável: posts, notícias, comentários, cards de produto.'
+      - text: '`<section>`'
+        explanation: '`<section>` agrupa uma parte temática de algo maior. Um post pode ter várias seções dentro do `<article>`.'
+      - text: '`<aside>`'
+        explanation: '`<aside>` é para conteúdo complementar, como uma barra lateral ou uma nota relacionada.'
+      - text: '`<div>`'
+        explanation: '`<div>` funciona visualmente, mas não comunica nenhum significado.'
+    explanation: 'Um bom teste para `<article>`: o conteúdo faria sentido sozinho em um leitor de RSS? Se sim, provavelmente é um artigo.'
+
+  - id: html-semantica-003
+    level: intermediate
+    prompt: 'Quantos elementos `<main>` visíveis uma página deve ter?'
+    options:
+      - text: 'No máximo um'
+        correct: true
+        explanation: 'A especificação permite apenas um `<main>` visível por vez, envolvendo o conteúdo principal da página.'
+      - text: 'Um para cada seção da página'
+        explanation: 'Para dividir o conteúdo em partes, use `<section>` ou `<article>` dentro do `<main>`.'
+      - text: 'Quantos forem necessários'
+        explanation: 'Vários `<main>` visíveis confundem tecnologias assistivas, que usam o elemento para pular direto ao conteúdo.'
+      - text: 'Nenhum, o elemento é obsoleto'
+        explanation: '`<main>` é atual e recomendado. É ele que permite o atalho "ir para o conteúdo principal".'
+    explanation: 'O `<main>` não deve incluir conteúdo repetido em todas as páginas, como cabeçalho, navegação e rodapé.'
+
+  - id: html-semantica-004
+    level: advanced
+    prompt: 'Quando um `<section>` é mais adequado do que um `<div>`?'
+    options:
+      - text: 'Quando agrupa um conteúdo temático que normalmente teria um título próprio'
+        correct: true
+        explanation: 'Uma `<section>` é uma parte com tema próprio, geralmente iniciada por um título (`<h2>`, `<h3>`...).'
+      - text: 'Sempre que for preciso um container para estilização'
+        explanation: 'Para agrupar só por causa do CSS ou do layout, `<div>` é a escolha certa.'
+      - text: 'Quando o conteúdo deve aparecer na lateral da página'
+        explanation: 'Posição na tela é papel do CSS. Conteúdo complementar pode usar `<aside>`.'
+      - text: 'Nunca, porque `<section>` foi descontinuado'
+        explanation: '`<section>` faz parte do HTML atual.'
+    explanation: 'Se você não consegue dar um título ao bloco, ele provavelmente é um `<div>`. Uma `<section>` com nome acessível vira um ponto de navegação para leitores de tela.'

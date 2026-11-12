@@ -1,0 +1,45 @@
+questions:
+  - id: html-acessibilidade-001
+    level: beginner
+    prompt: 'Qual atributo descreve uma imagem para leitores de tela e aparece no lugar dela se não carregar?'
+    options:
+      - text: '`alt`'
+        correct: true
+        explanation: '`alt` é o texto alternativo: lido por leitores de tela, exibido se a imagem falhar e usado por buscadores.'
+      - text: '`title`'
+        explanation: '`title` mostra uma dica ao passar o mouse, mas não substitui o `alt` e é ignorado em telas de toque.'
+      - text: '`src`'
+        explanation: '`src` é o endereço do arquivo da imagem.'
+      - text: '`aria-hidden`'
+        explanation: '`aria-hidden="true"` esconde o elemento das tecnologias assistivas, o oposto de descrever.'
+    explanation: 'Um bom `alt` descreve a função da imagem no contexto. Não comece com "imagem de": o leitor de tela já anuncia que é uma imagem.'
+
+  - id: html-acessibilidade-002
+    level: intermediate
+    prompt: 'Como marcar uma imagem puramente decorativa para que leitores de tela a ignorem?'
+    options:
+      - text: '`alt=""`'
+        correct: true
+        explanation: 'Um `alt` vazio indica que a imagem não carrega informação, e os leitores de tela a pulam.'
+      - text: 'Omitir o atributo `alt`'
+        explanation: 'Sem `alt`, muitos leitores de tela leem o nome do arquivo, como "IMG_2041.jpg".'
+      - text: '`alt="imagem decorativa"`'
+        explanation: 'Assim o leitor de tela anuncia "imagem decorativa", o que só gera ruído.'
+      - text: '`title=""`'
+        explanation: '`title` não controla se a imagem é anunciada. O que importa é o `alt`.'
+    explanation: 'Se a imagem é só enfeite, outra opção é aplicá-la como `background-image` no CSS, fora do HTML.'
+
+  - id: html-acessibilidade-003
+    level: intermediate
+    prompt: 'Por que usar `<button>` em vez de `<div onclick="...">` para uma ação clicável?'
+    options:
+      - text: 'O `<button>` já é focável pelo teclado, responde a Enter e Espaço e é anunciado como botão'
+        correct: true
+        explanation: 'Com `<div>`, você precisaria recriar tudo isso com `tabindex`, `role` e eventos de teclado, e é fácil esquecer algo.'
+      - text: 'O `<div>` não aceita eventos de clique'
+        explanation: 'Aceita, sim. O problema é que só o clique funciona: teclado e leitores de tela ficam de fora.'
+      - text: 'O `<button>` carrega mais rápido'
+        explanation: 'Não há diferença de desempenho relevante entre os dois.'
+      - text: 'Não há diferença se o visual for o mesmo'
+        explanation: 'A aparência é igual, mas o comportamento para quem usa teclado ou leitor de tela é completamente diferente.'
+    explanation: 'A primeira regra de ARIA é: se existe um elemento HTML nativo com o comportamento que você precisa, use-o.'

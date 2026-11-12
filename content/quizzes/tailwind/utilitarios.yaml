@@ -1,0 +1,150 @@
+questions:
+  - id: tailwind-utilitarios-001
+    level: beginner
+    prompt: 'Qual classe aplica um fundo azul usando a paleta padrão do Tailwind?'
+    options:
+      - text: '`bg-blue-500`'
+        correct: true
+        explanation: '`bg-` define o fundo, `blue` é a cor e `500` é o tom na escala de 50 a 950.'
+      - text: '`background-blue`'
+        explanation: 'O Tailwind usa o prefixo curto `bg-`.'
+      - text: '`bg-blue`'
+        explanation: 'As cores da paleta padrão exigem o tom, como `bg-blue-500`.'
+      - text: '`blue-500`'
+        explanation: 'Sem prefixo, o Tailwind não sabe a qual propriedade aplicar a cor.'
+    explanation: 'O mesmo padrão vale para texto (`text-blue-500`) e borda (`border-blue-500`).'
+
+  - id: tailwind-utilitarios-002
+    level: beginner
+    prompt: 'Qual classe aplica margem em todos os lados com o valor 4 da escala de espaçamento?'
+    options:
+      - text: '`m-4`'
+        correct: true
+        explanation: '`m-` é margem em todos os lados. Na escala padrão, 4 equivale a 1rem.'
+      - text: '`margin-4`'
+        explanation: 'O Tailwind abrevia margem como `m`.'
+      - text: '`p-4`'
+        explanation: '`p-4` aplica padding, não margem.'
+      - text: '`mx-4`'
+        explanation: '`mx-4` aplica margem só na horizontal (esquerda e direita).'
+    explanation: 'Direções: `mt`, `mr`, `mb`, `ml` para cada lado, `mx` para a horizontal e `my` para a vertical.'
+
+  - id: tailwind-utilitarios-003
+    level: beginner
+    prompt: 'Qual classe centraliza o texto?'
+    options:
+      - text: '`text-center`'
+        correct: true
+        explanation: 'Equivale a `text-align: center`.'
+      - text: '`align-center`'
+        explanation: 'Essa classe não existe no Tailwind.'
+      - text: '`text-align-center`'
+        explanation: 'O Tailwind usa nomes curtos: `text-center`.'
+      - text: '`center-text`'
+        explanation: 'Essa classe não existe no Tailwind.'
+    explanation: 'O prefixo `text-` também é usado para tamanho (`text-lg`) e cor (`text-blue-500`).'
+
+  - id: tailwind-utilitarios-004
+    level: beginner
+    prompt: 'Qual classe aplica padding de 2 unidades em cima e embaixo?'
+    options:
+      - text: '`py-2`'
+        correct: true
+        explanation: '`py` é o padding no eixo vertical (y): topo e base.'
+      - text: '`px-2`'
+        explanation: '`px` aplica padding na horizontal.'
+      - text: '`ptb-2`'
+        explanation: 'Essa classe não existe no Tailwind.'
+      - text: '`padding-y-2`'
+        explanation: 'O Tailwind abrevia padding como `p`.'
+    explanation: 'x é horizontal e y é vertical, como nos eixos de um gráfico.'
+
+  - id: tailwind-utilitarios-005
+    level: beginner
+    prompt: 'Qual classe deixa o texto em negrito?'
+    options:
+      - text: '`font-bold`'
+        correct: true
+        explanation: 'Equivale a `font-weight: 700`.'
+      - text: '`text-bold`'
+        explanation: 'Essa classe não existe no Tailwind.'
+      - text: '`bold`'
+        explanation: 'Essa classe não existe no Tailwind.'
+      - text: '`font-weight-bold`'
+        explanation: 'O Tailwind usa a forma curta `font-bold`.'
+    explanation: 'A escala de pesos vai de `font-thin` (100) a `font-black` (900).'
+
+  - id: tailwind-utilitarios-006
+    level: beginner
+    prompt: 'Qual classe define largura de 50%?'
+    options:
+      - text: '`w-1/2`'
+        correct: true
+        explanation: 'Frações como `w-1/2` e `w-2/3` geram larguras percentuais.'
+      - text: '`w-50`'
+        explanation: '`w-50` usa a escala de espaçamento (12.5rem), não porcentagem.'
+      - text: '`width-50`'
+        explanation: 'O Tailwind abrevia largura como `w`.'
+      - text: '`w-half`'
+        explanation: 'Essa classe não existe no Tailwind.'
+    explanation: 'Para larguras em relação à tela, existem classes como `w-screen`.'
+
+  - id: tailwind-utilitarios-007
+    level: beginner
+    prompt: 'Qual classe aplica padding apenas no lado esquerdo?'
+    options:
+      - text: '`pl-4`'
+        correct: true
+        explanation: '`pl` é padding-left.'
+      - text: '`px-4`'
+        explanation: '`px` aplica nos dois lados horizontais.'
+      - text: '`padding-left-4`'
+        explanation: 'O Tailwind usa a forma curta `pl-4`.'
+      - text: '`pr-4`'
+        explanation: '`pr` é padding-right.'
+    explanation: 'Para layouts que também funcionam em idiomas da direita para a esquerda, use `ps` (início) e `pe` (fim).'
+
+  - id: tailwind-utilitarios-008
+    level: beginner
+    prompt: 'Qual classe aplica `display: flex` a um elemento?'
+    options:
+      - text: '`flex`'
+        correct: true
+        explanation: 'Classes de display usam o próprio valor: `flex`, `grid`, `block`, `hidden`.'
+      - text: '`d-flex`'
+        explanation: '`d-flex` é a sintaxe do Bootstrap.'
+      - text: '`display-flex`'
+        explanation: 'Essa classe não existe no Tailwind.'
+      - text: '`flexbox`'
+        explanation: 'Essa classe não existe no Tailwind.'
+    explanation: 'Combine com utilitários como `items-center`, `justify-between` e `gap-4`.'
+
+  - id: tailwind-utilitarios-009
+    level: beginner
+    prompt: 'Qual classe arredonda os cantos de um elemento?'
+    options:
+      - text: '`rounded`'
+        correct: true
+        explanation: 'Aplica um `border-radius` pequeno. Existem variações como `rounded-lg` e `rounded-full`.'
+      - text: '`border-rounded`'
+        explanation: 'Essa classe não existe no Tailwind.'
+      - text: '`radius`'
+        explanation: 'Essa classe não existe no Tailwind.'
+      - text: '`border-radius`'
+        explanation: 'Esse é o nome da propriedade CSS, não da classe.'
+    explanation: '`rounded-full` é útil para avatares e badges circulares.'
+
+  - id: tailwind-utilitarios-010
+    level: beginner
+    prompt: 'Qual classe aplica margem horizontal de 6 unidades?'
+    options:
+      - text: '`mx-6`'
+        correct: true
+        explanation: '`mx` é a margem no eixo x: esquerda e direita.'
+      - text: '`my-6`'
+        explanation: '`my` aplica margem na vertical.'
+      - text: '`mh-6`'
+        explanation: 'Essa classe não existe no Tailwind.'
+      - text: '`margin-x-6`'
+        explanation: 'O Tailwind abrevia margem como `m`.'
+    explanation: '`mx-auto` centraliza um bloco com largura definida.'

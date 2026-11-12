@@ -1,0 +1,23 @@
+name: CSS
+description: 'Seletores, modelo de caixa, cascata e layouts com Flexbox e Grid.'
+area: frontend
+badge: CSS
+color: '#663399'
+onColor: '#ffffff'
+order: 20
+topics:
+  - slug: fundamentos
+    name: Fundamentos
+    description: 'Sintaxe, seletores e propriedades de texto e cor.'
+  - slug: box-model
+    name: Modelo de caixa
+    description: 'Conteúdo, padding, borda, margem e como o tamanho é calculado.'
+  - slug: layout
+    name: Layout
+    description: 'Flexbox, Grid e posicionamento.'
+  - slug: cascata
+    name: Cascata e herança
+    description: 'Especificidade, ordem das regras e o que é herdado.'
+  - slug: responsivo
+    name: Responsividade
+    description: 'Media queries, unidades relativas e tipografia fluida.'

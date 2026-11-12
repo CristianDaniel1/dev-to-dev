@@ -1,5 +1,6 @@
 import { readdir } from 'node:fs/promises';
 import { buildResources } from './content/build-resources';
+import { buildSearchIndex } from './content/build-search-index';
 import { buildTech, type BuiltTech } from './content/build-tech';
 import { CodeHighlighter } from './content/code-highlighter';
 import { ContentError } from './content/content-error';
@@ -35,12 +36,19 @@ const main = async (): Promise<void> => {
 
     const resources = await buildResources();
 
+    const banks = published.map((tech) => tech.bank);
     await writeOutputs({
       summaries,
-      banks: published.map((tech) => tech.bank),
+      banks,
       highlightCss: highlighter.css(),
       resourceIndex: resources.index,
       resourceLibrary: resources.library,
+      searchIndex: buildSearchIndex({
+        techs: summaries,
+        banks,
+        resourceIndex: resources.index,
+        resourceLibrary: resources.library,
+      }),
     });
     printReport(summaries, drafts);
     printResourceReport(resources.index);

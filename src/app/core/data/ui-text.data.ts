@@ -15,6 +15,10 @@ export const UI_TEXT = {
     open: 'Abrir menu',
     close: 'Fechar menu',
   },
+  search: {
+    open: 'Buscar',
+    shortcut: 'Ctrl K',
+  },
   theme: {
     toggle: 'Tema escuro',
   },

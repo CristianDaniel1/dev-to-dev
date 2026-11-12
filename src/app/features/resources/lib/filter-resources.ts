@@ -1,6 +1,6 @@
 import type { Resource } from '@/shared/interfaces/resource.interface';
 import type { ResourceFilters } from '../interfaces/resource-filters.interface';
-import { normalizeText } from './normalize-text';
+import { normalizeText } from '@/shared/lib/normalize-text';
 
 const searchableText = (resource: Resource): string =>
   normalizeText(

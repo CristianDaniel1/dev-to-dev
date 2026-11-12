@@ -1,0 +1,73 @@
+<dialog
+  #dialog
+  aria-label="Buscar no Dev to Dev"
+  class="mx-auto mt-[10vh] w-[min(40rem,calc(100%-2rem))] max-w-none overflow-hidden rounded-card border border-line bg-surface p-0 text-ink shadow-lifted backdrop:bg-ink/40 backdrop:backdrop-blur-sm"
+  tabindex="-1"
+  (close)="store.close()"
+  (click)="onDialogClick($event)"
+  (keydown)="onListKeydown($event)"
+>
+  <div class="flex items-center gap-3 border-b border-line px-4">
+    <app-icon name="search" class="text-ink-muted" />
+    <input
+      #input
+      type="text"
+      role="combobox"
+      aria-label="Buscar"
+      aria-expanded="true"
+      aria-controls="palette-results"
+      aria-autocomplete="list"
+      autocomplete="off"
+      spellcheck="false"
+      placeholder="Buscar quizzes, tópicos, perguntas e recursos"
+      class="h-14 min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-ink-muted"
+      [attr.aria-activedescendant]="activeId()"
+      (input)="query.set(input.value)"
+    />
+    <span class="kbd hidden sm:inline-flex" aria-hidden="true">Esc</span>
+  </div>
+
+  <ul
+    #results
+    id="palette-results"
+    role="listbox"
+    aria-label="Resultados"
+    class="max-h-[min(60vh,28rem)] overflow-y-auto p-2"
+  >
+    @for (entry of matches(); track $index) {
+      <li
+        role="option"
+        [id]="'palette-option-' + $index"
+        [attr.aria-selected]="$index === activeIndex()"
+        class="flex cursor-pointer items-center gap-3 rounded-control px-3 py-2.5"
+        [class.bg-surface-sunken]="$index === activeIndex()"
+        tabindex="-1"
+        (click)="activate(entry)"
+        (keydown.enter)="activate(entry)"
+        (mousemove)="activeIndex.set($index)"
+      >
+        <div class="min-w-0 flex-1">
+          <p class="truncate font-medium">{{ entry.title }}</p>
+          <p class="truncate text-sm text-ink-muted">{{ entry.subtitle }}</p>
+        </div>
+        <span class="chip shrink-0">{{ kindLabels[entry.kind] }}</span>
+        @if (entry.external) {
+          <app-icon name="external" [size]="16" class="text-ink-muted" />
+          <span class="sr-only">(abre em nova aba)</span>
+        }
+      </li>
+    } @empty {
+      <li class="px-3 py-8 text-center text-sm text-ink-muted">
+        Nada encontrado para "{{ query() }}".
+      </li>
+    }
+  </ul>
+
+  <div
+    class="hidden items-center gap-4 border-t border-line px-4 py-2.5 text-xs text-ink-muted sm:flex"
+  >
+    <span><span class="kbd">↑</span> <span class="kbd">↓</span> navegar</span>
+    <span><span class="kbd">Enter</span> abrir</span>
+  </div>
+  <p class="sr-only" aria-live="polite">{{ announcement() }}</p>
+</dialog>

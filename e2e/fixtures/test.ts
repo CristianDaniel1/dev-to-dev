@@ -1,6 +1,7 @@
 import { test as base, expect } from '@playwright/test';
 import { stubFavicons } from '../helpers/external-requests';
 import { trackPageErrors } from '../helpers/page-errors';
+import { CommandPalettePage } from '../pages/command-palette.page';
 import { HomePage } from '../pages/home.page';
 import { LayoutPage } from '../pages/layout.page';
 import { QuizCatalogPage } from '../pages/quiz-catalog.page';
@@ -27,6 +28,7 @@ interface Fixtures {
   review: ReviewPage;
   randomSetup: RandomSetupPage;
   progressPage: ProgressPage;
+  palette: CommandPalettePage;
 }
 
 export const test = base.extend<Fixtures>({
@@ -83,6 +85,10 @@ export const test = base.extend<Fixtures>({
 
   progressPage: async ({ page }, use) => {
     await use(new ProgressPage(page));
+  },
+
+  palette: async ({ page }, use) => {
+    await use(new CommandPalettePage(page));
   },
 });
 

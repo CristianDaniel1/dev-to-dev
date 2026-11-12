@@ -1,0 +1,26 @@
+@if (isVisible()) {
+  <section aria-labelledby="resume-heading" class="container-page pt-10">
+    <div class="card flex flex-col gap-5 p-5 sm:flex-row sm:items-center sm:gap-10 sm:p-6">
+      <h2 id="resume-heading" class="text-lg font-bold">Continuar de onde parou</h2>
+      @if (dueCount()) {
+        <div class="flex flex-wrap items-center gap-3">
+          <p>
+            <span class="highlight font-semibold text-highlight-ink">
+              {{ dueCount() === 1 ? '1 pergunta' : dueCount() + ' perguntas' }}
+            </span>
+            para revisar hoje
+          </p>
+          <a routerLink="/revisao" class="btn btn-primary">Revisar agora</a>
+        </div>
+      }
+      @if (last(); as session) {
+        <div class="flex flex-wrap items-center gap-3 sm:ml-auto">
+          <p class="text-sm text-ink-muted">
+            Última sessão: {{ session.title }}, {{ session.correct }} de {{ session.total }}
+          </p>
+          <a [routerLink]="session.link" class="btn btn-secondary">Continuar</a>
+        </div>
+      }
+    </div>
+  </section>
+}

@@ -9,6 +9,7 @@ import type {
   ResourceIndex,
   ResourceLibrary,
 } from '../../src/app/shared/interfaces/resource.interface';
+import type { SearchEntry } from '../../src/app/shared/interfaces/search.interface';
 import { GENERATED_CSS_HEADER, GENERATED_DIR, GENERATED_TS_HEADER } from './content.constants';
 
 const catalogModule = (catalog: Catalog): string =>
@@ -28,6 +29,9 @@ const resourceLibraryModule = (library: ResourceLibrary): string =>
 
 export const RESOURCE_LIBRARY: ResourceLibrary = ${JSON.stringify(library)};
 `;
+
+const searchIndexModule = (entries: readonly SearchEntry[]): string =>
+  `${GENERATED_TS_HEADER}import type { SearchEntry } from '../interfaces/search.interface';\n\nexport const SEARCH_INDEX: readonly SearchEntry[] = ${JSON.stringify(entries)};\n`;
 
 const loadersModule = (banks: readonly QuizBank[]): string => {
   const entries = banks
@@ -49,11 +53,13 @@ export interface ContentOutputs {
   highlightCss: string;
   resourceIndex: ResourceIndex;
   resourceLibrary: ResourceLibrary;
+  /** Entries of the command palette. */
+  searchIndex: readonly SearchEntry[];
 }
 
 /**
  * Replaces the generated folder with the quiz catalog, one module per question bank, the loader
- * registry, the resource index and library, and the code highlight stylesheet.
+ * registry, the resource index and library, the search index and the code highlight stylesheet.
  *
  * @param outputs - Built content.
  */
@@ -74,6 +80,7 @@ export const writeOutputs = async (outputs: ContentOutputs): Promise<void> => {
     join(GENERATED_DIR, 'resource-library.ts'),
     resourceLibraryModule(outputs.resourceLibrary),
   );
+  await writeFile(join(GENERATED_DIR, 'search-index.ts'), searchIndexModule(outputs.searchIndex));
   await writeFile(
     join(GENERATED_DIR, 'code-highlight.css'),
     `${GENERATED_CSS_HEADER}${outputs.highlightCss}

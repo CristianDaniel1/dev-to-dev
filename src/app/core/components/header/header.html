@@ -24,6 +24,18 @@
     </nav>
 
     <div class="flex items-center gap-1">
+      <button
+        type="button"
+        class="btn-icon cursor-pointer gap-2 text-ink-muted hover:text-ink md:w-auto md:border md:border-line md:bg-surface md:px-3 md:text-sm"
+        aria-haspopup="dialog"
+        aria-keyshortcuts="Control+K Meta+K"
+        [attr.aria-label]="text.search.open"
+        (click)="palette.open()"
+      >
+        <app-icon name="search" [size]="18" />
+        <span class="hidden md:inline" aria-hidden="true">{{ text.search.open }}</span>
+        <span class="kbd hidden md:inline-flex" aria-hidden="true">{{ text.search.shortcut }}</span>
+      </button>
       <app-theme-toggle />
       <button
         type="button"

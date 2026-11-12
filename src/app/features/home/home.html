@@ -1,0 +1,69 @@
+<section
+  class="container-page grid items-center gap-12 pt-12 pb-16 sm:pt-16 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:pt-24 lg:pb-24"
+>
+  <div>
+    <h1 class="text-display font-extrabold [font-stretch:76%]">
+      <span class="block">Teste o que você sabe.</span>
+      <span class="block">Entenda o que errou.</span>
+    </h1>
+    <p class="prose-width mt-6 text-lg text-ink-muted">
+      Quizzes comentados de desenvolvimento de software e uma curadoria de ferramentas,
+      documentações e materiais para quem programa.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a routerLink="/quizzes" class="btn btn-primary">Escolher um quiz</a>
+      <a routerLink="/recursos" class="btn btn-secondary">Explorar recursos</a>
+    </div>
+  </div>
+
+  <div class="lg:rotate-[1.25deg] lg:transition-transform lg:duration-500 lg:hover:rotate-0">
+    <app-demo-question />
+  </div>
+</section>
+
+<section class="border-y border-line bg-surface" aria-labelledby="how-heading">
+  <div class="container-page py-16 lg:py-20">
+    <h2 id="how-heading" class="text-2xl font-bold">Como funciona o modo prática</h2>
+    <ol class="mt-10 grid gap-10 md:grid-cols-3 md:gap-8">
+      @for (step of steps; track step.title; let index = $index) {
+        <li class="border-t-2 border-ink pt-5">
+          <span class="font-mono text-sm text-ink-muted" aria-hidden="true">{{ index + 1 }}</span>
+          <h3 class="mt-1 text-xl font-bold">{{ step.title }}</h3>
+          <p class="mt-2 text-ink-muted">{{ step.description }}</p>
+        </li>
+      }
+    </ol>
+  </div>
+</section>
+
+<div class="container-page grid gap-16 py-16 lg:grid-cols-2 lg:gap-20 lg:py-24">
+  <section aria-labelledby="quizzes-heading">
+    <h2 id="quizzes-heading" class="text-2xl font-bold">Quizzes por tecnologia</h2>
+    <p class="mt-3 max-w-prose text-ink-muted">
+      Do HTML ao SQL, em três níveis. Novas áreas, como backend, bancos de dados e DevOps, entram
+      depois do lançamento.
+    </p>
+    <ul class="mt-6 flex flex-wrap gap-2">
+      @for (tech of techs; track tech) {
+        <li class="chip text-sm">{{ tech }}</li>
+      }
+    </ul>
+    <a routerLink="/quizzes" class="link mt-8 inline-block font-medium">Ver todos os quizzes</a>
+  </section>
+
+  <section aria-labelledby="resources-heading">
+    <h2 id="resources-heading" class="text-2xl font-bold">Recursos selecionados</h2>
+    <p class="mt-3 max-w-prose text-ink-muted">
+      Ferramentas e materiais escolhidos a dedo, cada um com o motivo da recomendação. Nada de lista
+      infinita de links.
+    </p>
+    <ul class="mt-6 border-t border-line">
+      @for (category of categories; track category) {
+        <li class="border-b border-line py-3 font-medium">{{ category }}</li>
+      }
+    </ul>
+    <a routerLink="/recursos" class="link mt-8 inline-block font-medium"
+      >Ver a central de recursos</a
+    >
+  </section>
+</div>

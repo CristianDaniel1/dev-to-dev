@@ -58,3 +58,41 @@ questions:
       - text: '`data-src`'
         explanation: 'Atributos `data-*` são para dados próprios da aplicação e não têm efeito no carregamento.'
     explanation: 'Com `srcset` e `sizes`, celulares baixam arquivos menores e telas de alta densidade recebem versões mais nítidas, sem JavaScript.'
+
+  - id: html-links-e-midia-005
+    level: intermediate
+    prompt: 'Por que é recomendado informar `width` e `height` em uma `<img>`, mesmo quando o CSS define o tamanho dela?'
+    options:
+      - text: 'O navegador reserva o espaço antes de a imagem carregar e o conteúdo não pula'
+        correct: true
+        explanation: 'Com os dois atributos, o navegador conhece a proporção da imagem e reserva a área certa. Isso evita o deslocamento de layout (CLS).'
+      - text: 'Sem eles, a imagem não aparece'
+        explanation: 'A imagem aparece normalmente; ela só empurra o conteúdo quando termina de carregar.'
+      - text: 'O navegador redimensiona o arquivo no servidor'
+        explanation: 'O navegador não altera o arquivo. Para servir tamanhos diferentes, use `srcset`.'
+      - text: 'Os atributos substituem o `alt` para leitores de tela'
+        explanation: '`width` e `height` não têm nenhum papel de acessibilidade; o `alt` continua necessário.'
+    explanation: 'Combine os atributos com `max-width: 100%; height: auto;` no CSS: a imagem fica responsiva e a proporção continua reservada.'
+
+  - id: html-links-e-midia-006
+    level: advanced
+    prompt: 'O que este trecho faz?'
+    code:
+      lang: html
+      source: |
+        <picture>
+          <source srcset="foto.avif" type="image/avif" />
+          <source srcset="foto.webp" type="image/webp" />
+          <img src="foto.jpg" alt="Equipe reunida no escritório" />
+        </picture>
+    options:
+      - text: 'O navegador usa o primeiro formato que suporta e cai no JPG se não suportar nenhum'
+        correct: true
+        explanation: 'Os `<source>` são avaliados em ordem, e o `<img>` é o fallback obrigatório.'
+      - text: 'O navegador baixa os três arquivos e exibe o menor'
+        explanation: 'Só um arquivo é baixado: o primeiro `<source>` compatível ou o `src` do `<img>`.'
+      - text: 'Exibe as três imagens lado a lado'
+        explanation: 'O `<picture>` sempre resulta em uma única imagem exibida.'
+      - text: 'Nada, porque falta o `alt` em cada `<source>`'
+        explanation: 'O `alt` fica apenas no `<img>`, e vale para qualquer arquivo escolhido.'
+    explanation: 'O `<picture>` também aceita `media` nos `<source>`, para trocar o recorte da imagem conforme a largura da tela (direção de arte).'

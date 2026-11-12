@@ -43,3 +43,33 @@ questions:
       - text: '`document.write()`'
         explanation: 'Interpreta HTML, é desaconselhado e pode apagar a página se chamado depois do carregamento.'
     explanation: 'Frameworks como Angular e React escapam o texto por padrão. O risco aparece quando você força a inserção de HTML.'
+
+  - id: javascript-dom-004
+    level: intermediate
+    prompt: 'Um único listener de clique está na `<ul>`, e o usuário clica em um `<li>` dentro dela. O que é `event.target`?'
+    options:
+      - text: 'O `<li>` clicado'
+        correct: true
+        explanation: '`target` é o elemento onde o evento começou. O evento sobe (bubbling) até a `<ul>`, que o recebe.'
+      - text: 'A `<ul>`'
+        explanation: 'A `<ul>` é o `event.currentTarget`, ou seja, o elemento que tem o listener.'
+      - text: 'O `document`'
+        explanation: 'O evento passa pelo `document` ao subir, mas o `target` continua sendo o `<li>`.'
+      - text: '`null`, porque o listener não está no `<li>`'
+        explanation: 'O `target` sempre existe, mesmo quando o listener está em um ancestral.'
+    explanation: 'Essa técnica se chama delegação de eventos: um listener no pai trata cliques em todos os filhos, inclusive nos adicionados depois. Use `event.target.closest("li")` para lidar com cliques em elementos dentro do `<li>`.'
+
+  - id: javascript-dom-005
+    level: intermediate
+    prompt: 'Ao tratar o evento `submit` de um formulário com JavaScript, a página recarrega antes de o código terminar. Como evitar?'
+    options:
+      - text: 'Chamar `event.preventDefault()` no listener'
+        correct: true
+        explanation: 'Isso cancela a ação padrão do formulário, que é enviar os dados e navegar.'
+      - text: 'Chamar `event.stopPropagation()` no listener'
+        explanation: '`stopPropagation` impede o evento de subir para os ancestrais, mas o envio continua.'
+      - text: 'Retornar `false` de um listener registrado com `addEventListener`'
+        explanation: 'Retornar `false` só cancela a ação em handlers inline antigos, como `onsubmit="return false"`.'
+      - text: 'Trocar o `<form>` por uma `<div>`'
+        explanation: 'Isso perde o envio com Enter, a validação nativa e a semântica do formulário.'
+    explanation: 'Mantenha o `<form>` e ouça o evento `submit`, não o clique no botão: assim o envio pelo Enter também passa pelo seu código.'

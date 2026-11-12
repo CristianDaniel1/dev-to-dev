@@ -1,5 +1,6 @@
 import {
   ASSIGNMENT_QUESTION_ID,
+  MISSING_QUESTION_ID,
   SMOKE_TAG,
   STRING_CONCAT_QUESTION_ID,
 } from '../constants/e2e.constants';
@@ -38,7 +39,7 @@ test.describe('Practice session', () => {
         expect(progress?.sessions).toHaveLength(1);
 
         await catalog.open();
-        await expect(catalog.techCard('HTML').getByText(/de 22 respondidas$/)).toBeVisible();
+        await expect(catalog.techCard('HTML').getByText(/ 5 de \d+ respondidas/)).toBeVisible();
       });
     },
   );
@@ -84,7 +85,7 @@ test.describe('Practice session', () => {
   });
 
   test('shows an empty state when no question matches', async ({ session }) => {
-    await session.open('react', 'nivel=avancado');
+    await session.open('react', `ids=${MISSING_QUESTION_ID}`);
 
     await expect(session.emptyState).toBeVisible();
   });

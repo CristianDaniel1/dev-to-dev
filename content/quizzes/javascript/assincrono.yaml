@@ -35,3 +35,47 @@ questions:
       - text: 'A, C, D, B'
         explanation: 'O `.then` nunca executa antes de o código síncrono atual terminar.'
     explanation: 'O event loop esvazia toda a fila de microtarefas antes de pegar a próxima tarefa.'
+
+  - id: javascript-assincrono-003
+    level: intermediate
+    prompt: 'Três requisições rodam com `Promise.all([a, b, c])` e a requisição `b` falha. O que acontece?'
+    options:
+      - text: 'A Promise retornada é rejeitada com o erro de `b`'
+        correct: true
+        explanation: '`Promise.all` rejeita assim que qualquer Promise da lista rejeita.'
+      - text: 'Resolve com os resultados de `a` e `c`, ignorando `b`'
+        explanation: 'Para receber o resultado de cada uma, com sucesso ou erro, use `Promise.allSettled`.'
+      - text: 'Espera as três terminarem e depois resolve'
+        explanation: 'Ele não espera as outras para rejeitar. Elas continuam rodando, mas os resultados são descartados.'
+      - text: 'Tenta executar `b` de novo automaticamente'
+        explanation: 'Promises não têm nenhuma lógica de nova tentativa embutida.'
+    explanation: 'Use `Promise.all` quando todos os resultados forem necessários, e `Promise.allSettled` quando falhas parciais forem aceitáveis.'
+
+  - id: javascript-assincrono-004
+    level: advanced
+    prompt: 'O que este código imprime?'
+    code:
+      lang: javascript
+      source: |
+        const esperar = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+        const processar = async () => {
+          [1, 2].forEach(async (n) => {
+            await esperar(100);
+            console.log(n);
+          });
+          console.log('fim');
+        };
+
+        processar();
+    options:
+      - text: "'fim', depois 1 e 2"
+        correct: true
+        explanation: 'O `forEach` não espera os callbacks assíncronos; ele dispara os dois e segue para o `console.log` seguinte.'
+      - text: "1, 2 e depois 'fim'"
+        explanation: 'Esse seria o resultado com um laço `for...of` e `await esperar(100)` dentro dele.'
+      - text: "Só 'fim'"
+        explanation: 'Os callbacks continuam rodando e imprimem 1 e 2 depois de 100ms.'
+      - text: 'Um erro, porque `forEach` não aceita funções `async`'
+        explanation: 'Ele aceita, mas ignora a Promise que cada callback retorna.'
+    explanation: 'Para esperar em sequência, use `for...of` com `await`. Para esperar em paralelo, use `await Promise.all(lista.map(async (n) => ...))`.'

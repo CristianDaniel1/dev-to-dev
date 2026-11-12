@@ -38,3 +38,53 @@ questions:
       - text: '`background-color`'
         explanation: 'Não é herdada. O fundo do pai só aparece por trás porque o filho é transparente por padrão.'
     explanation: 'Para forçar a herança de qualquer propriedade, use o valor `inherit`, por exemplo `border-color: inherit`.'
+
+  - id: css-cascata-003
+    level: beginner
+    prompt: 'Duas regras com a mesma especificidade definem `color` para o mesmo elemento. Qual vence?'
+    code:
+      lang: css
+      source: |
+        .titulo {
+          color: green;
+        }
+
+        .titulo {
+          color: purple;
+        }
+    options:
+      - text: 'A que aparece por último (roxo)'
+        correct: true
+        explanation: 'Com especificidade igual, a ordem no código desempata e a última declaração vence.'
+      - text: 'A que aparece primeiro (verde)'
+        explanation: 'A primeira regra é sobrescrita pela segunda.'
+      - text: 'O navegador mistura as cores'
+        explanation: 'O CSS sempre escolhe um único valor por propriedade.'
+      - text: 'Nenhuma; regras duplicadas são ignoradas'
+        explanation: 'Regras repetidas são válidas e entram normalmente na cascata.'
+    explanation: 'A ordem também vale entre arquivos: um CSS carregado depois sobrescreve um anterior quando a especificidade empata.'
+
+  - id: css-cascata-004
+    level: advanced
+    prompt: 'Qual cor o parágrafo `<p class="card-texto">` terá, sabendo que ele está dentro de `<div class="card">`?'
+    code:
+      lang: css
+      source: |
+        :where(.card) p {
+          color: navy;
+        }
+
+        p {
+          color: gray;
+        }
+    options:
+      - text: 'Cinza'
+        correct: true
+        explanation: '`:where()` tem especificidade zero, então `:where(.card) p` vale o mesmo que `p` e a última regra vence.'
+      - text: 'Azul-marinho'
+        explanation: 'Seria azul com `.card p`, que tem especificidade (0, 1, 1). Dentro de `:where()`, a classe não conta.'
+      - text: 'A cor padrão do navegador'
+        explanation: 'As duas regras selecionam o parágrafo, e ambas vencem o estilo padrão.'
+      - text: 'O seletor é inválido e nada é aplicado'
+        explanation: '`:where()` é suportado por todos os navegadores modernos.'
+    explanation: '`:where()` é útil em bibliotecas e resets, porque gera estilos fáceis de sobrescrever. O parecido `:is()` usa a especificidade do argumento mais específico.'

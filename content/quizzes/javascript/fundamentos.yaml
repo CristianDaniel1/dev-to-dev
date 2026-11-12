@@ -164,3 +164,24 @@ questions:
       - text: '`false true`'
         explanation: 'O contrário: `==` é o operador mais permissivo.'
     explanation: 'Prefira `===`. As regras de conversão do `==` têm armadilhas, como `"" == 0` ser `true`.'
+
+  - id: javascript-fundamentos-011
+    level: intermediate
+    prompt: 'O que este código imprime?'
+    code:
+      lang: javascript
+      source: |
+        const quantidade = 0;
+
+        console.log(quantidade || 10, quantidade ?? 10);
+    options:
+      - text: '10 0'
+        correct: true
+        explanation: '`||` troca qualquer valor falsy, inclusive `0`. `??` só troca `null` e `undefined`.'
+      - text: '0 10'
+        explanation: 'É o contrário: `??` mantém o `0`, porque ele não é `null` nem `undefined`.'
+      - text: '10 10'
+        explanation: '`??` não considera `0` como valor ausente.'
+      - text: '0 0'
+        explanation: '`0` é falsy, então `||` usa o valor da direita.'
+    explanation: 'Prefira `??` para valores padrão quando `0`, `""` ou `false` forem respostas válidas.'

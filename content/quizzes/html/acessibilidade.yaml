@@ -43,3 +43,49 @@ questions:
       - text: 'Não há diferença se o visual for o mesmo'
         explanation: 'A aparência é igual, mas o comportamento para quem usa teclado ou leitor de tela é completamente diferente.'
     explanation: 'A primeira regra de ARIA é: se existe um elemento HTML nativo com o comportamento que você precisa, use-o.'
+
+  - id: html-acessibilidade-004
+    level: intermediate
+    prompt: 'Qual é o problema de vários links com o texto "clique aqui" na mesma página?'
+    options:
+      - text: 'Fora do contexto, eles não dizem para onde levam'
+        correct: true
+        explanation: 'Leitores de tela oferecem uma lista com todos os links da página, e nela aparecem vários "clique aqui" iguais.'
+      - text: 'Os buscadores bloqueiam links com esse texto'
+        explanation: 'Não há bloqueio, mas um texto descritivo ajuda os buscadores a entender a página de destino.'
+      - text: 'O navegador só permite um link com o mesmo texto'
+        explanation: 'Não existe essa restrição.'
+      - text: 'Nenhum, desde que o texto ao redor explique o link'
+        explanation: 'O texto ao redor ajuda quem lê a página inteira, mas não quem navega de link em link.'
+    explanation: 'Escreva o destino no próprio link: "Leia o guia de instalação" em vez de "Para ler o guia, clique aqui".'
+
+  - id: html-acessibilidade-005
+    level: advanced
+    prompt: 'Um `<div role="button">` foi usado no lugar de um `<button>`. O que ainda falta para ele funcionar como um botão de verdade?'
+    options:
+      - text: 'Adicionar `tabindex="0"` para ele receber foco pelo teclado'
+        correct: true
+        explanation: 'Um `<div>` não entra na ordem de tabulação; o `tabindex="0"` o coloca lá.'
+      - text: 'Disparar a ação ao pressionar Enter e Espaço'
+        correct: true
+        explanation: 'O `role` só muda o que o leitor de tela anuncia. O comportamento de teclado precisa ser escrito em JavaScript.'
+      - text: 'Nada, o `role="button"` já dá todo o comportamento'
+        explanation: 'ARIA altera apenas a semântica; ele não adiciona foco nem eventos de teclado.'
+      - text: 'Adicionar `aria-hidden="true"`'
+        explanation: 'Isso esconderia o elemento dos leitores de tela, o oposto do desejado.'
+    explanation: 'Esse é o motivo da primeira regra de ARIA: se existe um elemento nativo com o comportamento que você precisa, use-o. Um `<button>` já vem com tudo isso.'
+
+  - id: html-acessibilidade-006
+    level: intermediate
+    prompt: 'Para que serve o atributo `lang` em `<html lang="pt-BR">`?'
+    options:
+      - text: 'Indica o idioma da página, para leitores de tela usarem a pronúncia certa'
+        correct: true
+        explanation: 'Sem ele, um leitor configurado em inglês pode ler o texto em português com pronúncia inglesa.'
+      - text: 'Traduz a página automaticamente'
+        explanation: 'O atributo não traduz nada, embora ajude o navegador a decidir se deve oferecer tradução.'
+      - text: 'Define a codificação de caracteres'
+        explanation: 'A codificação é definida por `<meta charset="utf-8">`.'
+      - text: 'Só serve para SEO'
+        explanation: 'Ajuda os buscadores, mas também afeta leitores de tela, hifenização e corretores ortográficos.'
+    explanation: 'Trechos em outro idioma podem ter o próprio `lang`, por exemplo `<span lang="en">deploy</span>`.'

@@ -58,3 +58,70 @@ questions:
       - text: '`position: sticky` foi removido do CSS'
         explanation: 'É suportado por todos os navegadores modernos.'
     explanation: 'Outra causa frequente é um ancestral com `overflow: hidden` ou `auto`: o elemento gruda dentro dele, não na janela.'
+
+  - id: css-layout-005
+    level: intermediate
+    prompt: 'Em um container flex com três itens, o que acontece com o item que recebe `flex: 1` enquanto os outros não recebem nada?'
+    options:
+      - text: 'Ele cresce para ocupar todo o espaço livre da linha'
+        correct: true
+        explanation: '`flex: 1` define `flex-grow: 1`; como os outros têm `flex-grow: 0`, só ele cresce.'
+      - text: 'Ele ocupa exatamente um terço da linha'
+        explanation: 'Só haveria divisão em terços se os três itens tivessem `flex: 1`.'
+      - text: 'Ele passa a ser o primeiro item da linha'
+        explanation: 'A posição é controlada por `order`, não por `flex`.'
+      - text: 'Ele fica com 1px de largura'
+        explanation: 'O número é uma proporção de crescimento, não uma medida.'
+    explanation: '`flex: 1` é a forma curta de `flex-grow: 1; flex-shrink: 1; flex-basis: 0%`. É o jeito comum de fazer uma coluna ocupar o que sobra.'
+
+  - id: css-layout-006
+    level: intermediate
+    prompt: 'Qual é a forma mais simples de criar um espaço de 16px entre os itens de um container flex ou grid, sem espaço extra nas bordas?'
+    options:
+      - text: '`gap: 16px` no container'
+        correct: true
+        explanation: 'O `gap` só cria espaço entre os itens, nunca antes do primeiro ou depois do último.'
+      - text: '`margin: 16px` em cada item'
+        explanation: 'A margem também aparece nas bordas, e seria preciso remover a do primeiro e a do último item.'
+      - text: '`padding: 16px` no container'
+        explanation: 'O padding cria espaço entre o container e os itens, não entre os itens.'
+      - text: '`spacing: 16px` no container'
+        explanation: 'Essa propriedade não existe em CSS.'
+    explanation: '`gap` aceita dois valores, para linhas e colunas: `gap: 24px 16px`.'
+
+  - id: css-layout-007
+    level: advanced
+    prompt: 'O que este grid faz?'
+    code:
+      lang: css
+      source: |
+        .galeria {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        }
+    options:
+      - text: 'Cria quantas colunas de pelo menos 200px couberem e divide a sobra entre elas'
+        correct: true
+        explanation: 'O número de colunas muda com a largura do container, sem nenhuma media query.'
+      - text: 'Cria sempre colunas de exatamente 200px'
+        explanation: 'O `1fr` como máximo deixa as colunas crescerem para preencher a linha.'
+      - text: 'Cria uma única coluna entre 200px e a largura total'
+        explanation: '`auto-fill` repete a coluna quantas vezes couber.'
+      - text: 'Gera erro, porque `repeat` exige um número'
+        explanation: '`repeat` aceita `auto-fill` e `auto-fit` no lugar do número.'
+    explanation: 'A diferença para `auto-fit` aparece com poucos itens: `auto-fill` mantém colunas vazias, e `auto-fit` as colapsa para os itens esticarem.'
+
+  - id: css-layout-008
+    level: intermediate
+    prompt: 'Um elemento com `position: absolute` e `top: 0` é posicionado em relação a quê?'
+    options:
+      - text: 'Ao ancestral mais próximo que tenha `position` diferente de `static`'
+        correct: true
+        explanation: 'Por isso é comum colocar `position: relative` no pai, para servir de referência.'
+      - text: 'Sempre ao elemento pai direto'
+        explanation: 'Se o pai for `static` (o padrão), o navegador continua subindo na árvore.'
+      - text: 'Sempre à janela do navegador'
+        explanation: 'Esse é o comportamento de `position: fixed`.'
+      - text: 'À posição onde ele estaria no fluxo normal'
+        explanation: 'Esse é o comportamento de `position: relative`.'
+    explanation: 'Sem nenhum ancestral posicionado, a referência é o bloco inicial do documento. Além disso, o elemento sai do fluxo e não ocupa mais espaço.'

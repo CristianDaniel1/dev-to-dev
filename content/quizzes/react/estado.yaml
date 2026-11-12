@@ -37,3 +37,57 @@ questions:
       - text: '`useMemo`'
         explanation: '`useMemo` memoriza cálculos e não compartilha nada entre componentes.'
     explanation: 'Context é ótimo para dados que mudam pouco, como tema ou usuário logado. Para estado global que muda muito, bibliotecas dedicadas costumam render menos vezes.'
+
+  - id: react-estado-003
+    level: intermediate
+    prompt: 'Por que a lista não atualiza na tela depois do clique?'
+    code:
+      lang: jsx
+      source: |
+        const [tarefas, setTarefas] = useState([]);
+
+        const adicionar = (texto) => {
+          tarefas.push(texto);
+          setTarefas(tarefas);
+        };
+    options:
+      - text: 'O array foi alterado no lugar e o setter recebeu a mesma referência'
+        correct: true
+        explanation: 'O React compara o valor novo com o antigo por referência; como é o mesmo array, ele pula a renderização.'
+      - text: '`useState` não aceita arrays'
+        explanation: 'O estado pode ser qualquer valor, inclusive arrays e objetos.'
+      - text: 'Falta chamar `forceUpdate()`'
+        explanation: 'Componentes de função não têm `forceUpdate`, e a solução é criar um array novo.'
+      - text: '`push` não funciona em arrays de estado'
+        explanation: '`push` funciona e altera o array, mas é justamente essa mutação que causa o problema.'
+    explanation: 'Crie sempre um valor novo: `setTarefas([...tarefas, texto])`. Para remover, use `filter`; para editar, use `map`.'
+
+  - id: react-estado-004
+    level: intermediate
+    prompt: 'Um componente tem os estados `nome` e `sobrenome`. Qual é a melhor forma de exibir o nome completo?'
+    options:
+      - text: 'Calcular durante a renderização: `const completo = nome + " " + sobrenome`'
+        correct: true
+        explanation: 'Um valor que pode ser derivado de outros não precisa de estado próprio; ele está sempre sincronizado.'
+      - text: 'Criar um terceiro estado e atualizá-lo em um `useEffect`'
+        explanation: 'Isso causa uma renderização extra com o valor antigo e duplica a fonte da verdade.'
+      - text: 'Criar um terceiro estado e atualizá-lo junto com os outros dois'
+        explanation: 'Funciona, mas é fácil esquecer de atualizar um deles e os valores ficarem diferentes.'
+      - text: 'Guardar o nome completo em uma ref'
+        explanation: 'Mudanças em refs não atualizam a tela.'
+    explanation: 'Antes de criar um estado, pergunte se ele pode ser calculado a partir de props ou de outro estado. Se o cálculo for caro, use `useMemo`.'
+
+  - id: react-estado-005
+    level: intermediate
+    prompt: 'Dois componentes irmãos precisam mostrar e alterar o mesmo filtro. Onde o estado do filtro deve ficar?'
+    options:
+      - text: 'No pai comum mais próximo, que repassa o valor e a função de alterar por props'
+        correct: true
+        explanation: 'Isso se chama elevar o estado: os dois filhos passam a ler a mesma fonte da verdade.'
+      - text: 'Em cada irmão, com um `useEffect` sincronizando os dois'
+        explanation: 'Duas cópias do mesmo estado acabam divergindo, e a sincronização gera renderizações extras.'
+      - text: 'Em uma variável global fora dos componentes'
+        explanation: 'Uma variável comum não avisa o React quando muda, então a tela não atualiza.'
+      - text: 'Em um Context na raiz da aplicação'
+        explanation: 'Funciona, mas é mais complexo do que o necessário quando o pai comum está logo acima.'
+    explanation: 'Comece elevando o estado. Recorra a Context só quando o valor precisar atravessar muitos níveis.'

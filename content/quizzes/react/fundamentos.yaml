@@ -88,3 +88,39 @@ questions:
       - text: 'É apenas uma convenção, sem efeito prático'
         explanation: 'Keys erradas causam bugs reais, como campos de formulário trocando de valor entre itens.'
     explanation: 'Evite usar o índice do array como key em listas que mudam de ordem. Prefira um id dos próprios dados.'
+
+  - id: react-fundamentos-007
+    level: intermediate
+    prompt: 'Com `itens = []`, o que este componente mostra na tela?'
+    code:
+      lang: jsx
+      source: |
+        const Carrinho = ({ itens }) => (
+          <div>{itens.length && <p>{itens.length} itens no carrinho</p>}</div>
+        );
+    options:
+      - text: 'O número `0`'
+        correct: true
+        explanation: '`0 && ...` resulta em `0`, e o React renderiza números, inclusive o zero.'
+      - text: 'Nada'
+        explanation: 'Só não apareceria nada se a expressão resultasse em `false`, `null` ou `undefined`.'
+      - text: '"0 itens no carrinho"'
+        explanation: 'O `&&` para no `0`, então o `<p>` nem é avaliado.'
+      - text: 'Um erro de renderização'
+        explanation: 'Renderizar um número é válido; o resultado só não é o esperado.'
+    explanation: 'Use uma condição booleana de verdade: `itens.length > 0 && ...`, ou um ternário que retorne `null`.'
+
+  - id: react-fundamentos-008
+    level: beginner
+    prompt: 'Qual é o problema em `<button onClick={salvar()}>Salvar</button>`?'
+    options:
+      - text: '`salvar` é chamada durante a renderização, e não no clique'
+        correct: true
+        explanation: 'Os parênteses executam a função na hora, e o `onClick` recebe o retorno dela.'
+      - text: 'Nenhum, é a forma correta'
+        explanation: 'A forma correta passa a função sem chamá-la: `onClick={salvar}`.'
+      - text: 'O evento deveria se chamar `onclick`, em minúsculas'
+        explanation: 'Em JSX, os eventos usam camelCase: `onClick`, `onChange`, `onSubmit`.'
+      - text: 'Botões não aceitam eventos de clique em JSX'
+        explanation: 'Aceitam normalmente; o problema está só nos parênteses.'
+    explanation: 'Para passar argumentos, envolva em uma função: `onClick={() => salvar(id)}`.'

@@ -66,3 +66,43 @@ questions:
       - text: 'Um `TypeError`'
         explanation: 'O objeto não está congelado, então pode ser alterado.'
     explanation: 'Para copiar estruturas aninhadas, use `structuredClone` ou copie cada nível com spread.'
+
+  - id: javascript-arrays-e-objetos-005
+    level: intermediate
+    prompt: 'O que este código imprime?'
+    code:
+      lang: javascript
+      source: |
+        const original = { nome: 'Ana', endereco: { cidade: 'Recife' } };
+        const copia = { ...original };
+
+        copia.nome = 'Bia';
+        copia.endereco.cidade = 'Natal';
+
+        console.log(original.nome, original.endereco.cidade);
+    options:
+      - text: 'Ana Natal'
+        correct: true
+        explanation: 'O spread copia só o primeiro nível. `endereco` continua sendo o mesmo objeto nas duas variáveis.'
+      - text: 'Ana Recife'
+        explanation: 'Seria assim com uma cópia profunda, como `structuredClone(original)`.'
+      - text: 'Bia Natal'
+        explanation: '`nome` é uma string, copiada como valor; mudar `copia.nome` não afeta o original.'
+      - text: 'Bia Recife'
+        explanation: 'É justamente o contrário: só a mudança no objeto aninhado aparece no original.'
+    explanation: 'Essa cópia rasa é comum em atualizações imutáveis (React, Redux). Para alterar um nível aninhado, copie esse nível também: `{ ...original, endereco: { ...original.endereco, cidade: "Natal" } }`.'
+
+  - id: javascript-arrays-e-objetos-006
+    level: intermediate
+    prompt: 'Qual método retorna o **primeiro** elemento que satisfaz uma condição, e `undefined` se nenhum satisfizer?'
+    options:
+      - text: '`find`'
+        correct: true
+        explanation: '`[5, 12, 8].find((n) => n > 10)` retorna `12` e para de procurar ali.'
+      - text: '`filter`'
+        explanation: '`filter` retorna um array com todos os elementos que passam, mesmo que seja um só.'
+      - text: '`some`'
+        explanation: '`some` retorna apenas `true` ou `false`.'
+      - text: '`indexOf`'
+        explanation: '`indexOf` procura um valor exato e retorna a posição dele, não aceita uma condição.'
+    explanation: 'Para obter a posição em vez do elemento, use `findIndex`, que retorna `-1` quando nada é encontrado.'

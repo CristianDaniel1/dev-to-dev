@@ -21,3 +21,9 @@ export const SMOKE_TAG = '@smoke';
 
 /** Console error the browser logs for a page served with status 404. */
 export const NOT_FOUND_RESPONSE_ERROR = /status of 404/;
+
+/** Question id that does not exist, so a session filtered by it is always empty. */
+export const MISSING_QUESTION_ID = 'missing-question-000';
+
+/** Tech, topic and level with no question yet (update when such questions are written). */
+export const EMPTY_FILTER = { tech: 'react', topic: 'Estado', level: 'Avançado' } as const;

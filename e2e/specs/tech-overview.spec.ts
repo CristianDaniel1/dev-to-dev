@@ -1,3 +1,4 @@
+import { EMPTY_FILTER } from '../constants/e2e.constants';
 import { expect, test } from '../fixtures/test';
 
 test.describe('Session setup', () => {
@@ -18,8 +19,9 @@ test.describe('Session setup', () => {
   });
 
   test('explains when no question matches', async ({ techOverview }) => {
-    await techOverview.open('react');
-    await techOverview.chooseLevel('Avançado');
+    await techOverview.open(EMPTY_FILTER.tech);
+    await techOverview.toggleTopic(EMPTY_FILTER.topic);
+    await techOverview.chooseLevel(EMPTY_FILTER.level);
 
     await expect(techOverview.noMatches).toBeVisible();
     await expect(techOverview.startButton).toBeHidden();

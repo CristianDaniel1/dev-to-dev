@@ -75,3 +75,51 @@ questions:
       - text: 'Imprime `null`'
         explanation: 'Nenhuma variável é inicializada com `null` automaticamente.'
     explanation: 'A zona morta temporal transforma em erro um bug que `var` esconderia silenciosamente.'
+
+  - id: javascript-funcoes-005
+    level: advanced
+    prompt: 'O que este código imprime?'
+    code:
+      lang: javascript
+      source: |
+        for (var i = 0; i < 3; i++) {
+          setTimeout(() => console.log(i), 0);
+        }
+    options:
+      - text: '3, 3, 3'
+        correct: true
+        explanation: '`var` cria uma única variável para o laço inteiro. Quando os callbacks rodam, o laço já terminou e `i` vale 3.'
+      - text: '0, 1, 2'
+        explanation: 'Esse seria o resultado com `let`, que cria uma variável nova a cada volta do laço.'
+      - text: '2, 2, 2'
+        explanation: 'O laço só para quando `i < 3` é falso, ou seja, quando `i` chega a 3.'
+      - text: 'Nada, porque o `setTimeout` de 0ms é ignorado'
+        explanation: 'O callback roda normalmente, só que depois do código síncrono.'
+    explanation: 'Cada função lembra a variável em que foi criada (closure), não o valor dela naquele momento. Com `let`, cada volta tem a sua variável.'
+
+  - id: javascript-funcoes-006
+    level: intermediate
+    prompt: 'Em um script comum do navegador (sem `type="module"`), o que este código imprime?'
+    code:
+      lang: javascript
+      source: |
+        const contador = {
+          total: 10,
+          normal() {
+            return this.total;
+          },
+          seta: () => this.total,
+        };
+
+        console.log(contador.normal(), contador.seta());
+    options:
+      - text: '10 undefined'
+        correct: true
+        explanation: 'O método normal recebe `this` de quem o chamou (`contador`). A arrow function usa o `this` de onde foi escrita, fora do objeto.'
+      - text: '10 10'
+        explanation: 'Arrow functions não têm `this` próprio, então `seta` não enxerga o objeto.'
+      - text: 'undefined 10'
+        explanation: 'É o contrário: o método normal é que recebe o objeto como `this`.'
+      - text: 'Um erro de sintaxe'
+        explanation: 'As duas formas de definir propriedades são válidas.'
+    explanation: 'Em um módulo, o `this` de fora vale `undefined` e `contador.seta()` lançaria um erro. Use métodos normais quando precisar do objeto em `this`. Arrow functions são ótimas para callbacks dentro desses métodos, justamente porque mantêm o `this` externo.'

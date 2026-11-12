@@ -43,3 +43,33 @@ questions:
       - text: 'Soma os três valores'
         explanation: '`clamp` limita um valor entre um mínimo e um máximo. Para somar, existe `calc()`.'
     explanation: 'Para não ignorar o zoom do usuário, combine `rem` com `vw` no valor ideal, por exemplo `clamp(1rem, 0.8rem + 1vw, 2rem)`.'
+
+  - id: css-responsivo-004
+    level: intermediate
+    prompt: 'Um site com media queries corretas aparece minúsculo no celular, como uma versão desktop reduzida. O que provavelmente falta?'
+    options:
+      - text: 'A tag `<meta name="viewport" content="width=device-width, initial-scale=1">`'
+        correct: true
+        explanation: 'Sem ela, o navegador do celular simula uma tela de cerca de 980px e reduz a página para caber.'
+      - text: 'Usar `px` em vez de `rem`'
+        explanation: 'A unidade não causa esse sintoma; o problema é a largura que o navegador considera.'
+      - text: 'Adicionar `!important` nas media queries'
+        explanation: 'As media queries nem chegam a valer, porque a largura simulada é de desktop.'
+      - text: 'Um arquivo CSS separado para celular'
+        explanation: 'Um arquivo separado teria o mesmo problema sem a meta tag.'
+    explanation: 'Essa meta tag faz a largura do layout ser igual à largura real do aparelho. Ela deve estar em toda página responsiva.'
+
+  - id: css-responsivo-005
+    level: advanced
+    prompt: 'A regra `@container (min-width: 400px) { ... }` não funciona. O que falta no elemento pai?'
+    options:
+      - text: 'Declarar `container-type: inline-size`'
+        correct: true
+        explanation: 'Container queries só consultam ancestrais marcados como containers.'
+      - text: 'Declarar `display: container`'
+        explanation: 'Esse valor de `display` não existe.'
+      - text: 'Ter uma classe chamada `container`'
+        explanation: 'O nome da classe não importa; o que conta é a propriedade `container-type`.'
+      - text: 'Nada, toda caixa já é um container'
+        explanation: 'Isso exigiria que o navegador acompanhasse o tamanho de todos os elementos, então é opcional.'
+    explanation: 'Com container queries, um card se adapta ao espaço que recebe, seja uma coluna estreita ou a página inteira, em vez de depender da largura da tela.'

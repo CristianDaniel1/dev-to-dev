@@ -44,3 +44,34 @@ questions:
       - text: '`<input type="reset">`'
         explanation: '`reset` restaura os valores iniciais dos campos e não envia nada.'
     explanation: 'Um erro comum é esquecer o `type` em botões que não deveriam enviar o formulário, como "Mostrar senha". Declare `type="button"` neles.'
+
+  - id: html-formularios-004
+    level: intermediate
+    prompt: 'Quais vantagens `<input type="email">` traz em relação a `<input type="text">`?'
+    options:
+      - text: 'Celulares exibem um teclado com `@` em destaque'
+        correct: true
+        explanation: 'O tipo informa ao sistema qual teclado é mais útil para aquele campo.'
+      - text: 'O navegador valida o formato antes de enviar o formulário'
+        correct: true
+        explanation: 'Um valor sem `@`, por exemplo, bloqueia o envio e mostra uma mensagem nativa.'
+      - text: 'O navegador confirma que o e-mail existe'
+        explanation: 'A validação é só de formato. Confirmar que o endereço existe exige enviar um e-mail de verificação.'
+      - text: 'Dispensa a validação no servidor'
+        explanation: 'A validação do navegador pode ser contornada facilmente. O servidor sempre precisa validar de novo.'
+    explanation: 'Outros tipos trazem benefícios parecidos: `tel`, `url`, `number` e `date` mudam o teclado ou mostram seletores nativos.'
+
+  - id: html-formularios-005
+    level: advanced
+    prompt: 'Qual é a forma mais acessível de agrupar opções de rádio sob uma pergunta, como "Forma de pagamento"?'
+    options:
+      - text: 'Um `<fieldset>` com a pergunta em um `<legend>`'
+        correct: true
+        explanation: 'Leitores de tela anunciam o `<legend>` ao entrar no grupo, e cada opção ganha o contexto da pergunta.'
+      - text: 'Um `<div>` com a pergunta em um `<p>` acima das opções'
+        explanation: 'Visualmente funciona, mas o `<p>` não fica associado aos campos; quem navega pelo teclado ouve só "Pix, botão de rádio".'
+      - text: 'Um `<label>` envolvendo todas as opções'
+        explanation: 'Um `<label>` deve rotular um único campo.'
+      - text: 'Um `<select>` com `<optgroup>`'
+        explanation: 'Isso troca os rádios por uma lista suspensa, e o `<optgroup>` agrupa opções dentro dela, sem rotular a pergunta.'
+    explanation: 'Todos os rádios do grupo devem ter o mesmo `name`. Isso garante que só um seja marcado e que as setas do teclado naveguem entre eles.'

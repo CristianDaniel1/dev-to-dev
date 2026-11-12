@@ -66,3 +66,18 @@ questions:
       - text: '8px'
         explanation: 'As margens não se subtraem.'
     explanation: 'O colapso só ocorre entre margens verticais de blocos no fluxo normal. Em containers flex ou grid, as margens não colapsam.'
+
+  - id: css-box-model-005
+    level: intermediate
+    prompt: 'Um `<span>` recebeu `width: 200px` e `height: 50px`, mas o tamanho não mudou. Por quê?'
+    options:
+      - text: 'Elementos `display: inline` ignoram `width` e `height`'
+        correct: true
+        explanation: 'O tamanho de um elemento inline depende do conteúdo. Com `inline-block` ou `block`, as medidas passam a valer.'
+      - text: '`<span>` não aceita estilos de tamanho por ser um elemento sem semântica'
+        explanation: 'A semântica não importa para o CSS; o que importa é o valor de `display`.'
+      - text: 'Falta `box-sizing: border-box`'
+        explanation: '`box-sizing` muda como o tamanho é calculado, mas não faz um elemento inline respeitar `width`.'
+      - text: 'É preciso usar `min-width` em elementos inline'
+        explanation: '`min-width` também é ignorado em elementos inline.'
+    explanation: 'Margens e paddings verticais também se comportam de forma diferente em elementos inline: eles aparecem, mas não afastam as linhas vizinhas.'

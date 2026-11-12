@@ -28,3 +28,102 @@ questions:
       - text: '`useContext`'
         explanation: '`useContext` lê um contexto.'
     explanation: 'Se você só quer calcular algo a partir de props ou estado, não precisa de efeito: calcule direto durante a renderização.'
+
+  - id: react-hooks-003
+    level: intermediate
+    prompt: 'Quando o efeito `useEffect(() => { ... }, [])` executa?'
+    options:
+      - text: 'Uma vez, depois que o componente aparece na tela'
+        correct: true
+        explanation: 'Com a lista de dependências vazia, nada pode mudar para disparar o efeito de novo.'
+      - text: 'Depois de toda renderização'
+        explanation: 'Esse é o comportamento quando o segundo argumento é omitido.'
+      - text: 'Antes da primeira renderização'
+        explanation: 'Efeitos sempre rodam depois de o React atualizar a tela.'
+      - text: 'Nunca, porque não há dependências'
+        explanation: 'A lista vazia significa "sem dependências que mudem", e não "não executar".'
+    explanation: 'Em desenvolvimento com Strict Mode, o React monta, desmonta e monta de novo para revelar efeitos sem limpeza. Por isso o efeito parece rodar duas vezes.'
+
+  - id: react-hooks-004
+    level: intermediate
+    prompt: 'Por que este código quebra as regras dos hooks?'
+    code:
+      lang: jsx
+      source: |
+        const Perfil = ({ usuario }) => {
+          if (!usuario) {
+            return <p>Carregando...</p>;
+          }
+
+          const [aba, setAba] = useState('dados');
+          // ...
+        };
+    options:
+      - text: 'O `useState` só é chamado em algumas renderizações'
+        correct: true
+        explanation: 'O React identifica cada hook pela ordem das chamadas. Um `return` antes dele muda essa ordem entre renderizações.'
+      - text: 'Hooks não podem ser usados em arrow functions'
+        explanation: 'Componentes escritos como arrow functions usam hooks normalmente.'
+      - text: 'O estado inicial não pode ser uma string'
+        explanation: 'O estado inicial pode ser qualquer valor.'
+      - text: 'Faltou importar o `useEffect`'
+        explanation: 'O código não usa `useEffect`.'
+    explanation: 'Chame os hooks sempre no topo do componente, antes de qualquer `return` condicional, e nunca dentro de `if`, laços ou funções internas.'
+
+  - id: react-hooks-005
+    level: advanced
+    prompt: 'Este contador deveria aumentar a cada segundo. O que aparece na tela depois de 5 segundos?'
+    code:
+      lang: jsx
+      source: |
+        const Cronometro = () => {
+          const [segundos, setSegundos] = useState(0);
+
+          useEffect(() => {
+            const id = setInterval(() => setSegundos(segundos + 1), 1000);
+            return () => clearInterval(id);
+          }, []);
+
+          return <p>{segundos}</p>;
+        };
+    options:
+      - text: '1'
+        correct: true
+        explanation: 'O callback foi criado na primeira renderização e sempre enxerga `segundos = 0`, então pede `0 + 1` toda vez.'
+      - text: '5'
+        explanation: 'Seria 5 com a forma de função: `setSegundos((s) => s + 1)`.'
+      - text: '0'
+        explanation: 'O primeiro tique muda o estado para 1; os seguintes repetem esse valor.'
+      - text: 'Um erro por usar estado dentro do `setInterval`'
+        explanation: 'Não há erro, só um valor desatualizado (stale closure).'
+    explanation: 'Quando a atualização depende do valor anterior, a forma de função evita closures desatualizadas sem precisar recriar o intervalo.'
+
+  - id: react-hooks-006
+    level: intermediate
+    prompt: 'O que acontece quando você altera `ref.current` de um `useRef`?'
+    options:
+      - text: 'O valor muda, mas o componente não renderiza de novo'
+        correct: true
+        explanation: 'Refs guardam valores entre renderizações sem participar do ciclo de renderização.'
+      - text: 'O componente renderiza de novo, como com `useState`'
+        explanation: 'Só mudanças de estado ou de props causam nova renderização.'
+      - text: 'O React lança um erro, porque refs são somente leitura'
+        explanation: '`current` pode ser alterado livremente.'
+      - text: 'O valor volta ao inicial na próxima renderização'
+        explanation: 'O valor da ref é mantido durante toda a vida do componente.'
+    explanation: 'Use refs para valores que não aparecem na tela, como ids de timers, ou para acessar elementos do DOM. Se a tela precisa refletir o valor, use estado.'
+
+  - id: react-hooks-007
+    level: advanced
+    prompt: 'Quando a função retornada por um `useEffect` (a limpeza) é executada?'
+    options:
+      - text: 'Antes de o efeito rodar de novo e quando o componente sai da tela'
+        correct: true
+        explanation: 'Ela desfaz o efeito anterior antes do próximo e na desmontagem.'
+      - text: 'Só quando o componente sai da tela'
+        explanation: 'Ela também roda sempre que uma dependência muda, antes de o efeito executar outra vez.'
+      - text: 'Logo depois do efeito, na mesma renderização'
+        explanation: 'Se fosse assim, uma assinatura seria cancelada no mesmo instante em que foi criada.'
+      - text: 'Apenas em desenvolvimento'
+        explanation: 'A limpeza roda em produção também.'
+    explanation: 'Todo efeito que assina, agenda ou conecta algo deve devolver a limpeza correspondente: cancelar a assinatura, `clearInterval`, fechar a conexão.'

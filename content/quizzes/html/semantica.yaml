@@ -58,3 +58,33 @@ questions:
       - text: 'Nunca, porque `<section>` foi descontinuado'
         explanation: '`<section>` faz parte do HTML atual.'
     explanation: 'Se você não consegue dar um título ao bloco, ele provavelmente é um `<div>`. Uma `<section>` com nome acessível vira um ponto de navegação para leitores de tela.'
+
+  - id: html-semantica-005
+    level: intermediate
+    prompt: 'Qual elemento deve envolver o bloco principal de links de navegação do site?'
+    options:
+      - text: '`<nav>`'
+        correct: true
+        explanation: 'O `<nav>` vira um ponto de referência (landmark) e leitores de tela permitem pular direto para ele.'
+      - text: '`<menu>`'
+        explanation: 'O `<menu>` existe, mas representa uma lista de comandos, como uma barra de ferramentas, e não a navegação do site.'
+      - text: '`<links>`'
+        explanation: 'Esse elemento não existe em HTML.'
+      - text: '`<header>`'
+        explanation: 'O menu costuma ficar dentro do `<header>`, mas o cabeçalho também tem logo, busca e outros itens. Quem marca a navegação é o `<nav>`.'
+    explanation: 'Use `<nav>` para os grupos de links mais importantes, como o menu principal ou um sumário. Não precisa envolver todo grupo de links, como os do rodapé.'
+
+  - id: html-semantica-006
+    level: advanced
+    prompt: 'Uma seção usa `<h2>` e, logo abaixo, um subtítulo usa `<h4>` porque o `<h3>` parecia grande demais. Qual é o problema?'
+    options:
+      - text: 'A hierarquia de títulos fica com um nível pulado; o tamanho deveria ser ajustado com CSS'
+        correct: true
+        explanation: 'Leitores de tela navegam pelos níveis de título, e um salto de `h2` para `h4` sugere que falta uma seção no meio.'
+      - text: 'Nenhum, os níveis de título servem para escolher o tamanho do texto'
+        explanation: 'O nível indica a posição do título na estrutura do documento. O tamanho é responsabilidade do CSS.'
+      - text: 'O navegador converte o `<h4>` em `<h3>` automaticamente'
+        explanation: 'O navegador não corrige a hierarquia; ele exibe exatamente o que está no HTML.'
+      - text: 'A página deixa de ser indexada pelos buscadores'
+        explanation: 'A página continua indexada. Uma estrutura clara ajuda o SEO, mas um nível pulado não causa remoção.'
+    explanation: 'Escolha o nível pela estrutura (o título está dentro de qual seção?) e o visual pelo CSS. Assim um `<h3>` pode ter o tamanho que o design pedir.'

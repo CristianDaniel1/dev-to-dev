@@ -13,17 +13,18 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
 
       - run: npm ci
+      # Generates src/app/shared/generated, which styles.css imports; Prettier and ESLint read it.
+      - run: npm run content
       - run: npm run format:check
       - run: npm run lint
-      - run: npm run content
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
@@ -31,7 +32,7 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run e2e
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: playwright-report
@@ -39,3 +40,4 @@ jobs:
             test-results/
             playwright-report/
           retention-days: 7
+          if-no-files-found: ignore

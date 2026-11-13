@@ -1,0 +1,91 @@
+questions:
+  - id: git-desfazer-mudancas-001
+    level: beginner
+    prompt: 'Quais comandos descartam as edições ainda não preparadas de `app.ts`, voltando à última versão salva?'
+    options:
+      - text: '`git restore app.ts`'
+        correct: true
+        explanation: 'Restaura o arquivo a partir da staging area, que normalmente é igual ao último commit.'
+      - text: '`git checkout -- app.ts`'
+        correct: true
+        explanation: 'É a forma antiga, que faz o mesmo.'
+      - text: '`git reset app.ts`'
+        explanation: 'Esse comando só tira o arquivo da staging area. As edições continuam no disco.'
+      - text: '`git revert app.ts`'
+        explanation: '`revert` trabalha com commits, não com arquivos.'
+    explanation: 'Cuidado: edições descartadas assim não ficam em lugar nenhum do Git e não podem ser recuperadas.'
+
+  - id: git-desfazer-mudancas-002
+    level: beginner
+    prompt: 'Você rodou `git add app.ts` por engano. Como tirar o arquivo da staging area sem perder as edições?'
+    options:
+      - text: '`git restore --staged app.ts`'
+        correct: true
+        explanation: 'O arquivo volta a aparecer como modificado e não preparado, com as edições intactas.'
+      - text: '`git rm app.ts`'
+        explanation: '`git rm` apaga o arquivo do disco e prepara a remoção.'
+      - text: '`git restore app.ts`'
+        explanation: 'Sem `--staged`, o comando descarta as edições do disco.'
+      - text: '`git commit --amend`'
+        explanation: '`--amend` altera o último commit e levaria o arquivo junto.'
+    explanation: 'O `git status` sempre mostra o comando certo para desfazer cada estado. Vale ler antes de improvisar.'
+
+  - id: git-desfazer-mudancas-003
+    level: intermediate
+    prompt: 'Você acabou de commitar e viu um erro de digitação na mensagem. O commit ainda não foi enviado. O que usar?'
+    options:
+      - text: '`git commit --amend`'
+        correct: true
+        explanation: 'Substitui o último commit por um novo, com a mensagem corrigida e o que estiver preparado.'
+      - text: '`git revert HEAD`'
+        explanation: '`revert` cria outro commit que desfaz as mudanças. A mensagem errada continuaria no histórico.'
+      - text: '`git reset --hard HEAD~1`'
+        explanation: 'Apaga o commit e também as mudanças dele do disco.'
+      - text: '`git rebase main`'
+        explanation: '`rebase` reaplica commits sobre outra base, sem relação com a mensagem.'
+    explanation: '`--amend` também serve para incluir um arquivo esquecido: rode `git add` nele antes. Como o commit é substituído (novo hash), evite fazer isso com commits já enviados.'
+
+  - id: git-desfazer-mudancas-004
+    level: intermediate
+    prompt: 'Um commit com bug já está na `main` do remoto, e outras pessoas já baixaram. Como desfazer esse commit?'
+    options:
+      - text: '`git revert <hash>`, que cria um novo commit desfazendo as mudanças'
+        correct: true
+        explanation: 'O histórico existente não muda, então ninguém precisa reescrever o que já baixou.'
+      - text: '`git reset --hard <hash>~1` seguido de `git push --force`'
+        explanation: 'Reescreve um histórico compartilhado: quem já baixou fica com commits que não existem mais no remoto.'
+      - text: 'Apagar os arquivos alterados e commitar'
+        explanation: 'Isso apaga muito mais do que as mudanças do commit.'
+      - text: '`git commit --amend`'
+        explanation: '`--amend` só altera o último commit local, e também reescreve o histórico.'
+    explanation: 'Regra prática: no que é só seu, você pode reescrever (`reset`, `amend`, `rebase`). No que é compartilhado, desfaça com commits novos (`revert`).'
+
+  - id: git-desfazer-mudancas-005
+    level: advanced
+    prompt: 'Depois de `git reset --soft HEAD~1`, onde ficam as mudanças do último commit?'
+    options:
+      - text: 'Na staging area, prontas para um novo commit'
+        correct: true
+        explanation: 'O `--soft` só move a branch para trás. A staging area e os arquivos continuam como estavam.'
+      - text: 'No diretório de trabalho, fora da staging area'
+        explanation: 'Esse é o efeito do `--mixed`, o modo padrão do `git reset`.'
+      - text: 'Em lugar nenhum: foram apagadas'
+        explanation: 'Isso acontece com `--hard`.'
+      - text: 'No stash'
+        explanation: '`reset` não usa o stash.'
+    explanation: 'Os três modos movem a branch. A diferença é o que eles também alteram: `--soft` nada, `--mixed` a staging area, `--hard` a staging area e os arquivos.'
+
+  - id: git-desfazer-mudancas-006
+    level: advanced
+    prompt: 'Você rodou `git reset --hard HEAD~3` e perdeu três commits que não estavam em nenhuma outra branch. Dá para recuperá-los?'
+    options:
+      - text: 'Sim: `git reflog` mostra por onde o `HEAD` passou, e dá para voltar ao hash antigo'
+        correct: true
+        explanation: 'Com o hash, `git reset --hard <hash>` ou `git branch resgate <hash>` traz os commits de volta.'
+      - text: 'Não, `--hard` apaga os commits na hora'
+        explanation: 'Os commits continuam no repositório. Só ficam sem branch apontando para eles.'
+      - text: 'Só se eles tiverem sido enviados ao remoto'
+        explanation: 'O reflog é local e funciona mesmo sem remoto.'
+      - text: 'Sim, com `git revert HEAD~3`'
+        explanation: '`revert` desfaz mudanças de commits que estão no histórico atual. Não recupera commits perdidos.'
+    explanation: 'Commits sem referência são apagados de vez só depois de um tempo, quando o Git faz a limpeza (por padrão, pelo menos 30 dias). Edições nunca commitadas, porém, não ficam no reflog.'

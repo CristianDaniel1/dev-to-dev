@@ -1,0 +1,108 @@
+questions:
+  - id: sql-consultas-001
+    level: beginner
+    prompt: 'Qual consulta retorna o nome e a cidade de todos os alunos da tabela `alunos`?'
+    options:
+      - text: '`SELECT nome, cidade FROM alunos;`'
+        correct: true
+        explanation: '`SELECT` lista as colunas, e `FROM` diz de qual tabela.'
+      - text: '`GET nome, cidade FROM alunos;`'
+        explanation: '`GET` não é um comando SQL.'
+      - text: '`SELECT alunos FROM nome, cidade;`'
+        explanation: 'A ordem está invertida: as colunas vêm depois de `SELECT`, e a tabela depois de `FROM`.'
+      - text: '`SELECT * WHERE alunos;`'
+        explanation: 'Falta o `FROM`, e `WHERE` recebe uma condição, não uma tabela.'
+    explanation: 'Prefira listar as colunas em vez de `SELECT *`: a consulta fica mais clara e não traz dados que você não vai usar.'
+
+  - id: sql-consultas-002
+    level: beginner
+    prompt: 'Quais alunos esta consulta retorna?'
+    code:
+      lang: sql
+      source: |
+        SELECT nome
+        FROM alunos
+        WHERE idade >= 18 AND cidade = 'Recife';
+    options:
+      - text: 'Os alunos de Recife com 18 anos ou mais'
+        correct: true
+        explanation: 'Com `AND`, as duas condições precisam ser verdadeiras.'
+      - text: 'Os alunos de Recife ou com 18 anos ou mais'
+        explanation: 'Esse seria o resultado com `OR`.'
+      - text: 'Os alunos de Recife com mais de 18 anos, sem incluir quem tem 18'
+        explanation: '`>=` inclui o próprio 18. Seria só "mais de 18" com `>`.'
+      - text: 'Todos os alunos, ordenados por idade'
+        explanation: '`WHERE` filtra linhas. Para ordenar, existe `ORDER BY`.'
+    explanation: "Em SQL, textos ficam entre aspas simples (`'Recife'`). Aspas duplas servem para nomes de colunas e tabelas em vários bancos."
+
+  - id: sql-consultas-003
+    level: beginner
+    prompt: 'Qual consulta retorna os 3 alunos mais velhos?'
+    options:
+      - text: '`SELECT nome FROM alunos ORDER BY idade DESC LIMIT 3;`'
+        correct: true
+        explanation: '`DESC` ordena da maior idade para a menor, e `LIMIT 3` pega as três primeiras linhas.'
+      - text: '`SELECT nome FROM alunos ORDER BY idade LIMIT 3;`'
+        explanation: 'Sem `DESC`, a ordem é crescente, e a consulta traz os três mais novos.'
+      - text: '`SELECT nome FROM alunos LIMIT 3 ORDER BY idade DESC;`'
+        explanation: '`LIMIT` vem depois de `ORDER BY`. Nessa ordem, a consulta dá erro de sintaxe.'
+      - text: '`SELECT nome FROM alunos WHERE idade = MAX(idade);`'
+        explanation: 'Funções de agregação não podem ser usadas no `WHERE`, e mesmo assim só viria o mais velho.'
+    explanation: '`LIMIT` funciona no PostgreSQL, MySQL e SQLite. No SQL Server, usa-se `TOP 3`, e o padrão SQL define `FETCH FIRST 3 ROWS ONLY`.'
+
+  - id: sql-consultas-004
+    level: intermediate
+    prompt: 'O que `SELECT DISTINCT cidade FROM alunos;` retorna?'
+    options:
+      - text: 'Cada cidade uma única vez, sem repetições'
+        correct: true
+        explanation: '`DISTINCT` remove as linhas duplicadas do resultado.'
+      - text: 'Só as cidades que aparecem uma única vez na tabela'
+        explanation: 'Cidades repetidas também aparecem, só que uma vez cada.'
+      - text: 'A quantidade de cidades diferentes'
+        explanation: 'Para contar, use `SELECT COUNT(DISTINCT cidade) FROM alunos;`.'
+      - text: 'As cidades em ordem alfabética'
+        explanation: '`DISTINCT` não garante ordem. Para isso, adicione `ORDER BY cidade`.'
+    explanation: 'Com várias colunas, como `SELECT DISTINCT cidade, idade`, o que precisa ser único é a combinação das duas.'
+
+  - id: sql-consultas-005
+    level: intermediate
+    prompt: 'Quais alunos esta consulta retorna?'
+    code:
+      lang: sql
+      source: |
+        SELECT nome
+        FROM alunos
+        WHERE cidade = 'Recife' OR cidade = 'Natal' AND idade >= 18;
+    options:
+      - text: 'Todos os alunos de Recife, de qualquer idade, e os alunos de Natal com 18 anos ou mais'
+        correct: true
+        explanation: '`AND` é avaliado antes de `OR`, como a multiplicação antes da soma.'
+      - text: 'Os alunos de Recife ou de Natal com 18 anos ou mais'
+        explanation: "Esse seria o resultado com parênteses: `(cidade = 'Recife' OR cidade = 'Natal') AND idade >= 18`."
+      - text: 'Só os alunos de Natal com 18 anos ou mais'
+        explanation: 'A condição de Recife continua valendo sozinha, do outro lado do `OR`.'
+      - text: 'Um erro, porque é preciso usar parênteses'
+        explanation: 'Os parênteses são opcionais. Sem eles, vale a precedência.'
+    explanation: "Use parênteses sempre que misturar `AND` e `OR`. Ou, nesse caso, `cidade IN ('Recife', 'Natal')`."
+
+  - id: sql-consultas-006
+    level: advanced
+    prompt: 'No PostgreSQL, o que acontece com esta consulta?'
+    code:
+      lang: sql
+      source: |
+        SELECT nome, idade * 12 AS meses
+        FROM alunos
+        WHERE meses > 240;
+    options:
+      - text: 'Um erro, porque o `WHERE` é avaliado antes do `SELECT` e o apelido `meses` ainda não existe'
+        correct: true
+        explanation: 'A ordem lógica é `FROM`, `WHERE`, `GROUP BY`, `HAVING`, `SELECT` e `ORDER BY`.'
+      - text: 'Funciona e retorna quem tem mais de 20 anos'
+        explanation: 'Alguns bancos, como o SQLite, aceitam, mas o PostgreSQL, o MySQL e o SQL Server não.'
+      - text: 'O filtro é ignorado'
+        explanation: 'O banco não ignora condições: ou executa, ou dá erro.'
+      - text: '`meses` vem como `NULL` em todas as linhas'
+        explanation: 'A consulta nem chega a rodar.'
+    explanation: 'Repita a expressão (`WHERE idade * 12 > 240`) ou use uma subconsulta. Já no `ORDER BY` o apelido funciona, porque ele é avaliado depois do `SELECT`.'

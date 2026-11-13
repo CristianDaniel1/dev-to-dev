@@ -1,0 +1,91 @@
+questions:
+  - id: git-branches-001
+    level: beginner
+    prompt: 'Quais comandos criam a branch `feature/login` e já mudam para ela?'
+    options:
+      - text: '`git switch -c feature/login`'
+        correct: true
+        explanation: '`switch` é o comando mais novo, feito só para trocar de branch. `-c` cria a branch.'
+      - text: '`git checkout -b feature/login`'
+        correct: true
+        explanation: 'É a forma tradicional, que continua funcionando.'
+      - text: '`git branch feature/login`'
+        explanation: 'Cria a branch, mas você continua na atual.'
+      - text: '`git merge feature/login`'
+        explanation: '`merge` integra uma branch existente na atual.'
+    explanation: 'O `checkout` faz muitas coisas diferentes. Por isso o Git criou `switch` (trocar de branch) e `restore` (restaurar arquivos).'
+
+  - id: git-branches-002
+    level: beginner
+    prompt: 'O que é uma branch no Git?'
+    options:
+      - text: 'Um ponteiro para um commit, que avança a cada novo commit feito nela'
+        correct: true
+        explanation: 'Por isso criar uma branch é instantâneo: nenhum arquivo é copiado.'
+      - text: 'Uma cópia completa dos arquivos do projeto'
+        explanation: 'A branch só aponta para um commit. Os arquivos são compartilhados.'
+      - text: 'Uma pasta separada dentro do repositório'
+        explanation: 'Trocar de branch altera os arquivos da mesma pasta.'
+      - text: 'Um repositório separado no servidor'
+        explanation: 'Branches existem dentro do mesmo repositório, local ou remoto.'
+    explanation: 'Como branches são baratas, vale criar uma para cada tarefa e apagá-la depois do merge.'
+
+  - id: git-branches-003
+    level: intermediate
+    prompt: 'A `main` não recebeu nenhum commit desde que a branch `feature` foi criada. O que acontece com `git merge feature` na `main`?'
+    options:
+      - text: 'A `main` só avança até o último commit da `feature`, sem criar commit de merge'
+        correct: true
+        explanation: 'Isso é um fast-forward: não há nada para combinar, então o ponteiro só anda para frente.'
+      - text: 'Um commit de merge é sempre criado'
+        explanation: 'Só é criado se as duas branches tiverem commits próprios, ou com `--no-ff`.'
+      - text: 'Os commits da `feature` são reescritos em cima da `main`'
+        explanation: 'Isso é o que o `rebase` faz.'
+      - text: 'Um erro, porque a `main` está desatualizada'
+        explanation: 'Não há conflito possível: a `main` não mudou.'
+    explanation: 'Alguns times usam `git merge --no-ff` para sempre registrar um commit de merge e manter visível onde cada funcionalidade entrou.'
+
+  - id: git-branches-004
+    level: intermediate
+    prompt: 'O que o Git faz quando as duas branches de um merge alteraram as mesmas linhas de um arquivo?'
+    options:
+      - text: 'Pausa o merge e marca o conflito no arquivo, para você resolver e concluir com `git add` e `git commit`'
+        correct: true
+        explanation: 'O arquivo recebe os marcadores `<<<<<<<`, `=======` e `>>>>>>>` em volta das duas versões.'
+      - text: 'Mantém a versão mais recente'
+        explanation: 'O Git não decide pela data: ele deixa a escolha com você.'
+      - text: 'Mantém a versão da branch atual'
+        explanation: 'Isso só acontece se você pedir, com opções como `-X ours`.'
+      - text: 'Cancela o merge automaticamente'
+        explanation: 'O merge fica em andamento. Para cancelar, use `git merge --abort`.'
+    explanation: 'Conflitos não são erros: só mostram que duas pessoas mexeram no mesmo trecho. Branches curtas e merges frequentes reduzem o tamanho deles.'
+
+  - id: git-branches-005
+    level: advanced
+    prompt: 'O que `git rebase main` faz quando você está na branch `feature`?'
+    options:
+      - text: 'Reaplica os commits da `feature` em cima do último commit da `main`, criando commits novos'
+        correct: true
+        explanation: 'Os commits recebem hashes novos, e o histórico fica linear, como se a `feature` tivesse começado agora.'
+      - text: 'Traz a `main` para a `feature` com um commit de merge'
+        explanation: 'Esse é o `git merge main`.'
+      - text: 'Move a `main` para o último commit da `feature`'
+        explanation: 'O rebase só altera a branch atual.'
+      - text: 'Apaga os commits da `main` que não estão na `feature`'
+        explanation: 'A `main` não é alterada.'
+    explanation: 'Como o rebase reescreve commits, não faça rebase de commits que outras pessoas já baixaram. Na sua branch local, ele deixa o histórico limpo antes do pull request.'
+
+  - id: git-branches-006
+    level: intermediate
+    prompt: '`git branch -d experimento` falhou com a mensagem "not fully merged". O que isso significa?'
+    options:
+      - text: 'A branch tem commits que não estão na branch atual, e apagá-la deixaria esses commits sem referência'
+        correct: true
+        explanation: 'O `-d` é a forma segura: só apaga branches cujo trabalho já foi integrado.'
+      - text: 'Há mudanças não commitadas no diretório de trabalho'
+        explanation: 'Mudanças locais não impedem apagar outra branch.'
+      - text: 'A branch ainda existe no remoto'
+        explanation: 'A mensagem fala de commits não integrados, não do remoto.'
+      - text: 'Você está na branch `experimento`'
+        explanation: 'Nesse caso, o Git diria que não pode apagar a branch atual.'
+    explanation: 'Se o trabalho realmente pode ser descartado, `git branch -D experimento` força. Mesmo assim, os commits ainda podem ser achados por um tempo com `git reflog`.'

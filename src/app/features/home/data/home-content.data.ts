@@ -18,7 +18,7 @@ export const PRACTICE_STEPS: readonly PracticeStep[] = [
 ];
 
 /** Technologies being written, listed after the published ones. */
-export const UPCOMING_TECHS: readonly string[] = ['Git', 'SQL'];
+export const UPCOMING_TECHS: readonly string[] = [];
 
 /** How many resource categories the home page lists. */
 export const HOME_CATEGORY_COUNT = 6;

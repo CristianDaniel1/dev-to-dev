@@ -32,7 +32,7 @@ resources:
     name: A Complete Guide to CSS Grid
     url: https://css-tricks.com/snippets/css/complete-guide-grid/
     description: 'Guia visual do CSS Grid, com diagramas para cada propriedade.'
-    why: 'Os diagramas tornam claros conceitos como linhas, áreas e `fr`.'
+    why: 'Os diagramas tornam claros conceitos como linhas, áreas e fr.'
     type: reference
     pricing: free
     languages: [en]

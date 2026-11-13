@@ -7,7 +7,7 @@ phases) was approved at the start of the project; this file tracks where we are.
 
 - **Phase 0 – Foundation**: Angular 22 static prerendering, Tailwind v4, light/dark theme without
   flash, SEO title strategy, sitemap/robots/404, ESLint/Prettier, Vitest, Playwright + axe, CI.
-- **Phase 1 – Quiz engine**: YAML content pipeline (zod, Shiki), 114 questions (HTML, CSS,
+- **Phase 1 – Quiz engine**: YAML content pipeline (zod, Shiki), 114 questions at the time (HTML, CSS,
   JavaScript, React; Tailwind as draft), practice mode with confidence and per-option
   explanations, results by topic, local progress with Leitner boxes.
 - **Phase 2 – Resource hub**: 136 resources in 16 categories, 3 collections, filters in the URL,
@@ -22,8 +22,7 @@ phases) was approved at the start of the project; this file tracks where we are.
 ## Next
 
 1. **Content for launch** (one tech at a time, user reviews the style of each):
-   - Done: TypeScript (31 questions) and Angular (30 questions).
-   - Git and SQL, about 25–30 questions each across the three levels.
+   - Done: TypeScript (31), Angular (30), Git (30) and SQL (30). 235 questions in 8 techs.
    - Expand React to about 30.
    - Decide whether Tailwind leaves draft.
 2. **Launch audit**:

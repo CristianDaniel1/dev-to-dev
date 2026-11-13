@@ -1,0 +1,23 @@
+name: SQL
+description: 'Consultas, filtros, joins, agregações e alterações de dados em bancos relacionais.'
+area: databases
+badge: SQL
+color: '#2f6f8f'
+onColor: '#ffffff'
+order: 80
+topics:
+  - slug: consultas
+    name: Consultas
+    description: 'SELECT, WHERE, ORDER BY, LIMIT e DISTINCT.'
+  - slug: filtros-e-null
+    name: Filtros e NULL
+    description: 'LIKE, IN, BETWEEN, COALESCE e o comportamento do NULL.'
+  - slug: joins
+    name: Joins
+    description: 'INNER JOIN, LEFT JOIN e como combinar tabelas sem surpresas.'
+  - slug: agregacao
+    name: Agregação
+    description: 'COUNT, AVG, GROUP BY e HAVING.'
+  - slug: alteracao-e-modelagem
+    name: Alteração e modelagem
+    description: 'UPDATE, chaves, transações, índices e SQL injection.'

@@ -1,0 +1,91 @@
+questions:
+  - id: git-fundamentos-001
+    level: beginner
+    prompt: 'Qual comando mostra quais arquivos foram modificados e quais já estão preparados para o próximo commit?'
+    options:
+      - text: '`git status`'
+        correct: true
+        explanation: 'Ele separa as mudanças preparadas, as não preparadas e os arquivos não rastreados.'
+      - text: '`git log`'
+        explanation: '`git log` mostra o histórico de commits.'
+      - text: '`git diff`'
+        explanation: '`git diff` mostra o conteúdo das mudanças, linha a linha, e não o resumo por arquivo.'
+      - text: '`git show`'
+        explanation: '`git show` exibe os detalhes de um commit.'
+    explanation: 'Rode `git status` antes de cada commit: ele também sugere os comandos para preparar ou descartar cada mudança.'
+
+  - id: git-fundamentos-002
+    level: beginner
+    prompt: 'O que `git add app.ts` faz?'
+    options:
+      - text: 'Coloca a versão atual de `app.ts` na staging area, para entrar no próximo commit'
+        correct: true
+        explanation: 'A staging area (ou índice) é o rascunho do próximo commit.'
+      - text: 'Cria um commit só com `app.ts`'
+        explanation: 'O commit só é criado com `git commit`.'
+      - text: 'Envia `app.ts` para o GitHub'
+        explanation: 'Nada sai do seu computador até um `git push`.'
+      - text: 'Apenas começa a rastrear o arquivo, sem guardar a versão atual'
+        explanation: 'Além de rastrear, o `git add` guarda o conteúdo do arquivo naquele momento.'
+    explanation: 'A staging area permite montar commits pequenos e focados, escolhendo o que entra mesmo quando você mexeu em vários arquivos.'
+
+  - id: git-fundamentos-003
+    level: intermediate
+    prompt: 'Você rodou `git add app.ts`, editou `app.ts` de novo e então rodou `git commit`. O que entra no commit?'
+    options:
+      - text: 'A versão de quando você rodou `git add`. A última edição fica de fora'
+        correct: true
+        explanation: 'O `git add` guarda uma cópia do conteúdo naquele momento. Edições posteriores precisam de outro `git add`.'
+      - text: 'A versão mais recente do arquivo'
+        explanation: 'O commit usa o que está na staging area, não o que está no disco.'
+      - text: 'As duas versões, em dois commits'
+        explanation: 'Um `git commit` cria um único commit.'
+      - text: 'Nada, porque o arquivo mudou depois do `git add`'
+        explanation: 'O commit é criado normalmente com a versão preparada.'
+    explanation: 'Depois do commit, `git status` mostra `app.ts` como modificado de novo. Use `git commit -a` para incluir todas as edições de arquivos já rastreados.'
+
+  - id: git-fundamentos-004
+    level: intermediate
+    prompt: 'Quais comandos mostram as mudanças já preparadas, que vão entrar no próximo commit?'
+    options:
+      - text: '`git diff --staged`'
+        correct: true
+        explanation: 'Compara a staging area com o último commit.'
+      - text: '`git diff --cached`'
+        correct: true
+        explanation: '`--cached` é o nome antigo de `--staged`. Os dois fazem o mesmo.'
+      - text: '`git diff`'
+        explanation: 'Sem opções, mostra o que mudou e ainda não foi preparado.'
+      - text: '`git diff HEAD~1`'
+        explanation: 'Compara o diretório de trabalho com o penúltimo commit, o que mistura mudanças preparadas, não preparadas e o último commit.'
+    explanation: 'Revisar `git diff --staged` antes de commitar evita levar junto um `console.log` esquecido.'
+
+  - id: git-fundamentos-005
+    level: intermediate
+    prompt: 'O que um commit guarda?'
+    options:
+      - text: 'Um retrato de todos os arquivos rastreados, com autor, data, mensagem e o commit anterior'
+        correct: true
+        explanation: 'Cada commit aponta para o anterior, e é essa corrente que forma o histórico.'
+      - text: 'Só a lista de linhas que mudaram'
+        explanation: 'O `git diff` calcula as diferenças comparando dois retratos, mas o Git guarda o estado completo (sem duplicar arquivos que não mudaram).'
+      - text: 'Uma cópia de segurança no servidor'
+        explanation: 'Commits são locais. Só vão para um servidor com `git push`.'
+      - text: 'Uma branch nova'
+        explanation: 'O commit avança a branch atual, sem criar outra.'
+    explanation: 'O hash de um commit (como `a1b2c3d`) é calculado a partir de todo esse conteúdo. Qualquer mudança, até na mensagem, gera um commit com outro hash.'
+
+  - id: git-fundamentos-006
+    level: intermediate
+    prompt: 'O que é `HEAD`?'
+    options:
+      - text: 'Uma referência ao commit em que você está, normalmente através da branch atual'
+        correct: true
+        explanation: 'Quando você faz um commit, a branch apontada por `HEAD` avança para o commit novo.'
+      - text: 'O primeiro commit do repositório'
+        explanation: 'O primeiro commit não tem um nome especial.'
+      - text: 'O commit mais recente do repositório remoto'
+        explanation: 'O estado do remoto fica em referências como `origin/main`.'
+      - text: 'Outro nome para a branch `main`'
+        explanation: '`HEAD` acompanha a branch em que você estiver, seja qual for.'
+    explanation: '`HEAD~1` é o commit anterior ao atual. Se você fizer checkout de um commit em vez de uma branch, fica em "detached HEAD": commits feitos ali não pertencem a nenhuma branch.'

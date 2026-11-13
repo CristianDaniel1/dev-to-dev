@@ -23,7 +23,7 @@ resources:
     name: Flexbox Froggy
     url: https://flexboxfroggy.com/
     description: 'Jogo que ensina flexbox posicionando sapos em vitórias-régias.'
-    why: 'Em vinte minutos você memoriza `justify-content` e `align-items` sem perceber.'
+    why: 'Em vinte minutos você memoriza justify-content e align-items sem perceber.'
     type: practice
     pricing: free
     languages: [pt, en]

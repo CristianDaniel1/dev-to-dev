@@ -44,7 +44,9 @@
         }
       </tbody>
     </table>
-    <p class="mt-4 text-sm text-ink-muted">Em preparação: {{ upcoming }}.</p>
+    @if (upcoming) {
+      <p class="mt-4 text-sm text-ink-muted">Em preparação: {{ upcoming }}.</p>
+    }
   </section>
 
   <section aria-labelledby="resources-heading">

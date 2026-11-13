@@ -1,0 +1,107 @@
+questions:
+  - id: sql-filtros-e-null-001
+    level: beginner
+    prompt: "Quais nomes `WHERE nome LIKE 'Ma%'` encontra?"
+    options:
+      - text: 'Os que começam com "Ma", como Maria e Marcos'
+        correct: true
+        explanation: '`%` representa qualquer sequência de caracteres, inclusive nenhuma.'
+      - text: 'Os que contêm "Ma" em qualquer posição'
+        explanation: "Para isso, o padrão seria `'%Ma%'`."
+      - text: 'Os que terminam com "Ma"'
+        explanation: "Para isso, o padrão seria `'%Ma'`."
+      - text: 'Só o nome exato "Ma%"'
+        explanation: 'Com `LIKE`, o `%` é um curinga. Para comparar o texto exato, use `=`.'
+    explanation: 'O `_` representa exatamente um caractere. Se `LIKE` diferencia maiúsculas depende do banco: no PostgreSQL diferencia, e existe `ILIKE` para não diferenciar.'
+
+  - id: sql-filtros-e-null-002
+    level: beginner
+    prompt: "Qual condição é equivalente a `cidade = 'Recife' OR cidade = 'Natal'`?"
+    options:
+      - text: "`cidade IN ('Recife', 'Natal')`"
+        correct: true
+        explanation: '`IN` compara com cada valor da lista, como uma sequência de `OR`.'
+      - text: "`cidade = ('Recife', 'Natal')`"
+        explanation: '`=` compara com um único valor.'
+      - text: "`cidade BETWEEN 'Recife' AND 'Natal'`"
+        explanation: '`BETWEEN` testa um intervalo, e com textos isso significa ordem alfabética.'
+      - text: "`cidade LIKE 'Recife, Natal'`"
+        explanation: 'Procuraria o texto "Recife, Natal" inteiro.'
+    explanation: '`IN` também aceita uma subconsulta: `WHERE id IN (SELECT aluno_id FROM matriculas)`.'
+
+  - id: sql-filtros-e-null-003
+    level: intermediate
+    prompt: 'Alguns alunos não têm cidade (o valor é `NULL`). O que esta consulta retorna?'
+    code:
+      lang: sql
+      source: |
+        SELECT nome
+        FROM alunos
+        WHERE cidade = NULL;
+    options:
+      - text: 'Nenhuma linha'
+        correct: true
+        explanation: 'Qualquer comparação com `NULL` dá "desconhecido", e o `WHERE` só mantém o que é verdadeiro.'
+      - text: 'Os alunos sem cidade'
+        explanation: 'Para isso, use `WHERE cidade IS NULL`.'
+      - text: 'Todos os alunos'
+        explanation: 'A condição nunca é verdadeira, então nenhuma linha passa.'
+      - text: 'Um erro de sintaxe'
+        explanation: 'A consulta é válida, só não faz o que parece.'
+    explanation: '`NULL` significa "valor desconhecido", e nem `NULL = NULL` é verdadeiro. Use sempre `IS NULL` e `IS NOT NULL`.'
+
+  - id: sql-filtros-e-null-004
+    level: intermediate
+    prompt: 'Quais idades `WHERE idade BETWEEN 18 AND 25` inclui?'
+    options:
+      - text: 'De 18 a 25, incluindo as duas pontas'
+        correct: true
+        explanation: '`BETWEEN a AND b` é o mesmo que `>= a AND <= b`.'
+      - text: 'De 19 a 24, sem as pontas'
+        explanation: 'As duas pontas entram.'
+      - text: 'De 18 a 24, sem o 25'
+        explanation: 'O limite superior também é incluído.'
+      - text: 'Só 18 e 25'
+        explanation: 'É um intervalo, não uma lista. Para valores específicos, use `IN`.'
+    explanation: "Com datas e horas, o limite incluído engana: `BETWEEN '2025-01-01' AND '2025-01-31'` pode deixar de fora o dia 31 depois da meia-noite. Prefira `>= início AND < dia seguinte`."
+
+  - id: sql-filtros-e-null-005
+    level: intermediate
+    prompt: 'O que esta consulta mostra para os alunos sem cidade?'
+    code:
+      lang: sql
+      source: |
+        SELECT nome, COALESCE(cidade, 'Não informada') AS cidade
+        FROM alunos;
+    options:
+      - text: 'O texto "Não informada" no lugar do `NULL`'
+        correct: true
+        explanation: '`COALESCE` retorna o primeiro argumento que não é `NULL`.'
+      - text: '`NULL`, porque `COALESCE` só funciona com números'
+        explanation: '`COALESCE` funciona com qualquer tipo, desde que os argumentos sejam compatíveis.'
+      - text: 'Esses alunos ficam de fora do resultado'
+        explanation: 'Não há `WHERE`, então todas as linhas aparecem.'
+      - text: 'A cidade é gravada como "Não informada" na tabela'
+        explanation: '`SELECT` só lê. A tabela não muda.'
+    explanation: "`COALESCE` aceita vários argumentos: `COALESCE(apelido, nome, 'Anônimo')` usa o primeiro preenchido."
+
+  - id: sql-filtros-e-null-006
+    level: advanced
+    prompt: 'A coluna `aluno_id` de `matriculas` tem uma linha com `NULL`. O que esta consulta retorna?'
+    code:
+      lang: sql
+      source: |
+        SELECT nome
+        FROM alunos
+        WHERE id NOT IN (SELECT aluno_id FROM matriculas);
+    options:
+      - text: 'Nenhuma linha, nem mesmo os alunos sem matrícula'
+        correct: true
+        explanation: '`id NOT IN (1, 2, NULL)` vira `id <> 1 AND id <> 2 AND id <> NULL`. A última parte é sempre "desconhecido".'
+      - text: 'Os alunos sem matrícula'
+        explanation: 'Seria o resultado sem o `NULL` na subconsulta.'
+      - text: 'Todos os alunos'
+        explanation: 'A condição nunca chega a ser verdadeira.'
+      - text: 'Um erro, porque a subconsulta tem `NULL`'
+        explanation: 'O banco executa normalmente. O resultado é que surpreende.'
+    explanation: 'Use `NOT EXISTS (SELECT 1 FROM matriculas m WHERE m.aluno_id = alunos.id)`. Ele não sofre com `NULL` e deixa clara a intenção.'

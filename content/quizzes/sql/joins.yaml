@@ -1,0 +1,111 @@
+questions:
+  - id: sql-joins-001
+    level: beginner
+    prompt: 'Um `INNER JOIN` entre `alunos` e `matriculas` (ligadas por `matriculas.aluno_id = alunos.id`) retorna o quê?'
+    options:
+      - text: 'Só as combinações que têm correspondência nas duas tabelas'
+        correct: true
+        explanation: 'Alunos sem matrícula e matrículas sem aluno ficam de fora.'
+      - text: 'Todos os alunos, com ou sem matrícula'
+        explanation: 'Esse é o `LEFT JOIN`, com `alunos` à esquerda.'
+      - text: 'Todas as linhas das duas tabelas, uma embaixo da outra'
+        explanation: 'Empilhar resultados é o papel do `UNION`.'
+      - text: 'Cada aluno combinado com todas as matrículas'
+        explanation: 'Esse é o produto cartesiano, do `CROSS JOIN`. O `ON` limita as combinações.'
+    explanation: 'Escrever só `JOIN` é o mesmo que `INNER JOIN`.'
+
+  - id: sql-joins-002
+    level: intermediate
+    prompt: 'Você quer listar todos os alunos com os cursos em que estão matriculados, incluindo quem não tem matrícula. Qual join usar, com `alunos` à esquerda?'
+    options:
+      - text: '`LEFT JOIN`'
+        correct: true
+        explanation: 'Mantém todas as linhas da tabela da esquerda. Para alunos sem matrícula, as colunas de `matriculas` vêm como `NULL`.'
+      - text: '`INNER JOIN`'
+        explanation: 'Deixaria de fora quem não tem matrícula.'
+      - text: '`RIGHT JOIN`'
+        explanation: 'Com `alunos` à esquerda, manteria todas as matrículas, e não todos os alunos.'
+      - text: '`CROSS JOIN`'
+        explanation: 'Combinaria cada aluno com cada matrícula, sem respeitar a ligação.'
+    explanation: '`RIGHT JOIN` é um `LEFT JOIN` com as tabelas trocadas. Na prática, quase todo mundo escreve só `LEFT JOIN`, que é mais fácil de ler.'
+
+  - id: sql-joins-003
+    level: intermediate
+    prompt: 'O que esta consulta retorna?'
+    code:
+      lang: sql
+      source: |
+        SELECT a.nome
+        FROM alunos a
+        LEFT JOIN matriculas m ON m.aluno_id = a.id
+        WHERE m.aluno_id IS NULL;
+    options:
+      - text: 'Os alunos que não têm nenhuma matrícula'
+        correct: true
+        explanation: 'Só os alunos sem correspondência ficam com as colunas de `m` em `NULL`.'
+      - text: 'As matrículas sem aluno'
+        explanation: 'A consulta parte de `alunos`. Matrículas sem aluno nem entram num `LEFT JOIN` a partir de `alunos`.'
+      - text: 'Todos os alunos'
+        explanation: 'O `WHERE` filtra depois do join e deixa só os sem correspondência.'
+      - text: 'Nenhuma linha, porque `aluno_id` nunca é `NULL`'
+        explanation: 'A coluna não tem `NULL` na tabela, mas o `LEFT JOIN` preenche com `NULL` quando não há correspondência.'
+    explanation: 'Esse padrão se chama anti-join. `WHERE NOT EXISTS (...)` faz o mesmo e costuma deixar a intenção mais clara.'
+
+  - id: sql-joins-004
+    level: intermediate
+    prompt: 'Ana está matriculada em 3 cursos. Quantas linhas esta consulta retorna?'
+    code:
+      lang: sql
+      source: |
+        SELECT a.nome
+        FROM alunos a
+        JOIN matriculas m ON m.aluno_id = a.id
+        WHERE a.nome = 'Ana';
+    options:
+      - text: '3 linhas, todas com "Ana"'
+        correct: true
+        explanation: 'O join cria uma linha para cada combinação, e Ana combina com 3 matrículas.'
+      - text: '1 linha'
+        explanation: 'O join não junta as matrículas numa só linha. Para isso, use `DISTINCT` ou `GROUP BY`.'
+      - text: '0 linhas, porque o `SELECT` não usa colunas de `matriculas`'
+        explanation: 'As colunas do `SELECT` não mudam quantas linhas o join produz.'
+      - text: 'Um erro, porque `nome` é ambíguo'
+        explanation: 'O prefixo `a.` deixa claro de qual tabela é a coluna.'
+    explanation: 'Essa multiplicação de linhas é a causa de somas infladas: um `SUM` depois de um join com uma relação de um para muitos conta o mesmo valor várias vezes.'
+
+  - id: sql-joins-005
+    level: advanced
+    prompt: 'Por que os alunos sem matrícula somem do resultado, mesmo com `LEFT JOIN`?'
+    code:
+      lang: sql
+      source: |
+        SELECT a.nome, m.nota
+        FROM alunos a
+        LEFT JOIN matriculas m ON m.aluno_id = a.id
+        WHERE m.nota >= 7;
+    options:
+      - text: 'Porque o `WHERE` roda depois do join, e `NULL >= 7` não é verdadeiro'
+        correct: true
+        explanation: 'Para quem não tem matrícula, `m.nota` é `NULL`, e o filtro descarta a linha. O `LEFT JOIN` vira, na prática, um `INNER JOIN`.'
+      - text: 'Porque o `LEFT JOIN` só funciona com chaves primárias'
+        explanation: 'O join funciona com qualquer condição.'
+      - text: 'Porque `nota` não está no `ON`'
+        explanation: 'É quase isso: o problema é que a condição está no `WHERE`. Movida para o `ON`, ela não remove alunos.'
+      - text: 'Porque o banco remove linhas com `NULL` automaticamente'
+        explanation: 'Linhas com `NULL` só somem quando uma condição as descarta.'
+    explanation: 'Para manter todos os alunos e mostrar só as notas a partir de 7, coloque a condição no join: `LEFT JOIN matriculas m ON m.aluno_id = a.id AND m.nota >= 7`.'
+
+  - id: sql-joins-006
+    level: advanced
+    prompt: 'A tabela `alunos` tem 10 linhas e `cursos` tem 4. Quantas linhas `SELECT * FROM alunos, cursos;` retorna?'
+    options:
+      - text: '40'
+        correct: true
+        explanation: 'Sem condição de ligação, cada aluno é combinado com cada curso: 10 × 4.'
+      - text: '14'
+        explanation: 'Somar as linhas seria o efeito de empilhar as tabelas com `UNION ALL`, o que nem funcionaria com colunas diferentes.'
+      - text: '10'
+        explanation: 'A vírgula no `FROM` não limita o resultado à primeira tabela.'
+      - text: 'Um erro, porque falta o `JOIN`'
+        explanation: 'A vírgula é a sintaxe antiga de join, e sem `WHERE` ela gera o produto cartesiano.'
+    explanation: 'Esquecer a condição de ligação é um erro clássico que pode gerar milhões de linhas. Escreva os joins com `JOIN ... ON`, que deixa a condição junto da tabela.'

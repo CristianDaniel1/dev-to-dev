@@ -3,7 +3,7 @@ resources:
     name: SQLBolt
     url: https://sqlbolt.com/
     description: 'Lições interativas de SQL com exercícios executados no navegador.'
-    why: 'Em uma tarde você vai de `SELECT` a `JOIN`, praticando em cada passo.'
+    why: 'Em uma tarde você vai de SELECT a JOIN, praticando em cada passo.'
     type: practice
     pricing: free
     languages: [en]

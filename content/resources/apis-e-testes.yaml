@@ -29,7 +29,7 @@ resources:
     name: JSONPlaceholder
     url: https://jsonplaceholder.typicode.com/
     description: 'API REST falsa e gratuita com posts, usuários, comentários e tarefas.'
-    why: 'Perfeita para praticar `fetch` e listas no frontend antes de ter um backend.'
+    why: 'Perfeita para praticar fetch e listas no frontend antes de ter um backend.'
     type: service
     pricing: free
     languages: [en]

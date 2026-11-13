@@ -7,7 +7,13 @@ import {
 } from '../../src/app/shared/constants/resource.constants';
 
 const slug = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'must be kebab-case');
-const sentence = z.string().trim().min(1).max(220);
+// Resource texts are shown as plain text, so markdown such as `code` would appear literally.
+const sentence = z
+  .string()
+  .trim()
+  .min(1)
+  .max(220)
+  .refine((text) => !text.includes('`'), 'resource texts are plain text; remove the backticks');
 
 /** Authoring format of `content/resources/categories.yaml`. */
 export const categoriesFileSchema = z.strictObject({

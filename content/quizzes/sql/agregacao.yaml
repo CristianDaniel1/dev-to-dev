@@ -1,0 +1,107 @@
+questions:
+  - id: sql-agregacao-001
+    level: beginner
+    prompt: 'O que `SELECT COUNT(*) FROM alunos;` retorna?'
+    options:
+      - text: 'O número de linhas da tabela'
+        correct: true
+        explanation: '`COUNT(*)` conta linhas, sem olhar o conteúdo das colunas.'
+      - text: 'Todas as linhas da tabela'
+        explanation: 'Funções de agregação resumem várias linhas num único valor.'
+      - text: 'O número de colunas da tabela'
+        explanation: '`COUNT` conta linhas, não colunas.'
+      - text: 'A soma de todos os valores numéricos'
+        explanation: 'Para somar, use `SUM(coluna)`.'
+    explanation: "Combine com `WHERE` para contar só parte das linhas: `SELECT COUNT(*) FROM alunos WHERE cidade = 'Recife';`."
+
+  - id: sql-agregacao-002
+    level: intermediate
+    prompt: 'O que esta consulta retorna?'
+    code:
+      lang: sql
+      source: |
+        SELECT cidade, COUNT(*) AS total
+        FROM alunos
+        GROUP BY cidade;
+    options:
+      - text: 'Uma linha por cidade, com o número de alunos de cada uma'
+        correct: true
+        explanation: '`GROUP BY` junta as linhas com a mesma cidade, e o `COUNT` é calculado em cada grupo.'
+      - text: 'Uma linha por aluno, com o total geral repetido'
+        explanation: 'Depois do `GROUP BY`, cada grupo vira uma única linha.'
+      - text: 'Só a cidade com mais alunos'
+        explanation: 'Para isso, seria preciso ordenar por `total` e limitar a uma linha.'
+      - text: 'Um erro, porque `cidade` não está numa função de agregação'
+        explanation: '`cidade` está no `GROUP BY`, então pode aparecer no `SELECT`.'
+    explanation: 'Alunos sem cidade formam um grupo próprio, com `cidade` igual a `NULL`.'
+
+  - id: sql-agregacao-003
+    level: intermediate
+    prompt: 'Qual consulta lista só as cidades com mais de 10 alunos?'
+    options:
+      - text: '`SELECT cidade FROM alunos GROUP BY cidade HAVING COUNT(*) > 10;`'
+        correct: true
+        explanation: '`HAVING` filtra os grupos depois que as agregações são calculadas.'
+      - text: '`SELECT cidade FROM alunos WHERE COUNT(*) > 10 GROUP BY cidade;`'
+        explanation: '`WHERE` filtra linhas antes do agrupamento, quando ainda não existe contagem. A consulta dá erro.'
+      - text: '`SELECT cidade FROM alunos GROUP BY cidade WHERE COUNT(*) > 10;`'
+        explanation: '`WHERE` não pode vir depois de `GROUP BY`. É erro de sintaxe.'
+      - text: '`SELECT cidade FROM alunos HAVING cidade > 10;`'
+        explanation: 'Compararia o nome da cidade com 10, e sem agrupar.'
+    explanation: 'Os dois podem aparecer juntos: `WHERE idade >= 18 GROUP BY cidade HAVING COUNT(*) > 10` conta só os adultos e depois filtra as cidades.'
+
+  - id: sql-agregacao-004
+    level: intermediate
+    prompt: 'A tabela `alunos` tem 5 linhas, e 2 delas têm `cidade` igual a `NULL`. O que esta consulta retorna?'
+    code:
+      lang: sql
+      source: |
+        SELECT COUNT(*), COUNT(cidade)
+        FROM alunos;
+    options:
+      - text: '5 e 3'
+        correct: true
+        explanation: '`COUNT(*)` conta linhas. `COUNT(coluna)` conta só os valores que não são `NULL`.'
+      - text: '5 e 5'
+        explanation: '`COUNT(cidade)` ignora os `NULL`.'
+      - text: '3 e 3'
+        explanation: '`COUNT(*)` conta todas as linhas, com ou sem `NULL`.'
+      - text: '5 e 2'
+        explanation: '2 é a quantidade de `NULL`. A contagem é dos valores preenchidos.'
+    explanation: 'A diferença entre os dois dá a quantidade de valores ausentes. Já `COUNT(DISTINCT cidade)` conta as cidades diferentes.'
+
+  - id: sql-agregacao-005
+    level: advanced
+    prompt: 'As notas de um curso são 10, 6 e `NULL` (uma prova não corrigida). Quanto vale `AVG(nota)`?'
+    options:
+      - text: '8'
+        correct: true
+        explanation: 'As funções de agregação ignoram `NULL`: a média é (10 + 6) / 2.'
+      - text: '5,33'
+        explanation: 'Seria o resultado se o `NULL` contasse como zero: (10 + 6 + 0) / 3.'
+      - text: '`NULL`'
+        explanation: 'A média só é `NULL` quando todos os valores são `NULL`.'
+      - text: 'Um erro'
+        explanation: '`AVG` trata `NULL` sem erro.'
+    explanation: 'Se a prova não corrigida deve contar como zero, deixe isso explícito: `AVG(COALESCE(nota, 0))`.'
+
+  - id: sql-agregacao-006
+    level: advanced
+    prompt: 'No PostgreSQL, o que acontece com esta consulta?'
+    code:
+      lang: sql
+      source: |
+        SELECT cidade, nome, COUNT(*)
+        FROM alunos
+        GROUP BY cidade;
+    options:
+      - text: 'Um erro, porque `nome` não está no `GROUP BY` nem numa função de agregação'
+        correct: true
+        explanation: 'Cada grupo tem vários nomes, e o banco não tem como escolher qual mostrar.'
+      - text: 'Retorna o primeiro nome de cada cidade'
+        explanation: 'Alguns bancos, como o SQLite, devolvem um nome qualquer do grupo. O PostgreSQL recusa a consulta.'
+      - text: 'Retorna uma linha por aluno'
+        explanation: 'O `GROUP BY cidade` agrupa por cidade, não por aluno.'
+      - text: 'Retorna os nomes concatenados'
+        explanation: "Para concatenar, é preciso pedir: `STRING_AGG(nome, ', ')`."
+    explanation: "Toda coluna do `SELECT` precisa estar no `GROUP BY` ou dentro de uma agregação, como `MIN(nome)` ou `STRING_AGG(nome, ', ')`."

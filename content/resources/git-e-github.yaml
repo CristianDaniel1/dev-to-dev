@@ -13,7 +13,7 @@ resources:
     name: Learn Git Branching
     url: https://learngitbranching.js.org/?locale=pt_BR
     description: 'Tutorial interativo que desenha a árvore de commits enquanto você digita comandos.'
-    why: 'Ver os commits se moverem a cada `rebase` ou `cherry-pick` faz os comandos finalmente fazerem sentido.'
+    why: 'Ver os commits se moverem a cada rebase ou cherry-pick faz os comandos finalmente fazerem sentido.'
     type: practice
     pricing: free
     languages: [pt, en]
@@ -49,7 +49,7 @@ resources:
   - id: conventional-commits
     name: Conventional Commits
     url: https://www.conventionalcommits.org/pt-br/v1.0.0/
-    description: 'Convenção para mensagens de commit, como `feat:` e `fix:`, legível por pessoas e ferramentas.'
+    description: 'Convenção para mensagens de commit, como feat: e fix:, legível por pessoas e ferramentas.'
     why: 'Deixa o histórico fácil de ler e permite gerar changelogs e versões automaticamente.'
     type: reference
     pricing: free
@@ -58,8 +58,8 @@ resources:
   - id: gitignore-generator
     name: gitignore.io
     url: https://www.toptal.com/developers/gitignore
-    description: 'Gera arquivos `.gitignore` combinando sistemas operacionais, editores e linguagens.'
-    why: 'Evita commitar `node_modules`, arquivos do editor e segredos logo no primeiro commit.'
+    description: 'Gera arquivos .gitignore combinando sistemas operacionais, editores e linguagens.'
+    why: 'Evita commitar node_modules, arquivos do editor e segredos logo no primeiro commit.'
     type: tool
     pricing: free
     languages: [en]

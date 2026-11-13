@@ -1,0 +1,90 @@
+questions:
+  - id: git-fluxo-de-trabalho-001
+    level: beginner
+    prompt: 'Para que serve o arquivo `.gitignore`?'
+    options:
+      - text: 'Lista arquivos que o Git não deve passar a rastrear, como `node_modules` e `.env`'
+        correct: true
+        explanation: 'Arquivos ignorados não aparecem no `git status` e não entram num `git add .`.'
+      - text: 'Esconde arquivos que já foram commitados'
+        explanation: 'Arquivos já rastreados continuam sendo rastreados mesmo que entrem no `.gitignore`.'
+      - text: 'Apaga os arquivos listados'
+        explanation: 'Os arquivos continuam no disco. O Git só não presta atenção neles.'
+      - text: 'Criptografa os arquivos listados no repositório'
+        explanation: 'O Git não criptografa nada. Arquivos ignorados simplesmente ficam fora do repositório.'
+    explanation: 'Ignore o que pode ser gerado de novo (dependências, builds) e o que é pessoal ou secreto (`.env`, configurações do editor).'
+
+  - id: git-fluxo-de-trabalho-002
+    level: intermediate
+    prompt: 'Você commitou o `.env` sem querer e depois o adicionou ao `.gitignore`. O que acontece?'
+    options:
+      - text: 'O arquivo continua rastreado. É preciso rodar `git rm --cached .env` e commitar'
+        correct: true
+        explanation: '`--cached` tira o arquivo do repositório, mas mantém a cópia no seu disco.'
+      - text: 'O Git para de rastrear o arquivo automaticamente'
+        explanation: 'O `.gitignore` só vale para arquivos ainda não rastreados.'
+      - text: 'O arquivo some do histórico'
+        explanation: 'Os commits antigos continuam com o arquivo.'
+      - text: 'O próximo commit dá erro'
+        explanation: 'Nada impede o commit. O arquivo só continua sendo rastreado.'
+    explanation: 'Se o `.env` tinha senhas ou chaves e foi enviado, troque essas credenciais: elas continuam no histórico e em qualquer clone que já exista.'
+
+  - id: git-fluxo-de-trabalho-003
+    level: intermediate
+    prompt: 'Você está no meio de uma mudança e precisa trocar de branch para corrigir um bug urgente, sem commitar o trabalho pela metade. O que usar?'
+    options:
+      - text: '`git stash`, e depois `git stash pop` para recuperar'
+        correct: true
+        explanation: 'O stash guarda as mudanças numa pilha e deixa o diretório limpo.'
+      - text: '`git reset --hard`'
+        explanation: 'Descarta as mudanças de vez.'
+      - text: '`git commit --amend`'
+        explanation: 'Misturaria o trabalho pela metade no último commit.'
+      - text: '`git clean -fd`'
+        explanation: '`clean` apaga arquivos não rastreados. Não guarda nada.'
+    explanation: 'Por padrão, o stash não guarda arquivos novos (não rastreados). Use `git stash -u` para incluí-los e `git stash list` para ver o que está guardado.'
+
+  - id: git-fluxo-de-trabalho-004
+    level: beginner
+    prompt: 'Qual mensagem de commit segue o padrão Conventional Commits?'
+    options:
+      - text: '`fix(login): aceita e-mail com letras maiúsculas`'
+        correct: true
+        explanation: 'Tem o tipo (`fix`), o escopo opcional (`login`) e uma descrição curta do que muda.'
+      - text: '`corrigi umas coisas`'
+        explanation: 'Não diz o que mudou nem segue o formato `tipo: descrição`.'
+      - text: '`Fix: Login.`'
+        explanation: 'O tipo é escrito em minúsculas, e a descrição precisa dizer o que mudou.'
+      - text: '`update`'
+        explanation: 'Uma palavra solta não diz nada a quem lê o histórico.'
+    explanation: 'Os tipos mais comuns são `feat`, `fix`, `docs`, `refactor`, `test` e `chore`. O formato permite gerar changelogs e versões automaticamente.'
+
+  - id: git-fluxo-de-trabalho-005
+    level: advanced
+    prompt: 'Um bug apareceu em algum dos últimos 200 commits. Qual comando acha o commit culpado com poucas verificações?'
+    options:
+      - text: '`git bisect`'
+        correct: true
+        explanation: 'Ele faz uma busca binária: você diz se cada commit sugerido está bom ou ruim, e em cerca de 8 passos chega ao culpado.'
+      - text: '`git blame`'
+        explanation: '`blame` mostra quem mudou cada linha por último. Ajuda quando você já sabe onde o bug está.'
+      - text: '`git log`'
+        explanation: 'Lista os commits, mas você teria que testar um por um.'
+      - text: '`git reflog`'
+        explanation: '`reflog` mostra por onde o seu `HEAD` passou, não onde um bug entrou.'
+    explanation: 'Com `git bisect run npm test`, o Git testa cada commit sozinho, desde que o comando retorne erro quando o bug aparece.'
+
+  - id: git-fluxo-de-trabalho-006
+    level: advanced
+    prompt: 'Antes de abrir um pull request, você quer juntar seus 5 últimos commits ("wip", "ajuste", ...) em um só. O que usar?'
+    options:
+      - text: '`git rebase -i HEAD~5`, marcando os commits com `squash` ou `fixup`'
+        correct: true
+        explanation: 'O rebase interativo abre uma lista para juntar, reordenar, renomear ou remover commits.'
+      - text: '`git revert HEAD~5`'
+        explanation: '`revert` cria um commit que desfaz outro.'
+      - text: '`git stash`'
+        explanation: '`stash` guarda mudanças não commitadas.'
+      - text: '`git cherry-pick HEAD~5`'
+        explanation: '`cherry-pick` copia um commit para a branch atual.'
+    explanation: 'Outra forma: `git reset --soft HEAD~5` seguido de um `git commit`. Muitos times também usam "Squash and merge" direto no pull request.'

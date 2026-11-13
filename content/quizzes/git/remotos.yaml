@@ -1,0 +1,90 @@
+questions:
+  - id: git-remotos-001
+    level: beginner
+    prompt: 'O que `git clone <url>` faz?'
+    options:
+      - text: 'Baixa o repositório completo, com todo o histórico, e configura o remoto `origin`'
+        correct: true
+        explanation: 'Você recebe uma cópia independente: dá para ver o histórico e commitar mesmo sem internet.'
+      - text: 'Baixa só os arquivos da versão mais recente'
+        explanation: 'Isso é o que o download em ZIP faz. O clone traz todo o histórico.'
+      - text: 'Cria um repositório vazio ligado à URL'
+        explanation: 'O clone já traz todos os commits do remoto.'
+      - text: 'Baixa só a branch `main`, sem histórico'
+        explanation: 'Um clone comum traz o histórico e as referências de todas as branches do remoto.'
+    explanation: 'Em repositórios enormes, `git clone --depth 1` baixa só o último commit. É útil em CI, mas limita comandos que dependem do histórico.'
+
+  - id: git-remotos-002
+    level: beginner
+    prompt: 'O que é `origin`?'
+    options:
+      - text: 'O nome padrão dado ao remoto de onde o repositório foi clonado'
+        correct: true
+        explanation: 'É só um apelido para a URL. Veja os remotos com `git remote -v`.'
+      - text: 'A branch principal do projeto'
+        explanation: 'A branch principal costuma se chamar `main`. `origin/main` é a cópia local dessa branch no remoto `origin`.'
+      - text: 'O primeiro commit do repositório'
+        explanation: 'O primeiro commit não tem nome especial.'
+      - text: 'O servidor do GitHub, obrigatório em todo repositório'
+        explanation: 'Um repositório pode não ter remoto nenhum, ou ter vários, em qualquer servidor.'
+    explanation: 'Em forks, é comum ter dois remotos: `origin` (o seu fork) e `upstream` (o projeto original).'
+
+  - id: git-remotos-003
+    level: intermediate
+    prompt: 'Qual é a diferença entre `git fetch` e `git pull`?'
+    options:
+      - text: '`fetch` só baixa os commits novos do remoto. `pull` baixa e integra na branch atual'
+        correct: true
+        explanation: 'O `pull` é um `fetch` seguido de `merge` (ou de `rebase`, se configurado).'
+      - text: 'É o contrário: `pull` só baixa, e `fetch` integra'
+        explanation: '`fetch` nunca altera a sua branch nem os seus arquivos.'
+      - text: 'São sinônimos'
+        explanation: 'Só o `pull` mexe na sua branch.'
+      - text: '`fetch` envia commits, e `pull` recebe'
+        explanation: 'Quem envia é o `push`. Os dois recebem.'
+    explanation: 'Fazer `git fetch` e olhar `git log main..origin/main` antes de integrar mostra exatamente o que vai chegar.'
+
+  - id: git-remotos-004
+    level: intermediate
+    prompt: 'O `git push` foi rejeitado com "Updates were rejected because the remote contains work that you do not have locally". O que fazer?'
+    options:
+      - text: 'Trazer as mudanças com `git pull`, resolver conflitos se houver e enviar de novo'
+        correct: true
+        explanation: 'Alguém enviou commits antes de você. Integre-os primeiro.'
+      - text: 'Usar `git push --force`'
+        explanation: 'Isso sobrescreve o remoto e apaga os commits que a outra pessoa enviou.'
+      - text: 'Clonar o repositório de novo'
+        explanation: 'Os seus commits locais ficariam para trás no clone antigo.'
+      - text: 'Rodar `git commit --amend` e tentar de novo'
+        explanation: 'Alterar o seu commit não traz o trabalho que está no remoto.'
+    explanation: '`git pull --rebase` coloca os seus commits depois dos que chegaram, sem criar um commit de merge.'
+
+  - id: git-remotos-005
+    level: intermediate
+    prompt: 'O que o `-u` faz em `git push -u origin feature/login`?'
+    options:
+      - text: 'Liga a branch local à branch remota, para que `git push` e `git pull` sem argumentos saibam para onde ir'
+        correct: true
+        explanation: 'Essa ligação se chama upstream. O `git status` passa a mostrar quantos commits você está à frente ou atrás.'
+      - text: 'Atualiza a branch local com o remoto antes de enviar'
+        explanation: '`-u` vem de `--set-upstream`, não de "update".'
+      - text: 'Envia todas as branches de uma vez'
+        explanation: 'Isso seria `git push --all`.'
+      - text: 'Força o envio mesmo com conflitos'
+        explanation: 'Forçar é `--force`. O `-u` não muda as regras do envio.'
+    explanation: 'Basta usar `-u` no primeiro push de cada branch. Com `git config --global push.autoSetupRemote true`, o Git faz isso sozinho.'
+
+  - id: git-remotos-006
+    level: advanced
+    prompt: 'Depois de um rebase na sua branch já enviada, por que preferir `git push --force-with-lease` a `git push --force`?'
+    options:
+      - text: 'Porque ele só sobrescreve o remoto se ninguém tiver enviado nada desde a sua última atualização'
+        correct: true
+        explanation: 'Se a branch remota mudou sem você saber, o push é recusado e nada se perde.'
+      - text: 'Porque ele não reescreve o histórico'
+        explanation: 'Os dois substituem o histórico remoto. A diferença é a checagem antes.'
+      - text: 'Porque ele cria um backup automático da branch remota'
+        explanation: 'Nenhum backup é criado.'
+      - text: 'Porque `--force` não funciona depois de um rebase'
+        explanation: 'Funciona, e é justamente por isso que é perigoso.'
+    explanation: 'A checagem compara com o seu `origin/branch` local. Um `git fetch` logo antes do push atualiza essa referência e enfraquece a proteção, então revise o que chegou antes de forçar.'

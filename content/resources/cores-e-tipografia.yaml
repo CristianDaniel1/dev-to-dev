@@ -48,7 +48,7 @@ resources:
   - id: utopia
     name: Utopia
     url: https://utopia.fyi/
-    description: 'Calculadoras de tipografia e espaçamento fluidos, que geram `clamp()` prontos.'
+    description: 'Calculadoras de tipografia e espaçamento fluidos, que geram clamp() prontos.'
     why: 'Escala tipográfica que cresce suavemente com a tela, sem uma media query por tamanho.'
     type: tool
     pricing: free

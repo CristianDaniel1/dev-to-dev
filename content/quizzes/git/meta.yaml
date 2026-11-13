@@ -1,0 +1,23 @@
+name: Git
+description: 'Commits, branches, desfazer mudanças e trabalho com repositórios remotos.'
+area: engineering
+badge: Git
+color: '#f05033'
+onColor: '#1e201d'
+order: 70
+topics:
+  - slug: fundamentos
+    name: Fundamentos
+    description: 'Diretório de trabalho, staging area, commits e HEAD.'
+  - slug: branches
+    name: Branches
+    description: 'Criar e trocar de branch, merge, conflitos e rebase.'
+  - slug: desfazer-mudancas
+    name: Desfazer mudanças
+    description: 'restore, amend, revert, reset e reflog.'
+  - slug: remotos
+    name: Remotos
+    description: 'clone, fetch, pull, push e upstream.'
+  - slug: fluxo-de-trabalho
+    name: Fluxo de trabalho
+    description: '.gitignore, stash, mensagens de commit, bisect e rebase interativo.'

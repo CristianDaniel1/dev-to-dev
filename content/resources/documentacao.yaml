@@ -68,7 +68,7 @@ resources:
     name: Node.js
     url: https://nodejs.org/docs/latest/api/
     description: 'Referência oficial das APIs do Node.js: arquivos, rede, streams, processos e mais.'
-    why: 'Muita coisa que se instala via npm já existe nativa no Node, como o test runner e o `fetch`.'
+    why: 'Muita coisa que se instala via npm já existe nativa no Node, como o test runner e o fetch.'
     type: docs
     pricing: free
     languages: [en]

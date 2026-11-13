@@ -1,0 +1,101 @@
+questions:
+  - id: sql-alteracao-e-modelagem-001
+    level: beginner
+    prompt: "O que `UPDATE alunos SET cidade = 'Recife';` faz?"
+    options:
+      - text: 'Muda a cidade de todos os alunos para Recife'
+        correct: true
+        explanation: 'Sem `WHERE`, o `UPDATE` altera todas as linhas da tabela.'
+      - text: 'Muda a cidade só do último aluno inserido'
+        explanation: 'Tabelas não têm uma ordem garantida, e o comando não escolhe uma linha.'
+      - text: 'Dá erro, porque falta o `WHERE`'
+        explanation: 'O `WHERE` é opcional. A maioria dos bancos executa sem aviso.'
+      - text: 'Cria uma coluna `cidade` com o valor Recife'
+        explanation: 'Para criar colunas, use `ALTER TABLE`.'
+    explanation: 'Antes de um `UPDATE` ou `DELETE`, rode um `SELECT` com o mesmo `WHERE` para ver quais linhas serão afetadas. Ou faça dentro de uma transação, para poder voltar atrás.'
+
+  - id: sql-alteracao-e-modelagem-002
+    level: beginner
+    prompt: 'O que uma chave primária garante?'
+    options:
+      - text: 'Que cada linha tenha um valor único e não nulo nessa coluna'
+        correct: true
+        explanation: 'A chave primária identifica cada linha sem ambiguidade.'
+      - text: 'Que a coluna seja preenchida automaticamente'
+        explanation: 'Gerar valores é outro recurso, como `GENERATED ALWAYS AS IDENTITY` ou `AUTO_INCREMENT`.'
+      - text: 'Que a tabela fique em ordem alfabética'
+        explanation: 'A ordem do resultado só é garantida com `ORDER BY`.'
+      - text: 'Que a coluna só aceite números'
+        explanation: 'Chaves primárias podem ser de outros tipos, como texto ou UUID.'
+    explanation: 'Uma chave primária também pode ter mais de uma coluna, como `(aluno_id, curso_id)` em `matriculas`, impedindo a mesma matrícula duas vezes.'
+
+  - id: sql-alteracao-e-modelagem-003
+    level: intermediate
+    prompt: '`matriculas.aluno_id` é uma chave estrangeira para `alunos(id)`. O que acontece ao inserir uma matrícula com `aluno_id = 999`, se esse aluno não existe?'
+    options:
+      - text: 'O banco recusa a inserção'
+        correct: true
+        explanation: 'A chave estrangeira garante que toda matrícula aponte para um aluno que existe.'
+      - text: 'O aluno 999 é criado automaticamente'
+        explanation: 'O banco não cria linhas em outras tabelas por conta própria.'
+      - text: 'A matrícula é inserida com `aluno_id` igual a `NULL`'
+        explanation: 'O valor não é trocado: a operação inteira falha.'
+      - text: 'A inserção funciona, e a checagem acontece só nas consultas'
+        explanation: 'A checagem acontece na hora da escrita.'
+    explanation: 'Com `ON DELETE CASCADE`, apagar um aluno apaga as matrículas dele. Sem essa opção, o banco impede apagar um aluno que ainda tem matrículas.'
+
+  - id: sql-alteracao-e-modelagem-004
+    level: intermediate
+    prompt: 'Uma transferência debita uma conta e credita outra, dentro de uma transação. Se o banco cair entre os dois `UPDATE`, o que acontece?'
+    code:
+      lang: sql
+      source: |
+        BEGIN;
+        UPDATE contas SET saldo = saldo - 100 WHERE id = 1;
+        UPDATE contas SET saldo = saldo + 100 WHERE id = 2;
+        COMMIT;
+    options:
+      - text: 'Nenhuma das duas alterações é aplicada'
+        correct: true
+        explanation: 'Sem o `COMMIT`, a transação é desfeita por inteiro. Esse é o "A" de ACID: atomicidade.'
+      - text: 'Só o débito fica gravado'
+        explanation: 'É exatamente o que a transação evita: dinheiro sumindo no meio do caminho.'
+      - text: 'O banco termina o segundo `UPDATE` quando voltar'
+        explanation: 'O banco não completa transações interrompidas. Ele as desfaz.'
+      - text: 'As duas alterações são aplicadas'
+        explanation: 'Nada é confirmado antes do `COMMIT`.'
+    explanation: 'Para desfazer de propósito, use `ROLLBACK`. Agrupe numa transação toda sequência de comandos que só faz sentido se for aplicada inteira.'
+
+  - id: sql-alteracao-e-modelagem-005
+    level: advanced
+    prompt: 'Para que serve `CREATE INDEX idx_alunos_cidade ON alunos (cidade);`?'
+    options:
+      - text: 'Para acelerar buscas e ordenações por `cidade`, em troca de espaço e de escritas um pouco mais lentas'
+        correct: true
+        explanation: 'O índice evita ler a tabela inteira para achar as linhas de uma cidade.'
+      - text: 'Para impedir cidades repetidas'
+        explanation: 'Isso seria um índice único: `CREATE UNIQUE INDEX`.'
+      - text: 'Para guardar as linhas da tabela em ordem de cidade'
+        explanation: 'O índice é uma estrutura separada. A tabela e a ordem do resultado não mudam.'
+      - text: 'Para impedir valores `NULL` em `cidade`'
+        explanation: 'Isso é a restrição `NOT NULL`.'
+    explanation: 'Crie índices para as colunas que aparecem em `WHERE`, `JOIN` e `ORDER BY` das consultas frequentes. Use `EXPLAIN` para ver se o banco está usando o índice.'
+
+  - id: sql-alteracao-e-modelagem-006
+    level: advanced
+    prompt: "Este código monta a consulta com o texto digitado pelo usuário. O que acontece se ele digitar `' OR '1'='1`?"
+    code:
+      lang: javascript
+      source: |
+        const sql = "SELECT * FROM alunos WHERE nome = '" + nome + "'";
+    options:
+      - text: "A consulta vira `... WHERE nome = '' OR '1'='1'` e retorna todos os alunos"
+        correct: true
+        explanation: 'O texto digitado fecha as aspas e acrescenta uma condição sempre verdadeira. Isso é SQL injection.'
+      - text: 'O banco procura um aluno com esse nome estranho'
+        explanation: 'Seria assim com uma consulta parametrizada, que trata o valor só como dado.'
+      - text: 'O banco recusa a consulta por segurança'
+        explanation: 'Para o banco, é uma consulta válida como qualquer outra.'
+      - text: 'Nada, porque o JavaScript escapa as aspas'
+        explanation: 'Concatenar strings não escapa nada.'
+    explanation: "Use sempre consultas parametrizadas, como `db.query('SELECT * FROM alunos WHERE nome = $1', [nome])`, ou um ORM ou query builder. Nunca concatene texto do usuário em SQL."

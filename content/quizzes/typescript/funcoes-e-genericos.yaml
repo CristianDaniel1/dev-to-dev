@@ -1,0 +1,116 @@
+questions:
+  - id: typescript-funcoes-e-genericos-001
+    level: beginner
+    prompt: "Quais assinaturas permitem chamar tanto `saudar('Ana')` quanto `saudar('Ana', 'Olá')`?"
+    options:
+      - text: '`(nome: string, saudacao?: string)`'
+        correct: true
+        explanation: 'O `?` torna o segundo parâmetro opcional. Dentro da função, ele é `string | undefined`.'
+      - text: "`(nome: string, saudacao = 'Oi')`"
+        correct: true
+        explanation: 'Um valor padrão também torna o parâmetro opcional, e o tipo `string` é inferido dele.'
+      - text: '`(nome?: string, saudacao: string)`'
+        explanation: 'Um parâmetro obrigatório não pode vir depois de um opcional. Isso é erro de compilação.'
+      - text: '`(nome: string, saudacao: string | undefined)`'
+        explanation: 'O parâmetro continua obrigatório: seria preciso passar `undefined` explicitamente.'
+    explanation: 'Com um valor padrão, você evita tratar `undefined` dentro da função.'
+
+  - id: typescript-funcoes-e-genericos-002
+    level: beginner
+    prompt: 'O que significa o tipo de retorno `void`?'
+    options:
+      - text: 'Que a função não retorna um valor que deva ser usado'
+        correct: true
+        explanation: 'É o tipo de funções como handlers de evento e `console.log`.'
+      - text: 'Que a função retorna `null`'
+        explanation: '`null` é um valor. `void` indica ausência de valor útil.'
+      - text: 'Que a função nunca termina'
+        explanation: 'Esse é o tipo `never`, de funções que sempre lançam erro ou ficam em laço infinito.'
+      - text: 'Que a função pode retornar qualquer coisa'
+        explanation: 'Esse seria o `any`, ou melhor, o `unknown`.'
+    explanation: 'Num tipo de callback, como `() => void`, o TypeScript aceita funções que retornam algo, porque o retorno vai ser ignorado. Por isso `itens.forEach((item) => lista.push(item))` compila.'
+
+  - id: typescript-funcoes-e-genericos-003
+    level: intermediate
+    prompt: 'Qual é o tipo inferido de `x`?'
+    code:
+      lang: typescript
+      source: |
+        const primeiro = <T>(itens: T[]): T | undefined => itens[0];
+
+        const x = primeiro(['a', 'b']);
+    options:
+      - text: '`string | undefined`'
+        correct: true
+        explanation: 'O TypeScript infere `T = string` a partir do argumento e substitui no retorno.'
+      - text: '`T`'
+        explanation: '`T` é só um parâmetro de tipo. Na chamada, ele é trocado por um tipo concreto.'
+      - text: '`any`'
+        explanation: 'Genéricos existem justamente para não perder o tipo, como aconteceria com `any`.'
+      - text: "`'a'`"
+        explanation: 'O array foi inferido como `string[]`, e o retorno inclui `undefined` para o array vazio.'
+    explanation: 'Um genérico liga a entrada à saída: o tipo que entra define o que sai. Normalmente você não precisa escrever `primeiro<string>(...)`, porque a inferência resolve.'
+
+  - id: typescript-funcoes-e-genericos-004
+    level: intermediate
+    prompt: 'Por que esta função não compila?'
+    code:
+      lang: typescript
+      source: |
+        const tamanho = <T>(valor: T) => valor.length;
+    options:
+      - text: 'Porque `T` pode ser qualquer tipo, e nada garante que ele tenha `length`'
+        correct: true
+        explanation: 'Um `number` também poderia ser passado como `T`, e ele não tem `length`.'
+      - text: 'Porque genéricos não podem ser usados em arrow functions'
+        explanation: 'Podem. Em arquivos `.tsx`, só é preciso escrever `<T,>` para não confundir com JSX.'
+      - text: 'Porque falta declarar o tipo de retorno'
+        explanation: 'O retorno pode ser inferido. O erro está no acesso a `length`.'
+      - text: 'Porque `length` só existe em arrays'
+        explanation: 'Strings também têm `length`. O problema é que `T` não está restrito a nenhum dos dois.'
+    explanation: 'A correção é uma restrição: `<T extends { length: number }>(valor: T)` aceita strings, arrays e qualquer objeto com `length`, e recusa o resto.'
+
+  - id: typescript-funcoes-e-genericos-005
+    level: intermediate
+    prompt: 'Por que este callback compila, se o `forEach` passa três argumentos (valor, índice e array)?'
+    code:
+      lang: typescript
+      source: |
+        const nomes = ['Ana', 'Bia'];
+
+        nomes.forEach((nome) => console.log(nome));
+    options:
+      - text: 'Porque uma função que usa menos parâmetros pode substituir uma que espera mais'
+        correct: true
+        explanation: 'Ignorar argumentos extras é seguro: a função simplesmente não lê o índice nem o array.'
+      - text: 'Porque o TypeScript completa os parâmetros que faltam'
+        explanation: 'Nada é adicionado ao código. A regra é só de compatibilidade de tipos.'
+      - text: 'Porque `forEach` é tipado como `any`'
+        explanation: '`forEach` é tipado: `nome` é inferido como `string`.'
+      - text: 'Não compila com `strict` ligado'
+        explanation: 'Compila com qualquer configuração.'
+    explanation: 'O contrário não vale: passar um callback que exige mais parâmetros do que o chamador fornece é erro.'
+
+  - id: typescript-funcoes-e-genericos-006
+    level: advanced
+    prompt: 'O que acontece nas duas últimas linhas?'
+    code:
+      lang: typescript
+      source: |
+        const ler = <T, K extends keyof T>(objeto: T, chave: K): T[K] => objeto[chave];
+
+        const usuario = { nome: 'Ana', idade: 30 };
+
+        const idade = ler(usuario, 'idade');
+        ler(usuario, 'email');
+    options:
+      - text: '`idade` é `number`, e a última linha dá erro de compilação'
+        correct: true
+        explanation: "`T[K]` busca o tipo da chave escolhida, e `'email'` não está em `keyof T`, que é `'nome' | 'idade'`."
+      - text: '`idade` é `string | number`, e a última linha compila'
+        explanation: 'Seria `string | number` com `T[keyof T]`. Com `K`, o tipo é o da chave exata.'
+      - text: '`idade` é `any`'
+        explanation: 'Os genéricos mantêm o tipo exato.'
+      - text: 'As duas linhas compilam, e a última retorna `undefined`'
+        explanation: 'A restrição `K extends keyof T` recusa chaves que não existem no objeto.'
+    explanation: '`keyof` e acesso indexado (`T[K]`) são a base de muitos tipos utilitários e de funções como `pick`, `get` e `sortBy` bem tipadas.'

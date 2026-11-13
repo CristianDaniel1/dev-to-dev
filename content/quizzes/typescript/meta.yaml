@@ -1,0 +1,23 @@
+name: TypeScript
+description: 'Tipos, inferência, uniões, genéricos e tipos utilitários sobre o JavaScript.'
+area: frontend
+badge: TS
+color: '#3178c6'
+onColor: '#ffffff'
+order: 40
+topics:
+  - slug: fundamentos
+    name: Fundamentos
+    description: 'Anotações, inferência, any, unknown e never.'
+  - slug: objetos-e-interfaces
+    name: Objetos e interfaces
+    description: 'Interfaces, type, propriedades opcionais e tipagem estrutural.'
+  - slug: unioes-e-narrowing
+    name: Uniões e narrowing
+    description: 'Uniões, tipos literais, null e como o TypeScript estreita tipos.'
+  - slug: funcoes-e-genericos
+    name: Funções e genéricos
+    description: 'Parâmetros, retorno, genéricos e restrições.'
+  - slug: tipos-utilitarios
+    name: Tipos utilitários
+    description: 'Partial, Omit, Record, ReturnType, mapped types e satisfies.'

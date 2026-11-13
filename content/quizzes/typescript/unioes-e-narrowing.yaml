@@ -1,0 +1,173 @@
+questions:
+  - id: typescript-unioes-e-narrowing-001
+    level: beginner
+    prompt: 'Com `strict` ligado, quais atribuições compilam?'
+    code:
+      lang: typescript
+      source: |
+        let id: string | number;
+    options:
+      - text: '`id = 42;`'
+        correct: true
+        explanation: '`number` é um dos membros da união.'
+      - text: "`id = 'abc';`"
+        correct: true
+        explanation: '`string` também faz parte da união.'
+      - text: '`id = true;`'
+        explanation: '`boolean` não está na união.'
+      - text: '`id = null;`'
+        explanation: 'Com `strictNullChecks` (incluído em `strict`), `null` precisa estar escrito na união.'
+    explanation: 'Uma união `A | B` aceita valores de qualquer um dos tipos. Para usar o valor, porém, você só pode fazer o que vale para todos os membros, até estreitar o tipo.'
+
+  - id: typescript-unioes-e-narrowing-002
+    level: beginner
+    prompt: 'O que acontece na última linha?'
+    code:
+      lang: typescript
+      source: |
+        type Tema = 'claro' | 'escuro';
+
+        let tema: Tema = 'claro';
+        tema = 'sepia';
+    options:
+      - text: "Erro de compilação, porque `'sepia'` não faz parte de `Tema`"
+        correct: true
+        explanation: 'Uma união de literais funciona como uma lista fechada de valores permitidos.'
+      - text: 'Compila, porque os dois valores são strings'
+        explanation: "`Tema` não é `string`: só aceita exatamente `'claro'` ou `'escuro'`."
+      - text: '`tema` vira `string` automaticamente'
+        explanation: 'O tipo declarado não muda por causa de uma atribuição.'
+      - text: 'Erro em tempo de execução'
+        explanation: 'O erro aparece na compilação. Em tempo de execução não há tipos.'
+    explanation: 'Uniões de literais substituem bem os enums em muitos casos: dão autocompletar e não geram código no JavaScript.'
+
+  - id: typescript-unioes-e-narrowing-003
+    level: intermediate
+    prompt: 'Por que `valor.toFixed(2)` compila sem erro?'
+    code:
+      lang: typescript
+      source: |
+        const formatar = (valor: string | number) => {
+          if (typeof valor === 'string') {
+            return valor.toUpperCase();
+          }
+          return valor.toFixed(2);
+        };
+    options:
+      - text: 'Depois do `if` com `return`, o TypeScript sabe que `valor` só pode ser `number`'
+        correct: true
+        explanation: 'Isso é narrowing: o compilador acompanha o fluxo do código e elimina os tipos já tratados.'
+      - text: 'Porque `toFixed` também existe em strings'
+        explanation: '`toFixed` é um método de `number`. Strings não têm esse método.'
+      - text: 'Porque o TypeScript não checa métodos em uniões'
+        explanation: 'Checa: sem o `if`, `valor.toFixed` daria erro, pois não existe em `string`.'
+      - text: 'Porque o tipo de retorno da função é `string`'
+        explanation: 'O retorno não influencia o tipo do parâmetro.'
+    explanation: '`typeof`, `instanceof`, `in`, comparações com `===` e checagens de verdade (`if (valor)`) estreitam tipos. Assim você usa uniões sem conversões forçadas com `as`.'
+
+  - id: typescript-unioes-e-narrowing-004
+    level: intermediate
+    prompt: 'Com `strict` ligado, o que acontece na última linha?'
+    code:
+      lang: typescript
+      source: |
+        interface Usuario {
+          nome: string;
+        }
+
+        declare const buscar: (id: number) => Usuario | undefined;
+
+        const usuario = buscar(1);
+        console.log(usuario.nome);
+    options:
+      - text: "Erro de compilação: `'usuario' is possibly 'undefined'`"
+        correct: true
+        explanation: 'O retorno pode ser `undefined`, e o compilador exige que você trate esse caso.'
+      - text: 'Compila, mas pode quebrar em tempo de execução'
+        explanation: 'Esse seria o comportamento com `strictNullChecks` desligado, e é por isso que ele vem ligado em `strict`.'
+      - text: 'Compila com um aviso'
+        explanation: 'O TypeScript reporta isso como erro, não como aviso.'
+      - text: 'Só dá erro se `buscar` realmente retornar `undefined`'
+        explanation: 'A checagem é feita pelo tipo, antes de o código rodar.'
+    explanation: 'Trate o caso com `if (usuario)`, com `usuario?.nome` ou com um valor padrão. Evite o `!` (`usuario!.nome`): ele só cala o compilador.'
+
+  - id: typescript-unioes-e-narrowing-005
+    level: intermediate
+    prompt: 'O que `animal is Peixe` faz nesta assinatura?'
+    code:
+      lang: typescript
+      source: |
+        interface Peixe {
+          nadar: () => void;
+        }
+        interface Passaro {
+          voar: () => void;
+        }
+
+        const ehPeixe = (animal: Peixe | Passaro): animal is Peixe => 'nadar' in animal;
+    options:
+      - text: 'Diz ao compilador que, quando a função retorna `true`, `animal` é um `Peixe`'
+        correct: true
+        explanation: 'Isso é um type predicate: depois de `if (ehPeixe(animal))`, você pode chamar `animal.nadar()` sem erro.'
+      - text: 'Converte o animal em `Peixe` em tempo de execução'
+        explanation: 'Nada é convertido. A função só retorna um booleano.'
+      - text: 'Lança um erro quando o animal não é um `Peixe`'
+        explanation: 'Esse seria o papel de uma assertion function, com `asserts animal is Peixe`.'
+      - text: 'É o mesmo que declarar o retorno como `boolean`'
+        explanation: 'Com `boolean`, o compilador não estreitaria o tipo no `if`.'
+    explanation: 'O compilador confia no predicado sem verificar a lógica. Se a checagem dentro da função estiver errada, o tipo estreitado também estará.'
+
+  - id: typescript-unioes-e-narrowing-006
+    level: advanced
+    prompt: "O que acontece se alguém adicionar `{ tipo: 'triangulo'; base: number; altura: number }` à união `Forma` sem mudar a função `area`?"
+    code:
+      lang: typescript
+      source: |
+        type Forma =
+          | { tipo: 'circulo'; raio: number }
+          | { tipo: 'quadrado'; lado: number };
+
+        const area = (forma: Forma): number => {
+          switch (forma.tipo) {
+            case 'circulo':
+              return Math.PI * forma.raio ** 2;
+            case 'quadrado':
+              return forma.lado ** 2;
+            default: {
+              const impossivel: never = forma;
+              return impossivel;
+            }
+          }
+        };
+    options:
+      - text: 'Erro de compilação no `default`, porque o triângulo não cabe em `never`'
+        correct: true
+        explanation: 'Com todos os casos tratados, `forma` é `never` no `default`. Um caso novo sobra ali e o compilador aponta onde falta tratar.'
+      - text: 'Erro em tempo de execução ao calcular um triângulo'
+        explanation: 'O problema é apontado antes, na compilação.'
+      - text: 'A função retorna `undefined` para triângulos, sem erro'
+        explanation: 'É exatamente isso que a checagem com `never` evita.'
+      - text: 'Nada, porque o `default` aceita qualquer forma'
+        explanation: 'A atribuição a `never` só aceita o que não pode acontecer.'
+    explanation: 'Esse padrão é a união discriminada com checagem de exaustividade: a propriedade `tipo` estreita cada caso, e o `never` garante que nenhum fique de fora.'
+
+  - id: typescript-unioes-e-narrowing-007
+    level: advanced
+    prompt: 'Qual é o tipo `Nivel`?'
+    code:
+      lang: typescript
+      source: |
+        const NIVEIS = ['iniciante', 'intermediario', 'avancado'] as const;
+
+        type Nivel = (typeof NIVEIS)[number];
+    options:
+      - text: "`'iniciante' | 'intermediario' | 'avancado'`"
+        correct: true
+        explanation: '`as const` mantém os literais, e `[number]` pega o tipo de qualquer posição do array.'
+      - text: '`string`'
+        explanation: 'Seria `string` sem o `as const`, porque o array seria inferido como `string[]`.'
+      - text: '`string[]`'
+        explanation: '`[number]` acessa o tipo dos itens, não o do array.'
+      - text: '`number`'
+        explanation: '`number` é o tipo do índice usado no acesso. O resultado é o tipo do valor naquela posição.'
+    explanation: 'Esse padrão mantém uma única fonte: o array serve em tempo de execução (para montar um select, por exemplo) e a união é derivada dele.'

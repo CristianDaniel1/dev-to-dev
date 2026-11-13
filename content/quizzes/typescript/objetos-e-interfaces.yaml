@@ -1,0 +1,128 @@
+questions:
+  - id: typescript-objetos-e-interfaces-001
+    level: beginner
+    prompt: 'Como marcar a propriedade `apelido` como opcional numa interface?'
+    options:
+      - text: '`apelido?: string`'
+        correct: true
+        explanation: 'O `?` depois do nome torna a propriedade opcional. Ao ler, o tipo é `string | undefined`.'
+      - text: '`apelido: string?`'
+        explanation: 'Essa sintaxe não existe em TypeScript e causa erro de compilação.'
+      - text: '`optional apelido: string`'
+        explanation: 'Não existe a palavra-chave `optional`.'
+      - text: '`apelido: string | null`'
+        explanation: 'Assim a propriedade continua obrigatória: ela precisa existir, mesmo que valha `null`.'
+    explanation: 'Opcional (`?`) quer dizer que a chave pode faltar. `| null` quer dizer que a chave existe, mas pode estar vazia. São contratos diferentes.'
+
+  - id: typescript-objetos-e-interfaces-002
+    level: beginner
+    prompt: 'O que acontece na última linha?'
+    code:
+      lang: typescript
+      source: |
+        interface Ponto {
+          readonly x: number;
+          y: number;
+        }
+
+        const p: Ponto = { x: 1, y: 2 };
+        p.x = 5;
+    options:
+      - text: 'Erro de compilação, porque `x` é somente leitura'
+        correct: true
+        explanation: '`readonly` impede a reatribuição depois que o objeto é criado.'
+      - text: 'Funciona, porque `readonly` só vale dentro de classes'
+        explanation: '`readonly` vale em interfaces, tipos e classes.'
+      - text: 'Erro em tempo de execução'
+        explanation: '`readonly` só existe na checagem de tipos. No JavaScript gerado, a atribuição funcionaria.'
+      - text: 'A atribuição é ignorada e `x` continua 1'
+        explanation: 'O TypeScript não muda o comportamento do código: ele aponta o erro antes de rodar.'
+    explanation: '`readonly` é raso: se `x` fosse um objeto, as propriedades dele ainda poderiam mudar. Para imutabilidade em tempo de execução existe `Object.freeze`.'
+
+  - id: typescript-objetos-e-interfaces-003
+    level: intermediate
+    prompt: 'O que uma `interface` faz que um alias `type` não faz?'
+    options:
+      - text: 'Ser declarada duas vezes com o mesmo nome e ter as declarações mescladas'
+        correct: true
+        explanation: 'Isso se chama declaration merging. É como bibliotecas permitem adicionar propriedades a tipos globais, como `Window`.'
+      - text: 'Descrever a forma de um objeto'
+        explanation: 'Os dois descrevem objetos: `type Usuario = { nome: string }` funciona igual.'
+      - text: 'Estender outro tipo'
+        explanation: 'Um `type` estende com interseção: `type Admin = Usuario & { nivel: number }`.'
+      - text: "Descrever uniões, como `'claro' | 'escuro'`"
+        explanation: 'É o contrário: só `type` consegue nomear uniões.'
+    explanation: 'Na prática, os dois servem para objetos. Escolha um padrão para o projeto e use `type` quando precisar de uniões, tuplas ou tipos derivados.'
+
+  - id: typescript-objetos-e-interfaces-004
+    level: intermediate
+    prompt: 'O que acontece na chamada de `criar`?'
+    code:
+      lang: typescript
+      source: |
+        interface Opcoes {
+          tamanho: number;
+        }
+
+        const criar = (opcoes: Opcoes) => opcoes.tamanho;
+
+        criar({ tamanho: 10, cor: 'azul' });
+    options:
+      - text: 'Erro de compilação, porque `cor` não existe em `Opcoes`'
+        correct: true
+        explanation: 'Objetos literais passam por uma checagem extra: propriedades desconhecidas costumam ser erro de digitação.'
+      - text: 'Compila, e `cor` é ignorada'
+        explanation: 'Compilaria se o objeto viesse de uma variável. Com o literal escrito direto na chamada, o TypeScript reclama.'
+      - text: 'Erro em tempo de execução'
+        explanation: 'Os tipos não existem em tempo de execução.'
+      - text: 'Compila só se o objeto tiver `as const`'
+        explanation: '`as const` deixa os valores literais e somente leitura, mas não libera propriedades extras.'
+    explanation: 'Essa checagem de propriedades em excesso só vale para objetos literais "frescos". Se você fizer `const o = { tamanho: 10, cor: ''azul'' }; criar(o);`, compila, porque `o` tem tudo o que `Opcoes` exige.'
+
+  - id: typescript-objetos-e-interfaces-005
+    level: advanced
+    prompt: 'Este código compila?'
+    code:
+      lang: typescript
+      source: |
+        interface Usuario {
+          nome: string;
+        }
+
+        class Produto {
+          constructor(
+            public nome: string,
+            public preco: number,
+          ) {}
+        }
+
+        const exibir = (usuario: Usuario) => usuario.nome;
+
+        exibir(new Produto('Caneca', 30));
+    options:
+      - text: 'Sim, porque `Produto` tem uma propriedade `nome` do tipo `string`'
+        correct: true
+        explanation: 'A tipagem do TypeScript é estrutural: o que importa é a forma do valor, não o nome da classe.'
+      - text: 'Não, porque `Produto` não declara `implements Usuario`'
+        explanation: '`implements` só pede ao compilador que confira a classe. Não é necessário para a compatibilidade.'
+      - text: 'Não, porque `preco` não existe em `Usuario`'
+        explanation: 'Propriedades a mais são aceitas. A checagem de excesso só vale para objetos literais.'
+      - text: 'Só se `Usuario` for uma classe'
+        explanation: 'Classes também são comparadas pela forma.'
+    explanation: 'Em linguagens como Java, os tipos são nominais. Em TypeScript, se tem a forma certa, é compatível. Isso facilita testes com objetos simples no lugar de instâncias.'
+
+  - id: typescript-objetos-e-interfaces-006
+    level: intermediate
+    prompt: 'Quais tipos descrevem um objeto comum com chaves string quaisquer e valores numéricos, como `{ html: 3, css: 5 }`?'
+    options:
+      - text: '`Record<string, number>`'
+        correct: true
+        explanation: '`Record<Chave, Valor>` é o utilitário para esse formato.'
+      - text: '`{ [chave: string]: number }`'
+        correct: true
+        explanation: 'Essa é a assinatura de índice, que é o que `Record<string, number>` gera.'
+      - text: '`Map<string, number>`'
+        explanation: '`Map` é outra estrutura, com `get` e `set`. Um objeto literal não é um `Map`.'
+      - text: '`object`'
+        explanation: '`object` aceita qualquer objeto, mas não diz nada sobre chaves e valores.'
+    explanation: "Quando as chaves são conhecidas, use uma união: `Record<'html' | 'css', number>`. Assim o compilador exige todas elas e recusa chaves a mais."

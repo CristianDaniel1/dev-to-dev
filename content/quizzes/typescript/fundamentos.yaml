@@ -1,0 +1,106 @@
+questions:
+  - id: typescript-fundamentos-001
+    level: beginner
+    prompt: 'O que sobra das anotações de tipo no JavaScript gerado pelo compilador do TypeScript?'
+    options:
+      - text: 'Nada: os tipos são apagados na compilação'
+        correct: true
+        explanation: 'Os tipos só existem durante a checagem. O JavaScript gerado é o seu código sem as anotações.'
+      - text: 'Verificações que lançam erro se o tipo estiver errado'
+        explanation: 'O TypeScript não gera checagens em tempo de execução. Para validar dados externos, use uma biblioteca como zod.'
+      - text: 'Comentários JSDoc com os tipos'
+        explanation: 'O compilador não converte anotações em comentários.'
+      - text: 'Um arquivo que o navegador usa para checar os tipos'
+        explanation: 'Os arquivos `.d.ts` servem a outros projetos TypeScript, e não ao navegador.'
+    explanation: 'Por isso dados que vêm de fora (APIs, formulários, localStorage) precisam ser validados em tempo de execução: o tipo declarado é uma promessa que o compilador não consegue conferir.'
+
+  - id: typescript-fundamentos-002
+    level: beginner
+    prompt: 'Qual é o tipo inferido de `total`?'
+    code:
+      lang: typescript
+      source: |
+        let total = 10;
+    options:
+      - text: '`number`'
+        correct: true
+        explanation: 'Com `let`, o valor pode mudar depois, então o TypeScript infere o tipo amplo.'
+      - text: '`10`'
+        explanation: 'O tipo literal `10` seria inferido com `const`, porque o valor não pode mudar.'
+      - text: '`any`'
+        explanation: 'Quando há um valor inicial, o TypeScript infere o tipo a partir dele.'
+      - text: '`unknown`'
+        explanation: '`unknown` só aparece quando você declara ou quando o tipo realmente não pode ser conhecido.'
+    explanation: 'Deixe a inferência trabalhar em variáveis locais. Anote tipos nas fronteiras: parâmetros, retornos de funções públicas e dados externos.'
+
+  - id: typescript-fundamentos-003
+    level: intermediate
+    prompt: 'Quais são os tipos inferidos de `a` e `b`?'
+    code:
+      lang: typescript
+      source: |
+        const a = 'iniciante';
+        let b = 'iniciante';
+    options:
+      - text: "`a` é `'iniciante'` e `b` é `string`"
+        correct: true
+        explanation: 'Uma `const` nunca muda, então o tipo é o próprio valor. Uma `let` pode receber outra string depois.'
+      - text: 'Os dois são `string`'
+        explanation: 'Com `const`, o TypeScript mantém o tipo literal.'
+      - text: "Os dois são `'iniciante'`"
+        explanation: 'Se `b` tivesse o tipo literal, não daria para atribuir outra string a ela.'
+      - text: "`a` é `string` e `b` é `'iniciante'`"
+        explanation: 'É o contrário: a `const` é que fica com o tipo literal.'
+    explanation: "Esse alargamento (widening) explica por que às vezes uma string não é aceita onde se espera uma união como `'iniciante' | 'avancado'`: a variável foi inferida como `string`."
+
+  - id: typescript-fundamentos-004
+    level: intermediate
+    prompt: 'Qual é a diferença entre `any` e `unknown`?'
+    options:
+      - text: 'Os dois aceitam qualquer valor, mas `unknown` exige checar o tipo antes de usar'
+        correct: true
+        explanation: "Com `unknown`, `valor.toUpperCase()` só compila depois de algo como `typeof valor === 'string'`."
+      - text: 'São sinônimos'
+        explanation: 'Com `any`, qualquer operação compila. Com `unknown`, nenhuma compila sem checagem.'
+      - text: '`unknown` só aceita `null` e `undefined`'
+        explanation: 'Qualquer valor pode ser atribuído a uma variável `unknown`.'
+      - text: '`any` é mais seguro porque o compilador infere o tipo depois'
+        explanation: '`any` desliga a checagem: erros passam direto para a execução.'
+    explanation: 'Prefira `unknown` para valores de origem incerta, como o resultado de `JSON.parse` ou o erro de um `catch`. Ele obriga você a provar o tipo antes de usar.'
+
+  - id: typescript-fundamentos-005
+    level: beginner
+    prompt: 'Quais anotações descrevem um array de strings de qualquer tamanho?'
+    options:
+      - text: '`string[]`'
+        correct: true
+        explanation: 'É a forma mais usada.'
+      - text: '`Array<string>`'
+        correct: true
+        explanation: 'É a forma genérica, equivalente a `string[]`.'
+      - text: '`[string]`'
+        explanation: 'Isso é uma tupla com exatamente um elemento string.'
+      - text: "`'string'[]`"
+        explanation: "As aspas criam um tipo literal: um array em que todo item é o texto `'string'`."
+    explanation: 'Tuplas como `[string, number]` têm tamanho e tipo fixos por posição. Arrays como `string[]` têm um tipo para todos os itens e tamanho livre.'
+
+  - id: typescript-fundamentos-006
+    level: advanced
+    prompt: 'Qual é o tipo de retorno inferido desta arrow function?'
+    code:
+      lang: typescript
+      source: |
+        const falhar = (mensagem: string) => {
+          throw new Error(mensagem);
+        };
+    options:
+      - text: '`never`'
+        correct: true
+        explanation: 'A função nunca termina normalmente, então nenhum valor é retornado em nenhum caminho.'
+      - text: '`void`'
+        explanation: 'Seria `void` numa declaração `function falhar() {}`, por compatibilidade. Em arrow functions e expressões, o TypeScript infere `never`.'
+      - text: '`undefined`'
+        explanation: '`undefined` seria retornado se a função terminasse sem `return`, o que não acontece aqui.'
+      - text: '`Error`'
+        explanation: 'O erro é lançado, não retornado.'
+    explanation: '`never` é o tipo de algo que não pode acontecer. Ele aparece em funções que sempre lançam erro e nas checagens de exaustividade de uniões.'

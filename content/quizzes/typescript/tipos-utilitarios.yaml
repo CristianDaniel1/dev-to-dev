@@ -1,0 +1,139 @@
+questions:
+  - id: typescript-tipos-utilitarios-001
+    level: beginner
+    prompt: 'Qual tipo utilitário torna todas as propriedades de um tipo opcionais?'
+    options:
+      - text: '`Partial<T>`'
+        correct: true
+        explanation: 'Útil para funções de atualização: `atualizar(id, mudancas: Partial<Usuario>)`.'
+      - text: '`Required<T>`'
+        explanation: '`Required` faz o contrário: torna todas obrigatórias.'
+      - text: '`Readonly<T>`'
+        explanation: '`Readonly` impede reatribuir as propriedades, mas não as torna opcionais.'
+      - text: '`Pick<T, K>`'
+        explanation: '`Pick` seleciona algumas propriedades e mantém se cada uma é opcional ou não.'
+    explanation: 'Os tipos utilitários evitam copiar interfaces: você deriva o formato novo a partir do original, e as mudanças se propagam.'
+
+  - id: typescript-tipos-utilitarios-002
+    level: intermediate
+    prompt: 'Quais propriedades `UsuarioPublico` tem?'
+    code:
+      lang: typescript
+      source: |
+        interface Usuario {
+          id: number;
+          nome: string;
+          email: string;
+          senha: string;
+        }
+
+        type UsuarioPublico = Omit<Usuario, 'senha'>;
+    options:
+      - text: '`id`, `nome` e `email`'
+        correct: true
+        explanation: '`Omit` copia o tipo sem as chaves indicadas.'
+      - text: 'Só `senha`'
+        explanation: "Esse seria o resultado de `Pick<Usuario, 'senha'>`."
+      - text: 'As quatro, com `senha` opcional'
+        explanation: '`Omit` remove a chave. Não a torna opcional.'
+      - text: 'As quatro, todas somente leitura'
+        explanation: 'Esse seria o efeito de `Readonly<Usuario>`.'
+    explanation: 'Use `Pick` quando quiser poucas propriedades e `Omit` quando quiser quase todas. Lembre que o tipo não remove nada em tempo de execução: para não enviar a senha, o objeto também precisa ser filtrado.'
+
+  - id: typescript-tipos-utilitarios-003
+    level: intermediate
+    prompt: 'O que acontece neste código?'
+    code:
+      lang: typescript
+      source: |
+        type Nivel = 'iniciante' | 'intermediario' | 'avancado';
+
+        const rotulos: Record<Nivel, string> = {
+          iniciante: 'Iniciante',
+          intermediario: 'Intermediário',
+        };
+    options:
+      - text: 'Erro de compilação, porque falta a chave `avancado`'
+        correct: true
+        explanation: '`Record` com uma união exige uma propriedade para cada membro.'
+      - text: 'Compila, e `rotulos.avancado` fica `undefined`'
+        explanation: 'Compilaria com `Partial<Record<Nivel, string>>`, mas aí cada leitura poderia ser `undefined`.'
+      - text: 'Compila, porque `Record` aceita qualquer subconjunto das chaves'
+        explanation: 'Todas as chaves da união são obrigatórias.'
+      - text: 'Erro, porque `Record` só aceita `string` como chave'
+        explanation: 'A chave pode ser `string`, `number`, `symbol` ou uniões de literais.'
+    explanation: 'Esse é um bom jeito de montar tabelas de consulta: quando alguém adiciona um nível novo, o compilador aponta cada tabela que precisa ser atualizada.'
+
+  - id: typescript-tipos-utilitarios-004
+    level: intermediate
+    prompt: 'Qual é o tipo `Sessao`?'
+    code:
+      lang: typescript
+      source: |
+        const criarSessao = () => ({ id: 'abc', inicio: Date.now() });
+
+        type Sessao = ReturnType<typeof criarSessao>;
+    options:
+      - text: '`{ id: string; inicio: number }`'
+        correct: true
+        explanation: '`typeof` pega o tipo da função, e `ReturnType` extrai o que ela retorna.'
+      - text: '`() => { id: string; inicio: number }`'
+        explanation: 'Esse é o `typeof criarSessao`, antes de passar pelo `ReturnType`.'
+      - text: 'Erro, porque `ReturnType` não aceita funções'
+        explanation: '`ReturnType` recebe o tipo de uma função. O `typeof` é o que converte o valor em tipo.'
+      - text: '`any`'
+        explanation: 'O tipo de retorno é inferido normalmente a partir do objeto.'
+    explanation: '`typeof` em posição de tipo transforma um valor em tipo. Com `ReturnType` e `Parameters`, dá para derivar tipos de funções que você não controla.'
+
+  - id: typescript-tipos-utilitarios-005
+    level: advanced
+    prompt: 'Qual é o tipo `Alteradas`?'
+    code:
+      lang: typescript
+      source: |
+        type Flags<T> = { [K in keyof T]: boolean };
+
+        interface Preferencias {
+          tema: string;
+          idioma: string;
+          fonte: number;
+        }
+
+        type Alteradas = Flags<Preferencias>;
+    options:
+      - text: '`{ tema: boolean; idioma: boolean; fonte: boolean }`'
+        correct: true
+        explanation: 'O mapped type percorre cada chave de `Preferencias` e troca o tipo do valor por `boolean`.'
+      - text: '`boolean[]`'
+        explanation: 'O resultado é um objeto com as mesmas chaves, não um array.'
+      - text: '`{ tema: string; idioma: string; fonte: number }`'
+        explanation: 'Os valores mudaram: todos viraram `boolean`.'
+      - text: '`Record<string, boolean>`'
+        explanation: 'As chaves continuam exatamente as de `Preferencias`, não qualquer string.'
+    explanation: 'Mapped types são a base de `Partial`, `Readonly` e `Record`. Com `?`, `readonly` e o modificador `-`, dá para adicionar ou remover essas marcas de cada propriedade.'
+
+  - id: typescript-tipos-utilitarios-006
+    level: advanced
+    prompt: 'Por que a última linha compila?'
+    code:
+      lang: typescript
+      source: |
+        type Cor = 'vermelho' | 'verde';
+
+        const paleta = {
+          vermelho: '#c1281b',
+          verde: [27, 122, 75],
+        } satisfies Record<Cor, string | number[]>;
+
+        paleta.vermelho.toUpperCase();
+    options:
+      - text: '`satisfies` confere o objeto contra o tipo, mas mantém os tipos inferidos de cada valor'
+        correct: true
+        explanation: '`paleta.vermelho` continua `string`, então os métodos de string estão disponíveis.'
+      - text: 'Compilaria igual com a anotação `const paleta: Record<Cor, string | number[]>`'
+        explanation: 'Com a anotação, `paleta.vermelho` seria `string | number[]`, e `toUpperCase` daria erro.'
+      - text: '`satisfies` converte os valores em tempo de execução'
+        explanation: '`satisfies` some na compilação, como qualquer tipo.'
+      - text: '`satisfies` desliga a checagem do objeto'
+        explanation: 'A checagem continua: faltar uma cor ou usar um valor errado ainda dá erro.'
+    explanation: 'Use `satisfies` quando quiser validar um objeto de configuração sem perder a precisão da inferência. Use uma anotação quando quiser que o tipo declarado seja o contrato.'

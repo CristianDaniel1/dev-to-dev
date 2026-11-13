@@ -39,15 +39,6 @@ export const MISSING_QUESTION_ID = 'missing-question-000';
 /** Tech, topic and level with no question yet (update when such questions are written). */
 export const EMPTY_FILTER = { tech: 'tailwind', topic: 'Utilitários', level: 'Avançado' } as const;
 
-/** Favicon service the resource cards load icons from; stubbed so tests stay offline. */
-export const FAVICON_SERVICE_PATTERN = 'https://icons.duckduckgo.com/**';
-
-/** A 1×1 transparent PNG, served in place of external images. */
-export const TRANSPARENT_PNG = Buffer.from(
-  'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=',
-  'base64',
-);
-
 /** Resource in Portuguese and free: Flexbox Froggy (practice). */
 export const PT_PRACTICE_RESOURCE = 'Flexbox Froggy';
 

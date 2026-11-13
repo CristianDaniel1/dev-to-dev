@@ -1,5 +1,5 @@
 import { test as base, expect } from '@playwright/test';
-import { stubFavicons } from '../helpers/external-requests';
+import { blockThirdPartyRequests } from '../helpers/external-requests';
 import { trackPageErrors } from '../helpers/page-errors';
 import { CommandPalettePage } from '../pages/command-palette.page';
 import { HomePage } from '../pages/home.page';
@@ -17,8 +17,8 @@ interface Fixtures {
   allowedConsoleErrors: RegExp | null;
   /** Fails the test when the page threw or logged an unexpected console error. */
   failOnPageErrors: void;
-  /** Keeps third-party requests (favicons) out of the tests. */
-  offlineFavicons: void;
+  /** Aborts requests to other origins, so the app is tested without third parties. */
+  noThirdPartyRequests: void;
   layout: LayoutPage;
   home: HomePage;
   catalog: QuizCatalogPage;
@@ -43,9 +43,10 @@ export const test = base.extend<Fixtures>({
     { auto: true },
   ],
 
-  offlineFavicons: [
-    async ({ page }, use) => {
-      await stubFavicons(page);
+  noThirdPartyRequests: [
+    async ({ page, baseURL }, use) => {
+      if (!baseURL) throw new Error('Set use.baseURL in playwright.config.ts');
+      await blockThirdPartyRequests(page, baseURL);
       await use();
     },
     { auto: true },

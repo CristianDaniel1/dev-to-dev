@@ -1,13 +1,16 @@
 import type { Page } from '@playwright/test';
-import { FAVICON_SERVICE_PATTERN, TRANSPARENT_PNG } from '../constants/e2e.constants';
 
 /**
- * Answers favicon requests locally, so tests never depend on a third-party service.
+ * Aborts every request outside the app's own origin, so tests never depend on third parties and
+ * an unexpected external request surfaces as a page error.
  *
- * @param page - Page to stub.
+ * @param page - Page to guard.
+ * @param baseURL - Origin of the app under test.
  */
-export const stubFavicons = async (page: Page): Promise<void> => {
-  await page.route(FAVICON_SERVICE_PATTERN, (route) =>
-    route.fulfill({ status: 200, contentType: 'image/png', body: TRANSPARENT_PNG }),
+export const blockThirdPartyRequests = async (page: Page, baseURL: string): Promise<void> => {
+  const appOrigin = new URL(baseURL).origin;
+  await page.route(
+    (url) => url.origin !== appOrigin,
+    (route) => route.abort(),
   );
 };

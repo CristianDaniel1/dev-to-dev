@@ -53,6 +53,9 @@ test.describe('Practice session', () => {
 
     await expect(session.feedback).toHaveText('Não foi dessa vez.');
     await expect(page.getByText(/converte o outro para string e concatena/)).toBeVisible();
+    await expect(
+      page.getByRole('link', { name: 'MDN: comparações de igualdade (abre em nova aba)' }),
+    ).toHaveAttribute('href', /developer\.mozilla\.org/);
 
     await session.nextButton.click();
     await expect(session.retryMistakesLink).toHaveText('Refazer a que ficou para revisão');

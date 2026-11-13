@@ -9,15 +9,38 @@ topics:
   - slug: fundamentos
     name: Fundamentos
     description: 'Diretório de trabalho, staging area, commits e HEAD.'
+    links:
+      - label: 'Pro Git: gravando alterações no repositório'
+        url: https://git-scm.com/book/pt-br/v2/Fundamentos-do-Git-Gravando-Altera%C3%A7%C3%B5es-no-Reposit%C3%B3rio
   - slug: branches
     name: Branches
     description: 'Criar e trocar de branch, merge, conflitos e rebase.'
+    links:
+      - label: 'Pro Git: branches em poucas palavras'
+        url: https://git-scm.com/book/pt-br/v2/Ramifica%C3%A7%C3%A3o-Branching-no-Git-Branches-em-Poucas-Palavras
+      - label: 'Pro Git: rebase'
+        url: https://git-scm.com/book/pt-br/v2/Ramifica%C3%A7%C3%A3o-Branching-no-Git-Rebase-Rebasing
   - slug: desfazer-mudancas
     name: Desfazer mudanças
     description: 'restore, amend, revert, reset e reflog.'
+    links:
+      - label: 'Pro Git: desfazendo coisas'
+        url: https://git-scm.com/book/pt-br/v2/Fundamentos-do-Git-Desfazendo-Coisas
+      - label: 'Pro Git: o reset desmistificado'
+        url: https://git-scm.com/book/en/v2/Git-Tools-Reset-Demystified
   - slug: remotos
     name: Remotos
     description: 'clone, fetch, pull, push e upstream.'
+    links:
+      - label: 'Pro Git: trabalhando de forma remota'
+        url: https://git-scm.com/book/pt-br/v2/Fundamentos-do-Git-Trabalhando-com-Reposit%C3%B3rios-Remotos
   - slug: fluxo-de-trabalho
     name: Fluxo de trabalho
     description: '.gitignore, stash, mensagens de commit, bisect e rebase interativo.'
+    links:
+      - label: 'Pro Git: stash e clean'
+        url: https://git-scm.com/book/en/v2/Git-Tools-Stashing-and-Cleaning
+      - label: Conventional Commits
+        url: https://www.conventionalcommits.org/pt-br/v1.0.0/
+      - label: Documentação do git bisect
+        url: https://git-scm.com/docs/git-bisect

@@ -18,8 +18,10 @@ export interface Resource {
   id: string;
   name: string;
   url: string;
-  /** Host name without `www.`, shown under the name and used for the favicon. */
+  /** Host name without `www.`, shown under the name. */
   domain: string;
+  /** Public path of the site icon, when one was downloaded. */
+  favicon?: string;
   /** Slug of the category the resource belongs to. */
   category: string;
   /** What the resource is, in one sentence. */

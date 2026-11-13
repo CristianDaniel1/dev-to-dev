@@ -25,7 +25,16 @@ phases) was approved at the start of the project; this file tracks where we are.
   preloaded). Local Lighthouse (mobile, `npx serve`): accessibility, best practices and SEO 100;
   performance 91–95, almost all of the initial JS is Angular itself.
 
+- **Follow-ups**: resource favicons downloaded once (`npm run favicons`) and served by the site;
+  tech icons (Simple Icons, plus a drawn SQL glyph) in the badges; 1–3 reading links per topic
+  shown after each answer ("Para se aprofundar"), overridable per question; `npm run check-links`
+  checks every resource and reading URL.
+
 ## Next
+
+1. **Phase 4** (glossary and learning paths).
+
+## Last step (the user chose to leave the deploy for the end)
 
 1. **Deploy**: import the repository on Vercel (needs the user's account), confirm `SITE_URL`,
    check headers with `curl -I`.
@@ -45,6 +54,6 @@ phases) was approved at the start of the project; this file tracks where we are.
 
 ## Known follow-ups
 
-- Link questions to specific resources ("learn more" in the feedback); the schema does not
-  support it yet.
-- Favicons come from DuckDuckGo at runtime; consider self-hosting them at build time.
+- Reading links are per topic; add per-question links (`links` in the question) where a specific
+  documentation page helps more than the topic guide.
+- Re-run `npm run check-links` before releases; sites change URLs.

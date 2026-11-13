@@ -9,12 +9,34 @@ topics:
   - slug: fundamentos
     name: Fundamentos
     description: 'Componentes, JSX, props e renderização de listas.'
+    links:
+      - label: 'React: seu primeiro componente'
+        url: https://pt-br.react.dev/learn/your-first-component
+      - label: 'React: renderizando listas'
+        url: https://pt-br.react.dev/learn/rendering-lists
   - slug: hooks
     name: Hooks
     description: 'useState, useEffect e as regras dos hooks.'
+    links:
+      - label: 'React: useEffect'
+        url: https://pt-br.react.dev/reference/react/useEffect
+      - label: 'React: regras dos hooks'
+        url: https://pt-br.react.dev/reference/rules/rules-of-hooks
   - slug: estado
     name: Estado
     description: 'Atualizações de estado e compartilhamento entre componentes.'
+    links:
+      - label: 'React: atualizando objetos no estado'
+        url: https://pt-br.react.dev/learn/updating-objects-in-state
+      - label: 'React: compartilhando estado entre componentes'
+        url: https://pt-br.react.dev/learn/sharing-state-between-components
   - slug: renderizacao
     name: Renderização e desempenho
     description: 'Quando o React renderiza, memo, useMemo, lazy e estado inicial.'
+    links:
+      - label: 'React: renderizar e confirmar'
+        url: https://pt-br.react.dev/learn/render-and-commit
+      - label: 'React: memo'
+        url: https://pt-br.react.dev/reference/react/memo
+      - label: 'React: useMemo'
+        url: https://pt-br.react.dev/reference/react/useMemo

@@ -31,16 +31,18 @@ npm start          # http://localhost:4200
 
 ## Scripts
 
-| Comando             | O que faz                                                                                                             |
-| ------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `npm run content`   | Valida o conteúdo de `content/` e gera os arquivos em `src/app/shared/generated/` (roda antes de start, build e test) |
-| `npm run build`     | Build de produção com todas as rotas pré-renderizadas, mais `404.html`, `sitemap.xml` e `robots.txt`                  |
-| `npm test`          | Testes unitários                                                                                                      |
-| `npm run e2e`       | Testes E2E sobre o build (rode `npm run build` antes; na primeira vez, `npx playwright install chromium`)             |
-| `npm run lint`      | ESLint                                                                                                                |
-| `npm run typecheck` | Checagem de tipos dos scripts e dos testes E2E                                                                        |
-| `npm run format`    | Prettier                                                                                                              |
-| `npm run preview`   | Serve o build localmente                                                                                              |
+| Comando               | O que faz                                                                                                             |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `npm run content`     | Valida o conteúdo de `content/` e gera os arquivos em `src/app/shared/generated/` (roda antes de start, build e test) |
+| `npm run favicons`    | Baixa para `public/favicons/` o ícone dos domínios de recursos novos (`-- --force` baixa todos de novo)               |
+| `npm run check-links` | Confere se as URLs dos recursos e das leituras respondem (falha só com links quebrados)                               |
+| `npm run build`       | Build de produção com todas as rotas pré-renderizadas, mais `404.html`, `sitemap.xml` e `robots.txt`                  |
+| `npm test`            | Testes unitários                                                                                                      |
+| `npm run e2e`         | Testes E2E sobre o build (rode `npm run build` antes; na primeira vez, `npx playwright install chromium`)             |
+| `npm run lint`        | ESLint                                                                                                                |
+| `npm run typecheck`   | Checagem de tipos dos scripts e dos testes E2E                                                                        |
+| `npm run format`      | Prettier                                                                                                              |
+| `npm run preview`     | Serve o build localmente                                                                                              |
 
 ## Conteúdo
 
@@ -59,6 +61,8 @@ As perguntas ficam em `content/quizzes/<tecnologia>/`: um `meta.yaml` com nome, 
   explanation: 'Explicação geral, mostrada depois da resposta.'
 ```
 
+Cada tópico do `meta.yaml` tem de 1 a 3 `links` de leitura (`label` e `url`), mostrados depois de cada resposta como "Para se aprofundar". Uma pergunta pode ter `links` próprios, que substituem os do tópico.
+
 Os ids são estáveis: o progresso salvo no navegador depende deles, então não renomeie ids de perguntas ou recursos já publicados.
 
 ## Deploy
@@ -68,3 +72,7 @@ O `vercel.json` já define o comando de build, a pasta de saída (`dist/dev-to-d
 ## Licenças das fontes
 
 Archivo, Atkinson Hyperlegible Next e Atkinson Hyperlegible Mono são distribuídas sob a SIL Open Font License (veja `public/fonts/`).
+
+## Ícones
+
+Os ícones das tecnologias vêm do [Simple Icons](https://simpleicons.org/) (CC0); o de SQL foi desenhado para o projeto. As marcas pertencem aos seus donos. Os favicons dos recursos são baixados pelo `npm run favicons` e pertencem aos respectivos sites.

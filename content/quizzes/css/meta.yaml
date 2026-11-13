@@ -9,15 +9,42 @@ topics:
   - slug: fundamentos
     name: Fundamentos
     description: 'Sintaxe, seletores e propriedades de texto e cor.'
+    links:
+      - label: 'MDN: seletores CSS'
+        url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_selectors
+      - label: 'MDN: fundamentos de CSS'
+        url: https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics
   - slug: box-model
     name: Modelo de caixa
     description: 'Conteúdo, padding, borda, margem e como o tamanho é calculado.'
+    links:
+      - label: 'MDN: o box model'
+        url: https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Box_model
+      - label: 'MDN: box-sizing'
+        url: https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing
   - slug: layout
     name: Layout
     description: 'Flexbox, Grid e posicionamento.'
+    links:
+      - label: 'CSS-Tricks: guia completo de Flexbox'
+        url: https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+      - label: 'CSS-Tricks: guia completo de Grid'
+        url: https://css-tricks.com/snippets/css/complete-guide-grid/
+      - label: 'MDN: position'
+        url: https://developer.mozilla.org/en-US/docs/Web/CSS/position
   - slug: cascata
     name: Cascata e herança
     description: 'Especificidade, ordem das regras e o que é herdado.'
+    links:
+      - label: 'MDN: especificidade'
+        url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_cascade/Specificity
+      - label: 'MDN: cascata, especificidade e herança'
+        url: https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Handling_conflicts
   - slug: responsivo
     name: Responsividade
     description: 'Media queries, unidades relativas e tipografia fluida.'
+    links:
+      - label: 'web.dev: Learn Responsive Design'
+        url: https://web.dev/learn/design
+      - label: 'MDN: usando media queries'
+        url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries/Using_media_queries

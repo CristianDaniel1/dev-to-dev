@@ -3,5 +3,12 @@
   [class]="sizeClasses()"
   [style.background-color]="tech().color"
   [style.color]="tech().onColor"
-  >{{ tech().badge }}</span
 >
+  @if (tech().iconPath; as iconPath) {
+    <svg viewBox="0 0 24 24" fill="currentColor" focusable="false" [class]="iconClasses()">
+      <path [attr.d]="iconPath" />
+    </svg>
+  } @else {
+    {{ tech().badge }}
+  }
+</span>

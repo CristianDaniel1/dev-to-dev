@@ -9,15 +9,40 @@ topics:
   - slug: fundamentos
     name: Fundamentos
     description: 'Tipos, operadores, variáveis e comparações.'
+    links:
+      - label: 'javascript.info: tipos de dados'
+        url: https://javascript.info/types
+      - label: 'MDN: comparações de igualdade'
+        url: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness
   - slug: funcoes
     name: Funções
     description: 'Declaração, escopo, closures e hoisting.'
+    links:
+      - label: 'javascript.info: escopo e closures'
+        url: https://javascript.info/closure
+      - label: 'MDN: closures'
+        url: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
   - slug: arrays-e-objetos
     name: Arrays e objetos
     description: 'Métodos de array, mutação e cópias.'
+    links:
+      - label: 'javascript.info: métodos de array'
+        url: https://javascript.info/array-methods
+      - label: 'MDN: Array'
+        url: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
   - slug: assincrono
     name: Assincronismo
     description: 'Promises, async/await e o event loop.'
+    links:
+      - label: 'javascript.info: promises e async/await'
+        url: https://javascript.info/async
+      - label: 'MDN: modelo de execução e event loop'
+        url: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model
   - slug: dom
     name: DOM
     description: 'Selecionar, alterar e reagir a elementos da página.'
+    links:
+      - label: 'javascript.info: o documento'
+        url: https://javascript.info/document
+      - label: 'MDN: introdução ao DOM'
+        url: https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction

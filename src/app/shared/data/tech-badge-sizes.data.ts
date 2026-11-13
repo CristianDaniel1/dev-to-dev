@@ -6,3 +6,10 @@ export const TECH_BADGE_SIZE_CLASSES: Record<TechBadgeSize, string> = {
   md: 'h-9 w-14 text-xs',
   lg: 'h-14 w-24 text-lg',
 };
+
+/** Tailwind size classes of the icon inside each tech badge size. */
+export const TECH_BADGE_ICON_CLASSES: Record<TechBadgeSize, string> = {
+  sm: 'size-[1.125rem]',
+  md: 'size-6',
+  lg: 'size-9',
+};

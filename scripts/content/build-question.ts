@@ -1,4 +1,4 @@
-import type { Question } from '../../src/app/shared/interfaces/content.interface';
+import type { Question, ReadingLink } from '../../src/app/shared/interfaces/content.interface';
 import type { CodeHighlighter } from './code-highlighter';
 import { OPTION_IDS } from './content.constants';
 import { inlineMarkdownToHtml } from './inline-markdown';
@@ -8,13 +8,15 @@ import type { AuthoredQuestion } from './schema';
 export interface QuestionContext {
   tech: string;
   topic: string;
+  /** Reading links of the topic, used when the question has none of its own. */
+  links: ReadingLink[];
 }
 
 /**
  * Converts an authored question into the shape the app consumes.
  *
  * @param authored - Validated question from YAML.
- * @param context - Tech and topic of the question.
+ * @param context - Tech, topic and topic reading links of the question.
  * @param highlighter - Highlighter for the optional code snippet.
  * @returns The question with HTML fields and option ids.
  */
@@ -43,6 +45,7 @@ export const buildQuestion = (
     correct,
     explanationHtml: inlineMarkdownToHtml(authored.explanation),
     tags: authored.tags,
+    links: authored.links ?? context.links,
   };
   if (authored.code) {
     question.code = {

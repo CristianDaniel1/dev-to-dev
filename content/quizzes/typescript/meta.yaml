@@ -9,15 +9,38 @@ topics:
   - slug: fundamentos
     name: Fundamentos
     description: 'Anotações, inferência, any, unknown e never.'
+    links:
+      - label: 'TypeScript: tipos do dia a dia'
+        url: https://www.typescriptlang.org/docs/handbook/2/everyday-types.html
+      - label: 'TypeScript: inferência de tipos'
+        url: https://www.typescriptlang.org/docs/handbook/type-inference.html
   - slug: objetos-e-interfaces
     name: Objetos e interfaces
     description: 'Interfaces, type, propriedades opcionais e tipagem estrutural.'
+    links:
+      - label: 'TypeScript: tipos de objeto'
+        url: https://www.typescriptlang.org/docs/handbook/2/objects.html
+      - label: 'TypeScript: compatibilidade de tipos'
+        url: https://www.typescriptlang.org/docs/handbook/type-compatibility.html
   - slug: unioes-e-narrowing
     name: Uniões e narrowing
     description: 'Uniões, tipos literais, null e como o TypeScript estreita tipos.'
+    links:
+      - label: 'TypeScript: narrowing'
+        url: https://www.typescriptlang.org/docs/handbook/2/narrowing.html
   - slug: funcoes-e-genericos
     name: Funções e genéricos
     description: 'Parâmetros, retorno, genéricos e restrições.'
+    links:
+      - label: 'TypeScript: funções'
+        url: https://www.typescriptlang.org/docs/handbook/2/functions.html
+      - label: 'TypeScript: genéricos'
+        url: https://www.typescriptlang.org/docs/handbook/2/generics.html
   - slug: tipos-utilitarios
     name: Tipos utilitários
     description: 'Partial, Omit, Record, ReturnType, mapped types e satisfies.'
+    links:
+      - label: 'TypeScript: tipos utilitários'
+        url: https://www.typescriptlang.org/docs/handbook/utility-types.html
+      - label: 'TypeScript: mapped types'
+        url: https://www.typescriptlang.org/docs/handbook/2/mapped-types.html

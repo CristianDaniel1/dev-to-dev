@@ -25,6 +25,8 @@ export interface TechSummary {
   color: string;
   /** Text color with at least 4.5:1 contrast on `color`. */
   onColor: string;
+  /** Path data of the tech icon on a 24×24 viewBox; the badge shows `badge` without it. */
+  iconPath?: string;
   questionCount: number;
   levelCounts: LevelCounts;
   topics: TopicSummary[];
@@ -48,6 +50,12 @@ export interface CodeSnippet {
   html: string;
 }
 
+/** A page to read more about a subject, usually official documentation. */
+export interface ReadingLink {
+  label: string;
+  url: string;
+}
+
 export interface Question {
   /** Stable id; user progress is keyed by it. */
   id: string;
@@ -62,6 +70,8 @@ export interface Question {
   correct: string[];
   explanationHtml: string;
   tags: string[];
+  /** Further reading: the question's own links, or else its topic's. */
+  links: ReadingLink[];
 }
 
 export interface QuizBank {

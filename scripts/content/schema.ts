@@ -4,6 +4,13 @@ import { AREAS, LEVELS } from '../../src/app/shared/constants/content.constants'
 const slug = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'must be kebab-case');
 const nonEmpty = z.string().trim().min(1);
 
+/** A further reading link: a label and an https URL. */
+const readingLinkSchema = z.strictObject({
+  label: nonEmpty.max(80),
+  url: z.url({ protocol: /^https$/ }),
+});
+const readingLinks = z.array(readingLinkSchema).min(1).max(3);
+
 /** Authoring format of `content/quizzes/<tech>/meta.yaml`. */
 export const techMetaSchema = z.strictObject({
   name: nonEmpty,
@@ -14,7 +21,9 @@ export const techMetaSchema = z.strictObject({
   onColor: z.string().regex(/^#[0-9a-f]{6}$/i),
   order: z.number().int(),
   draft: z.boolean().default(false),
-  topics: z.array(z.strictObject({ slug, name: nonEmpty, description: nonEmpty })).min(1),
+  topics: z
+    .array(z.strictObject({ slug, name: nonEmpty, description: nonEmpty, links: readingLinks }))
+    .min(1),
 });
 
 const optionSchema = z.strictObject({
@@ -33,6 +42,7 @@ export const questionSchema = z
     options: z.array(optionSchema).min(2).max(6),
     explanation: nonEmpty,
     tags: z.array(slug).default([]),
+    links: readingLinks.optional(),
   })
   .refine((question) => question.options.some((option) => option.correct), {
     message: 'at least one option must be correct',

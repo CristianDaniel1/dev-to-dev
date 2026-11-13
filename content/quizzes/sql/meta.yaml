@@ -9,15 +9,42 @@ topics:
   - slug: consultas
     name: Consultas
     description: 'SELECT, WHERE, ORDER BY, LIMIT e DISTINCT.'
+    links:
+      - label: 'SQLBolt: consultas com SELECT'
+        url: https://sqlbolt.com/lesson/select_queries_introduction
+      - label: 'PostgreSQL: consultando uma tabela'
+        url: https://www.postgresql.org/docs/current/tutorial-select.html
   - slug: filtros-e-null
     name: Filtros e NULL
     description: 'LIKE, IN, BETWEEN, COALESCE e o comportamento do NULL.'
+    links:
+      - label: 'PostgreSQL: operadores de comparação e NULL'
+        url: https://www.postgresql.org/docs/current/functions-comparison.html
+      - label: 'PostgreSQL: COALESCE e expressões condicionais'
+        url: https://www.postgresql.org/docs/current/functions-conditional.html
   - slug: joins
     name: Joins
     description: 'INNER JOIN, LEFT JOIN e como combinar tabelas sem surpresas.'
+    links:
+      - label: 'PostgreSQL: joins entre tabelas'
+        url: https://www.postgresql.org/docs/current/tutorial-join.html
+      - label: 'SQLBolt: OUTER JOIN'
+        url: https://sqlbolt.com/lesson/select_queries_with_outer_joins
   - slug: agregacao
     name: Agregação
     description: 'COUNT, AVG, GROUP BY e HAVING.'
+    links:
+      - label: 'PostgreSQL: funções de agregação'
+        url: https://www.postgresql.org/docs/current/tutorial-agg.html
+      - label: 'SQLBolt: consultas com agregação'
+        url: https://sqlbolt.com/lesson/select_queries_with_aggregates
   - slug: alteracao-e-modelagem
     name: Alteração e modelagem
     description: 'UPDATE, chaves, transações, índices e SQL injection.'
+    links:
+      - label: 'PostgreSQL: transações'
+        url: https://www.postgresql.org/docs/current/tutorial-transactions.html
+      - label: 'PostgreSQL: restrições e chaves'
+        url: https://www.postgresql.org/docs/current/ddl-constraints.html
+      - label: 'OWASP: prevenção de SQL injection'
+        url: https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html

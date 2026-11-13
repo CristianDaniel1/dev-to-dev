@@ -91,6 +91,17 @@ test.describe('Resource pages', () => {
     await expect(resources.card('Figma')).toBeHidden();
   });
 
+  test('shows site icons served by the site itself', async ({ resources }) => {
+    await resources.open('/recursos/git-e-github');
+
+    const icon = resources.siteIcon('Pro Git');
+    await expect(icon).toHaveAttribute('src', /^\/favicons\//);
+    await icon.scrollIntoViewIfNeeded();
+    await expect
+      .poll(() => icon.evaluate((image: HTMLImageElement) => image.naturalWidth))
+      .toBeGreaterThan(0);
+  });
+
   test('a collection lists its resources in order', async ({ page, resources }) => {
     await resources.open('/recursos/colecoes/primeiro-projeto-frontend');
 

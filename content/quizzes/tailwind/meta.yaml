@@ -9,12 +9,38 @@ topics:
   - slug: utilitarios
     name: Utilitários
     description: 'Espaçamento, tipografia, cores, tamanhos e valores arbitrários.'
+    links:
+      - label: 'Tailwind: estilizando com classes utilitárias'
+        url: https://tailwindcss.com/docs/styling-with-utility-classes
+      - label: 'Tailwind: valores arbitrários e estilos próprios'
+        url: https://tailwindcss.com/docs/adding-custom-styles
   - slug: responsivo-e-estados
     name: Responsivo e estados
     description: 'Breakpoints mobile-first, hover, focus, dark mode e variantes de grupo.'
+    links:
+      - label: 'Tailwind: design responsivo'
+        url: https://tailwindcss.com/docs/responsive-design
+      - label: 'Tailwind: hover, focus e outros estados'
+        url: https://tailwindcss.com/docs/hover-focus-and-other-states
+      - label: 'Tailwind: dark mode'
+        url: https://tailwindcss.com/docs/dark-mode
   - slug: layout
     name: Layout
     description: 'Flexbox, Grid, espaçamento entre itens e posicionamento.'
+    links:
+      - label: 'Tailwind: flex'
+        url: https://tailwindcss.com/docs/flex
+      - label: 'Tailwind: grid-template-columns'
+        url: https://tailwindcss.com/docs/grid-template-columns
+      - label: 'Tailwind: position'
+        url: https://tailwindcss.com/docs/position
   - slug: configuracao
     name: Configuração e v4
     description: '@theme, detecção de classes, conflitos e o modificador important.'
+    links:
+      - label: 'Tailwind: variáveis de tema'
+        url: https://tailwindcss.com/docs/theme
+      - label: 'Tailwind: detecção de classes'
+        url: https://tailwindcss.com/docs/detecting-classes-in-source-files
+      - label: 'Tailwind: funções e diretivas'
+        url: https://tailwindcss.com/docs/functions-and-directives

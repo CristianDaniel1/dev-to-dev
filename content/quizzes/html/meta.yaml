@@ -9,15 +9,38 @@ topics:
   - slug: fundamentos
     name: Fundamentos
     description: 'Estrutura do documento, tags e atributos essenciais.'
+    links:
+      - label: 'MDN: sintaxe básica de HTML'
+        url: https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Basic_HTML_syntax
   - slug: semantica
     name: Semântica
     description: 'Elementos que dão significado ao conteúdo, além da aparência.'
+    links:
+      - label: 'MDN: estruturando documentos'
+        url: https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Structuring_documents
+      - label: 'web.dev: HTML semântico'
+        url: https://web.dev/learn/html/semantic-html
   - slug: links-e-midia
     name: Links e mídia
     description: 'Links, imagens e carregamento de recursos.'
+    links:
+      - label: 'MDN: criando links'
+        url: https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Creating_links
+      - label: 'web.dev: imagens em HTML'
+        url: https://web.dev/learn/html/images
   - slug: formularios
     name: Formulários
     description: 'Campos, rótulos, validação nativa e envio.'
+    links:
+      - label: 'web.dev: Learn Forms'
+        url: https://web.dev/learn/forms
+      - label: 'MDN: validação de formulários'
+        url: https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Form_validation
   - slug: acessibilidade
     name: Acessibilidade
     description: 'Como tornar a página usável por teclado e leitores de tela.'
+    links:
+      - label: 'web.dev: Learn Accessibility'
+        url: https://web.dev/learn/accessibility
+      - label: 'MDN: HTML e acessibilidade'
+        url: https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Accessibility/HTML

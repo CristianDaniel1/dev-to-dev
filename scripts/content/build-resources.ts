@@ -7,6 +7,7 @@ import type {
   ResourceLibrary,
 } from '../../src/app/shared/interfaces/resource.interface';
 import { CATEGORIES_FILE, COLLECTIONS_FILE, RESOURCE_CONTENT_DIR } from './content.constants';
+import { readFaviconFiles } from './favicon-files';
 import { readYaml } from './read-yaml';
 import {
   categoriesFileSchema,
@@ -22,11 +23,15 @@ export interface BuiltResources {
   library: ResourceLibrary;
 }
 
-const toResource = (authored: AuthoredResource, category: string): Resource => ({
-  ...authored,
-  domain: new URL(authored.url).hostname.replace(/^www\./, ''),
-  category,
-});
+const toResource = (
+  authored: AuthoredResource,
+  category: string,
+  favicons: ReadonlyMap<string, string>,
+): Resource => {
+  const domain = new URL(authored.url).hostname.replace(/^www\./, '');
+  const favicon = favicons.get(domain);
+  return { ...authored, domain, category, ...(favicon ? { favicon } : {}) };
+};
 
 const listCategoryFiles = async (): Promise<string[]> => {
   const files = await readdir(RESOURCE_CONTENT_DIR);
@@ -47,6 +52,7 @@ export const buildResources = async (): Promise<BuiltResources> => {
   );
   assertCategoryFiles(RESOURCE_CONTENT_DIR, categories, await listCategoryFiles());
 
+  const favicons = await readFaviconFiles();
   const seenIds = new Set<string>();
   const seenUrls = new Set<string>();
   const resources: Resource[] = [];
@@ -56,7 +62,7 @@ export const buildResources = async (): Promise<BuiltResources> => {
     const content = await readYaml(file, resourceFileSchema);
     for (const authored of content.resources) {
       assertUniqueResource(file, authored, seenIds, seenUrls);
-      resources.push(toResource(authored, category.slug));
+      resources.push(toResource(authored, category.slug, favicons));
     }
     counts.set(category.slug, content.resources.length);
   }

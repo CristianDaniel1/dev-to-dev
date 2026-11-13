@@ -4,6 +4,8 @@
   "scripts": {
     "ng": "ng",
     "content": "tsx scripts/build-content.ts",
+    "favicons": "tsx scripts/fetch-favicons.ts",
+    "check-links": "tsx scripts/check-links.ts",
     "prestart": "npm run content",
     "start": "ng serve",
     "prebuild": "npm run content",

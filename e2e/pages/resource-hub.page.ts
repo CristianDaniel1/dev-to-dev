@@ -82,6 +82,16 @@ export class ResourceHubPage {
   }
 
   /**
+   * Finds the decorative site icon of a resource card (hidden from assistive technology).
+   *
+   * @param name - Resource name.
+   * @returns The icon image.
+   */
+  siteIcon(name: string): Locator {
+    return this.card(name).locator('img');
+  }
+
+  /**
    * Finds the selected option of a select filter.
    *
    * @param name - Select label, e.g. 'Tipo'.

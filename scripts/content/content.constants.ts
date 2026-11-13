@@ -45,3 +45,12 @@ export const CATEGORIES_FILE = 'categories.yaml';
 
 /** File with the curated collections. */
 export const COLLECTIONS_FILE = 'collections.yaml';
+
+/** Folder with the resource favicons, downloaded once by `npm run favicons`. */
+export const FAVICON_DIR = join('public', 'favicons');
+
+/** Public path the favicon files are served from. */
+export const FAVICON_PUBLIC_PATH = '/favicons/';
+
+/** Optional icon of a tech, inside its content folder: one path on a 24×24 viewBox. */
+export const TECH_ICON_FILE = 'icon.svg';

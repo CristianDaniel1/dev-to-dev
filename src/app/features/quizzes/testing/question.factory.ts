@@ -21,5 +21,6 @@ export const makeQuestion = (overrides: Partial<Question> = {}): Question => ({
   correct: ['a'],
   explanationHtml: 'General explanation',
   tags: [],
+  links: [{ label: 'MDN: HTML', url: 'https://developer.mozilla.org/' }],
   ...overrides,
 });

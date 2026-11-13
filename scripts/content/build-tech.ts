@@ -10,6 +10,7 @@ import { buildQuestion } from './build-question';
 import type { CodeHighlighter } from './code-highlighter';
 import { QUIZ_CONTENT_DIR } from './content.constants';
 import { countLevels } from './level-counts';
+import { readTechIcon } from './read-tech-icon';
 import { readYaml } from './read-yaml';
 import { techMetaSchema, topicFileSchema, type TechMeta } from './schema';
 import { assertBadgeContrast, assertQuestion, assertTopicFiles } from './validate';
@@ -26,6 +27,7 @@ const toSummary = (
   meta: TechMeta,
   questions: Question[],
   topics: TopicSummary[],
+  iconPath: string | undefined,
 ): TechSummary => ({
   slug,
   name: meta.name,
@@ -37,6 +39,7 @@ const toSummary = (
   questionCount: questions.length,
   levelCounts: countLevels(questions),
   topics,
+  ...(iconPath ? { iconPath } : {}),
 });
 
 /**
@@ -63,12 +66,12 @@ export const buildTech = async (
 
   const questions: Question[] = [];
   const topics: TopicSummary[] = [];
-  for (const topic of meta.topics) {
+  for (const { links, ...topic } of meta.topics) {
     const topicFile = join(techDir, `${topic.slug}.yaml`);
     const content = await readYaml(topicFile, topicFileSchema);
     const topicQuestions = content.questions.map((authored) => {
       assertQuestion(topicFile, slug, authored, seenIds);
-      return buildQuestion(authored, { tech: slug, topic: topic.slug }, highlighter);
+      return buildQuestion(authored, { tech: slug, topic: topic.slug, links }, highlighter);
     });
     questions.push(...topicQuestions);
     topics.push({
@@ -80,7 +83,7 @@ export const buildTech = async (
 
   return {
     meta,
-    summary: toSummary(slug, meta, questions, topics),
+    summary: toSummary(slug, meta, questions, topics, await readTechIcon(techDir)),
     bank: { tech: slug, questions },
   };
 };

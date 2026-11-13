@@ -9,15 +9,40 @@ topics:
   - slug: componentes-e-templates
     name: Componentes e templates
     description: 'Bindings, controle de fluxo, inputs, projeção de conteúdo e detecção de mudanças.'
+    links:
+      - label: 'Angular: guia de templates'
+        url: https://angular.dev/guide/templates
+      - label: 'Angular: controle de fluxo (@if, @for, @switch)'
+        url: https://angular.dev/guide/templates/control-flow
   - slug: signals
     name: Signals
     description: 'signal, computed, effect e linkedSignal.'
+    links:
+      - label: 'Angular: guia de signals'
+        url: https://angular.dev/guide/signals
+      - label: 'Angular: linkedSignal'
+        url: https://angular.dev/guide/signals/linked-signal
   - slug: servicos-e-injecao
     name: Serviços e injeção
     description: 'Serviços, inject, providers, tokens e HttpClient.'
+    links:
+      - label: 'Angular: injeção de dependência'
+        url: https://angular.dev/guide/di
+      - label: 'Angular: HttpClient'
+        url: https://angular.dev/guide/http
   - slug: rotas
     name: Rotas
     description: 'Router outlet, links, lazy loading, parâmetros e guards.'
+    links:
+      - label: 'Angular: guia de rotas'
+        url: https://angular.dev/guide/routing
+      - label: 'Angular: guards de rota'
+        url: https://angular.dev/guide/routing/route-guards
   - slug: formularios
     name: Formulários
     description: 'Reactive forms, validadores e estados dos campos.'
+    links:
+      - label: 'Angular: reactive forms'
+        url: https://angular.dev/guide/forms/reactive-forms
+      - label: 'Angular: validação de formulários'
+        url: https://angular.dev/guide/forms/form-validation

@@ -22,8 +22,8 @@ phases) was approved at the start of the project; this file tracks where we are.
 ## Next
 
 1. **Content for launch** (one tech at a time, user reviews the style of each):
-   - ~~TypeScript~~ (31 questions, 5 topics, done). Angular, Git and SQL, about 25–30 questions
-     each across the three levels.
+   - Done: TypeScript (31 questions) and Angular (30 questions).
+   - Git and SQL, about 25–30 questions each across the three levels.
    - Expand React to about 30.
    - Decide whether Tailwind leaves draft.
 2. **Launch audit**:

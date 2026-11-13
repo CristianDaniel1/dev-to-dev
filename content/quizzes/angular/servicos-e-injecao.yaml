@@ -1,0 +1,114 @@
+questions:
+  - id: angular-servicos-e-injecao-001
+    level: beginner
+    prompt: "O que `@Injectable({ providedIn: 'root' })` faz com um serviço?"
+    options:
+      - text: 'Cria uma única instância, compartilhada por toda a aplicação, na primeira vez que o serviço é injetado'
+        correct: true
+        explanation: 'É um singleton da aplicação. E, se ninguém injetar o serviço, ele nem entra no bundle.'
+      - text: 'Cria uma instância nova para cada componente que injeta o serviço'
+        explanation: 'Para isso, o serviço precisaria estar nos `providers` do componente.'
+      - text: 'Obriga a listar o serviço nos `providers` do `app.config.ts`'
+        explanation: "`providedIn: 'root'` dispensa esse registro manual."
+      - text: 'Só permite injetar o serviço no componente raiz'
+        explanation: '"root" é o injetor raiz da aplicação, e não o componente raiz. Qualquer componente pode injetar.'
+    explanation: "Serviços com `providedIn: 'root'` são o lugar para estado compartilhado (com signals) e para acesso a APIs."
+
+  - id: angular-servicos-e-injecao-002
+    level: beginner
+    prompt: 'Quais formas obtêm o serviço `Api` dentro de um componente?'
+    options:
+      - text: '`private readonly api = inject(Api);`'
+        correct: true
+        explanation: '`inject` num inicializador de campo é a forma recomendada hoje.'
+      - text: '`constructor(private readonly api: Api) {}`'
+        correct: true
+        explanation: 'A injeção pelo construtor continua funcionando.'
+      - text: '`private readonly api = new Api();`'
+        explanation: 'Com `new`, você contorna a injeção: perde a instância compartilhada e precisa criar as dependências da `Api` na mão.'
+      - text: '`private readonly api = Api.getInstance();`'
+        explanation: 'Serviços do Angular não têm um método estático assim. O injetor é quem guarda as instâncias.'
+    explanation: 'Com `inject`, os tipos são inferidos e a herança fica mais simples, porque a classe filha não precisa repassar dependências para `super()`.'
+
+  - id: angular-servicos-e-injecao-003
+    level: intermediate
+    prompt: 'O que acontece quando `carregar()` é chamado?'
+    code:
+      lang: typescript
+      source: |
+        export class Painel {
+          carregar() {
+            const http = inject(HttpClient);
+            // ...
+          }
+        }
+    options:
+      - text: 'Um erro, porque `inject` só funciona num contexto de injeção'
+        correct: true
+        explanation: 'O Angular lança o erro NG0203: `inject` precisa ser chamado durante a criação da classe.'
+      - text: 'Funciona normalmente'
+        explanation: 'Depois que o componente foi criado, não há injetor ativo para responder ao `inject`.'
+      - text: 'Retorna `undefined`'
+        explanation: 'O Angular falha com um erro explícito, em vez de retornar um valor vazio.'
+      - text: 'Cria um `HttpClient` novo a cada chamada'
+        explanation: 'O `inject` não cria instâncias por conta própria fora do contexto.'
+    explanation: 'Os contextos de injeção são: inicializadores de campo, o construtor, factories de providers, guards e resolvers funcionais. Para usar depois, guarde a dependência num campo.'
+
+  - id: angular-servicos-e-injecao-004
+    level: intermediate
+    prompt: "Um componente declara `providers: [Carrinho]`, e `Carrinho` também tem `providedIn: 'root'`. O que cada instância desse componente recebe ao injetar `Carrinho`?"
+    options:
+      - text: 'Uma instância própria, compartilhada com os componentes filhos dela'
+        correct: true
+        explanation: 'O provider do componente tem prioridade sobre o da raiz para ele e para tudo abaixo dele na árvore.'
+      - text: 'A mesma instância da raiz'
+        explanation: 'O injetor procura de baixo para cima e para no primeiro provider que encontra: o do componente.'
+      - text: 'Um erro, porque o serviço está registrado em dois lugares'
+        explanation: 'Registrar em níveis diferentes é permitido e é assim que se cria um escopo.'
+      - text: 'Uma instância nova a cada vez que `inject` é chamado'
+        explanation: 'Dentro do mesmo injetor, a instância é reaproveitada.'
+    explanation: 'Esse recurso serve para estado com escopo: cada página ou widget ganha o seu, que é descartado quando o componente sai da tela.'
+
+  - id: angular-servicos-e-injecao-005
+    level: intermediate
+    prompt: 'Quando a requisição HTTP desta linha é feita?'
+    code:
+      lang: typescript
+      source: |
+        const usuarios$ = this.http.get<Usuario[]>('/api/usuarios');
+    options:
+      - text: 'Só quando alguém se inscreve no Observable, como com `subscribe`, o pipe `async` ou `toSignal`'
+        correct: true
+        explanation: 'Observables do `HttpClient` são "frios": a linha só descreve a requisição.'
+      - text: 'Imediatamente, ao chamar `get`'
+        explanation: 'Esse é o comportamento de `fetch`, que retorna uma Promise já em andamento.'
+      - text: 'Quando o componente é renderizado'
+        explanation: 'A renderização não dispara nada se ninguém se inscrever.'
+      - text: 'Uma vez, e o resultado fica em cache para sempre'
+        explanation: 'Cada nova inscrição faz uma nova requisição.'
+    explanation: 'Isso explica requisições em dobro: dois pipes `async` no mesmo Observable geram duas chamadas. Converta uma vez com `toSignal` ou use `httpResource`.'
+
+  - id: angular-servicos-e-injecao-006
+    level: advanced
+    prompt: 'Por que usar um `InjectionToken` para fornecer a URL da API, em vez de injetar `string`?'
+    code:
+      lang: typescript
+      source: |
+        export const API_URL = new InjectionToken<string>('API_URL');
+
+        // app.config.ts
+        // providers: [{ provide: API_URL, useValue: 'https://api.exemplo.com' }]
+
+        // num serviço
+        private readonly apiUrl = inject(API_URL);
+    options:
+      - text: 'Porque tipos como `string` e interfaces não existem em tempo de execução e não servem de chave para o injetor'
+        correct: true
+        explanation: 'O token é um objeto único que identifica a dependência, e o genérico `<string>` dá o tipo do valor injetado.'
+      - text: 'Porque `InjectionToken` deixa a injeção mais rápida'
+        explanation: 'A diferença não é desempenho: sem uma chave real, não há como pedir o valor.'
+      - text: "Porque valores com `providedIn: 'root'` precisam de token"
+        explanation: "Classes com `providedIn: 'root'` usam a própria classe como chave."
+      - text: 'Porque o Angular injetaria a string automaticamente das variáveis de ambiente'
+        explanation: 'O Angular não lê variáveis de ambiente para a injeção de dependência.'
+    explanation: 'Tokens também facilitam testes: no `TestBed`, basta fornecer outro valor para `API_URL`.'

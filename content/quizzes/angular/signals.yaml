@@ -1,0 +1,110 @@
+questions:
+  - id: angular-signals-001
+    level: beginner
+    prompt: 'Como ler o valor atual de `const contador = signal(0)`?'
+    options:
+      - text: '`contador()`'
+        correct: true
+        explanation: 'Um signal é uma função: chamá-la retorna o valor e registra a leitura como dependência.'
+      - text: '`contador.value`'
+        explanation: 'Signals não têm a propriedade `value`. Essa é a API de outras bibliotecas, como o Vue.'
+      - text: '`contador.get()`'
+        explanation: 'Não existe um método `get`.'
+      - text: '`contador`'
+        explanation: 'Sem os parênteses, você tem a função, não o valor. No template, também é preciso escrever `{{ contador() }}`.'
+    explanation: 'Ler sempre chamando a função é o que permite ao Angular saber quem depende de quem, e atualizar só o necessário.'
+
+  - id: angular-signals-002
+    level: beginner
+    prompt: 'Quais linhas aumentam em 1 o valor de `const contador = signal(0)`?'
+    options:
+      - text: '`contador.update((valor) => valor + 1);`'
+        correct: true
+        explanation: '`update` recebe o valor atual e grava o retorno.'
+      - text: '`contador.set(contador() + 1);`'
+        correct: true
+        explanation: '`set` grava um valor novo. Aqui, calculado a partir da leitura atual.'
+      - text: '`contador++;`'
+        explanation: '`contador` é uma função. O `++` não altera o signal.'
+      - text: '`contador.next(contador() + 1);`'
+        explanation: '`next` é da API dos Subjects do RxJS, não dos signals.'
+    explanation: 'Prefira `update` quando o novo valor depende do anterior. Com objetos e arrays, crie uma cópia: `lista.update((itens) => [...itens, novo])`.'
+
+  - id: angular-signals-003
+    level: intermediate
+    prompt: 'O que aparece no console?'
+    code:
+      lang: typescript
+      source: |
+        const preco = signal(10);
+        const quantidade = signal(2);
+        const total = computed(() => preco() * quantidade());
+
+        quantidade.set(3);
+        console.log(total());
+    options:
+      - text: '30'
+        correct: true
+        explanation: 'Quando `total` é lido, o `computed` percebe que `quantidade` mudou e recalcula.'
+      - text: '20'
+        explanation: 'Um `computed` nunca devolve um valor desatualizado: ele recalcula sempre que uma dependência muda.'
+      - text: 'Um erro, porque `quantidade` é usado por um `computed`'
+        explanation: 'Os signals de origem continuam graváveis. Só o `computed` é somente leitura.'
+      - text: '`undefined`'
+        explanation: 'O `computed` retorna o resultado da função.'
+    explanation: 'Um `computed` é preguiçoso e memorizado: só calcula quando lido e reaproveita o resultado enquanto as dependências não mudam.'
+
+  - id: angular-signals-004
+    level: intermediate
+    prompt: 'Você precisa mostrar no template um valor calculado a partir de outros signals, como o total do carrinho. O que usar?'
+    options:
+      - text: '`computed`'
+        correct: true
+        explanation: 'Valores derivados são exatamente o papel do `computed`.'
+      - text: 'Um `effect` que grava o resultado em outro signal'
+        explanation: 'Funciona, mas é mais lento e pode mostrar valores intermediários. É um antipadrão conhecido.'
+      - text: 'Um `setInterval` que recalcula o valor'
+        explanation: 'Recalcula sem necessidade e pode mostrar valores atrasados.'
+      - text: 'O hook `ngOnChanges`'
+        explanation: '`ngOnChanges` só reage a mudanças nos inputs.'
+    explanation: 'Uma boa regra: se o valor pode ser calculado a partir de outros, ele é um `computed`, não um estado próprio.'
+
+  - id: angular-signals-005
+    level: intermediate
+    prompt: 'Para que um `effect` é indicado?'
+    options:
+      - text: 'Sincronizar signals com algo fora do Angular, como o localStorage ou uma biblioteca de gráficos'
+        correct: true
+        explanation: 'O efeito roda de novo sempre que um signal lido nele muda, e é o lugar para esses efeitos colaterais.'
+      - text: 'Calcular valores derivados de outros signals'
+        explanation: 'Para isso existe o `computed`.'
+      - text: 'Atualizar o texto do próprio template'
+        explanation: 'Os bindings do template já fazem isso.'
+      - text: 'Substituir o construtor do componente'
+        explanation: 'O efeito é criado no construtor ou num inicializador de campo, mas não o substitui.'
+    explanation: 'Para buscar dados que dependem de signals, use `resource` ou `httpResource`: eles cuidam de carregamento, erro e cancelamento, o que um `effect` não faz.'
+
+  - id: angular-signals-006
+    level: advanced
+    prompt: 'O que aparece no console?'
+    code:
+      lang: typescript
+      source: |
+        const opcoes = signal(['P', 'M', 'G']);
+        const escolhida = linkedSignal(() => opcoes()[0]);
+
+        escolhida.set('G');
+        opcoes.set(['36', '38']);
+
+        console.log(escolhida());
+    options:
+      - text: '`36`'
+        correct: true
+        explanation: 'Quando `opcoes` muda, o `linkedSignal` volta a ser calculado e descarta o valor gravado.'
+      - text: '`G`'
+        explanation: 'O valor gravado com `set` só vale até a origem mudar.'
+      - text: 'Um erro, porque não dá para gravar num signal derivado'
+        explanation: 'Esse é o comportamento do `computed`. O `linkedSignal` aceita `set` e `update`.'
+      - text: '`undefined`'
+        explanation: 'A função recalcula com a nova lista e pega o primeiro item.'
+    explanation: '`linkedSignal` serve para estados que o usuário pode alterar, mas que devem ser reiniciados quando a origem muda, como a opção escolhida de uma lista que pode ser trocada.'

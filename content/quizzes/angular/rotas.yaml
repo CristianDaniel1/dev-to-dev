@@ -1,0 +1,120 @@
+questions:
+  - id: angular-rotas-001
+    level: beginner
+    prompt: 'Onde o Angular renderiza o componente da rota atual?'
+    options:
+      - text: 'No lugar do `<router-outlet />`'
+        correct: true
+        explanation: 'O outlet é o espaço reservado que o router preenche a cada navegação.'
+      - text: 'No lugar do `<ng-content />`'
+        explanation: '`ng-content` projeta o conteúdo passado pelo componente pai.'
+      - text: 'Sempre no fim do `<body>`'
+        explanation: 'O componente aparece onde o outlet estiver no template.'
+      - text: 'No lugar de um `<router-link>`'
+        explanation: '`routerLink` é uma diretiva para links, e não um elemento.'
+    explanation: 'Rotas filhas usam outro `<router-outlet />` dentro do componente pai, o que permite layouts aninhados.'
+
+  - id: angular-rotas-002
+    level: beginner
+    prompt: 'Por que usar `routerLink="/quizzes"` em vez de `href="/quizzes"` num link interno?'
+    options:
+      - text: 'Para navegar sem recarregar a página, mantendo o estado da aplicação'
+        correct: true
+        explanation: 'O router troca só o componente da rota. Com `href`, o navegador baixa tudo de novo.'
+      - text: 'Porque `href` não funciona em aplicações Angular'
+        explanation: 'Funciona, mas recarrega a aplicação inteira.'
+      - text: 'Porque `routerLink` abre o link numa nova aba'
+        explanation: 'O link abre na mesma aba. O Angular continua gerando o `href` para o Ctrl+clique funcionar.'
+      - text: 'Porque links com `href` não são indexados por buscadores'
+        explanation: 'Os buscadores leem o `href`, que o `routerLink` também gera no elemento `<a>`.'
+    explanation: 'Use `routerLinkActive="ativo"` para marcar o link da página atual e `ariaCurrentWhenActive="page"` para anunciar isso a leitores de tela.'
+
+  - id: angular-rotas-003
+    level: intermediate
+    prompt: 'Qual é o efeito desta rota?'
+    code:
+      lang: typescript
+      source: |
+        {
+          path: 'admin',
+          loadComponent: () => import('./admin/admin').then((m) => m.Admin),
+        }
+    options:
+      - text: 'O código de `Admin` fica num arquivo separado, baixado só quando alguém acessa `/admin`'
+        correct: true
+        explanation: 'O `import()` dinâmico faz o build criar um chunk à parte.'
+      - text: 'O componente é carregado no início, mas renderizado só em `/admin`'
+        explanation: 'Esse seria o comportamento com `component: Admin`.'
+      - text: 'A rota só funciona para usuários autenticados'
+        explanation: 'Para restringir acesso, use um guard como `canActivate`.'
+      - text: 'O componente é baixado de novo a cada visita'
+        explanation: 'Depois do primeiro carregamento, o arquivo fica em memória.'
+    explanation: 'Para um grupo de rotas, use `loadChildren` com um arquivo de rotas. Assim o bundle inicial só leva o necessário para a primeira tela.'
+
+  - id: angular-rotas-004
+    level: intermediate
+    prompt: 'Ao abrir `/quizzes/css`, o que `tech()` retorna?'
+    code:
+      lang: typescript
+      source: |
+        // rota: { path: 'quizzes/:tech', component: TechPage }
+        // app.config.ts: provideRouter(routes, withComponentInputBinding())
+
+        export class TechPage {
+          readonly tech = input.required<string>();
+        }
+    options:
+      - text: "`'css'`"
+        correct: true
+        explanation: 'Com `withComponentInputBinding`, parâmetros da rota, query params e `data` são passados aos inputs de mesmo nome.'
+      - text: '`undefined`'
+        explanation: 'O nome do input é igual ao do parâmetro, então o valor é preenchido.'
+      - text: "`':tech'`"
+        explanation: 'O router passa o valor da URL, não o nome do parâmetro.'
+      - text: 'Um erro, porque é obrigatório usar `ActivatedRoute`'
+        explanation: '`ActivatedRoute` continua disponível, mas não é necessário com essa opção.'
+    explanation: 'Como o input é um signal, um `computed` que depende dele recalcula sozinho quando a navegação troca de `/quizzes/css` para `/quizzes/html` no mesmo componente.'
+
+  - id: angular-rotas-005
+    level: advanced
+    prompt: 'O que acontece quando um usuário não autenticado tenta abrir uma rota protegida por este guard?'
+    code:
+      lang: typescript
+      source: |
+        export const autenticado: CanActivateFn = () => {
+          const auth = inject(Auth);
+          return auth.logado() ? true : inject(Router).createUrlTree(['/entrar']);
+        };
+    options:
+      - text: 'A navegação é cancelada e o usuário é levado para `/entrar`'
+        correct: true
+        explanation: 'Retornar uma `UrlTree` de um guard é a forma de redirecionar.'
+      - text: 'A página protegida aparece e depois redireciona'
+        explanation: 'O guard roda antes de a rota ser ativada. O componente nem é criado.'
+      - text: 'Um erro, porque guards precisam retornar `boolean`'
+        explanation: 'Guards podem retornar `boolean`, `UrlTree`, ou um Observable ou Promise de um deles.'
+      - text: 'O usuário volta para a página anterior'
+        explanation: 'Isso aconteceria com `false`. Com a `UrlTree`, ele vai para `/entrar`.'
+    explanation: 'Um guard no navegador melhora a experiência, mas não protege dados: quem quiser pode alterar o JavaScript. A API precisa conferir a autorização em cada requisição.'
+
+  - id: angular-rotas-006
+    level: advanced
+    prompt: 'Com estas rotas, o que aparece em `/sobre`?'
+    code:
+      lang: typescript
+      source: |
+        const routes: Routes = [
+          { path: '**', component: NaoEncontrada },
+          { path: 'sobre', component: Sobre },
+        ];
+    options:
+      - text: '`NaoEncontrada`'
+        correct: true
+        explanation: 'O router usa a primeira rota que combina, e `**` combina com qualquer URL.'
+      - text: '`Sobre`'
+        explanation: 'Seria `Sobre` se a rota coringa estivesse no fim da lista.'
+      - text: 'Um erro de configuração'
+        explanation: 'O Angular não reordena nem valida a posição do coringa.'
+      - text: 'Os dois componentes, um depois do outro'
+        explanation: 'Só uma rota é ativada por nível.'
+    explanation: 'Coloque rotas específicas primeiro e a `**` sempre por último.'

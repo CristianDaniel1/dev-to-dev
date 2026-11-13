@@ -1,0 +1,90 @@
+questions:
+  - id: angular-formularios-001
+    level: beginner
+    prompt: 'Qual binding liga um `<input>` a um `FormControl` chamado `email`, criado no componente?'
+    options:
+      - text: '`[formControl]="email"`'
+        correct: true
+        explanation: 'A diretiva mantém o campo e o controle sincronizados nos dois sentidos. Ela vem do `ReactiveFormsModule`.'
+      - text: '`[(ngModel)]="email"`'
+        explanation: '`ngModel` é dos formulários orientados a template e espera um valor simples, não um `FormControl`.'
+      - text: '`[value]="email"`'
+        explanation: '`[value]` só escreve no campo. O que o usuário digita não volta para o componente.'
+      - text: '`(input)="email"`'
+        explanation: 'Isso só avalia a expressão a cada tecla, sem fazer nada com o valor.'
+    explanation: 'Dentro de um `[formGroup]`, use `formControlName="email"` para ligar cada campo pelo nome.'
+
+  - id: angular-formularios-002
+    level: beginner
+    prompt: 'Qual estado indica que o usuário já entrou e saiu do campo pelo menos uma vez?'
+    options:
+      - text: '`touched`'
+        correct: true
+        explanation: 'O campo passa a `touched` no primeiro blur.'
+      - text: '`dirty`'
+        explanation: '`dirty` indica que o valor foi alterado pelo usuário.'
+      - text: '`pristine`'
+        explanation: '`pristine` é o oposto de `dirty`: o valor ainda não foi alterado.'
+      - text: '`valid`'
+        explanation: '`valid` diz se os validadores passam, independente da interação.'
+    explanation: 'Mostrar erros só quando `touched && invalid` evita gritar com quem ainda nem começou a digitar.'
+
+  - id: angular-formularios-003
+    level: intermediate
+    prompt: 'O usuário digitou `ana@` no campo. Quanto vale `form.controls.email.errors`?'
+    code:
+      lang: typescript
+      source: |
+        readonly form = new FormGroup({
+          email: new FormControl('', [Validators.required, Validators.email]),
+        });
+    options:
+      - text: '`{ email: true }`'
+        correct: true
+        explanation: 'O campo não está vazio, então `required` passa. Falta o domínio, então `email` falha.'
+      - text: '`{ required: true, email: true }`'
+        explanation: '`required` só falha com o campo vazio.'
+      - text: '`null`'
+        explanation: '`errors` só é `null` quando todos os validadores passam.'
+      - text: "`{ email: 'ana@' }`"
+        explanation: 'Os validadores do Angular registram `true` (ou detalhes como `requiredLength`), não o valor digitado.'
+    explanation: "Leia um erro específico com `control.hasError('email')` para escolher a mensagem certa."
+
+  - id: angular-formularios-004
+    level: intermediate
+    prompt: 'O que aparece no console?'
+    code:
+      lang: typescript
+      source: |
+        const form = new FormGroup({
+          nome: new FormControl('Ana'),
+          id: new FormControl({ value: 7, disabled: true }),
+        });
+
+        console.log(form.value);
+    options:
+      - text: "`{ nome: 'Ana' }`"
+        correct: true
+        explanation: '`value` deixa de fora os controles desabilitados.'
+      - text: "`{ nome: 'Ana', id: 7 }`"
+        explanation: 'Esse é o resultado de `form.getRawValue()`, que inclui os desabilitados.'
+      - text: "`{ nome: 'Ana', id: null }`"
+        explanation: 'O controle desabilitado não entra no objeto.'
+      - text: 'Um erro, porque controles desabilitados não têm valor'
+        explanation: 'Eles têm valor, que só não aparece em `value`.'
+    explanation: 'Por isso o tipo de `form.value` tem todas as chaves opcionais. Use `getRawValue()` quando precisar de tudo, por exemplo ao enviar um id somente leitura.'
+
+  - id: angular-formularios-005
+    level: advanced
+    prompt: "Qual é o tipo do valor de `const nome = new FormControl('')`?"
+    options:
+      - text: '`string | null`'
+        correct: true
+        explanation: 'O `null` aparece porque `nome.reset()` volta o controle para `null`, e não para o valor inicial.'
+      - text: '`string`'
+        explanation: "Seria `string` com `new FormControl('', { nonNullable: true })`."
+      - text: '`any`'
+        explanation: 'Desde o Angular 14, os formulários são tipados e inferem o tipo do valor inicial.'
+      - text: '`string | undefined`'
+        explanation: 'O valor vazio dos controles é `null`, não `undefined`.'
+    explanation: 'Com `nonNullable: true` (ou `NonNullableFormBuilder`), `reset()` volta ao valor inicial e o tipo fica sem `null`.'

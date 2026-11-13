@@ -1,0 +1,23 @@
+name: Angular
+description: 'Componentes, signals, injeção de dependência, rotas e formulários no framework do Google.'
+area: frontend
+badge: Ng
+color: '#c3002f'
+onColor: '#ffffff'
+order: 55
+topics:
+  - slug: componentes-e-templates
+    name: Componentes e templates
+    description: 'Bindings, controle de fluxo, inputs, projeção de conteúdo e detecção de mudanças.'
+  - slug: signals
+    name: Signals
+    description: 'signal, computed, effect e linkedSignal.'
+  - slug: servicos-e-injecao
+    name: Serviços e injeção
+    description: 'Serviços, inject, providers, tokens e HttpClient.'
+  - slug: rotas
+    name: Rotas
+    description: 'Router outlet, links, lazy loading, parâmetros e guards.'
+  - slug: formularios
+    name: Formulários
+    description: 'Reactive forms, validadores e estados dos campos.'

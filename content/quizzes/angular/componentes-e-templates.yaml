@@ -1,0 +1,137 @@
+questions:
+  - id: angular-componentes-e-templates-001
+    level: beginner
+    prompt: 'Como exibir o valor da propriedade `nome` do componente no template?'
+    options:
+      - text: '`{{ nome }}`'
+        correct: true
+        explanation: 'É a interpolação: o Angular avalia a expressão e insere o resultado como texto.'
+      - text: '`${nome}`'
+        explanation: 'Essa é a sintaxe de template strings do JavaScript, que não funciona no HTML do Angular.'
+      - text: '`{nome}`'
+        explanation: 'Chaves simples são a sintaxe do JSX, no React.'
+      - text: '`[nome]`'
+        explanation: 'Colchetes fazem binding de propriedade num elemento, como `[disabled]`. Sozinhos, não exibem texto.'
+    explanation: 'A interpolação escapa o HTML automaticamente: se `nome` tiver `<script>`, ele aparece como texto, sem ser executado.'
+
+  - id: angular-componentes-e-templates-002
+    level: beginner
+    prompt: 'O que fazem os colchetes e os parênteses neste botão?'
+    code:
+      lang: html
+      source: |
+        <button [disabled]="salvando" (click)="salvar()">Salvar</button>
+    options:
+      - text: 'Os colchetes ligam a propriedade `disabled` a uma expressão, e os parênteses escutam o evento `click`'
+        correct: true
+        explanation: 'Dados descem do componente para o elemento com `[]`, e eventos sobem do elemento para o componente com `()`.'
+      - text: 'É o contrário: os colchetes escutam eventos, e os parênteses ligam propriedades'
+        explanation: 'Uma forma de lembrar: `[]` parece uma caixa que recebe um valor, `()` parece uma chamada de função.'
+      - text: 'Os dois criam um binding de mão dupla'
+        explanation: 'O binding de mão dupla junta os dois: `[(valor)]`, a "banana na caixa".'
+      - text: 'Os colchetes aplicam uma classe CSS chamada `disabled`'
+        explanation: 'Para classes existe `[class.desativado]="condicao"`. Aqui o alvo é a propriedade `disabled` do botão.'
+    explanation: 'Os colchetes avaliam a expressão: `[disabled]="salvando"` usa a variável. Sem eles, `disabled="salvando"` seria o texto fixo "salvando".'
+
+  - id: angular-componentes-e-templates-003
+    level: intermediate
+    prompt: 'Para que serve o `track item.id` neste laço?'
+    code:
+      lang: html
+      source: |
+        @for (item of itens; track item.id) {
+          <li>{{ item.nome }}</li>
+        } @empty {
+          <li>Nenhum item</li>
+        }
+    options:
+      - text: 'Identifica cada item para o Angular reaproveitar os elementos do DOM quando a lista muda'
+        correct: true
+        explanation: 'Se a lista for reordenada ou receber um item novo, só os elementos que mudaram são criados ou movidos.'
+      - text: 'Ordena a lista pelo `id`'
+        explanation: '`track` não altera a ordem. Ela vem do array.'
+      - text: 'Esconde os itens que não têm `id`'
+        explanation: 'Nenhum item é filtrado.'
+      - text: 'É opcional e só serve para depuração'
+        explanation: 'No `@for`, `track` é obrigatório: sem ele, o template não compila.'
+    explanation: 'Use um identificador estável, como o `id` vindo da API. `track $index` funciona para listas estáticas, mas faz o Angular reaproveitar elementos errados quando itens são inseridos ou removidos.'
+
+  - id: angular-componentes-e-templates-004
+    level: intermediate
+    prompt: 'O que acontece neste uso do componente?'
+    code:
+      lang: typescript
+      source: |
+        // avatar.ts
+        export class Avatar {
+          readonly nome = input.required<string>();
+          readonly tamanho = input(32);
+        }
+
+        // no template do pai:
+        // <app-avatar nome="Ana" />
+    options:
+      - text: "Funciona: `nome()` vale `'Ana'` e `tamanho()` vale `32`"
+        correct: true
+        explanation: 'Um atributo sem colchetes passa o texto literal, e o input opcional usa o valor padrão.'
+      - text: 'Erro de compilação, porque `tamanho` não foi passado'
+        explanation: '`input(32)` é opcional. Só `input.required` precisa ser informado.'
+      - text: 'Erro, porque inputs só recebem valores com colchetes, como `[nome]`'
+        explanation: 'Os colchetes só são necessários para passar uma expressão. Para um texto fixo, o atributo simples basta.'
+      - text: '`nome` fica `undefined` até o componente ser renderizado'
+        explanation: 'Inputs obrigatórios já têm valor quando o template do componente é avaliado.'
+    explanation: 'Inputs são signals somente leitura: leia com `nome()`. Para derivar algo deles, use `computed(() => this.nome().trim())`.'
+
+  - id: angular-componentes-e-templates-005
+    level: intermediate
+    prompt: 'Um componente `app-cartao` precisa mostrar o HTML que o pai escreve entre as tags dele, como em `<app-cartao><p>Oi</p></app-cartao>`. O que usar no template do cartão?'
+    options:
+      - text: '`<ng-content />`'
+        correct: true
+        explanation: 'É a projeção de conteúdo: o HTML do pai aparece no lugar do `ng-content`.'
+      - text: '`<router-outlet />`'
+        explanation: '`router-outlet` mostra o componente da rota atual.'
+      - text: '`<ng-template>`'
+        explanation: 'Um `ng-template` guarda um trecho que só é renderizado quando alguém pede. Ele não recebe o conteúdo do pai.'
+      - text: '`{{ children }}`'
+        explanation: 'Não existe uma propriedade `children` como no React.'
+    explanation: 'Com `<ng-content select="[titulo]" />`, dá para criar vários pontos de projeção e escolher onde cada parte do conteúdo do pai entra.'
+
+  - id: angular-componentes-e-templates-006
+    level: advanced
+    prompt: 'O que este bloco faz?'
+    code:
+      lang: html
+      source: |
+        @defer (on viewport) {
+          <app-comentarios />
+        } @placeholder {
+          <p>Comentários</p>
+        }
+    options:
+      - text: 'Coloca o código de `app-comentarios` num arquivo separado, que só é baixado quando o placeholder entra na tela'
+        correct: true
+        explanation: 'O `@defer` divide o bundle: o componente e as dependências dele só são carregados quando a condição acontece.'
+      - text: 'Renderiza o componente na hora, mas escondido com CSS até aparecer na tela'
+        explanation: 'Nada do componente é carregado ou renderizado antes da condição.'
+      - text: 'Atrasa só os dados do componente, não o código'
+        explanation: 'O que é adiado é o próprio componente, incluindo o JavaScript dele.'
+      - text: 'Carrega o componente no servidor e envia o HTML pronto'
+        explanation: 'No servidor, o Angular renderiza o `@placeholder`. O conteúdo adiado só é carregado no navegador.'
+    explanation: 'Além de `viewport`, há gatilhos como `idle`, `interaction`, `hover`, `timer(2s)` e `when condicao`. Para o código ser separado, o componente adiado precisa ser standalone e não pode ser usado fora do bloco no mesmo template.'
+
+  - id: angular-componentes-e-templates-007
+    level: advanced
+    prompt: 'Num componente com `ChangeDetectionStrategy.OnPush`, quais situações fazem o Angular atualizar o template dele?'
+    options:
+      - text: 'Um input recebe um valor novo'
+        correct: true
+        explanation: 'Uma nova referência no input marca o componente para verificação.'
+      - text: 'Um signal lido no template muda de valor'
+        correct: true
+        explanation: 'Signals avisam o Angular exatamente quais componentes dependem deles.'
+      - text: 'Um campo comum da classe é alterado dentro de um `setTimeout`'
+        explanation: 'Um campo comum não avisa ninguém. Com OnPush, o template continua mostrando o valor antigo.'
+      - text: 'Uma propriedade do objeto recebido como input é alterada diretamente'
+        explanation: 'A referência do objeto continua a mesma, então o Angular não percebe a mudança.'
+    explanation: 'Com signals e dados imutáveis (criar um objeto novo em vez de alterar o existente), o OnPush funciona sem surpresas e é o caminho para apps zoneless.'

@@ -7,6 +7,7 @@ Quizzes comentados de desenvolvimento de software e uma central de recursos sele
 - **Quizzes comentados**: 277 perguntas de HTML, CSS, JavaScript, TypeScript, React, Angular, Tailwind CSS, Git e SQL, em três níveis. Cada alternativa tem explicação, inclusive as erradas.
 - **Modos de prática**: prática com feedback imediato, simulado com cronômetro opcional, revisão espaçada (caixas de Leitner) e rodada aleatória misturando tecnologias.
 - **Pergunta de confiança**: antes de ver a resposta, você diz se tinha certeza, achava ou chutou. Acertos no chute também voltam para revisão.
+- **Glossário**: 104 termos explicados em poucas linhas, com exemplos, termos relacionados, links para praticar o tópico no quiz e recursos para estudar.
 - **Material de apoio**: 135 recursos em 16 categorias e coleções montadas por objetivo, cada um com o motivo da recomendação. Filtros na URL e favoritos.
 - **Progresso local**: tudo fica no navegador, sem conta. Dá para exportar e importar um backup em JSON.
 - **Busca global** com Ctrl+K, temas claro e escuro, navegação completa por teclado.
@@ -46,7 +47,7 @@ npm start          # http://localhost:4200
 
 ## Conteúdo
 
-As perguntas ficam em `content/quizzes/<tecnologia>/`: um `meta.yaml` com nome, cor e tópicos, e um arquivo por tópico. Os recursos ficam em `content/resources/`. O build falha com uma mensagem clara se algo estiver fora do formato (id repetido, nenhuma alternativa correta, linguagem de código não suportada, contraste insuficiente na cor da tecnologia).
+As perguntas ficam em `content/quizzes/<tecnologia>/`: um `meta.yaml` com nome, cor e tópicos, e um arquivo por tópico. Os recursos ficam em `content/resources/`, e os termos do glossário em `content/glossary/` (um arquivo por tecnologia, mais `geral.yaml`). O build falha com uma mensagem clara se algo estiver fora do formato (id repetido, nenhuma alternativa correta, linguagem de código não suportada, contraste insuficiente na cor da tecnologia).
 
 ```yaml
 - id: css-layout-001

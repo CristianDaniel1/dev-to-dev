@@ -1,0 +1,114 @@
+terms:
+  - slug: doctype
+    term: Doctype
+    short: 'Primeira linha de um documento HTML, que faz o navegador usar o modo padrão de renderização.'
+    body: |
+      Em HTML moderno, basta escrever `<!DOCTYPE html>` no topo do arquivo. Sem ele, o navegador entra no "quirks mode", que imita bugs de navegadores antigos e muda o cálculo de tamanhos e layout.
+    code:
+      lang: html
+      source: |
+        <!DOCTYPE html>
+        <html lang="pt-BR">
+          <head>
+            <meta charset="utf-8" />
+            <title>Minha página</title>
+          </head>
+          <body>...</body>
+        </html>
+    related: [meta-viewport]
+    topics: [html/fundamentos]
+    resources: [mdn]
+
+  - slug: elemento-semantico
+    term: Elemento semântico
+    aka: [HTML semântico]
+    short: 'Elemento que diz o que o conteúdo é, como `<nav>`, `<article>` ou `<button>`, e não só como ele aparece.'
+    body: |
+      Leitores de tela, buscadores e o próprio navegador usam o significado dos elementos. Um `<button>` já vem com foco pelo teclado e ativação com Enter e Espaço. Uma `<div>` com clique não tem nada disso.
+      Use `<div>` e `<span>` só quando nenhum elemento com significado servir.
+    related: [landmark, aria, acessibilidade]
+    topics: [html/semantica]
+    resources: [mdn, web-dev-learn]
+
+  - slug: texto-alternativo
+    term: Texto alternativo
+    aka: [alt]
+    short: 'Descrição de uma imagem no atributo `alt`, lida por leitores de tela e mostrada quando a imagem não carrega.'
+    body: |
+      O texto descreve a função da imagem no contexto, não cada detalhe dela. Imagens decorativas recebem `alt=""` (vazio), para que o leitor de tela as ignore. Omitir o atributo é pior: muitos leitores anunciam o nome do arquivo.
+    code:
+      lang: html
+      source: |
+        <img src="grafico-vendas.png" alt="Vendas cresceram 30% de janeiro a março" />
+        <img src="ornamento.svg" alt="" />
+    related: [acessibilidade]
+    topics: [html/links-e-midia, html/acessibilidade]
+    resources: [webaim]
+
+  - slug: landmark
+    term: Landmark
+    aka: [região]
+    short: 'Região da página, como cabeçalho, navegação e conteúdo principal, que leitores de tela listam para pular direto até ela.'
+    body: |
+      Os elementos `<header>`, `<nav>`, `<main>`, `<aside>` e `<footer>` criam landmarks automaticamente. Uma página deve ter um único `<main>`. Quando há duas navegações, dê um nome a cada uma com `aria-label`.
+    related: [elemento-semantico, aria]
+    topics: [html/semantica, html/acessibilidade]
+    resources: [a11y-project]
+
+  - slug: aria
+    term: ARIA
+    short: 'Conjunto de atributos que descrevem papel, estado e nome de elementos para tecnologias assistivas.'
+    body: |
+      Atributos como `aria-expanded`, `aria-label` e `role` preenchem lacunas que o HTML sozinho não cobre, como um menu que abre e fecha. A primeira regra do ARIA é não usar ARIA quando um elemento nativo resolve: um `<button>` é melhor que `<div role="button">`.
+      ARIA só muda o que é anunciado. Comportamento, como responder ao teclado, continua sendo responsabilidade do código.
+    related: [elemento-semantico, landmark, acessibilidade]
+    topics: [html/acessibilidade]
+    resources: [aria-apg, mdn]
+
+  - slug: rotulo
+    term: Rótulo de campo
+    aka: [label]
+    short: 'Texto ligado a um campo de formulário pelo elemento `<label>`, que dá nome ao campo e aumenta a área de clique.'
+    body: |
+      Ligue o rótulo ao campo com `for` igual ao `id` do campo, ou colocando o campo dentro do `<label>`. Um `placeholder` não substitui o rótulo: ele some quando o usuário começa a digitar e costuma ter pouco contraste.
+    code:
+      lang: html
+      source: |
+        <label for="email">E-mail</label>
+        <input id="email" type="email" autocomplete="email" />
+    related: [validacao-nativa, acessibilidade]
+    topics: [html/formularios]
+    resources: [web-dev-learn]
+
+  - slug: validacao-nativa
+    term: Validação nativa
+    short: 'Checagem de formulário feita pelo navegador a partir de atributos como `required`, `type="email"` e `minlength`.'
+    body: |
+      O navegador impede o envio e mostra uma mensagem quando um campo não passa. Pelo JavaScript, `checkValidity()` e a pseudo-classe `:invalid` dão acesso ao mesmo estado.
+      A validação no navegador melhora a experiência, mas o servidor precisa validar de novo: qualquer pessoa pode enviar dados sem passar pelo formulário.
+    related: [rotulo, pseudo-classe]
+    topics: [html/formularios]
+    resources: [mdn]
+
+  - slug: meta-viewport
+    term: Meta viewport
+    short: 'Tag que diz ao navegador do celular para usar a largura real da tela, em vez de simular uma tela de computador.'
+    body: |
+      Sem ela, celulares renderizam a página com cerca de 980px de largura e reduzem tudo, e as media queries não funcionam como esperado. Evite `user-scalable=no`: impedir o zoom prejudica quem precisa ampliar o texto.
+    code:
+      lang: html
+      source: |
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    related: [media-query, mobile-first]
+    topics: [html/fundamentos, css/responsivo]
+    resources: [mdn]
+
+  - slug: tabindex
+    term: tabindex
+    short: 'Atributo que controla se um elemento recebe foco pelo teclado e em que ordem.'
+    body: |
+      `tabindex="0"` coloca o elemento na ordem natural de foco, e `tabindex="-1"` permite focar pelo código sem entrar na navegação por Tab. Valores positivos bagunçam a ordem e devem ser evitados.
+      Elementos interativos nativos, como links e botões, já são focáveis e não precisam do atributo.
+    related: [acessibilidade, elemento-semantico]
+    topics: [html/acessibilidade]
+    resources: [mdn]

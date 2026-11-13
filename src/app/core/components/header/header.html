@@ -8,7 +8,7 @@
       <app-logo />
     </a>
 
-    <nav [attr.aria-label]="text.nav.label" class="hidden md:block">
+    <nav [attr.aria-label]="text.nav.label" class="hidden lg:block">
       <ul class="flex h-full items-stretch border-l border-rule">
         @for (link of links; track link.path) {
           <li class="border-r border-rule">
@@ -47,7 +47,7 @@
       <app-theme-toggle />
       <button
         type="button"
-        class="btn-icon md:hidden"
+        class="btn-icon lg:hidden"
         aria-haspopup="dialog"
         aria-controls="mobile-menu"
         [attr.aria-expanded]="isMenuOpen()"

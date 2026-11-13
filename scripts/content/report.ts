@@ -1,4 +1,5 @@
 import type { ResourceIndex } from '../../src/app/shared/interfaces/resource.interface';
+import type { Glossary } from '../../src/app/shared/interfaces/glossary.interface';
 import { LEVELS } from '../../src/app/shared/constants/content.constants';
 import type { TechSummary } from '../../src/app/shared/interfaces/content.interface';
 
@@ -35,4 +36,14 @@ export const printResourceReport = (index: ResourceIndex): void => {
     (category) => `  ${category.slug.padEnd(22)} ${String(category.resourceCount).padStart(3)}`,
   );
   console.log(rows.join('\n'));
+};
+
+/**
+ * Prints how many glossary terms each group has.
+ *
+ * @param glossary - Built glossary.
+ */
+export const printGlossaryReport = (glossary: Glossary): void => {
+  const groups = glossary.groups.map((group) => `${group.slug} ${group.termCount}`).join(', ');
+  console.log(`glossary: ${glossary.terms.length} terms (${groups})`);
 };

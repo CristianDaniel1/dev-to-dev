@@ -1,0 +1,104 @@
+terms:
+  - slug: jsx
+    term: JSX
+    short: 'Sintaxe parecida com HTML, escrita dentro do JavaScript, que descreve a interface em React.'
+    body: |
+      O JSX é convertido em chamadas de função no build. Por isso usa `className` em vez de `class` e `htmlFor` em vez de `for`. Expressões JavaScript entram entre chaves: `<p>{usuario.nome}</p>`.
+    related: [componente, props]
+    topics: [react/fundamentos]
+    resources: [react-dev]
+
+  - slug: componente
+    term: Componente
+    short: 'Peça reutilizável da interface que recebe dados e retorna o que deve aparecer na tela.'
+    body: |
+      Em React, componentes são funções que retornam JSX e começam com letra maiúscula. Em Angular, são classes com um template. Nos dois, a interface é montada combinando componentes pequenos.
+    related: [props, estado, jsx]
+    topics: [react/fundamentos, angular/componentes-e-templates]
+    resources: [react-dev, angular-dev]
+
+  - slug: props
+    term: Props
+    short: 'Dados que um componente pai passa para um filho, como argumentos de uma função.'
+    body: |
+      Props são somente leitura: o filho não deve alterá-las. Para o filho avisar o pai de algo, o pai passa uma função como prop, como `onSalvar`. Em Angular, o equivalente são os inputs e outputs.
+    related: [componente, estado]
+    topics: [react/fundamentos]
+    resources: [react-dev]
+
+  - slug: estado
+    term: Estado
+    aka: [state]
+    short: 'Dado que pertence a um componente e que, ao mudar, faz a interface ser renderizada de novo.'
+    body: |
+      Em React, `useState` cria o estado e a função que o altera. Valores que podem ser calculados a partir de outros não precisam ser estado: calcule durante a renderização. Quando dois componentes precisam do mesmo dado, o estado sobe para o pai comum.
+    related: [hook, props, imutabilidade, signal]
+    topics: [react/estado, react/hooks]
+    resources: [react-dev]
+
+  - slug: hook
+    term: Hook
+    short: 'Função do React, com nome começando por `use`, que adiciona recursos como estado e efeitos a componentes de função.'
+    body: |
+      Hooks só podem ser chamados no topo do componente, nunca dentro de condições ou laços, porque o React os identifica pela ordem das chamadas. Hooks customizados combinam outros hooks e compartilham lógica, não estado.
+    related: [estado, efeito, memoizacao]
+    topics: [react/hooks]
+    resources: [react-dev]
+
+  - slug: efeito
+    term: Efeito
+    aka: [useEffect]
+    short: 'Código que sincroniza um componente com algo externo, como uma assinatura, um timer ou uma API do navegador.'
+    body: |
+      Em React, `useEffect` roda depois da renderização e pode retornar uma função de limpeza. A lista de dependências diz quando rodar de novo. Para calcular valores a partir de props ou estado, não use efeito: calcule direto.
+    related: [hook, closure]
+    topics: [react/hooks]
+    resources: [react-dev]
+
+  - slug: key
+    term: key
+    short: 'Identificador estável que o React usa para reconhecer cada item de uma lista entre renderizações.'
+    body: |
+      Use um id vindo dos dados, não o índice, quando a lista pode mudar de ordem. Trocar a `key` de um componente de propósito faz o React descartá-lo e criar outro, com estado zerado.
+    related: [componente, renderizacao]
+    topics: [react/fundamentos, react/estado]
+    resources: [react-dev]
+
+  - slug: renderizacao
+    term: Renderização
+    aka: [render]
+    short: 'Execução de um componente para calcular o que deve aparecer na tela.'
+    body: |
+      Um componente renderiza quando o estado dele muda ou quando o pai renderiza. Renderizar não é o mesmo que alterar o DOM: o React compara o resultado e só aplica o que mudou.
+    related: [memoizacao, key, deteccao-de-mudancas]
+    topics: [react/renderizacao]
+    resources: [react-dev]
+
+  - slug: memoizacao
+    term: Memoização
+    aka: [memo, useMemo, useCallback]
+    short: 'Técnica de guardar um resultado e reaproveitá-lo enquanto as entradas não mudam.'
+    body: |
+      `useMemo` guarda um valor calculado, `useCallback` guarda uma função e `memo` evita renderizar um componente quando as props são as mesmas. Meça antes de usar: na maioria dos casos, renderizações extras são baratas. O React Compiler aplica memoização automaticamente.
+    related: [renderizacao, hook]
+    topics: [react/renderizacao]
+    resources: [react-dev]
+
+  - slug: context
+    term: Context
+    short: 'Recurso do React para compartilhar um valor com muitos componentes sem passar props por todos os níveis.'
+    body: |
+      Um Provider no alto da árvore fornece o valor, e qualquer componente abaixo lê com `useContext`. É bom para tema, idioma e usuário logado. Para estados que mudam muito, um Context grande faz muitos componentes renderizarem.
+    related: [props, estado, injecao-de-dependencia]
+    topics: [react/estado]
+    resources: [react-dev]
+
+  - slug: componente-controlado
+    term: Componente controlado
+    aka: [input controlado]
+    short: 'Campo de formulário cujo valor vem do estado, atualizado a cada mudança.'
+    body: |
+      Com `value={texto}` e `onChange`, o estado é a fonte da verdade, o que facilita validar e formatar enquanto o usuário digita. No input não controlado, o DOM guarda o valor e você o lê só quando precisa, com uma ref ou no envio.
+    related: [estado, reactive-forms]
+    topics: [react/estado]
+    resources: [react-dev]

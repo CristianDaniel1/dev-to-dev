@@ -1,0 +1,192 @@
+terms:
+  - slug: escopo
+    term: Escopo
+    short: 'Região do código onde uma variável existe e pode ser usada.'
+    body: |
+      `let` e `const` têm escopo de bloco: só existem entre as chaves onde foram declaradas. `var` tem escopo de função, o que causa surpresas em laços e condicionais. Funções enxergam as variáveis dos escopos em volta delas.
+    related: [closure, hoisting]
+    topics: [javascript/funcoes]
+    resources: [javascript-info]
+
+  - slug: hoisting
+    term: Hoisting
+    aka: [içamento]
+    short: 'Comportamento em que declarações são registradas antes de o código rodar, como se subissem para o topo do escopo.'
+    body: |
+      Declarações `function` podem ser chamadas antes da linha onde aparecem. Variáveis com `var` existem desde o início, mas valem `undefined` até a atribuição. Já `let` e `const` lançam erro se usadas antes da declaração (a "zona morta temporal").
+    code:
+      lang: javascript
+      source: |
+        console.log(somar(1, 2)); // 3
+        function somar(a, b) {
+          return a + b;
+        }
+
+        console.log(total); // ReferenceError
+        const total = 10;
+    related: [escopo]
+    topics: [javascript/funcoes]
+    resources: [mdn]
+
+  - slug: closure
+    term: Closure
+    aka: [fechamento]
+    short: 'Função que continua acessando as variáveis do escopo onde foi criada, mesmo depois que esse escopo terminou.'
+    body: |
+      Closures permitem guardar estado privado, criar funções configuradas e são a base de callbacks e hooks. O efeito colateral é conhecido: uma função criada numa renderização antiga continua vendo os valores antigos (stale closure).
+    code:
+      lang: javascript
+      source: |
+        const criarContador = () => {
+          let total = 0;
+          return () => ++total;
+        };
+
+        const contar = criarContador();
+        contar(); // 1
+        contar(); // 2
+    related: [escopo, callback]
+    topics: [javascript/funcoes, react/hooks]
+    resources: [javascript-info]
+
+  - slug: coercao
+    term: Coerção de tipos
+    aka: [conversão implícita]
+    short: 'Conversão automática de um valor para outro tipo, feita pelo JavaScript em operações como `+` e `==`.'
+    body: |
+      `'2' + 2` vira `'22'`, porque o `+` com uma string concatena. `'2' * 2` vira `4`, porque `*` converte para número. A coerção é a principal razão para preferir `===`, que não converte nada.
+    related: [igualdade-estrita, truthy-falsy]
+    topics: [javascript/fundamentos]
+    resources: [javascript-info]
+
+  - slug: igualdade-estrita
+    term: Igualdade estrita
+    aka: ['===']
+    short: 'Comparação com `===`, que só é verdadeira quando tipo e valor são iguais, sem conversão.'
+    body: |
+      Com `==`, `0 == ''` e `null == undefined` são verdadeiros por causa da coerção. Com `===`, os dois são falsos. Objetos e arrays são comparados por referência: `[] === []` é `false`, porque são dois arrays diferentes.
+    related: [coercao]
+    topics: [javascript/fundamentos]
+    resources: [mdn]
+
+  - slug: truthy-falsy
+    term: Truthy e falsy
+    short: 'Valores que viram `true` ou `false` quando usados numa condição.'
+    body: |
+      Os valores falsy são `false`, `0`, `-0`, `0n`, `''`, `null`, `undefined` e `NaN`. Todo o resto é truthy, inclusive `'0'`, `[]` e `{}`. Isso explica por que `itens.length && <Lista />` mostra um `0` na tela do React quando a lista está vazia.
+    related: [coercao]
+    topics: [javascript/fundamentos]
+    resources: [mdn]
+
+  - slug: this
+    term: this
+    short: 'Referência ao objeto que está chamando a função, definida no momento da chamada.'
+    body: |
+      Em `usuario.saudar()`, `this` é `usuario`. Se a mesma função for passada como callback, ela perde o objeto e `this` vira `undefined` (no modo estrito). Arrow functions não têm `this` próprio: usam o do escopo onde foram criadas.
+    related: [escopo, callback]
+    topics: [javascript/funcoes]
+    resources: [javascript-info]
+
+  - slug: callback
+    term: Callback
+    short: 'Função passada como argumento para outra função, que a chama depois.'
+    body: |
+      Métodos como `map` e `addEventListener` recebem callbacks. Em código assíncrono antigo, callbacks dentro de callbacks criavam o "callback hell", que as Promises e o `async`/`await` resolveram.
+    related: [promise, closure]
+    topics: [javascript/funcoes, javascript/assincrono]
+    resources: [javascript-info]
+
+  - slug: promise
+    term: Promise
+    short: 'Objeto que representa um valor que vai chegar no futuro, ou um erro.'
+    body: |
+      Uma Promise começa pendente e termina resolvida (com um valor) ou rejeitada (com um erro). `then` e `catch` registram o que fazer em cada caso. `Promise.all` espera várias ao mesmo tempo e falha se qualquer uma falhar.
+    related: [async-await, event-loop, callback]
+    topics: [javascript/assincrono]
+    resources: [javascript-info, mdn]
+
+  - slug: async-await
+    term: async/await
+    short: 'Sintaxe que permite escrever código com Promises como se fosse sequencial.'
+    body: |
+      Uma função `async` sempre retorna uma Promise. Dentro dela, `await` pausa a função até a Promise terminar, sem travar o resto da página. Erros são tratados com `try/catch`, como em código síncrono.
+    code:
+      lang: javascript
+      source: |
+        const carregarUsuario = async (id) => {
+          try {
+            const resposta = await fetch(`/api/usuarios/${id}`);
+            return await resposta.json();
+          } catch (erro) {
+            console.error('Falha ao carregar', erro);
+            return null;
+          }
+        };
+    related: [promise, event-loop]
+    topics: [javascript/assincrono]
+    resources: [javascript-info]
+
+  - slug: event-loop
+    term: Event loop
+    short: 'Mecanismo que executa o código do JavaScript, uma tarefa por vez, e decide o que roda em seguida.'
+    body: |
+      Quando a pilha de execução esvazia, o event loop roda primeiro todas as microtarefas (callbacks de Promises) e só depois a próxima tarefa (como um `setTimeout`). Por isso `Promise.resolve().then(...)` roda antes de um `setTimeout(..., 0)` agendado antes dele.
+    related: [promise, async-await]
+    topics: [javascript/assincrono]
+    resources: [javascript-info]
+
+  - slug: delegacao-de-eventos
+    term: Delegação de eventos
+    aka: [event delegation]
+    short: 'Técnica de tratar eventos de muitos filhos com um único listener no elemento pai.'
+    body: |
+      Eventos sobem pela árvore do DOM (bubbling). Um listener no pai recebe os cliques dos filhos, e `event.target.closest(...)` descobre qual item foi clicado. Funciona até para itens adicionados depois.
+    code:
+      lang: javascript
+      source: |
+        lista.addEventListener('click', (event) => {
+          const item = event.target.closest('li');
+          if (item) selecionar(item.dataset.id);
+        });
+    related: [dom]
+    topics: [javascript/dom]
+    resources: [javascript-info]
+
+  - slug: desestruturacao
+    term: Desestruturação
+    aka: [destructuring]
+    short: 'Sintaxe que extrai valores de objetos e arrays para variáveis, como `const { nome } = usuario`.'
+    body: |
+      Funciona com valores padrão (`const { tema = 'claro' } = opcoes`), renomeação (`const { id: usuarioId } = usuario`) e nos parâmetros de funções, que é como componentes React recebem props.
+    related: [spread, props]
+    topics: [javascript/arrays-e-objetos]
+    resources: [javascript-info]
+
+  - slug: spread
+    term: Spread
+    aka: ['...']
+    short: 'Operador `...` que espalha os itens de um array ou as propriedades de um objeto dentro de outro.'
+    body: |
+      `[...lista, novo]` cria um array novo com um item a mais, e `{ ...usuario, nome: 'Bia' }` cria um objeto novo com um campo trocado. A cópia é rasa: objetos aninhados continuam compartilhados.
+    related: [imutabilidade, desestruturacao]
+    topics: [javascript/arrays-e-objetos, react/estado]
+    resources: [mdn]
+
+  - slug: imutabilidade
+    term: Imutabilidade
+    short: 'Prática de criar valores novos em vez de alterar os existentes.'
+    body: |
+      Métodos como `push`, `sort` e `splice` alteram o array original, enquanto `map`, `filter`, `toSorted` e o spread criam outro. Frameworks como React e Angular (com signals) detectam mudanças comparando referências, então dados imutáveis evitam telas desatualizadas.
+    related: [spread, estado]
+    topics: [javascript/arrays-e-objetos, react/estado]
+    resources: [javascript-info]
+
+  - slug: optional-chaining
+    term: Optional chaining
+    aka: ['?.']
+    short: 'Operador `?.` que acessa uma propriedade só se o valor antes dele não for `null` nem `undefined`.'
+    body: |
+      `usuario?.endereco?.cidade` retorna `undefined` em vez de lançar erro quando algo no caminho falta. Combine com `??` para um valor padrão: `usuario?.nome ?? 'Anônimo'`.
+    related: ['null']
+    topics: [javascript/fundamentos, typescript/unioes-e-narrowing]
+    resources: [mdn]

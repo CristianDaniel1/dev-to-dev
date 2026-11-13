@@ -1,11 +1,12 @@
 import { readdir } from 'node:fs/promises';
+import { buildGlossary } from './content/build-glossary';
 import { buildResources } from './content/build-resources';
 import { buildSearchIndex } from './content/build-search-index';
 import { buildTech, type BuiltTech } from './content/build-tech';
 import { CodeHighlighter } from './content/code-highlighter';
 import { ContentError } from './content/content-error';
 import { QUIZ_CONTENT_DIR } from './content/content.constants';
-import { printReport, printResourceReport } from './content/report';
+import { printGlossaryReport, printReport, printResourceReport } from './content/report';
 import { writeOutputs } from './content/write-outputs';
 
 const listTechSlugs = async (): Promise<string[]> => {
@@ -35,6 +36,10 @@ const main = async (): Promise<void> => {
     const summaries = published.map((tech) => tech.summary);
 
     const resources = await buildResources();
+    const glossary = await buildGlossary(
+      { techs: summaries, resources: resources.library.resources },
+      highlighter,
+    );
 
     const banks = published.map((tech) => tech.bank);
     await writeOutputs({
@@ -43,15 +48,18 @@ const main = async (): Promise<void> => {
       highlightCss: highlighter.css(),
       resourceIndex: resources.index,
       resourceLibrary: resources.library,
+      glossary,
       searchIndex: buildSearchIndex({
         techs: summaries,
         banks,
         resourceIndex: resources.index,
         resourceLibrary: resources.library,
+        glossary,
       }),
     });
     printReport(summaries, drafts);
     printResourceReport(resources.index);
+    printGlossaryReport(glossary);
   } finally {
     highlighter.dispose();
   }

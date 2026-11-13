@@ -1,0 +1,48 @@
+<div class="container-page pb-20">
+  <app-page-header
+    heading="Glossário"
+    intro="Os termos que aparecem nos quizzes, explicados em poucas linhas, com exemplos, links para praticar e materiais para estudar."
+  />
+
+  <div class="flex flex-col gap-5 border-b border-rule pb-8">
+    <app-group-filter [groups]="groups" [active]="activeGroup()?.slug" />
+    <app-letter-nav [sections]="sections()" />
+  </div>
+
+  <p class="mt-6 text-sm text-ink-muted" role="status">
+    {{ terms().length }} termos{{ activeGroup() ? ' de ' + activeGroup()?.name : '' }}
+  </p>
+
+  <div class="mt-6 flex flex-col gap-12">
+    @for (section of sections(); track section.letter) {
+      <section [attr.aria-labelledby]="anchor(section.letter)">
+        <h2
+          [id]="anchor(section.letter)"
+          class="flex items-center gap-3 border-b-2 border-form pb-2 text-2xl"
+        >
+          <span class="bubble bubble-filled size-10 text-base" aria-hidden="true">{{
+            section.letter
+          }}</span>
+          <span class="sr-only">Letra {{ section.letter }}</span>
+        </h2>
+        <ul class="ruled">
+          @for (term of section.terms; track term.slug) {
+            <li class="grid gap-1 py-4 sm:grid-cols-[15rem_minmax(0,1fr)] sm:gap-6">
+              <a
+                [routerLink]="['/glossario', term.slug]"
+                class="self-start font-display text-lg leading-snug font-bold [font-stretch:104%] decoration-form decoration-2 underline-offset-4 hover:underline"
+                >{{ term.term }}</a
+              >
+              <div class="flex flex-col items-start gap-2">
+                <p class="rich-text text-ink-muted" [innerHTML]="term.shortHtml"></p>
+                @if (!activeGroup()) {
+                  <span class="chip">{{ groupNames[term.group] }}</span>
+                }
+              </div>
+            </li>
+          }
+        </ul>
+      </section>
+    }
+  </div>
+</div>

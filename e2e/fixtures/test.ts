@@ -2,6 +2,7 @@ import { test as base, expect } from '@playwright/test';
 import { blockThirdPartyRequests } from '../helpers/external-requests';
 import { trackPageErrors } from '../helpers/page-errors';
 import { CommandPalettePage } from '../pages/command-palette.page';
+import { GlossaryPage } from '../pages/glossary.page';
 import { HomePage } from '../pages/home.page';
 import { LayoutPage } from '../pages/layout.page';
 import { QuizCatalogPage } from '../pages/quiz-catalog.page';
@@ -29,6 +30,7 @@ interface Fixtures {
   randomSetup: RandomSetupPage;
   progressPage: ProgressPage;
   palette: CommandPalettePage;
+  glossary: GlossaryPage;
 }
 
 export const test = base.extend<Fixtures>({
@@ -51,6 +53,10 @@ export const test = base.extend<Fixtures>({
     },
     { auto: true },
   ],
+
+  glossary: async ({ page }, use) => {
+    await use(new GlossaryPage(page));
+  },
 
   layout: async ({ page }, use) => {
     await use(new LayoutPage(page));

@@ -17,6 +17,12 @@ export const SEARCH_PAGES: readonly SearchEntry[] = [
   page('Aleatório', 'Várias tecnologias misturadas', '/aleatorio', 'misturar random'),
   page('Recursos', 'Ferramentas, cursos e referências', '/recursos', 'links curadoria'),
   page(
+    'Glossário',
+    'Termos explicados em poucas linhas',
+    '/glossario',
+    'definicao conceito dicionario',
+  ),
+  page(
     'Seu progresso',
     'Números, histórico e backup',
     '/progresso',

@@ -1,0 +1,57 @@
+terms:
+  - slug: classe-utilitaria
+    term: Classe utilitária
+    aka: [utility-first]
+    short: 'Classe CSS que faz uma única coisa, como `p-4` ou `text-center`, combinada com outras direto no HTML.'
+    body: |
+      Em vez de inventar nomes como `.card-titulo`, você monta o estilo com classes pequenas. O Tailwind gera só as classes que encontra nos arquivos do projeto, então o CSS final fica pequeno.
+    related: [variante, design-token]
+    topics: [tailwind/utilitarios]
+    resources: [tailwind-docs]
+
+  - slug: mobile-first
+    term: Mobile-first
+    short: 'Abordagem em que o estilo base é o do celular, e telas maiores recebem ajustes a partir de certas larguras.'
+    body: |
+      No Tailwind, `text-sm md:text-lg` significa "pequeno por padrão, grande a partir do breakpoint `md`". Começar pelo celular força priorizar o conteúdo e costuma gerar menos CSS.
+    related: [media-query, variante]
+    topics: [tailwind/responsivo-e-estados, css/responsivo]
+    resources: [tailwind-docs]
+
+  - slug: variante
+    term: Variante
+    aka: [modifier]
+    short: 'Prefixo do Tailwind que aplica uma classe só numa condição, como `hover:`, `md:`, `dark:` ou `focus-visible:`.'
+    body: |
+      Variantes podem ser empilhadas: `md:hover:bg-sky-700` vale em telas médias ou maiores com o ponteiro em cima. `group-hover:` e `peer-invalid:` estilizam um elemento conforme o estado de outro.
+    related: [pseudo-classe, mobile-first, dark-mode]
+    topics: [tailwind/responsivo-e-estados]
+    resources: [tailwind-docs]
+
+  - slug: valor-arbitrario
+    term: Valor arbitrário
+    short: 'Valor fora da escala do Tailwind, escrito entre colchetes, como `w-[350px]` ou `bg-[#1da1f2]`.'
+    body: |
+      Serve para exceções pontuais. Se o mesmo valor aparece em vários lugares, crie um token no `@theme` para manter a consistência.
+    related: [design-token]
+    topics: [tailwind/utilitarios]
+    resources: [tailwind-docs]
+
+  - slug: design-token
+    term: Design token
+    short: 'Valor de design com nome, como uma cor, um tamanho de fonte ou um espaçamento, reutilizado em todo o projeto.'
+    body: |
+      No Tailwind v4, tokens são variáveis CSS no `@theme`: `--color-marca: #e46a43` gera classes como `bg-marca` e `text-marca`. Trocar o token muda o projeto inteiro de uma vez.
+    related: [classe-utilitaria, valor-arbitrario]
+    topics: [tailwind/configuracao]
+    resources: [tailwind-docs]
+
+  - slug: dark-mode
+    term: Dark mode
+    aka: [tema escuro]
+    short: 'Versão escura da interface, ativada pela preferência do sistema ou por um botão.'
+    body: |
+      Em CSS, a preferência do sistema chega pela media query `prefers-color-scheme`. Com variáveis CSS para as cores, trocar o tema é só redefinir as variáveis. No Tailwind, a variante `dark:` segue o sistema por padrão.
+    related: [variante, media-query, design-token]
+    topics: [tailwind/responsivo-e-estados]
+    resources: [tailwind-docs]

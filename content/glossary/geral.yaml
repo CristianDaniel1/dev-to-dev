@@ -1,0 +1,95 @@
+terms:
+  - slug: api
+    term: API
+    short: 'Conjunto de regras para um programa conversar com outro, como os endereços de um backend que o frontend chama.'
+    body: |
+      Em web, o termo costuma se referir a uma API HTTP que recebe e devolve JSON. Mas o navegador também tem APIs, como `fetch`, `localStorage` e a do DOM.
+    related: [http, json, cors]
+    topics: [javascript/assincrono, angular/servicos-e-injecao]
+    resources: [public-apis, jsonplaceholder]
+
+  - slug: http
+    term: HTTP
+    short: 'Protocolo de comunicação da web: o cliente envia uma requisição e o servidor devolve uma resposta.'
+    body: |
+      Cada requisição tem um método (`GET` para ler, `POST` para criar, `PUT` e `PATCH` para alterar, `DELETE` para apagar). Cada resposta tem um status: 2xx é sucesso, 4xx é erro do cliente, como 404, e 5xx é erro do servidor.
+    related: [api, cors]
+    topics: [javascript/assincrono]
+    resources: [mdn, hoppscotch]
+
+  - slug: json
+    term: JSON
+    short: 'Formato de texto para dados, com objetos, arrays, strings, números, booleanos e `null`.'
+    body: |
+      É o formato padrão das APIs web. `JSON.stringify` transforma um valor em texto, e `JSON.parse` faz o contrário. Datas, funções e `undefined` não existem em JSON.
+    related: [api]
+    topics: [javascript/arrays-e-objetos]
+    resources: [mdn]
+
+  - slug: dom
+    term: DOM
+    short: 'Representação da página como uma árvore de objetos, que o JavaScript lê e altera.'
+    body: |
+      O navegador transforma o HTML no DOM. Métodos como `querySelector` e `addEventListener` trabalham sobre ele. Frameworks como React e Angular alteram o DOM por você, a partir do estado.
+    related: [delegacao-de-eventos, renderizacao]
+    topics: [javascript/dom]
+    resources: [javascript-info]
+
+  - slug: spa
+    term: SPA
+    aka: [single-page application]
+    short: 'Aplicação que carrega uma vez e troca de tela pelo JavaScript, sem recarregar a página a cada link.'
+    body: |
+      A navegação fica rápida e o estado se mantém entre telas. Em troca, o primeiro carregamento depende do JavaScript, o que prejudica SEO e desempenho se o HTML não vier pronto do servidor.
+    related: [ssr, hidratacao, guard-de-rota]
+    topics: [angular/rotas]
+    resources: [patterns-dev]
+
+  - slug: ssr
+    term: SSR e pré-renderização
+    aka: [server-side rendering, prerender, SSG]
+    short: 'Gerar o HTML das páginas no servidor, a cada acesso (SSR) ou uma vez no build (pré-renderização).'
+    body: |
+      O usuário e os buscadores recebem o conteúdo pronto, antes de o JavaScript carregar. Depois, a aplicação assume a página no navegador pela hidratação. Este site é pré-renderizado: cada página existe como HTML estático.
+    related: [hidratacao, spa]
+    topics: [angular/rotas]
+    resources: [patterns-dev, angular-dev]
+
+  - slug: hidratacao
+    term: Hidratação
+    aka: [hydration]
+    short: 'Etapa em que o JavaScript assume um HTML que veio pronto do servidor, ligando eventos e estado.'
+    body: |
+      O framework reaproveita o DOM existente em vez de recriar tudo. Se o primeiro render no navegador for diferente do HTML do servidor, como ao ler o `localStorage` cedo demais, a hidratação falha ou a tela pisca.
+    related: [ssr, spa]
+    topics: [angular/componentes-e-templates]
+    resources: [angular-dev]
+
+  - slug: lazy-loading
+    term: Lazy loading
+    aka: [carregamento sob demanda]
+    short: 'Adiar o carregamento de algo até ele ser necessário, como imagens fora da tela ou o código de uma rota.'
+    body: |
+      Imagens usam `loading="lazy"`. Código usa `import()` dinâmico, que vira um arquivo separado no build: em Angular, com `loadComponent` e `@defer`, e em React, com `lazy` e `Suspense`.
+    related: [spa]
+    topics: [html/links-e-midia, angular/rotas, react/renderizacao]
+    resources: [web-dev-learn]
+
+  - slug: acessibilidade
+    term: Acessibilidade
+    aka: [a11y]
+    short: 'Prática de fazer interfaces que funcionam para todas as pessoas, inclusive quem usa teclado, leitor de tela ou zoom.'
+    body: |
+      A base é HTML semântico, contraste suficiente, foco visível, textos alternativos e rótulos em campos. As diretrizes de referência são as WCAG. A abreviação a11y vem das 11 letras entre o "a" e o "y".
+    related: [elemento-semantico, aria, texto-alternativo]
+    topics: [html/acessibilidade]
+    resources: [a11y-project, wcag-quickref]
+
+  - slug: cors
+    term: CORS
+    short: 'Regra do navegador que controla quando uma página pode ler respostas de outro domínio.'
+    body: |
+      Por padrão, `fetch` para outro domínio é bloqueado na leitura. O servidor libera com o cabeçalho `Access-Control-Allow-Origin`. O erro de CORS se resolve no servidor da API, não no frontend: é uma proteção do navegador para o usuário.
+    related: [http, api]
+    topics: [javascript/assincrono]
+    resources: [mdn]

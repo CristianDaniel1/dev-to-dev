@@ -1,0 +1,117 @@
+terms:
+  - slug: chave-primaria
+    term: Chave primária
+    aka: [primary key]
+    short: 'Coluna, ou conjunto de colunas, cujo valor identifica cada linha de forma única e nunca é nulo.'
+    body: |
+      Pode ser um número gerado pelo banco, um UUID ou uma combinação de colunas, como `(aluno_id, curso_id)` numa tabela de matrículas. O banco cria um índice automaticamente para ela.
+    related: [chave-estrangeira, indice]
+    topics: [sql/alteracao-e-modelagem]
+    resources: [postgresql-docs]
+
+  - slug: chave-estrangeira
+    term: Chave estrangeira
+    aka: [foreign key]
+    short: 'Coluna que aponta para a chave primária de outra tabela, garantindo que a referência exista.'
+    body: |
+      O banco recusa inserir uma matrícula para um aluno inexistente. Opções como `ON DELETE CASCADE` definem o que acontece com as linhas dependentes quando a linha referenciada é apagada.
+    related: [chave-primaria, join, normalizacao]
+    topics: [sql/alteracao-e-modelagem, sql/joins]
+    resources: [postgresql-docs]
+
+  - slug: join
+    term: JOIN
+    short: 'Operação que combina linhas de duas tabelas a partir de uma condição, normalmente uma chave estrangeira.'
+    body: |
+      `INNER JOIN` mantém só as combinações com correspondência. `LEFT JOIN` mantém todas as linhas da tabela da esquerda e preenche com `NULL` o que falta. Numa relação de um para muitos, o join multiplica as linhas.
+    code:
+      lang: sql
+      source: |
+        SELECT a.nome, c.titulo
+        FROM alunos a
+        LEFT JOIN matriculas m ON m.aluno_id = a.id
+        LEFT JOIN cursos c ON c.id = m.curso_id;
+    related: [chave-estrangeira, 'null']
+    topics: [sql/joins]
+    resources: [sqlbolt, postgresql-docs]
+
+  - slug: 'null'
+    term: 'NULL'
+    short: 'Marcador de valor ausente ou desconhecido em SQL.'
+    body: |
+      Qualquer comparação com `NULL` resulta em "desconhecido", inclusive `NULL = NULL`. Por isso se usa `IS NULL`. Funções de agregação ignoram `NULL`, e `COALESCE` troca o `NULL` por um valor padrão.
+    related: [join, funcao-de-agregacao, optional-chaining]
+    topics: [sql/filtros-e-null]
+    resources: [postgresql-docs]
+
+  - slug: funcao-de-agregacao
+    term: Função de agregação
+    short: 'Função que resume várias linhas num único valor, como `COUNT`, `SUM`, `AVG`, `MIN` e `MAX`.'
+    body: |
+      Sem `GROUP BY`, a função resume a tabela inteira. Com ele, calcula um valor por grupo. `COUNT(*)` conta linhas, enquanto `COUNT(coluna)` ignora os `NULL`.
+    related: [group-by, 'null']
+    topics: [sql/agregacao]
+    resources: [sqlbolt]
+
+  - slug: group-by
+    term: GROUP BY
+    aka: [HAVING]
+    short: 'Cláusula que junta as linhas com os mesmos valores em grupos, para agregar cada grupo.'
+    body: |
+      Toda coluna do `SELECT` precisa estar no `GROUP BY` ou numa agregação. Para filtrar grupos pelo resultado da agregação, use `HAVING`: o `WHERE` roda antes do agrupamento.
+    code:
+      lang: sql
+      source: |
+        SELECT cidade, COUNT(*) AS total
+        FROM alunos
+        GROUP BY cidade
+        HAVING COUNT(*) > 10;
+    related: [funcao-de-agregacao]
+    topics: [sql/agregacao]
+    resources: [sqlbolt]
+
+  - slug: indice
+    term: Índice
+    aka: [index]
+    short: 'Estrutura que acelera buscas por uma coluna, como o índice remissivo de um livro.'
+    body: |
+      Sem índice, o banco lê a tabela inteira para achar as linhas. Com ele, vai direto. O custo é espaço extra e escritas um pouco mais lentas. `EXPLAIN` mostra se uma consulta está usando o índice.
+    related: [chave-primaria]
+    topics: [sql/alteracao-e-modelagem]
+    resources: [use-the-index-luke]
+
+  - slug: transacao
+    term: Transação
+    aka: [ACID]
+    short: 'Grupo de comandos que o banco aplica por inteiro ou não aplica, sem estados intermediários.'
+    body: |
+      Entre `BEGIN` e `COMMIT`, nada é confirmado. Uma falha no meio desfaz tudo, e `ROLLBACK` desfaz de propósito. Atomicidade, consistência, isolamento e durabilidade (ACID) são as garantias de um banco transacional.
+    related: [chave-estrangeira]
+    topics: [sql/alteracao-e-modelagem]
+    resources: [postgresql-docs]
+
+  - slug: normalizacao
+    term: Normalização
+    short: 'Organização das tabelas para que cada informação fique guardada num único lugar.'
+    body: |
+      Em vez de repetir o nome do curso em cada matrícula, a matrícula guarda o `curso_id`, e o nome fica só na tabela de cursos. Isso evita dados contraditórios. Em alguns casos, repetir dados de propósito (desnormalizar) acelera leituras.
+    related: [chave-estrangeira, join]
+    topics: [sql/alteracao-e-modelagem]
+    resources: [dbdiagram]
+
+  - slug: sql-injection
+    term: SQL injection
+    short: 'Ataque em que texto digitado pelo usuário vira parte do comando SQL, por ter sido concatenado na consulta.'
+    body: |
+      Um nome como `' OR '1'='1` pode transformar um filtro numa condição sempre verdadeira. A defesa é usar consultas parametrizadas, em que o valor é enviado separado do comando, ou um ORM que faça isso.
+    code:
+      lang: javascript
+      source: |
+        // Perigoso
+        db.query("SELECT * FROM alunos WHERE nome = '" + nome + "'");
+
+        // Seguro
+        db.query('SELECT * FROM alunos WHERE nome = $1', [nome]);
+    related: [api]
+    topics: [sql/alteracao-e-modelagem]
+    resources: [postgresql-docs]

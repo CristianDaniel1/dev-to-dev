@@ -1,0 +1,142 @@
+terms:
+  - slug: cascata
+    term: Cascata
+    short: 'Regra que decide qual declaração vence quando várias regras CSS definem a mesma propriedade num elemento.'
+    body: |
+      A ordem de decisão é: origem e importância (`!important`), camadas (`@layer`), especificidade do seletor e, por último, a ordem no código. Entre regras empatadas, vale a que vem depois.
+    related: [especificidade, heranca]
+    topics: [css/cascata]
+    resources: [mdn, josh-comeau]
+
+  - slug: especificidade
+    term: Especificidade
+    short: 'Peso de um seletor CSS, calculado pela quantidade de ids, classes e elementos que ele usa.'
+    body: |
+      Ids pesam mais que classes, atributos e pseudo-classes, que pesam mais que elementos. `#menu a` vence `.menu a`, não importa a ordem. Estilos inline vencem qualquer seletor, e `!important` passa por cima de tudo isso.
+      Seletores com especificidade baixa e parecida deixam o CSS previsível. `:where()` zera a especificidade do que está dentro dele.
+    code:
+      lang: css
+      source: |
+        a { color: blue; }          /* 0-0-1 */
+        .menu a { color: green; }   /* 0-1-1 */
+        #topo a { color: red; }     /* 1-0-1: vence */
+    related: [cascata, pseudo-classe]
+    topics: [css/cascata]
+    resources: [mdn]
+
+  - slug: heranca
+    term: Herança
+    short: 'Propriedades como `color` e `font-family` passam do elemento pai para os filhos quando estes não definem um valor.'
+    body: |
+      Propriedades de texto costumam ser herdadas. Propriedades de caixa, como `margin`, `border` e `background`, não são. O valor `inherit` força a herança em qualquer propriedade.
+    related: [cascata]
+    topics: [css/cascata, css/fundamentos]
+    resources: [mdn]
+
+  - slug: box-model
+    term: Box model
+    aka: [modelo de caixa]
+    short: 'Todo elemento é uma caixa formada por conteúdo, padding, borda e margem.'
+    body: |
+      O padding fica dentro da borda e recebe o fundo do elemento. A margem fica fora e é sempre transparente. Margens verticais de blocos vizinhos se sobrepõem (margin collapsing), em vez de somar.
+    related: [box-sizing]
+    topics: [css/box-model]
+    resources: [mdn]
+
+  - slug: box-sizing
+    term: box-sizing
+    short: 'Propriedade que define se `width` e `height` incluem padding e borda (`border-box`) ou só o conteúdo (`content-box`).'
+    body: |
+      Com o padrão `content-box`, uma caixa com `width: 200px` e `padding: 20px` ocupa 240px. Com `border-box`, ocupa os 200px declarados, o que torna os tamanhos previsíveis. Por isso muitos projetos aplicam `border-box` a todos os elementos.
+    code:
+      lang: css
+      source: |
+        *,
+        *::before,
+        *::after {
+          box-sizing: border-box;
+        }
+    related: [box-model]
+    topics: [css/box-model]
+    resources: [mdn]
+
+  - slug: flexbox
+    term: Flexbox
+    short: 'Modelo de layout em uma dimensão, que distribui itens numa linha ou numa coluna.'
+    body: |
+      O container recebe `display: flex`. `justify-content` alinha os itens no eixo principal, e `align-items`, no eixo cruzado. `gap` cria o espaço entre eles. É ideal para barras de navegação, grupos de botões e alinhamento vertical.
+    related: [css-grid]
+    topics: [css/layout, tailwind/layout]
+    resources: [css-tricks-flexbox, flexbox-froggy]
+
+  - slug: css-grid
+    term: CSS Grid
+    short: 'Modelo de layout em duas dimensões, com linhas e colunas definidas no container.'
+    body: |
+      `grid-template-columns: repeat(3, 1fr)` cria três colunas iguais. A unidade `fr` divide o espaço livre. Grid é a escolha natural para layouts de página e grades de cards, enquanto o Flexbox brilha em uma única direção.
+    code:
+      lang: css
+      source: |
+        .galeria {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+          gap: 1rem;
+        }
+    related: [flexbox]
+    topics: [css/layout, tailwind/layout]
+    resources: [css-tricks-grid, grid-garden]
+
+  - slug: stacking-context
+    term: Contexto de empilhamento
+    aka: [stacking context, z-index]
+    short: 'Grupo de elementos empilhados juntos no eixo z; o `z-index` só compara elementos do mesmo contexto.'
+    body: |
+      Propriedades como `position` com `z-index`, `opacity` menor que 1, `transform` e `isolation: isolate` criam um novo contexto. Por isso um `z-index: 9999` às vezes "não funciona": o elemento está preso dentro de um contexto que fica atrás de outro.
+    related: [cascata]
+    topics: [css/layout]
+    resources: [josh-comeau]
+
+  - slug: media-query
+    term: Media query
+    short: 'Regra CSS que aplica estilos só quando uma condição do dispositivo é atendida, como a largura da tela.'
+    body: |
+      `@media (width >= 48rem)` aplica estilos a partir de 48rem. Também há condições de preferência do usuário, como `prefers-color-scheme` (tema escuro) e `prefers-reduced-motion` (menos animação).
+    code:
+      lang: css
+      source: |
+        .card { padding: 1rem; }
+
+        @media (width >= 48rem) {
+          .card { padding: 2rem; }
+        }
+    related: [mobile-first, meta-viewport]
+    topics: [css/responsivo, tailwind/responsivo-e-estados]
+    resources: [mdn]
+
+  - slug: rem
+    term: rem
+    short: 'Unidade relativa ao tamanho da fonte do elemento raiz (`<html>`), que costuma ser 16px.'
+    body: |
+      Tamanhos em `rem` acompanham a configuração de fonte do navegador: quem aumenta o texto padrão vê a página toda crescer junto. Já `em` é relativo à fonte do próprio elemento, e se multiplica quando aninhado.
+    related: [clamp]
+    topics: [css/responsivo]
+    resources: [josh-comeau]
+
+  - slug: clamp
+    term: clamp()
+    aka: [tipografia fluida]
+    short: 'Função CSS que limita um valor entre um mínimo e um máximo, com um valor preferido no meio.'
+    body: |
+      `clamp(1rem, 0.8rem + 1vw, 1.5rem)` cresce com a largura da tela, mas nunca passa dos limites. É a base da tipografia e do espaçamento fluidos, sem precisar de várias media queries.
+    related: [rem, media-query]
+    topics: [css/responsivo]
+    resources: [utopia]
+
+  - slug: pseudo-classe
+    term: Pseudo-classe
+    short: 'Seletor que mira um estado do elemento, como `:hover`, `:focus-visible`, `:checked` ou `:invalid`.'
+    body: |
+      Pseudo-classes começam com dois-pontos e não exigem classes no HTML. `:has()` estiliza um elemento conforme os descendentes, e `:not()` exclui casos. Pseudo-elementos, como `::before`, usam dois pares de dois-pontos e criam partes que não existem no HTML.
+    related: [especificidade, variante]
+    topics: [css/fundamentos]
+    resources: [mdn]

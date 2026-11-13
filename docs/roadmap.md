@@ -30,9 +30,15 @@ phases) was approved at the start of the project; this file tracks where we are.
   shown after each answer ("Para se aprofundar"), overridable per question; `npm run check-links`
   checks every resource and reading URL.
 
+- **Phase 4 (part) – Glossary**: 104 terms in `content/glossary/` (one file per tech plus `geral`),
+  validated links to related terms, quiz topics and resources; `/glossario` with A–Z index and tech
+  filter, a prerendered page per term with DefinedTerm JSON-LD, terms in the command palette, a
+  glossary link on each quiz page and "Glossário" in the main navigation.
+
 ## Next
 
-1. **Phase 4** (glossary and learning paths).
+1. **Phase 4 – Learning paths**: sequences of quiz topics, glossary terms and resources with a
+   local checklist.
 
 ## Last step (the user chose to leave the deploy for the end)
 

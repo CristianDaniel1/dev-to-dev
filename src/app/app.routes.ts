@@ -21,6 +21,10 @@ export const routes: Routes = [
     loadChildren: () => import('@/features/quizzes').then((module) => module.RANDOM_ROUTES),
   },
   {
+    path: 'glossario',
+    loadChildren: () => import('@/features/glossary').then((module) => module.GLOSSARY_ROUTES),
+  },
+  {
     path: 'progresso',
     title: 'Seu progresso',
     data: { seo: PROGRESS_SEO },

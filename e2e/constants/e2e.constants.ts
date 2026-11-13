@@ -15,6 +15,8 @@ export const PRERENDERED_PAGES = [
   '/recursos',
   '/recursos/ferramentas',
   '/recursos/colecoes/primeiro-projeto-frontend',
+  '/glossario',
+  '/glossario/closure',
   '/sobre',
 ] as const;
 

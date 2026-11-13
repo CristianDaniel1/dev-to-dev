@@ -54,3 +54,12 @@ export const FAVICON_PUBLIC_PATH = '/favicons/';
 
 /** Optional icon of a tech, inside its content folder: one path on a 24×24 viewBox. */
 export const TECH_ICON_FILE = 'icon.svg';
+
+/** Folder with one glossary YAML file per group (a tech slug or the general group). */
+export const GLOSSARY_CONTENT_DIR = join('content', 'glossary');
+
+/** Group of the terms that belong to no single tech. */
+export const GLOSSARY_GENERAL_GROUP = 'geral';
+
+/** Display name of the general glossary group. */
+export const GLOSSARY_GENERAL_GROUP_NAME = 'Geral';

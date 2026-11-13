@@ -1,4 +1,5 @@
 import { RenderMode, type ServerRoute } from '@angular/ssr';
+import { termPrerenderParams } from '@/features/glossary';
 import { categoryPrerenderParams, collectionPrerenderParams } from '@/features/resources';
 import { techPrerenderParams } from '@/shared/lib/tech-prerender-params';
 
@@ -31,6 +32,11 @@ export const serverRoutes: ServerRoute[] = [
     path: 'recursos/:categoria',
     renderMode: RenderMode.Prerender,
     getPrerenderParams: categoryPrerenderParams,
+  },
+  {
+    path: 'glossario/:termo',
+    renderMode: RenderMode.Prerender,
+    getPrerenderParams: termPrerenderParams,
   },
   {
     path: '**',

@@ -1,0 +1,93 @@
+terms:
+  - slug: commit
+    term: Commit
+    short: 'Retrato dos arquivos rastreados num momento, com autor, data, mensagem e ligação ao commit anterior.'
+    body: |
+      A corrente de commits forma o histórico do projeto. O hash de cada commit é calculado a partir de todo esse conteúdo, então qualquer alteração, até na mensagem, gera um commit diferente.
+    related: [staging-area, head, branch]
+    topics: [git/fundamentos]
+    resources: [pro-git]
+
+  - slug: staging-area
+    term: Staging area
+    aka: [índice, index]
+    short: 'Área onde você prepara o que vai entrar no próximo commit, com `git add`.'
+    body: |
+      O `git add` guarda o conteúdo do arquivo naquele momento. Edições feitas depois precisam de outro `git add`. Isso permite montar commits pequenos e focados mesmo depois de mexer em vários arquivos.
+    related: [commit, stash]
+    topics: [git/fundamentos]
+    resources: [pro-git]
+
+  - slug: branch
+    term: Branch
+    short: 'Ponteiro móvel para um commit, que avança a cada commit feito nele.'
+    body: |
+      Criar uma branch é instantâneo, porque nenhum arquivo é copiado. Isso permite uma branch por tarefa, integrada depois com merge ou rebase.
+    related: [head, merge, rebase]
+    topics: [git/branches]
+    resources: [pro-git, learn-git-branching]
+
+  - slug: head
+    term: HEAD
+    short: 'Referência ao commit em que você está, normalmente através da branch atual.'
+    body: |
+      `HEAD~1` é o commit anterior. Fazer checkout de um commit, e não de uma branch, deixa você em "detached HEAD": commits feitos ali não pertencem a nenhuma branch e podem se perder.
+    related: [branch, commit]
+    topics: [git/fundamentos, git/desfazer-mudancas]
+    resources: [pro-git]
+
+  - slug: merge
+    term: Merge
+    short: 'Integração de uma branch em outra, combinando os históricos.'
+    body: |
+      Se a branch de destino não andou, o merge só move o ponteiro para frente (fast-forward). Se as duas andaram, o Git cria um commit de merge com dois pais. Mudanças nas mesmas linhas geram conflito.
+    related: [branch, rebase, conflito-de-merge]
+    topics: [git/branches]
+    resources: [pro-git]
+
+  - slug: rebase
+    term: Rebase
+    short: 'Reaplicação dos commits de uma branch em cima de outra base, criando commits novos.'
+    body: |
+      O resultado é um histórico linear, como se a branch tivesse começado agora. Como os commits são recriados com hashes novos, não faça rebase de commits que outras pessoas já baixaram.
+    related: [merge, branch]
+    topics: [git/branches, git/fluxo-de-trabalho]
+    resources: [pro-git, learn-git-branching]
+
+  - slug: conflito-de-merge
+    term: Conflito de merge
+    short: 'Situação em que duas branches alteraram o mesmo trecho e o Git precisa que você escolha o resultado.'
+    body: |
+      O arquivo recebe os marcadores `<<<<<<<`, `=======` e `>>>>>>>` em volta das duas versões. Depois de editar, `git add` marca o conflito como resolvido. Branches curtas e merges frequentes deixam os conflitos menores.
+    related: [merge, rebase]
+    topics: [git/branches]
+    resources: [pro-git]
+
+  - slug: remoto
+    term: Remoto
+    aka: [remote, origin]
+    short: 'Cópia do repositório em outro lugar, como o GitHub, com a qual você troca commits.'
+    body: |
+      `origin` é o nome padrão do remoto de onde você clonou. `git fetch` baixa commits novos sem mexer na sua branch, `git pull` baixa e integra, e `git push` envia os seus.
+    related: [pull-request, branch]
+    topics: [git/remotos]
+    resources: [pro-git, github-docs]
+
+  - slug: pull-request
+    term: Pull request
+    aka: [PR, merge request]
+    short: 'Pedido para integrar uma branch em outra, com espaço para revisão e discussão antes do merge.'
+    body: |
+      Não é um recurso do Git, e sim de plataformas como GitHub e GitLab. Um bom pull request é pequeno, explica o porquê da mudança e passa nos testes automáticos antes da revisão.
+    related: [remoto, merge]
+    topics: [git/remotos, git/fluxo-de-trabalho]
+    resources: [github-docs, github-skills]
+
+  - slug: stash
+    term: Stash
+    short: 'Pilha onde o Git guarda mudanças ainda não commitadas, para você trocar de tarefa e voltar depois.'
+    body: |
+      `git stash` guarda e limpa o diretório de trabalho, e `git stash pop` traz as mudanças de volta. Arquivos novos só entram com `git stash -u`.
+    related: [staging-area]
+    topics: [git/fluxo-de-trabalho]
+    resources: [pro-git]

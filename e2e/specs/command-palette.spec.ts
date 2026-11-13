@@ -30,6 +30,18 @@ test.describe('Command palette', () => {
     await expect(page).toHaveURL(/\/quizzes\/javascript\/praticar\?ids=javascript-assincrono-003/);
   });
 
+  test('finds a glossary term and opens its page', async ({ page, palette }) => {
+    await palette.goto();
+    await palette.trigger.click();
+    await palette.search('fechamento');
+
+    const term = palette.option('Closure');
+    await expect(term).toContainText('Glossário');
+    await term.click();
+
+    await expect(page).toHaveURL(/\/glossario\/closure$/);
+  });
+
   test('moves the active result with the arrows and explains empty searches', async ({
     page,
     palette,

@@ -3,6 +3,7 @@ import type {
   ResourceIndex,
   ResourceLibrary,
 } from '../../src/app/shared/interfaces/resource.interface';
+import type { Glossary } from '../../src/app/shared/interfaces/glossary.interface';
 import type { SearchEntry, SearchKind } from '../../src/app/shared/interfaces/search.interface';
 import { normalizeText } from '../../src/app/shared/lib/normalize-text';
 
@@ -36,11 +37,12 @@ export interface SearchSources {
   banks: readonly QuizBank[];
   resourceIndex: ResourceIndex;
   resourceLibrary: ResourceLibrary;
+  glossary: Glossary;
 }
 
 /**
- * Builds the entries of the command palette: techs, topics, questions, resource categories,
- * collections and resources. Static pages are added by the app.
+ * Builds the entries of the command palette: techs, topics, glossary terms, questions, resource
+ * categories, collections and resources. Static pages are added by the app.
  *
  * @param sources - Published content.
  * @returns Every search entry.
@@ -70,6 +72,13 @@ export const buildSearchIndex = (sources: SearchSources): SearchEntry[] => {
           },
           topic.description,
         ),
+      ),
+    ),
+    ...sources.glossary.terms.map((term) =>
+      entry(
+        'term',
+        { title: term.term, subtitle: term.shortText, link: `/glossario/${term.slug}` },
+        term.aka.join(' '),
       ),
     ),
     ...sources.resourceIndex.categories.map((category) =>

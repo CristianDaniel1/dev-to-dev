@@ -6,6 +6,14 @@
       <div class="flex-1">
         <h1 class="text-3xl sm:text-[3.5rem] sm:leading-[0.95]">Quiz de {{ tech.name }}</h1>
         <p class="prose-width mt-4 text-lg text-ink-muted">{{ tech.description }}</p>
+        @if (glossaryGroup(); as group) {
+          <a
+            class="link mt-3 inline-block text-sm"
+            routerLink="/glossario"
+            [queryParams]="{ grupo: group.slug }"
+            >{{ group.termCount }} termos de {{ tech.name }} no glossário</a
+          >
+        }
       </div>
       <app-tech-badge [tech]="tech" size="lg" />
     </header>

@@ -1,0 +1,23 @@
+<nav aria-label="Ir para a letra">
+  <ul
+    class="-mx-4 flex gap-1.5 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0"
+  >
+    @for (letter of alphabet; track letter) {
+      @if (available().has(letter)) {
+        <li>
+          <a
+            [routerLink]="[]"
+            [fragment]="anchor(letter)"
+            queryParamsHandling="preserve"
+            class="bubble hover:border-ink hover:bg-ink hover:text-on-ink"
+            >{{ letter }}</a
+          >
+        </li>
+      } @else {
+        <li aria-hidden="true">
+          <span class="bubble border-dashed border-rule-strong text-ink-muted">{{ letter }}</span>
+        </li>
+      }
+    }
+  </ul>
+</nav>

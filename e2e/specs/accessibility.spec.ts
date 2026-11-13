@@ -10,6 +10,8 @@ const STATIC_PAGES = [
   '/recursos/acessibilidade',
   '/recursos/colecoes/interface-acessivel',
   '/sobre',
+  '/glossario',
+  '/glossario/closure',
   '/revisao',
   '/aleatorio',
   '/progresso',

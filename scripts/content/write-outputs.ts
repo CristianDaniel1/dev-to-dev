@@ -9,6 +9,7 @@ import type {
   ResourceIndex,
   ResourceLibrary,
 } from '../../src/app/shared/interfaces/resource.interface';
+import type { Glossary } from '../../src/app/shared/interfaces/glossary.interface';
 import type { SearchEntry } from '../../src/app/shared/interfaces/search.interface';
 import { GENERATED_CSS_HEADER, GENERATED_DIR, GENERATED_TS_HEADER } from './content.constants';
 
@@ -28,6 +29,18 @@ const resourceLibraryModule = (library: ResourceLibrary): string =>
   `${GENERATED_TS_HEADER}import type { ResourceLibrary } from '../interfaces/resource.interface';
 
 export const RESOURCE_LIBRARY: ResourceLibrary = ${JSON.stringify(library)};
+`;
+
+const glossaryModule = (glossary: Glossary): string =>
+  `${GENERATED_TS_HEADER}import type { Glossary } from '../interfaces/glossary.interface';
+
+export const GLOSSARY: Glossary = ${JSON.stringify(glossary)};
+`;
+
+const glossaryGroupsModule = (glossary: Glossary): string =>
+  `${GENERATED_TS_HEADER}import type { GlossaryGroup } from '../interfaces/glossary.interface';
+
+export const GLOSSARY_GROUPS: readonly GlossaryGroup[] = ${JSON.stringify(glossary.groups, null, 2)};
 `;
 
 const searchIndexModule = (entries: readonly SearchEntry[]): string =>
@@ -53,13 +66,15 @@ export interface ContentOutputs {
   highlightCss: string;
   resourceIndex: ResourceIndex;
   resourceLibrary: ResourceLibrary;
+  glossary: Glossary;
   /** Entries of the command palette. */
   searchIndex: readonly SearchEntry[];
 }
 
 /**
  * Replaces the generated folder with the quiz catalog, one module per question bank, the loader
- * registry, the resource index and library, the search index and the code highlight stylesheet.
+ * registry, the resource index and library, the glossary, the search index and the code highlight
+ * stylesheet.
  *
  * @param outputs - Built content.
  */
@@ -79,6 +94,11 @@ export const writeOutputs = async (outputs: ContentOutputs): Promise<void> => {
   await writeFile(
     join(GENERATED_DIR, 'resource-library.ts'),
     resourceLibraryModule(outputs.resourceLibrary),
+  );
+  await writeFile(join(GENERATED_DIR, 'glossary.ts'), glossaryModule(outputs.glossary));
+  await writeFile(
+    join(GENERATED_DIR, 'glossary-groups.ts'),
+    glossaryGroupsModule(outputs.glossary),
   );
   await writeFile(join(GENERATED_DIR, 'search-index.ts'), searchIndexModule(outputs.searchIndex));
   await writeFile(

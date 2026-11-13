@@ -1,0 +1,103 @@
+terms:
+  - slug: inferencia-de-tipos
+    term: Inferência de tipos
+    short: 'Capacidade do TypeScript de descobrir o tipo de um valor sem anotação explícita.'
+    body: |
+      `let total = 10` é inferido como `number`, e o retorno de uma função é inferido a partir dos `return`. Anote tipos nas fronteiras (parâmetros, dados externos, APIs públicas) e deixe a inferência cuidar do resto.
+    related: [tipo-uniao, generico]
+    topics: [typescript/fundamentos]
+    resources: [typescript-handbook]
+
+  - slug: tipo-uniao
+    term: Tipo união
+    aka: [union type]
+    short: 'Tipo que aceita um entre vários tipos, escrito com `|`, como `string | number`.'
+    body: |
+      Uniões de literais, como `'claro' | 'escuro'`, funcionam como listas fechadas de valores. Para usar um valor de união, o código precisa primeiro estreitar o tipo.
+    related: [narrowing, never]
+    topics: [typescript/unioes-e-narrowing]
+    resources: [typescript-handbook]
+
+  - slug: narrowing
+    term: Narrowing
+    aka: [estreitamento de tipos]
+    short: 'Processo em que o TypeScript reduz um tipo amplo a um mais específico, seguindo checagens no código.'
+    body: |
+      Depois de `if (typeof valor === 'string')`, o compilador sabe que `valor` é string dentro do bloco. `instanceof`, `in`, comparações com `===` e checagens de verdade também estreitam tipos.
+    code:
+      lang: typescript
+      source: |
+        const formatar = (valor: string | number) =>
+          typeof valor === 'string' ? valor.toUpperCase() : valor.toFixed(2);
+    related: [tipo-uniao, type-guard]
+    topics: [typescript/unioes-e-narrowing]
+    resources: [typescript-handbook]
+
+  - slug: type-guard
+    term: Type guard
+    short: 'Função que retorna `valor is Tipo`, ensinando o compilador a estreitar um tipo.'
+    body: |
+      Quando a função retorna `true`, o TypeScript trata o valor como o tipo indicado dentro do `if`. O compilador confia na função sem conferir a lógica, então uma checagem errada gera um tipo errado.
+    code:
+      lang: typescript
+      source: |
+        const ehTexto = (valor: unknown): valor is string => typeof valor === 'string';
+    related: [narrowing, unknown]
+    topics: [typescript/unioes-e-narrowing]
+    resources: [typescript-handbook]
+
+  - slug: generico
+    term: Genérico
+    aka: [generic]
+    short: 'Parâmetro de tipo, como `<T>`, que liga os tipos de entrada e saída de uma função ou estrutura.'
+    body: |
+      `const primeiro = <T>(itens: T[]): T | undefined => itens[0]` retorna `string` para um array de strings e `number` para um de números, sem perder o tipo como aconteceria com `any`. Restrições como `<T extends { id: string }>` limitam o que pode ser passado.
+    related: [inferencia-de-tipos, tipo-utilitario]
+    topics: [typescript/funcoes-e-genericos]
+    resources: [typescript-handbook]
+
+  - slug: unknown
+    term: unknown
+    short: 'Tipo que aceita qualquer valor, mas exige uma checagem antes de qualquer uso.'
+    body: |
+      É a alternativa segura ao `any` para dados de origem incerta, como o retorno de `JSON.parse` ou o erro de um `catch`. Com `any`, tudo compila e o erro aparece em produção. Com `unknown`, o compilador obriga a provar o tipo antes.
+    related: [type-guard, never]
+    topics: [typescript/fundamentos]
+    resources: [typescript-handbook]
+
+  - slug: never
+    term: never
+    short: 'Tipo de algo que não pode acontecer, como o retorno de uma função que sempre lança erro.'
+    body: |
+      `never` aparece nas checagens de exaustividade: depois de tratar todos os casos de uma união, o que sobra é `never`. Se alguém adicionar um caso novo, a atribuição a `never` falha e o compilador aponta o que falta tratar.
+    related: [tipo-uniao, unknown]
+    topics: [typescript/fundamentos, typescript/unioes-e-narrowing]
+    resources: [typescript-handbook]
+
+  - slug: tipagem-estrutural
+    term: Tipagem estrutural
+    short: 'Regra em que dois tipos são compatíveis quando têm a mesma forma, independentemente do nome.'
+    body: |
+      Um objeto com `nome: string` é aceito onde se espera `interface Usuario { nome: string }`, mesmo sem declarar `implements`. Em linguagens com tipagem nominal, como Java, isso não acontece.
+    related: [inferencia-de-tipos]
+    topics: [typescript/objetos-e-interfaces]
+    resources: [typescript-handbook]
+
+  - slug: tipo-utilitario
+    term: Tipo utilitário
+    aka: [utility type]
+    short: 'Tipo pronto do TypeScript que transforma outro tipo, como `Partial`, `Pick`, `Omit` e `Record`.'
+    body: |
+      Em vez de copiar interfaces, você deriva o formato novo do original: `Omit<Usuario, 'senha'>` remove um campo, e `Partial<Usuario>` torna todos opcionais. Quando o original muda, os derivados mudam junto.
+    related: [generico]
+    topics: [typescript/tipos-utilitarios]
+    resources: [typescript-handbook]
+
+  - slug: satisfies
+    term: satisfies
+    short: 'Operador que confere se um valor atende a um tipo sem trocar o tipo inferido dele.'
+    body: |
+      Com uma anotação (`const cores: Record<Cor, string>`), o valor passa a ter o tipo declarado. Com `satisfies`, o TypeScript valida o objeto e mantém os tipos mais precisos de cada propriedade, o que é útil em objetos de configuração.
+    related: [inferencia-de-tipos, tipo-utilitario]
+    topics: [typescript/tipos-utilitarios]
+    resources: [typescript-handbook]

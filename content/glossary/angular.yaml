@@ -1,0 +1,94 @@
+terms:
+  - slug: signal
+    term: Signal
+    short: 'Valor reativo do Angular que avisa exatamente quem depende dele quando muda.'
+    body: |
+      `signal(0)` cria o valor, lido chamando `contador()` e alterado com `set` ou `update`. Templates e `computed` que leem o signal são atualizados sozinhos, sem precisar verificar o componente inteiro.
+    related: [computed, deteccao-de-mudancas, estado]
+    topics: [angular/signals]
+    resources: [angular-dev]
+
+  - slug: computed
+    term: computed
+    short: 'Signal somente leitura, calculado a partir de outros signals e recalculado quando eles mudam.'
+    body: |
+      O cálculo é preguiçoso e memorizado: só roda quando alguém lê o valor e reaproveita o resultado enquanto as dependências não mudam. Para estado que o usuário pode alterar, mas que reinicia quando a origem muda, existe o `linkedSignal`.
+    related: [signal, memoizacao]
+    topics: [angular/signals]
+    resources: [angular-dev]
+
+  - slug: injecao-de-dependencia
+    term: Injeção de dependência
+    aka: [DI, inject]
+    short: 'Padrão em que uma classe recebe o que precisa de um injetor, em vez de criar as próprias dependências.'
+    body: |
+      Em Angular, `inject(Api)` pede uma instância ao injetor. Isso permite compartilhar uma instância entre componentes e trocar a implementação em testes. Onde o provider é registrado define o escopo: na raiz, uma instância para o app; num componente, uma por componente.
+    related: [servico, context]
+    topics: [angular/servicos-e-injecao]
+    resources: [angular-dev]
+
+  - slug: servico
+    term: Serviço
+    aka: [service]
+    short: 'Classe injetável que concentra lógica e estado compartilhados, como acesso a APIs.'
+    body: |
+      Com `@Injectable({ providedIn: 'root' })`, o serviço vira uma instância única para o app e só entra no bundle se for usado. Componentes ficam focados na tela e delegam o resto aos serviços.
+    related: [injecao-de-dependencia]
+    topics: [angular/servicos-e-injecao]
+    resources: [angular-dev]
+
+  - slug: componente-standalone
+    term: Componente standalone
+    short: 'Componente Angular que declara as próprias dependências em `imports`, sem precisar de NgModule.'
+    body: |
+      Desde o Angular 19, componentes são standalone por padrão. Cada um importa o que usa no template, o que deixa as dependências explícitas e facilita o carregamento sob demanda.
+    related: [componente]
+    topics: [angular/componentes-e-templates]
+    resources: [angular-dev]
+
+  - slug: deteccao-de-mudancas
+    term: Detecção de mudanças
+    aka: [change detection]
+    short: 'Processo em que o framework verifica o que mudou nos dados e atualiza o DOM.'
+    body: |
+      O Angular tradicionalmente usava o Zone.js para saber quando verificar. Com signals, ele sabe exatamente quais componentes dependem do valor alterado, o que permite apps sem Zone.js (zoneless).
+    related: [onpush, signal, renderizacao]
+    topics: [angular/componentes-e-templates]
+    resources: [angular-dev]
+
+  - slug: onpush
+    term: OnPush
+    short: 'Estratégia de detecção de mudanças que só verifica um componente quando há motivo, como um input novo ou um signal alterado.'
+    body: |
+      Com `ChangeDetectionStrategy.OnPush`, alterar um campo comum ou mutar um objeto recebido não atualiza a tela. Com signals e dados imutáveis, o OnPush funciona sem surpresas e evita verificações desnecessárias.
+    related: [deteccao-de-mudancas, imutabilidade]
+    topics: [angular/componentes-e-templates]
+    resources: [angular-dev]
+
+  - slug: guard-de-rota
+    term: Guard de rota
+    short: 'Função que decide se uma navegação pode acontecer, como `canActivate`.'
+    body: |
+      O guard retorna `true`, `false` ou uma `UrlTree` para redirecionar. Ele melhora a experiência, mas não protege dados: o servidor precisa conferir a autorização em cada requisição.
+    related: [spa]
+    topics: [angular/rotas]
+    resources: [angular-dev]
+
+  - slug: reactive-forms
+    term: Reactive forms
+    short: 'Formulários do Angular modelados no código com `FormGroup` e `FormControl`, e ligados ao template.'
+    body: |
+      O formulário vive na classe, com validadores, valores tipados e estados como `touched` e `dirty`. O template só liga cada campo com `formControlName`. Isso facilita testar e reagir a mudanças.
+    related: [componente-controlado, validacao-nativa]
+    topics: [angular/formularios]
+    resources: [angular-dev]
+
+  - slug: projecao-de-conteudo
+    term: Projeção de conteúdo
+    aka: [ng-content]
+    short: 'Recurso do Angular para um componente exibir o HTML que o pai escreve entre as tags dele.'
+    body: |
+      O `<ng-content />` marca onde o conteúdo do pai aparece. Com `select`, dá para ter vários pontos, como cabeçalho e corpo de um card. É o equivalente ao `children` do React.
+    related: [componente]
+    topics: [angular/componentes-e-templates]
+    resources: [angular-dev]

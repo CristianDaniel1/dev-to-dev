@@ -14,7 +14,7 @@ phases) was approved at the start of the project; this file tracks where we are.
 - **Phase 3 (part)**: exam mode with optional timer, spaced review, random mode, progress page
   with JSON backup, command palette (Ctrl+K), resume block on the home page.
 - **Redesign**: "answer sheet" identity (white sheets on a grey desk, salmon drop-out ink, answer
-  bubbles, timing marks, grade out of 10) with a blackboard dark theme; Archivo, Atkinson
+  bubbles, timing marks, grade out of 10) with a carbon-paper dark theme; Archivo, Atkinson
   Hyperlegible Next and Atkinson Hyperlegible Mono. Lists replace card grids in the catalog and
   the resource hub.
 - **Content for launch**: 277 questions in 9 techs (HTML, CSS, JavaScript, TypeScript, React,

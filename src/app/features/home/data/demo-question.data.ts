@@ -3,6 +3,7 @@ import type { DemoQuestion } from '../interfaces/demo-question.interface';
 /** Sample question answered right on the home page. */
 export const DEMO_QUESTION: DemoQuestion = {
   tech: 'JavaScript',
+  techSlug: 'javascript',
   level: 'Intermediário',
   prompt: 'O que este código imprime no console?',
   code: 'console.log(typeof null);',

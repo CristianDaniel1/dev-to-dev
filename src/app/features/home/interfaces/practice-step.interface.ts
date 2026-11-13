@@ -1,4 +1,5 @@
 export interface PracticeStep {
   title: string;
-  description: string;
+  /** Short complement printed after the title, e.g. "sem cronômetro". */
+  hint: string;
 }

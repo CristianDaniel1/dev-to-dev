@@ -1,20 +1,57 @@
-<section
-  class="container-page grid items-start gap-12 pt-12 pb-16 sm:pt-16 lg:grid-cols-[1.1fr_1fr] lg:gap-16 lg:pt-20 lg:pb-20"
->
-  <div class="lg:pt-8">
+<section class="container-page overflow-x-clip pt-12 pb-16 sm:pt-16 lg:pt-20 lg:pb-20">
+  <div class="grid items-end gap-x-12 gap-y-6 lg:grid-cols-[1.2fr_1fr]">
     <h1 class="text-display">
-      <span class="block">Marque a resposta.</span>
-      <span class="block">Entenda o gabarito.</span>
+      <span class="block">Quem erra aqui</span>
+      <span class="block">sai sabendo.</span>
     </h1>
-    <p class="prose-width mt-7 text-lg text-ink-muted">
-      Quizzes comentados para quem programa: cada alternativa tem explicação, o que você erra volta
-      para revisão, e uma curadoria de materiais ajuda a ir além.
+    <p class="prose-width text-lg text-ink-muted">
+      Quizzes comentados para quem programa: cada alternativa tem explicação, e o que você erra
+      volta para revisão.
     </p>
-    <div class="mt-9 flex flex-wrap gap-3">
-      <a routerLink="/quizzes" class="btn btn-primary">Escolher um quiz</a>
-      <a routerLink="/recursos" class="btn btn-secondary">Ver material de apoio</a>
-    </div>
   </div>
 
-  <app-demo-question />
+  <div class="mt-10 sm:mt-12">
+    <app-exam-tabs [front]="question.techSlug" />
+    <div class="sheet-stack">
+      <div class="sheet sheet-marks py-7 pr-5 pl-10 sm:py-10 sm:pr-10 sm:pl-16">
+        <dl
+          class="grid gap-x-7 gap-y-3 text-sm sm:grid-cols-2 xl:grid-cols-[repeat(4,max-content)] xl:justify-between"
+        >
+          @for (field of fields; track field.label; let isFirst = $first) {
+            <div class="flex-col gap-1 sm:flex" [class]="isFirst ? 'flex' : 'hidden'">
+              <dt class="form-caption">{{ field.label }}</dt>
+              <dd class="min-h-6 border-b-[1.5px] border-form pb-0.5 font-mono">
+                {{ field.value }}
+              </dd>
+            </div>
+          }
+        </dl>
+
+        <div class="mt-8 sm:mt-10">
+          <app-demo-question />
+        </div>
+
+        <div
+          class="mt-8 flex flex-wrap items-center justify-between gap-x-10 gap-y-5 border-t border-rule pt-6"
+        >
+          <ol class="flex flex-wrap gap-x-7 gap-y-2 text-sm" aria-label="Instruções">
+            @for (step of steps; track step.title; let index = $index) {
+              <li class="flex items-baseline gap-2.5">
+                <span class="figure font-extrabold text-form-ink" aria-hidden="true">{{
+                  index + 1
+                }}</span>
+                <span class="text-ink-muted"
+                  ><strong class="text-ink">{{ step.title }}</strong> {{ step.hint }}</span
+                >
+              </li>
+            }
+          </ol>
+          <div class="flex flex-wrap gap-3">
+            <a routerLink="/quizzes" class="btn btn-primary">Escolher um quiz</a>
+            <a routerLink="/recursos" class="btn btn-secondary">Ver material de apoio</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>

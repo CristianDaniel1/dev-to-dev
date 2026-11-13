@@ -6,6 +6,8 @@ export interface DemoOption {
 
 export interface DemoQuestion {
   tech: string;
+  /** Slug of the tech, so its quiz tab shows in front. */
+  techSlug: string;
   level: string;
   prompt: string;
   code: string;

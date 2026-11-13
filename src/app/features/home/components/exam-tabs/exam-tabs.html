@@ -1,0 +1,24 @@
+<nav aria-label="Quizzes por tecnologia">
+  <ul
+    class="-mx-4 flex gap-1.5 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-5"
+  >
+    @for (tech of techs; track tech.slug) {
+      @let isFront = tech.slug === front();
+      <li class="shrink-0">
+        <a
+          [routerLink]="['/quizzes', tech.slug]"
+          class="flex items-center gap-2 rounded-t-sheet border border-b-0 border-rule px-3.5 pt-2 pb-2.5 text-sm font-bold transition-[translate,color] duration-150"
+          [class]="
+            isFront
+              ? 'relative z-10 translate-y-px bg-sheet text-ink shadow-[inset_0_3px_0_var(--tab-color)]'
+              : 'translate-y-1 bg-sheet-sunken text-ink-muted hover:translate-y-0 hover:text-ink'
+          "
+          [style.--tab-color]="tech.color"
+        >
+          <span class="size-2.5 rounded-[2px]" [style.background-color]="tech.color"></span>
+          {{ tech.name }}
+        </a>
+      </li>
+    }
+  </ul>
+</nav>

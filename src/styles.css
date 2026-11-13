@@ -40,7 +40,7 @@
 /*
  * "Answer sheet" identity: white sheets on a grey desk, form lines and bubbles printed in the
  * salmon drop-out ink of exam answer sheets, graphite for what the user marks, and a green/red
- * grading pen for right and wrong. The dark theme is a school blackboard with chalk.
+ * grading pen for right and wrong. The dark theme is carbon paper: near-neutral graphite with the same salmon ink.
  */
 @theme {
   --color-desk: #e6e8e3;
@@ -89,22 +89,22 @@
 }
 
 :root[data-theme='dark'] {
-  --color-desk: #161d19;
-  --color-sheet: #1f2823;
-  --color-sheet-sunken: #19211d;
-  --color-ink: #e8ece4;
-  --color-ink-muted: #a3aea5;
-  --color-rule: #34403a;
-  --color-rule-strong: #56645c;
-  --color-form: #e98b6b;
-  --color-form-ink: #f4ae94;
-  --color-form-soft: #3a2b25;
-  --color-on-ink: #161d19;
-  --color-correct: #6ccf97;
-  --color-correct-soft: #1d3a2b;
-  --color-wrong: #ff8577;
-  --color-wrong-soft: #452621;
-  --shadow-sheet: 0 1px 0 rgb(0 0 0 / 0.25), 0 2px 0 rgb(0 0 0 / 0.15);
+  --color-desk: #131416;
+  --color-sheet: #1d1e21;
+  --color-sheet-sunken: #17181a;
+  --color-ink: #ecebe6;
+  --color-ink-muted: #a6a5a0;
+  --color-rule: #303135;
+  --color-rule-strong: #6b6c73;
+  --color-form: #ee8a66;
+  --color-form-ink: #f6ae92;
+  --color-form-soft: #3a2820;
+  --color-on-ink: #131416;
+  --color-correct: #6fd19a;
+  --color-correct-soft: #1b3326;
+  --color-wrong: #ff8a7c;
+  --color-wrong-soft: #40231f;
+  --shadow-sheet: 0 1px 0 rgb(0 0 0 / 0.4), 0 2px 0 rgb(0 0 0 / 0.25);
 }
 
 @layer base {
@@ -173,7 +173,7 @@
   }
 
   dialog::backdrop {
-    background: rgb(22 29 25 / 0.55);
+    background: rgb(19 20 22 / 0.6);
   }
 }
 
@@ -260,6 +260,34 @@
       );
       opacity: 0.85;
       pointer-events: none;
+    }
+  }
+
+  /* Two sheets peeking out under the element, as in a pile of exams. Decorative. */
+  .sheet-stack {
+    position: relative;
+    isolation: isolate;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border: 1px solid var(--color-rule);
+      border-radius: var(--radius-sheet);
+      background: var(--color-sheet);
+      pointer-events: none;
+    }
+
+    &::before {
+      transform: rotate(-0.7deg) translate(-4px, 12px);
+      opacity: 0.7;
+    }
+
+    &::after {
+      transform: rotate(0.5deg) translate(6px, 7px);
+      opacity: 0.85;
     }
   }
 

@@ -1,21 +1,17 @@
 import type { PracticeStep } from '../interfaces/practice-step.interface';
 
-/** Practice mode steps, in the order they happen. */
+/** Practice mode steps, printed as the instructions at the foot of the hero sheet. */
 export const PRACTICE_STEPS: readonly PracticeStep[] = [
-  {
-    title: 'Responda',
-    description: 'Sem cronômetro no modo prática. Escolha tecnologia, tópico e nível.',
-  },
-  {
-    title: 'Entenda',
-    description:
-      'Cada alternativa tem explicação, inclusive as erradas, e o resultado sai por tópico.',
-  },
-  {
-    title: 'Revise',
-    description: 'O que você errou ou acertou no chute volta para revisão nos dias seguintes.',
-  },
+  { title: 'Responda', hint: 'sem cronômetro' },
+  { title: 'Entenda', hint: 'cada alternativa' },
+  { title: 'Revise', hint: 'o que errou' },
 ];
+
+/** Audience written in the "Turma" field of the hero sheet. */
+export const HERO_SHEET_CLASS = 'Quem programa';
+
+/** Passing grade written in the hero sheet: there is none. */
+export const HERO_SHEET_PASSING_GRADE = 'Nenhuma. É para aprender.';
 
 /** Technologies being written, listed after the published ones. */
 export const UPCOMING_TECHS: readonly string[] = [];

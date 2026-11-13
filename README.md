@@ -1,26 +1,96 @@
+<div align="center">
+
+<img src="public/favicon.svg" width="72" alt="" />
+
 # Dev to Dev
 
-Quizzes comentados de desenvolvimento de software e uma central de recursos selecionados para quem programa. É o sucessor do [Front-End Quiz](https://frontend-quiz-cris.vercel.app/).
+**Quem erra aqui sai sabendo.** Quizzes comentados de programação, com revisão espaçada, glossário, trilhas de estudo e uma central de materiais selecionados.
 
-## O que tem
+[devtodev.vercel.app](https://devtodev.vercel.app/)
 
-- **Quizzes comentados**: 277 perguntas de HTML, CSS, JavaScript, TypeScript, React, Angular, Tailwind CSS, Git e SQL, em três níveis. Cada alternativa tem explicação, inclusive as erradas.
-- **Modos de prática**: prática com feedback imediato, simulado com cronômetro opcional, revisão espaçada (caixas de Leitner) e rodada aleatória misturando tecnologias.
-- **Pergunta de confiança**: antes de ver a resposta, você diz se tinha certeza, achava ou chutou. Acertos no chute também voltam para revisão.
-- **Trilhas de estudo**: 4 trilhas em etapas (web do zero, JavaScript ao TypeScript, Git e SQL); cada etapa junta um tópico de quiz, termos do glossário e materiais, com checklist salvo no navegador.
-- **Glossário**: 104 termos explicados em poucas linhas, com exemplos, termos relacionados, links para praticar o tópico no quiz e recursos para estudar.
-- **Material de apoio**: 135 recursos em 16 categorias e coleções montadas por objetivo, cada um com o motivo da recomendação. Filtros na URL e favoritos.
-- **Progresso local**: tudo fica no navegador, sem conta. Dá para exportar e importar um backup em JSON.
-- **Busca global** com Ctrl+K, temas claro e escuro, navegação completa por teclado.
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/home-light.png" />
+  <img src="docs/images/home-light.png" alt="Página inicial do Dev to Dev: o título Quem erra aqui sai sabendo e uma folha de prova com a questão de exemplo, abaixo de abas coloridas com as tecnologias" />
+</picture>
 
-## Stack
+</div>
 
-- Angular 22 (standalone, zoneless, signals) com pré-renderização estática (`@angular/ssr`, `outputMode: "static"`)
-- Tailwind CSS v4
-- Conteúdo em YAML, validado com zod e convertido em TypeScript no build (realce de código com Shiki, busca com MiniSearch)
-- Vitest (unitários), Playwright + axe (E2E e acessibilidade)
-- ESLint (angular-eslint) e Prettier
-- Deploy estático na Vercel
+## Sobre o projeto
+
+O Dev to Dev é um site para estudar programação respondendo perguntas, onde o mais importante é o gabarito: **cada alternativa tem explicação, inclusive as erradas**. O que você erra, ou acerta no chute, volta para revisão nos dias seguintes. Tudo fica no navegador, sem cadastro.
+
+É o sucessor do [Front-End Quiz](https://frontend-quiz-cris.vercel.app/), um app de uma tela com 5 quizzes fixos. Aqui o conteúdo cresceu para 9 tecnologias, ganhou explicações, modos de estudo e uma central de materiais, e o site virou páginas estáticas pré-renderizadas, boas para busca e rápidas de abrir.
+
+O visual é inspirado numa **folha de respostas de prova**: folhas brancas sobre uma mesa cinza, campos e bolhas impressos na tinta salmão dos cartões de resposta, grafite para o que você marca e a caneta verde e vermelha do corretor. O tema escuro é papel-carbono.
+
+## Funcionalidades
+
+|                                                                                                                                                                                                            |                                                                                                                                            |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| <img src="docs/images/quiz-feedback.png" alt="Questão de JavaScript respondida, com a alternativa certa marcada em verde e a explicação abaixo" />                                                         | <img src="docs/images/quiz-results.png" alt="Boletim do fim da sessão com a nota carimbada e os acertos por tópico" />                     |
+| **Quizzes comentados.** 277 perguntas de HTML, CSS, JavaScript, TypeScript, React, Angular, Tailwind CSS, Git e SQL, em três níveis. Antes de ver a resposta, você diz se tinha certeza, achava ou chutou. | **Boletim por tópico.** Nota de 0 a 10, acertos por tópico, revisão de cada pergunta e um botão para refazer só as que você errou.         |
+| <img src="docs/images/resources.png" alt="Central de recursos com filtros de preço, idioma, tipo e tecnologia" />                                                                                          | <img src="docs/images/glossary-term.png" alt="Página do termo Closure no glossário, com definição, exemplo e links para praticar" />       |
+| **Material de apoio.** 135 recursos em 16 categorias, cada um com o motivo da recomendação. Filtros na URL (dá para compartilhar), favoritos e coleções por objetivo.                                      | **Glossário.** 104 termos em poucas linhas, com exemplo de código, termos relacionados, o tópico do quiz para praticar e o que ler depois. |
+| <img src="docs/images/learning-path.png" alt="Trilha Primeiros passos na web no tema escuro, com etapas numeradas" />                                                                                      | <img src="docs/images/command-palette.png" alt="Busca global aberta com Ctrl+K mostrando resultados para closure" />                       |
+| **Trilhas de estudo.** 4 trilhas em etapas. Cada etapa junta um tópico do quiz, termos do glossário e materiais, com checklist salvo no navegador.                                                         | **Busca global.** Ctrl+K encontra páginas, quizzes, tópicos, perguntas, termos, trilhas e recursos, sem servidor.                          |
+
+Também tem:
+
+- **Modos de estudo:** prática com feedback imediato, simulado com cronômetro opcional, revisão espaçada (caixas de Leitner) e rodada aleatória misturando tecnologias.
+- **Progresso local:** estatísticas por tecnologia, histórico de sessões e backup em JSON para exportar e importar.
+- **Tema claro e escuro**, navegação completa por teclado e animações que respeitam a preferência por menos movimento.
+
+<p align="center"><img src="docs/images/mobile-home.png" width="300" alt="Página inicial no celular" /></p>
+
+## Tecnologias
+
+| Tecnologia                                                                           | Para quê                                                                                            |
+| ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------- |
+| [Angular 22](https://angular.dev/)                                                   | Componentes standalone, signals e detecção de mudanças sem Zone.js                                  |
+| [@angular/ssr](https://angular.dev/guide/ssr)                                        | Pré-renderização de todas as rotas no build (`outputMode: "static"`), com hidratação e event replay |
+| [Tailwind CSS 4](https://tailwindcss.com/)                                           | Estilos com tokens de design em `@theme` e uma camada de componentes (`.sheet`, `.bubble`, `.btn`)  |
+| YAML + [zod](https://zod.dev/)                                                       | Conteúdo escrito em YAML e validado no build; um erro de conteúdo quebra o build com mensagem clara |
+| [Shiki](https://shiki.style/)                                                        | Realce de código feito no build, sem JavaScript no navegador                                        |
+| [Vitest](https://vitest.dev/)                                                        | Testes unitários de funções puras, stores e serviços                                                |
+| [Playwright](https://playwright.dev/) + [axe](https://github.com/dequelabs/axe-core) | Testes E2E em desktop e celular, e checagem de acessibilidade                                       |
+| ESLint + Prettier                                                                    | Regras do angular-eslint e formatação, incluindo a ordem das classes do Tailwind                    |
+| GitHub Actions + Vercel                                                              | CI a cada push e deploy estático                                                                    |
+
+## Como funciona
+
+O site não tem backend. O conteúdo é transformado em TypeScript no build, e o Angular pré-renderiza cada página em HTML estático:
+
+```mermaid
+flowchart LR
+  A["content/*.yaml<br/>perguntas, recursos,<br/>glossário, trilhas"] --> B["scripts/build-content.ts<br/>zod + Shiki"]
+  B --> C["src/app/shared/generated/<br/>catálogo, bancos de perguntas,<br/>índice de busca"]
+  C --> D["ng build<br/>pré-renderiza 166 rotas"]
+  D --> E["HTML estático<br/>+ sitemap.xml + robots.txt"]
+  E --> F["Vercel"]
+```
+
+- Cada banco de perguntas é um chunk carregado sob demanda, e o índice de busca só é baixado quando a busca abre.
+- O que é de cada pessoa (progresso, favoritos, trilhas) fica no `localStorage` e só aparece depois da hidratação, então o HTML pré-renderizado é igual para todo mundo.
+- SEO: título, descrição, URL canônica, Open Graph e JSON-LD (Quiz, DefinedTerm, Course, ItemList, BreadcrumbList) em todas as páginas.
+
+```text
+src/app/
+  core/        layout, busca, tema, SEO, armazenamento e progresso
+  shared/      componentes, tipos e o conteúdo gerado
+  features/    home, quizzes, resources, glossary, paths, progress, about, not-found
+content/       perguntas, recursos, glossário e trilhas em YAML
+scripts/       pipeline de conteúdo, favicons e checagem de links
+e2e/           testes Playwright (specs, page objects, fixtures)
+```
+
+Cada feature segue a mesma organização (`components/`, `services/`, `lib/`, `data/`, `constants/`, `interfaces/`) e expõe só o que outras features usam pelo seu `index.ts`.
+
+## Qualidade
+
+- **Acessibilidade:** axe sem violações sérias nas páginas principais, foco gerenciado entre as perguntas, atalhos de teclado (A–D, Enter), `aria-live` no feedback e contraste AA nos dois temas.
+- **Desempenho:** Lighthouse no site publicado (celular) com acessibilidade, boas práticas e SEO em 100 e desempenho entre 93 e 97.
+- **Testes:** 154 testes unitários e 72 cenários E2E, cada um rodando em desktop e celular (144 execuções).
+- **CI:** formatação, lint, checagem de tipos, testes unitários, build e E2E a cada push.
 
 ## Rodando localmente
 
@@ -69,12 +139,10 @@ Os ids são estáveis: o progresso salvo no navegador depende deles, então não
 
 ## Deploy
 
-O `vercel.json` já define o comando de build, a pasta de saída (`dist/dev-to-dev/browser`), os headers de segurança e o cache. Basta importar o repositório na Vercel. O site está em [devtodev.vercel.app](https://devtodev.vercel.app/). Se o domínio mudar, ajuste `SITE_URL` em `src/app/core/constants/site.constants.ts`: ele é usado nas URLs canônicas, no Open Graph, no JSON-LD e no sitemap.
+O site está publicado na Vercel em [devtodev.vercel.app](https://devtodev.vercel.app/). É um site totalmente estático: o build gera as páginas em `dist/dev-to-dev/browser`, sem servidor nem banco de dados, e o `vercel.json` define o build, os headers de segurança e o cache.
 
-## Licenças das fontes
+## Créditos
 
-Archivo, Atkinson Hyperlegible Next e Atkinson Hyperlegible Mono são distribuídas sob a SIL Open Font License (veja `public/fonts/`).
-
-## Ícones
-
-Os ícones das tecnologias vêm do [Simple Icons](https://simpleicons.org/) (CC0); o de SQL foi desenhado para o projeto. As marcas pertencem aos seus donos. Os favicons dos recursos são baixados pelo `npm run favicons` e pertencem aos respectivos sites.
+- **Fontes:** Archivo, Atkinson Hyperlegible Next e Atkinson Hyperlegible Mono, sob a SIL Open Font License (veja `public/fonts/`).
+- **Ícones das tecnologias:** [Simple Icons](https://simpleicons.org/) (CC0); o de SQL foi desenhado para o projeto. As marcas pertencem aos seus donos.
+- **Favicons dos recursos:** baixados pelo `npm run favicons`; pertencem aos respectivos sites.

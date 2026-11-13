@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-/** Dev to Dev mark: a tiny answer grid with one bubble filled in, plus the name. */
+/** Dev to Dev mark: the code sign `< >` around a filled answer bubble, plus the name. */
 @Component({
   selector: 'app-logo',
   templateUrl: './logo.html',

@@ -1,4 +1,4 @@
-<div class="card flex flex-col gap-5 p-5 sm:p-6">
+<div class="sheet flex flex-col gap-5 p-5 sm:p-6">
   <p class="text-sm text-ink-muted">
     Seu progresso fica só neste navegador. Baixe um backup para levar a outro aparelho ou guardar
     antes de limpar os dados do navegador.
@@ -8,7 +8,7 @@
     <button type="button" class="btn btn-secondary cursor-pointer" (click)="download()">
       Baixar backup
     </button>
-    <label class="btn btn-secondary cursor-pointer focus-within:outline-3 focus-within:outline-pen">
+    <label class="btn btn-secondary focus-within:outline-pen cursor-pointer focus-within:outline-3">
       Importar backup
       <input
         #fileInput
@@ -29,7 +29,7 @@
 
   @if (pending(); as backup) {
     <div
-      class="rounded-control border border-line-strong p-4"
+      class="rounded-control border border-rule-strong p-4"
       role="group"
       aria-label="Confirmar importação"
     >
@@ -58,7 +58,7 @@
       <div class="mt-3 flex flex-wrap gap-3">
         <button
           type="button"
-          class="btn cursor-pointer bg-wrong text-paper hover:opacity-90"
+          class="btn cursor-pointer bg-wrong text-on-ink hover:opacity-90"
           (click)="confirmClear()"
         >
           Apagar tudo

@@ -1,16 +1,13 @@
 @let current = scope();
-<div class="flex items-center gap-3">
+<div class="flex items-center gap-3 border-b-2 border-form pb-3">
   @if (current.tech; as tech) {
     <app-tech-badge [tech]="tech" size="sm" />
   } @else {
-    <span
-      class="inline-flex size-8 items-center justify-center rounded-control bg-highlight text-highlight-ink"
-      aria-hidden="true"
-    >
-      <app-icon name="quiz" [size]="18" />
+    <span class="bubble bubble-filled size-7" aria-hidden="true">
+      <app-icon name="quiz" [size]="15" />
     </span>
   }
-  <p class="font-semibold">{{ current.title }}</p>
+  <p class="font-bold">{{ current.title }}</p>
   <div class="ml-auto flex items-center gap-2">
     <ng-content />
     <a [routerLink]="current.exitLink" class="btn btn-ghost min-h-9 px-3">Sair</a>
@@ -18,14 +15,21 @@
 </div>
 
 @if (showProgress()) {
-  <div class="mt-4 flex items-center gap-3">
-    <div class="h-1.5 flex-1 overflow-hidden rounded-full bg-surface-sunken" aria-hidden="true">
-      <div
-        class="h-full rounded-full transition-[width] duration-500"
-        [style.width.%]="progressPercent()"
-        [style.background-color]="current.color"
-      ></div>
-    </div>
-    <p class="text-sm text-ink-muted tabular-nums">Pergunta {{ position() }} de {{ total() }}</p>
+  <div class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-3">
+    <p class="figure text-sm font-bold">Questão {{ position() }} de {{ total() }}</p>
+    <ol class="flex flex-wrap gap-1" aria-hidden="true">
+      @for (mark of marks(); track $index; let index = $index) {
+        <li
+          class="bubble border-[1.5px] text-[0.625rem]"
+          [class.size-6]="!isCompact()"
+          [class.size-4]="isCompact()"
+          [class]="markClasses[mark]"
+        >
+          @if (!isCompact()) {
+            {{ index + 1 }}
+          }
+        </li>
+      }
+    </ol>
   </div>
 }

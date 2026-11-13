@@ -23,7 +23,7 @@ test.describe('Practice session', () => {
 
       await test.step('answer every question', async () => {
         for (let position = 1; position <= 5; position++) {
-          await expect(session.counter).toHaveText(`Pergunta ${position} de 5`);
+          await expect(session.counter).toHaveText(`Questão ${position} de 5`);
           await session.answerWithKeyboard();
           await session.continueWithEnter();
         }
@@ -61,11 +61,11 @@ test.describe('Practice session', () => {
   test('goes through two questions with the buttons', async ({ session }) => {
     await session.open('javascript', `ids=${STRING_CONCAT_QUESTION_ID},${ASSIGNMENT_QUESTION_ID}`);
 
-    await expect(session.counter).toHaveText('Pergunta 1 de 2');
+    await expect(session.counter).toHaveText('Questão 1 de 2');
     await session.answerWithKeyboard('Chutei');
     await session.nextButton.click();
 
-    await expect(session.counter).toHaveText('Pergunta 2 de 2');
+    await expect(session.counter).toHaveText('Questão 2 de 2');
     await session.answerWithKeyboard('Chutei');
     await session.nextButton.click();
 

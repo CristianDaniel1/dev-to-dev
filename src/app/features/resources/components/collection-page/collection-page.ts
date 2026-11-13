@@ -5,12 +5,12 @@ import { EmptyState } from '@/shared/components/empty-state/empty-state';
 import { RESOURCE_LIBRARY } from '@/shared/generated/resource-library';
 import { RESOURCE_BREADCRUMB } from '../../data/resource-breadcrumb.data';
 import { collectionEntries } from '../../lib/collection-entries';
-import { ResourceCard } from '../resource-card/resource-card';
+import { ResourceItem } from '../resource-item/resource-item';
 
 /** Page of one collection: its resources in order, each with a note on how to use it. */
 @Component({
   selector: 'app-collection-page',
-  imports: [RouterLink, Breadcrumb, EmptyState, ResourceCard],
+  imports: [RouterLink, Breadcrumb, EmptyState, ResourceItem],
   templateUrl: './collection-page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

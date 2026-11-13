@@ -12,10 +12,11 @@ import { RouterLink } from '@angular/router';
 import type { SessionSummary } from '../../interfaces/scoring.interface';
 import type { SessionScope } from '../../interfaces/session-scope.interface';
 import type { ReviewItem } from '../../interfaces/session.interface';
+import { toGrade } from '../../lib/grade';
 import { resultHeadingFor } from '../../lib/result-heading';
 import { ResultsReview } from '../results-review/results-review';
 
-/** End-of-session screen: score, results by topic, next steps and the question review. */
+/** End-of-session report card: grade, score, results by group, next steps and the review. */
 @Component({
   selector: 'app-session-results',
   imports: [RouterLink, ResultsReview],
@@ -29,6 +30,7 @@ export class SessionResults {
   readonly restart = output();
 
   protected readonly heading = computed(() => resultHeadingFor(this.summary().percentage));
+  protected readonly grade = computed(() => toGrade(this.summary().correct, this.summary().total));
   protected readonly retryParams = computed(() => ({
     ...this.scope().retryParams,
     ids: this.summary().missedIds.join(','),

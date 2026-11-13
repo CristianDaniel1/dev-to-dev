@@ -1,53 +1,53 @@
-<section aria-labelledby="browser-heading" class="grid items-start gap-8 lg:grid-cols-[17rem_1fr]">
-  <div>
-    <h2 id="browser-heading" class="mb-5 text-2xl font-bold">{{ heading() }}</h2>
-    <app-resource-filter-bar
-      [filters]="filters()"
-      [typeOptions]="typeOptions()"
-      [techOptions]="techOptions()"
-      [pricingOptions]="pricingOptions()"
-      [languageOptions]="languageOptions()"
-      (filtersChange)="update($event)"
-      (searchChange)="search($event)"
-    />
-  </div>
+<section aria-labelledby="browser-heading">
+  <h2 id="browser-heading" class="mb-5 text-2xl">{{ heading() }}</h2>
+  <app-resource-filter-bar
+    [filters]="filters()"
+    [typeOptions]="typeOptions()"
+    [techOptions]="techOptions()"
+    [pricingOptions]="pricingOptions()"
+    [languageOptions]="languageOptions()"
+    (filtersChange)="update($event)"
+    (searchChange)="search($event)"
+  />
 
-  <div>
-    <div class="mb-4 flex min-h-11 flex-wrap items-center justify-between gap-3">
-      <p class="text-sm text-ink-muted" role="status">{{ countLabel() }}</p>
-      @if (isFiltering()) {
-        <button type="button" class="btn btn-ghost -mr-3 cursor-pointer" (click)="clear()">
-          Limpar filtros
-        </button>
-      }
-    </div>
-
-    @if (results().length) {
-      <ul class="grid gap-4 md:grid-cols-2">
-        @for (resource of results(); track resource.id) {
-          <li><app-resource-card [resource]="resource" /></li>
-        }
-      </ul>
-    } @else if (hasNoFavorites()) {
-      <app-empty-state
-        icon="bookmark"
-        heading="Nenhum favorito ainda"
-        description="Use o marcador de qualquer recurso para salvá-lo aqui. Os favoritos ficam só neste navegador."
-      >
-        <button type="button" class="btn btn-secondary cursor-pointer" (click)="clear()">
-          Ver todos os recursos
-        </button>
-      </app-empty-state>
-    } @else {
-      <app-empty-state
-        icon="search"
-        heading="Nenhum recurso com esses filtros"
-        description="Tente outra palavra ou remova algum filtro."
-      >
-        <button type="button" class="btn btn-secondary cursor-pointer" (click)="clear()">
-          Limpar filtros
-        </button>
-      </app-empty-state>
+  <div
+    class="mt-6 flex min-h-11 flex-wrap items-center justify-between gap-3 border-b-2 border-form"
+  >
+    <p class="text-sm font-bold" role="status">{{ countLabel() }}</p>
+    @if (isFiltering()) {
+      <button type="button" class="btn btn-ghost -mr-3 cursor-pointer" (click)="clear()">
+        Limpar filtros
+      </button>
     }
   </div>
+
+  @if (results().length) {
+    <ul class="ruled">
+      @for (resource of results(); track resource.id) {
+        <li><app-resource-item [resource]="resource" /></li>
+      }
+    </ul>
+  } @else if (hasNoFavorites()) {
+    <app-empty-state
+      class="mt-6 block"
+      icon="bookmark"
+      heading="Nenhum favorito ainda"
+      description="Use o marcador de qualquer recurso para salvá-lo aqui. Os favoritos ficam só neste navegador."
+    >
+      <button type="button" class="btn btn-secondary cursor-pointer" (click)="clear()">
+        Ver todos os recursos
+      </button>
+    </app-empty-state>
+  } @else {
+    <app-empty-state
+      class="mt-6 block"
+      icon="search"
+      heading="Nenhum recurso com esses filtros"
+      description="Tente outra palavra ou remova algum filtro."
+    >
+      <button type="button" class="btn btn-secondary cursor-pointer" (click)="clear()">
+        Limpar filtros
+      </button>
+    </app-empty-state>
+  }
 </section>

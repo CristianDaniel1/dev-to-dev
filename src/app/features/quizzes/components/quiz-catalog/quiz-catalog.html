@@ -5,20 +5,22 @@
   />
 
   @for (area of areas; track area.slug) {
-    <section class="mb-14" [attr.aria-labelledby]="'area-' + area.slug">
-      <h2 [id]="'area-' + area.slug" class="mb-5 text-xl font-bold">{{ area.label }}</h2>
-      <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <section class="mt-10" [attr.aria-labelledby]="'area-' + area.slug">
+      <h2 [id]="'area-' + area.slug" class="border-b-2 border-form pb-2 text-xl">
+        {{ area.label }}
+      </h2>
+      <ul class="ruled">
         @for (tech of area.techs; track tech.slug) {
-          <li><app-tech-card [tech]="tech" /></li>
+          <li><app-tech-row [tech]="tech" /></li>
         }
       </ul>
     </section>
   }
 
-  <app-practice-modes class="mb-14 block" />
-
-  <p class="text-sm text-ink-muted">
+  <p class="mt-4 text-sm text-ink-muted">
     TypeScript, Angular, Git e SQL estão sendo escritos. Backend, bancos de dados e DevOps chegam
     depois do lançamento.
   </p>
+
+  <app-practice-modes class="mt-16 block" />
 </div>

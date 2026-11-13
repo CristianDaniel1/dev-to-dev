@@ -58,3 +58,6 @@ export interface SessionSetup {
   /** Exam duration in minutes, or `null` for practice or an exam without timer. */
   minutes: number | null;
 }
+
+/** State of one question in the session map: still to answer, current, or answered. */
+export type SessionMark = 'pending' | 'current' | 'answered' | 'correct' | 'wrong';

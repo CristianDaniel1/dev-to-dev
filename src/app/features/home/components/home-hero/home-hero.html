@@ -1,22 +1,20 @@
 <section
-  class="container-page grid items-center gap-12 pt-12 pb-16 sm:pt-16 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:pt-24 lg:pb-24"
+  class="container-page grid items-start gap-12 pt-12 pb-16 sm:pt-16 lg:grid-cols-[1.1fr_1fr] lg:gap-16 lg:pt-20 lg:pb-20"
 >
-  <div>
-    <h1 class="text-display font-extrabold [font-stretch:76%]">
-      <span class="block">Teste o que você sabe.</span>
-      <span class="block">Entenda o que errou.</span>
+  <div class="lg:pt-8">
+    <h1 class="text-display">
+      <span class="block">Marque a resposta.</span>
+      <span class="block">Entenda o gabarito.</span>
     </h1>
-    <p class="prose-width mt-6 text-lg text-ink-muted">
-      Quizzes comentados de desenvolvimento de software e uma curadoria de ferramentas,
-      documentações e materiais para quem programa.
+    <p class="prose-width mt-7 text-lg text-ink-muted">
+      Quizzes comentados para quem programa: cada alternativa tem explicação, o que você erra volta
+      para revisão, e uma curadoria de materiais ajuda a ir além.
     </p>
-    <div class="mt-8 flex flex-wrap gap-3">
+    <div class="mt-9 flex flex-wrap gap-3">
       <a routerLink="/quizzes" class="btn btn-primary">Escolher um quiz</a>
-      <a routerLink="/recursos" class="btn btn-secondary">Explorar recursos</a>
+      <a routerLink="/recursos" class="btn btn-secondary">Ver material de apoio</a>
     </div>
   </div>
 
-  <div class="lg:rotate-[1.25deg] lg:transition-transform lg:duration-500 lg:hover:rotate-0">
-    <app-demo-question />
-  </div>
+  <app-demo-question />
 </section>

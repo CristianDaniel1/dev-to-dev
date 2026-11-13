@@ -17,12 +17,17 @@ export class RandomSetupPage {
   }
 
   /**
-   * Toggles a tech chip.
+   * Leaves only one tech chosen, whatever techs the catalog has.
    *
    * @param name - Tech name, e.g. 'CSS'.
    */
-  async toggleTech(name: string) {
-    await this.setup.getByRole('button', { name, exact: true }).click();
+  async chooseOnlyTech(name: string) {
+    const chips = this.setup.getByRole('group', { name: 'Tecnologias' }).getByRole('button');
+    for (const chip of await chips.all()) {
+      const chosen = (await chip.getAttribute('aria-pressed')) === 'true';
+      const wanted = (await chip.textContent())?.trim() === name;
+      if (chosen !== wanted) await chip.click();
+    }
   }
 
   /**

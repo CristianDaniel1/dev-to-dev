@@ -1,21 +1,27 @@
-<header
-  class="sticky top-0 z-40 h-(--header-h) border-b border-line/80 bg-paper/85 backdrop-blur-md"
->
-  <div class="container-page flex h-full items-center justify-between gap-4">
-    <a routerLink="/" class="-mx-1 rounded-md px-1 py-1" [attr.aria-label]="text.nav.homeLabel">
+<header class="sticky top-0 z-40 h-(--header-h) border-b-2 border-form bg-sheet">
+  <div class="container-page flex h-full items-stretch gap-6">
+    <a
+      routerLink="/"
+      class="-mx-1 flex items-center self-center rounded-[3px] px-1 py-1"
+      [attr.aria-label]="text.nav.homeLabel"
+    >
       <app-logo />
     </a>
 
-    <nav [attr.aria-label]="text.nav.label" class="hidden sm:block">
-      <ul class="flex items-center gap-1">
+    <nav [attr.aria-label]="text.nav.label" class="hidden md:block">
+      <ul class="flex h-full items-stretch border-l border-rule">
         @for (link of links; track link.path) {
-          <li>
+          <li class="border-r border-rule">
             <a
               [routerLink]="link.path"
-              routerLinkActive="text-ink after:scale-x-100"
+              routerLinkActive="is-active"
               ariaCurrentWhenActive="page"
-              class="relative px-3 py-2 text-sm font-medium text-ink-muted transition-colors after:absolute after:inset-x-3 after:bottom-0.5 after:h-1.5 after:origin-left after:scale-x-0 after:rounded-full after:bg-highlight after:transition-transform after:duration-300 after:content-[''] hover:text-ink"
+              class="group flex h-full items-center gap-2 px-4 text-sm font-semibold text-ink-muted transition-colors hover:bg-sheet-sunken hover:text-ink [&.is-active]:text-ink"
             >
+              <span
+                class="size-3 rounded-full border-[1.5px] border-form transition-colors group-[.is-active]:border-ink group-[.is-active]:bg-ink"
+                aria-hidden="true"
+              ></span>
               {{ link.label }}
             </a>
           </li>
@@ -23,23 +29,25 @@
       </ul>
     </nav>
 
-    <div class="flex items-center gap-1">
+    <div class="ml-auto flex items-center gap-1">
       <button
         type="button"
-        class="btn-icon cursor-pointer gap-2 text-ink-muted hover:text-ink md:w-auto md:border md:border-line md:bg-surface md:px-3 md:text-sm"
+        class="btn-icon cursor-pointer gap-2 lg:w-52 lg:justify-start lg:border-[1.5px] lg:border-rule-strong lg:px-3 lg:text-sm lg:text-ink-muted lg:hover:border-ink"
         aria-haspopup="dialog"
         aria-keyshortcuts="Control+K Meta+K"
         [attr.aria-label]="text.search.open"
         (click)="palette.open()"
       >
         <app-icon name="search" [size]="18" />
-        <span class="hidden md:inline" aria-hidden="true">{{ text.search.open }}</span>
-        <span class="kbd hidden md:inline-flex" aria-hidden="true">{{ text.search.shortcut }}</span>
+        <span class="hidden lg:inline" aria-hidden="true">{{ text.search.open }}</span>
+        <span class="kbd ml-auto hidden lg:inline-flex" aria-hidden="true">{{
+          text.search.shortcut
+        }}</span>
       </button>
       <app-theme-toggle />
       <button
         type="button"
-        class="btn-icon sm:hidden"
+        class="btn-icon md:hidden"
         aria-haspopup="dialog"
         aria-controls="mobile-menu"
         [attr.aria-expanded]="isMenuOpen()"

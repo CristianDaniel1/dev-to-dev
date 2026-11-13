@@ -20,7 +20,7 @@ export class QuizSessionPage {
   readonly unansweredNote: Locator;
 
   constructor(readonly page: Page) {
-    this.counter = page.getByText(/Pergunta \d+ de \d+/);
+    this.counter = page.getByText(/Questão \d+ de \d+/);
     this.options = page.getByRole('list', { name: 'Alternativas' }).getByRole('button');
     this.multipleHint = page.getByText('Marque todas as alternativas corretas.');
     this.feedback = page.getByText(/Você acertou\.|Não foi dessa vez\./);

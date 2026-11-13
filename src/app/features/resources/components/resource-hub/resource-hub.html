@@ -1,11 +1,13 @@
-<div class="container-page pb-20">
+<div class="container-page">
   <app-page-header
     heading="Recursos"
     intro="Documentações, ferramentas, cursos e referências escolhidos para o dia a dia de quem desenvolve, cada um com o motivo de estar aqui."
   />
-  <div class="flex flex-col gap-16">
-    <app-collection-list />
-    <app-category-index />
-    <app-resource-browser />
+  <div class="mt-10 grid items-start gap-12 lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-14">
+    <app-category-index class="lg:sticky lg:top-[calc(var(--header-h)+1.5rem)]" />
+    <div class="flex min-w-0 flex-col gap-16">
+      <app-collection-list />
+      <app-resource-browser />
+    </div>
   </div>
 </div>

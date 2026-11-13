@@ -3,12 +3,12 @@ import { PageHeader } from '@/shared/components/page-header/page-header';
 import { QuizContent } from '@/shared/services/quiz-content';
 import { groupByArea } from '../../lib/catalog-areas';
 import { PracticeModes } from '../practice-modes/practice-modes';
-import { TechCard } from '../tech-card/tech-card';
+import { TechRow } from '../tech-row/tech-row';
 
-/** Quiz catalog page, grouped by area. */
+/** Quiz catalog page: one row per tech, grouped by area. */
 @Component({
   selector: 'app-quiz-catalog',
-  imports: [PageHeader, PracticeModes, TechCard],
+  imports: [PageHeader, PracticeModes, TechRow],
   templateUrl: './quiz-catalog.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

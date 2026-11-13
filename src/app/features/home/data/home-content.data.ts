@@ -9,7 +9,7 @@ export const PRACTICE_STEPS: readonly PracticeStep[] = [
   {
     title: 'Entenda',
     description:
-      'Cada alternativa tem explicação, inclusive as erradas, com links para se aprofundar.',
+      'Cada alternativa tem explicação, inclusive as erradas, e o resultado sai por tópico.',
   },
   {
     title: 'Revise',
@@ -17,17 +17,8 @@ export const PRACTICE_STEPS: readonly PracticeStep[] = [
   },
 ];
 
-/** Technologies planned for launch, shown on the home page. */
-export const LAUNCH_TECHS: readonly string[] = [
-  'HTML',
-  'CSS',
-  'JavaScript',
-  'TypeScript',
-  'React',
-  'Angular',
-  'Git',
-  'SQL',
-];
+/** Technologies being written, listed after the published ones. */
+export const UPCOMING_TECHS: readonly string[] = ['Angular', 'Git', 'SQL'];
 
 /** How many resource categories the home page lists. */
 export const HOME_CATEGORY_COUNT = 6;

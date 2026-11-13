@@ -1,10 +1,10 @@
 <span
-  class="relative flex size-10 items-center justify-center overflow-hidden rounded-control border border-line bg-surface-sunken text-base font-bold text-ink-muted"
+  class="relative flex size-10 items-center justify-center overflow-hidden rounded-full border-[1.5px] border-form bg-sheet font-display text-base font-extrabold text-form-ink"
 >
   {{ initial() }}
   @if (isHydrated() && !hasFailed()) {
     <img
-      class="absolute inset-0 m-auto size-5 bg-surface-sunken"
+      class="absolute inset-0 m-auto size-5 bg-sheet"
       [src]="src()"
       alt=""
       width="20"

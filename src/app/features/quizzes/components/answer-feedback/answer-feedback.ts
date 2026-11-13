@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { Icon } from '@/shared/components/icon/icon';
 import type { AnswerRecord } from '../../interfaces/scoring.interface';
 import type { SessionItem } from '../../interfaces/session.interface';
 import { feedbackGroups } from '../../lib/answer-options';
@@ -6,6 +7,7 @@ import { feedbackGroups } from '../../lib/answer-options';
 /** Explanation shown after answering: why the picks were wrong and why the right ones are right. */
 @Component({
   selector: 'app-answer-feedback',
+  imports: [Icon],
   templateUrl: './answer-feedback.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

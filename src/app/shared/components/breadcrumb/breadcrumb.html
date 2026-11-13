@@ -4,12 +4,12 @@
       <li class="flex items-center gap-2">
         <a
           [routerLink]="parent.link"
-          class="underline decoration-line-strong underline-offset-4 hover:text-ink hover:decoration-ink"
+          class="underline decoration-rule-strong underline-offset-4 hover:text-ink hover:decoration-form"
           >{{ parent.label }}</a
         >
-        <span aria-hidden="true">/</span>
+        <span aria-hidden="true" class="text-form">/</span>
       </li>
     }
-    <li aria-current="page" class="text-ink">{{ current() }}</li>
+    <li aria-current="page" class="font-semibold text-ink">{{ current() }}</li>
   </ol>
 </nav>

@@ -2,22 +2,20 @@
   <div class="container-page">
     <app-breadcrumb [parents]="trail" [current]="tech.name" />
 
-    <header class="flex flex-col gap-5 pt-6 pb-10 sm:flex-row sm:items-center">
-      <app-tech-badge [tech]="tech" size="lg" />
-      <div>
-        <h1 class="text-3xl font-extrabold [font-stretch:78%] sm:text-[3.25rem] sm:leading-none">
-          Quiz de {{ tech.name }}
-        </h1>
-        <p class="prose-width mt-3 text-lg text-ink-muted">{{ tech.description }}</p>
+    <header class="flex flex-col gap-5 border-b border-rule pt-8 pb-10 sm:flex-row sm:items-end">
+      <div class="flex-1">
+        <h1 class="text-3xl sm:text-[3.5rem] sm:leading-[0.95]">Quiz de {{ tech.name }}</h1>
+        <p class="prose-width mt-4 text-lg text-ink-muted">{{ tech.description }}</p>
       </div>
+      <app-tech-badge [tech]="tech" size="lg" />
     </header>
 
-    <div class="grid items-start gap-10 lg:grid-cols-[1fr_22rem]">
+    <div class="mt-10 grid items-start gap-12 lg:grid-cols-[1fr_24rem]">
       <app-topic-list [tech]="tech" />
       <app-session-setup class="lg:sticky lg:top-[calc(var(--header-h)+1.5rem)]" [tech]="tech" />
     </div>
 
-    <app-tech-resources class="mt-20 block pb-20" [tech]="tech.slug" [name]="tech.name" />
+    <app-tech-resources class="mt-20 block" [tech]="tech.slug" [name]="tech.name" />
   </div>
 } @else {
   <div class="container-page py-16">

@@ -2,8 +2,8 @@ import type { SessionKind } from '@/core/interfaces/progress.interface';
 import type { Question, TechSummary } from '@/shared/interfaces/content.interface';
 import type { SessionScope } from '../interfaces/session-scope.interface';
 
-/** Accent of sessions that mix techs (the brand pen color). */
-const MIXED_COLOR = 'var(--color-pen)';
+/** Accent of sessions that mix techs (graphite, the color of the pencil marks). */
+const MIXED_COLOR = 'var(--color-ink)';
 
 const byTopic = (question: Question): string => question.topic;
 const byTech = (question: Question): string => question.tech;

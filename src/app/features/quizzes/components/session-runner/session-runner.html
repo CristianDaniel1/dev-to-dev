@@ -4,7 +4,7 @@
     [showProgress]="store.status() === 'active'"
     [position]="store.index() + 1"
     [total]="store.total()"
-    [answered]="store.answeredCount()"
+    [marks]="store.marks()"
   >
     @if (store.deadline(); as deadline) {
       <app-session-timer [deadline]="deadline" (expired)="store.expire()" />
@@ -40,6 +40,7 @@
             [item]="item"
             [selection]="store.selection()"
             [answer]="store.isRevealed() ? store.currentAnswer() : null"
+            [number]="store.index() + 1"
             (toggled)="store.toggle($event)"
           />
 

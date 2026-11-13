@@ -1,5 +1,10 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
-import { OPTION_STATE_CLASSES, OPTION_TEXT_CLASSES, type OptionState } from '@/features/quizzes';
+import {
+  OPTION_BUBBLE_CLASSES,
+  OPTION_STATE_CLASSES,
+  OPTION_TEXT_CLASSES,
+  type OptionState,
+} from '@/features/quizzes';
 import { Icon } from '@/shared/components/icon/icon';
 import { DEMO_QUESTION } from '../../data/demo-question.data';
 import type { DemoOption } from '../../interfaces/demo-question.interface';
@@ -15,6 +20,7 @@ import { demoOptionState } from '../../lib/demo-option-state';
 export class DemoQuestionCard {
   protected readonly question = DEMO_QUESTION;
   protected readonly optionClasses = OPTION_STATE_CLASSES;
+  protected readonly bubbleClasses = OPTION_BUBBLE_CLASSES;
   protected readonly optionTextClasses = OPTION_TEXT_CLASSES;
   protected readonly selectedId = signal<string | null>(null);
 

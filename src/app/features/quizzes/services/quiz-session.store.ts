@@ -13,6 +13,7 @@ import type {
 import { createRandom, shuffle } from '../lib/random';
 import { isAnswerCorrect, summarizeSession } from '../lib/scoring';
 import { selectQuestions } from '../lib/select-questions';
+import { sessionMarks } from '../lib/session-marks';
 
 /**
  * State of one session (practice, exam, review or random). Provided by the session page, so it
@@ -59,6 +60,10 @@ export class QuizSessionStore {
       scope.groupOf,
     );
   });
+  /** One mark per question, for the session map. */
+  readonly marks = computed(() =>
+    sessionMarks(this.items(), this.answers(), this.index(), this.isExam()),
+  );
   readonly reviewItems = computed<ReviewItem[]>(() => {
     const answersById = new Map(this.answers().map((answer) => [answer.questionId, answer]));
     return this.items().map((item) => ({ ...item, answer: answersById.get(item.question.id) }));

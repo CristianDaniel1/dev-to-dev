@@ -1,9 +1,9 @@
 @if (entries().length) {
-  <ol class="border-t border-line">
+  <ol class="ruled border-y border-rule">
     @for (entry of entries(); track entry.finishedAt) {
-      <li class="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-line py-3 text-sm">
+      <li class="flex flex-wrap items-baseline gap-x-4 gap-y-1 py-3 text-sm">
         <span class="flex-1 font-medium">{{ entry.title }}</span>
-        <span class="tabular-nums">{{ entry.correct }} de {{ entry.total }} certas</span>
+        <span class="figure">{{ entry.correct }} de {{ entry.total }} certas</span>
         <time class="w-full text-ink-muted sm:w-auto" [attr.datetime]="isoDate(entry.finishedAt)">
           {{ formatDate(entry.finishedAt) }}
         </time>

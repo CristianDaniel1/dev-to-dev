@@ -1,11 +1,13 @@
 @if (isVisible()) {
-  <section aria-labelledby="resume-heading" class="container-page pt-10">
-    <div class="card flex flex-col gap-5 p-5 sm:flex-row sm:items-center sm:gap-10 sm:p-6">
-      <h2 id="resume-heading" class="text-lg font-bold">Continuar de onde parou</h2>
+  <section aria-labelledby="resume-heading" class="container-page pb-12">
+    <div
+      class="flex flex-col gap-5 rounded-sheet border-[1.5px] border-ink bg-sheet p-5 sm:flex-row sm:items-center sm:gap-10 sm:p-6"
+    >
+      <h2 id="resume-heading" class="text-lg">Continuar de onde parou</h2>
       @if (dueCount()) {
         <div class="flex flex-wrap items-center gap-3">
           <p>
-            <span class="highlight font-semibold text-highlight-ink">
+            <span class="font-bold">
               {{ dueCount() === 1 ? '1 pergunta' : dueCount() + ' perguntas' }}
             </span>
             para revisar hoje

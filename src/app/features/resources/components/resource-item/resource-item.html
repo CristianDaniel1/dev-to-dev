@@ -1,0 +1,48 @@
+@let item = resource();
+<article
+  class="grid grid-cols-[2.5rem_minmax(0,1fr)_auto] gap-x-4 gap-y-2 py-5"
+  [attr.aria-labelledby]="'resource-' + item.id"
+>
+  <app-resource-favicon class="row-span-2" [domain]="item.domain" [name]="item.name" />
+  <div class="min-w-0">
+    <div
+      role="heading"
+      [attr.aria-level]="headingLevel()"
+      [id]="'resource-' + item.id"
+      class="font-display text-lg leading-snug font-bold [font-stretch:104%]"
+    >
+      <a
+        [href]="item.url"
+        target="_blank"
+        rel="noopener"
+        class="inline-flex items-baseline gap-1.5 decoration-form decoration-2 underline-offset-4 hover:underline"
+      >
+        {{ item.name }}
+        <app-icon name="external" [size]="14" class="text-form-ink" />
+        <span class="sr-only">(abre em nova aba)</span>
+      </a>
+    </div>
+    <p class="truncate text-xs text-ink-muted">{{ item.domain }}</p>
+  </div>
+  <app-favorite-toggle [resource]="item" />
+
+  <div class="col-span-2 col-start-2 flex flex-col gap-2 sm:col-span-1">
+    <p>{{ item.description }}</p>
+    <p class="text-sm text-ink-muted">
+      <span class="font-bold text-form-ink">Por que está aqui:</span> {{ item.why }}
+    </p>
+    <ul class="mt-1 flex flex-wrap gap-1.5" aria-label="Detalhes">
+      <li class="chip">{{ typeLabels[item.type] }}</li>
+      <li class="chip" [class.text-correct]="item.pricing === 'free'">
+        {{ pricingLabels[item.pricing] }}
+      </li>
+      <li class="chip">
+        <span aria-hidden="true">{{ languageTags() }}</span>
+        <span class="sr-only">{{ languageNames() }}</span>
+      </li>
+      @for (tech of item.techs; track tech) {
+        <li class="chip">{{ techLabels[tech] }}</li>
+      }
+    </ul>
+  </div>
+</article>

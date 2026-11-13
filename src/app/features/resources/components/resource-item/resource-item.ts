@@ -11,15 +11,15 @@ import {
 import { FavoriteToggle } from '../favorite-toggle/favorite-toggle';
 import { ResourceFavicon } from '../resource-favicon/resource-favicon';
 
-/** One resource: what it is, why it is recommended and its details. */
+/** One resource as a bibliography entry: what it is, why it is recommended and its details. */
 @Component({
-  selector: 'app-resource-card',
+  selector: 'app-resource-item',
   imports: [Icon, FavoriteToggle, ResourceFavicon],
-  templateUrl: './resource-card.html',
+  templateUrl: './resource-item.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'block h-full' },
+  host: { class: 'block' },
 })
-export class ResourceCard {
+export class ResourceItem {
   readonly resource = input.required<Resource>();
   /** Heading level of the resource name, so it fits the page outline. */
   readonly headingLevel = input<2 | 3>(3);

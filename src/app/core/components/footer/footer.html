@@ -1,4 +1,4 @@
-<footer class="mt-24 border-t border-line">
+<footer class="mt-24 border-t-2 border-form bg-sheet">
   <div
     class="container-page flex flex-col gap-8 py-10 sm:flex-row sm:items-start sm:justify-between"
   >
@@ -10,13 +10,18 @@
       <ul class="flex flex-wrap gap-x-6 gap-y-2 text-sm">
         @for (link of links; track link.path) {
           <li>
-            <a [routerLink]="link.path" class="text-ink-muted hover:text-ink">{{ link.label }}</a>
+            <a [routerLink]="link.path" class="text-ink-muted hover:text-ink hover:underline">{{
+              link.label
+            }}</a>
           </li>
         }
       </ul>
     </nav>
   </div>
-  <div class="container-page border-t border-line py-5 text-xs text-ink-muted">
-    © {{ year }} {{ text.footer.copyright }}
+  <div
+    class="container-page flex flex-wrap justify-between gap-2 border-t border-rule py-5 text-xs text-ink-muted"
+  >
+    <span>© {{ year }} {{ text.footer.copyright }}</span>
+    <span class="form-caption">{{ text.footer.note }}</span>
   </div>
 </footer>

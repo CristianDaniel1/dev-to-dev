@@ -3,12 +3,12 @@ import { RouterLink } from '@angular/router';
 import { RESOURCE_LIBRARY } from '@/shared/generated/resource-library';
 import { TECH_RESOURCES_LIMIT } from '../../constants/resource-display.constants';
 import { resourcesForTech } from '../../lib/resources-for-tech';
-import { ResourceCard } from '../resource-card/resource-card';
+import { ResourceItem } from '../resource-item/resource-item';
 
 /** "To study" section of a quiz tech page: the best resources tagged with that tech. */
 @Component({
   selector: 'app-tech-resources',
-  imports: [RouterLink, ResourceCard],
+  imports: [RouterLink, ResourceItem],
   templateUrl: './tech-resources.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

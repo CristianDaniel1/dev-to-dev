@@ -1,58 +1,71 @@
 @let question = item().question;
-<article class="card index-card overflow-hidden" aria-labelledby="question-prompt">
-  <header class="flex flex-wrap items-center gap-2 border-b border-line px-5 py-3">
+<article
+  class="sheet sheet-marks py-6 pr-5 pl-10 sm:py-8 sm:pr-8 sm:pl-14"
+  aria-labelledby="question-prompt"
+>
+  <header class="flex flex-wrap items-center gap-x-3 gap-y-2">
+    @if (number(); as position) {
+      <p class="figure text-sm font-bold text-form-ink">
+        Questão {{ position < 10 ? '0' + position : position }}
+      </p>
+    }
     <span class="chip">{{ levelLabels[question.level] }}</span>
     @if (isMultiple()) {
       <span class="chip">Mais de uma correta</span>
     }
   </header>
 
-  <div class="p-5 sm:p-6">
-    <h2
-      #prompt
-      id="question-prompt"
-      tabindex="-1"
-      class="rich-text text-lg font-semibold [font-stretch:100%] focus:outline-none"
-      [innerHTML]="question.promptHtml"
-    ></h2>
+  <h2
+    #prompt
+    id="question-prompt"
+    tabindex="-1"
+    class="rich-text mt-4 font-sans text-xl leading-snug font-bold focus:outline-none"
+    [innerHTML]="question.promptHtml"
+  ></h2>
 
-    @if (question.code; as code) {
-      <div class="code-block mt-4" [innerHTML]="code.html"></div>
-    }
+  @if (question.code; as code) {
+    <div class="code-block mt-5" [innerHTML]="code.html"></div>
+  }
 
-    @if (isMultiple() && !answer()) {
-      <p class="mt-4 text-sm text-ink-muted">Marque todas as alternativas corretas.</p>
-    }
+  @if (isMultiple() && !answer()) {
+    <p class="mt-4 text-sm text-ink-muted">Marque todas as alternativas corretas.</p>
+  }
 
-    <ul class="mt-5 flex flex-col gap-2.5" [attr.aria-label]="'Alternativas'">
-      @for (option of item().options; track option.id; let index = $index) {
-        @let state = stateOf(option);
-        <li>
-          <button
-            type="button"
-            class="flex w-full items-center gap-3 rounded-control border px-3.5 py-3 text-left transition-[border-color,opacity,box-shadow] duration-200"
-            [class]="optionClasses[state]"
-            [attr.aria-pressed]="selection().includes(option.id)"
-            [attr.aria-disabled]="answer() !== null"
-            (click)="toggled.emit(option.id)"
-          >
-            <span class="kbd shrink-0" aria-hidden="true">{{ letters.charAt(index) }}</span>
-            <span
-              class="rich-text text-sm"
-              [class]="optionTextClasses[state]"
-              [innerHTML]="option.html"
-            ></span>
-            @if (state === 'correct' || state === 'missed') {
-              <app-icon name="check" class="ml-auto text-correct" />
-            } @else if (state === 'wrong') {
-              <app-icon name="cross" class="ml-auto text-wrong" />
+  <ul class="mt-6 -ml-3 flex flex-col gap-1" [attr.aria-label]="'Alternativas'">
+    @for (option of item().options; track option.id; let index = $index) {
+      @let state = stateOf(option);
+      <li>
+        <button
+          type="button"
+          class="group flex w-full items-center gap-4 rounded-control px-3 py-2.5 text-left transition-colors duration-150"
+          [class]="optionClasses[state]"
+          [attr.aria-pressed]="selection().includes(option.id)"
+          [attr.aria-disabled]="answer() !== null"
+          (click)="toggled.emit(option.id)"
+        >
+          <span class="bubble" [class]="bubbleClasses[state]" aria-hidden="true">
+            @switch (state) {
+              @case ('correct') {
+                <app-icon name="check" [size]="16" />
+              }
+              @case ('wrong') {
+                <app-icon name="cross" [size]="16" />
+              }
+              @default {
+                {{ letters.charAt(index) }}
+              }
             }
-            @if (optionLabels[state]) {
-              <span class="sr-only">{{ optionLabels[state] }}</span>
-            }
-          </button>
-        </li>
-      }
-    </ul>
-  </div>
+          </span>
+          <span
+            class="rich-text"
+            [class]="optionTextClasses[state]"
+            [innerHTML]="option.html"
+          ></span>
+          @if (optionLabels[state]) {
+            <span class="sr-only">{{ optionLabels[state] }}</span>
+          }
+        </button>
+      </li>
+    }
+  </ul>
 </article>

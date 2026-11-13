@@ -24,7 +24,7 @@ import { resourceCountLabel } from '../../lib/resource-count-label';
 import { hasActiveFilters, toResourceFilters, toResourceQuery } from '../../lib/resource-params';
 import { sortResources } from '../../lib/sort-resources';
 import { FavoritesStore } from '../../services/favorites.store';
-import { ResourceCard } from '../resource-card/resource-card';
+import { ResourceItem } from '../resource-item/resource-item';
 import { ResourceFilterBar } from '../resource-filter-bar/resource-filter-bar';
 
 /**
@@ -33,7 +33,7 @@ import { ResourceFilterBar } from '../resource-filter-bar/resource-filter-bar';
  */
 @Component({
   selector: 'app-resource-browser',
-  imports: [EmptyState, ResourceCard, ResourceFilterBar],
+  imports: [EmptyState, ResourceItem, ResourceFilterBar],
   templateUrl: './resource-browser.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

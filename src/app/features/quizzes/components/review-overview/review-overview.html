@@ -8,7 +8,7 @@
     <section aria-labelledby="due-heading" aria-live="polite">
       <h2 id="due-heading" class="sr-only">Para revisar hoje</h2>
       @if (!isHydrated()) {
-        <div class="card h-48 animate-pulse bg-surface-sunken" aria-hidden="true"></div>
+        <div class="sheet h-48 animate-pulse bg-sheet-sunken" aria-hidden="true"></div>
       } @else if (!answeredCount()) {
         <app-empty-state
           heading="Ainda não há o que revisar"
@@ -17,22 +17,21 @@
           <a routerLink="/quizzes" class="btn btn-primary">Escolher um quiz</a>
         </app-empty-state>
       } @else if (dueCount()) {
-        <div class="card p-6 sm:p-8">
-          <p class="text-lg">
-            <span class="highlight font-semibold text-highlight-ink">
-              {{ dueCount() === 1 ? '1 pergunta' : dueCount() + ' perguntas' }} para revisar
-            </span>
+        <div class="sheet sheet-marks py-6 pr-6 pl-10 sm:py-8 sm:pl-14">
+          <p class="text-lg font-bold">
+            <span class="figure text-4xl font-extrabold">{{ dueCount() }}</span>
+            {{ dueCount() === 1 ? 'pergunta para revisar' : 'perguntas para revisar' }}
           </p>
-          <ul class="mt-5 flex flex-col gap-2">
+          <ul class="ruled mt-5 border-y border-rule">
             @for (row of dueByTech(); track row.tech.slug) {
-              <li class="flex items-center gap-3 text-sm">
+              <li class="flex items-center gap-3 py-2 text-sm">
                 <span
                   class="size-2.5 rounded-full"
                   [style.background-color]="row.tech.color"
                   aria-hidden="true"
                 ></span>
                 <span class="flex-1">{{ row.tech.name }}</span>
-                <span class="text-ink-muted tabular-nums">{{ row.count }}</span>
+                <span class="figure text-ink-muted">{{ row.count }}</span>
               </li>
             }
           </ul>
@@ -61,7 +60,7 @@
     </section>
 
     <section aria-labelledby="boxes-heading">
-      <h2 id="boxes-heading" class="text-xl font-bold">Caixas de revisão</h2>
+      <h2 id="boxes-heading" class="border-b-2 border-form pb-2 text-xl">Caixas de revisão</h2>
       <p class="mt-2 mb-4 text-sm text-ink-muted">
         Cada acerto com certeza leva a pergunta para a caixa seguinte. Errar ou chutar devolve para
         a caixa 1.

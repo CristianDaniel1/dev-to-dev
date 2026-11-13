@@ -1,18 +1,18 @@
 <section aria-labelledby="collections-heading">
-  <h2 id="collections-heading" class="text-2xl font-bold">Coleções</h2>
-  <p class="mt-2 text-ink-muted">Sequências curtas para um objetivo, na ordem em que vale usar.</p>
-  <ul class="mt-5 grid gap-4 md:grid-cols-3">
+  <h2 id="collections-heading" class="border-b-2 border-form pb-2 text-2xl">Coleções</h2>
+  <p class="mt-3 text-ink-muted">Sequências curtas para um objetivo, na ordem em que vale usar.</p>
+  <ul class="mt-4 grid md:grid-cols-3 md:divide-x md:divide-rule">
     @for (collection of collections; track collection.slug) {
-      <li>
+      <li class="border-b border-rule md:border-b-0">
         <a
           [routerLink]="['/recursos/colecoes', collection.slug]"
-          class="group card flex h-full flex-col gap-3 p-5 transition-[border-color,box-shadow] hover:border-line-strong hover:shadow-lifted"
+          class="group flex h-full flex-col gap-2 py-5 md:px-5 md:first:pl-0"
         >
-          <h3 class="text-lg leading-snug font-bold group-hover:underline">
+          <h3 class="text-lg leading-snug group-hover:underline group-hover:decoration-form">
             {{ collection.name }}
           </h3>
           <p class="text-sm text-ink-muted">{{ collection.description }}</p>
-          <p class="mt-auto pt-2 text-sm font-medium text-pen">
+          <p class="mt-auto pt-2 text-sm font-bold text-form-ink">
             {{ countLabel(collection.itemCount) }} em sequência
           </p>
         </a>

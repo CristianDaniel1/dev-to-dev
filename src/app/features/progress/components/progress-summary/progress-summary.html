@@ -1,24 +1,24 @@
 @let numbers = overview();
-<dl class="grid grid-cols-2 gap-4 lg:grid-cols-4">
-  <div class="card p-5">
-    <dt class="text-sm text-ink-muted">Respondidas</dt>
-    <dd class="mt-1 text-3xl font-bold tabular-nums">{{ numbers.answered }}</dd>
+<dl class="sheet grid grid-cols-2 lg:grid-cols-4">
+  <div class="border-r border-b border-rule p-5 lg:border-b-0">
+    <dt class="form-caption">Respondidas</dt>
+    <dd class="figure mt-1 text-4xl font-extrabold">{{ numbers.answered }}</dd>
   </div>
-  <div class="card p-5">
-    <dt class="text-sm text-ink-muted">Dominadas</dt>
-    <dd class="mt-1 text-3xl font-bold tabular-nums">{{ numbers.mastered }}</dd>
+  <div class="border-b border-rule p-5 lg:border-r lg:border-b-0">
+    <dt class="form-caption">Dominadas</dt>
+    <dd class="figure mt-1 text-4xl font-extrabold">{{ numbers.mastered }}</dd>
   </div>
-  <div class="card p-5">
-    <dt class="text-sm text-ink-muted">Para revisar hoje</dt>
+  <div class="border-r border-rule p-5">
+    <dt class="form-caption">Para revisar hoje</dt>
     <dd class="mt-1 flex items-baseline gap-3">
-      <span class="text-3xl font-bold tabular-nums">{{ numbers.due }}</span>
+      <span class="figure text-4xl font-extrabold">{{ numbers.due }}</span>
       @if (numbers.due) {
-        <a routerLink="/revisao" class="link text-sm font-medium">Revisar</a>
+        <a routerLink="/revisao" class="link text-sm">Revisar</a>
       }
     </dd>
   </div>
-  <div class="card p-5">
-    <dt class="text-sm text-ink-muted">Sessões</dt>
-    <dd class="mt-1 text-3xl font-bold tabular-nums">{{ numbers.sessions }}</dd>
+  <div class="p-5">
+    <dt class="form-caption">Sessões</dt>
+    <dd class="figure mt-1 text-4xl font-extrabold">{{ numbers.sessions }}</dd>
   </div>
 </dl>

@@ -12,7 +12,7 @@ export class ProgressMeter {
   readonly answered = input.required<number>();
   readonly mastered = input.required<number>();
   readonly total = input.required<number>();
-  readonly color = input('var(--color-pen)');
+  readonly color = input('var(--color-ink)');
   readonly showCaption = input(true);
 
   protected readonly answeredPercent = computed(() => toPercent(this.answered(), this.total()));

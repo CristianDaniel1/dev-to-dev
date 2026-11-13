@@ -25,5 +25,6 @@ export const UI_TEXT = {
   footer: {
     tagline: 'Feito por devs, para devs. Conteúdo revisado e aberto a contribuições.',
     copyright: 'Dev to Dev',
+    note: 'Não amasse, não dobre, pratique.',
   },
 } as const;

@@ -1,13 +1,15 @@
 <section aria-labelledby="modes-heading">
-  <h2 id="modes-heading" class="mb-5 text-xl font-bold">Outros jeitos de praticar</h2>
-  <ul class="grid gap-4 sm:grid-cols-3">
+  <h2 id="modes-heading" class="border-b-2 border-form pb-2 text-xl">Outros jeitos de praticar</h2>
+  <ul class="grid sm:grid-cols-3 sm:divide-x sm:divide-rule">
     @for (mode of modes; track mode.link) {
-      <li>
+      <li class="border-b border-rule sm:border-b-0">
         <a
           [routerLink]="mode.link"
-          class="group card flex h-full flex-col gap-2 p-5 transition-[border-color,box-shadow] hover:border-line-strong hover:shadow-lifted"
+          class="group flex h-full flex-col gap-2 py-6 sm:px-6 sm:first:pl-0"
         >
-          <h3 class="text-lg font-bold group-hover:underline">{{ mode.title }}</h3>
+          <h3 class="text-lg group-hover:underline group-hover:decoration-form">
+            {{ mode.title }}
+          </h3>
           <p class="text-sm text-ink-muted">{{ mode.description }}</p>
         </a>
       </li>

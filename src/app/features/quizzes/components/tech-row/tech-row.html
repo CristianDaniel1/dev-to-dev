@@ -1,0 +1,27 @@
+@let summary = tech();
+<a
+  [routerLink]="['/quizzes', summary.slug]"
+  class="group grid gap-4 py-6 transition-colors sm:grid-cols-[minmax(0,1fr)_13rem] sm:items-center sm:gap-10 lg:grid-cols-[minmax(0,1fr)_13rem_auto]"
+>
+  <div class="flex items-start gap-4">
+    <app-tech-badge [tech]="summary" />
+    <div class="min-w-0">
+      <h3 class="text-xl group-hover:underline group-hover:decoration-form">
+        {{ summary.name }}
+      </h3>
+      <p class="mt-1 text-ink-muted">{{ summary.description }}</p>
+      <p class="mt-2 text-xs font-semibold text-form-ink">
+        {{ summary.questionCount }} perguntas em {{ summary.topics.length }} tópicos
+      </p>
+    </div>
+  </div>
+  <div>
+    @defer (on idle) {
+      <app-tech-progress [tech]="summary" />
+    } @placeholder {
+      <div class="h-2 rounded-[2px] border border-rule bg-sheet-sunken"></div>
+      <div class="mt-2 h-4"></div>
+    }
+  </div>
+  <span class="btn btn-secondary hidden lg:inline-flex" aria-hidden="true">Abrir</span>
+</a>

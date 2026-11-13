@@ -1,7 +1,10 @@
-<div class="card p-6" aria-busy="true">
+<div class="sheet sheet-marks py-6 pr-5 pl-10 sm:py-8 sm:pl-14" aria-busy="true">
   <p class="text-ink-muted">Carregando perguntas…</p>
-  <div class="mt-5 h-5 w-3/4 animate-pulse rounded bg-surface-sunken"></div>
+  <div class="mt-5 h-5 w-3/4 animate-pulse rounded-[3px] bg-sheet-sunken"></div>
   @for (placeholder of placeholders; track placeholder) {
-    <div class="mt-3 h-12 animate-pulse rounded-control bg-surface-sunken"></div>
+    <div class="mt-4 flex items-center gap-4">
+      <span class="bubble"></span>
+      <div class="h-4 flex-1 animate-pulse rounded-[3px] bg-sheet-sunken"></div>
+    </div>
   }
 </div>

@@ -11,7 +11,7 @@ test.describe('Exam', () => {
     await expect(session.title('Simulado de JavaScript')).toBeVisible();
 
     for (let position = 1; position <= 2; position++) {
-      await expect(session.counter).toHaveText(`Pergunta ${position} de 2`);
+      await expect(session.counter).toHaveText(`Questão ${position} de 2`);
       await expect(session.examSubmitButton).toBeDisabled();
       await page.keyboard.press('a');
       await expect(session.feedback).toBeHidden();
@@ -60,7 +60,7 @@ test.describe('Spaced review', () => {
 
     await review.startButton.click();
     await expect(session.title('Revisão')).toBeVisible();
-    await expect(session.counter).toHaveText('Pergunta 1 de 1');
+    await expect(session.counter).toHaveText('Questão 1 de 1');
     await session.option('"22"').click();
     await session.submit();
     await session.nextButton.click();
@@ -74,14 +74,14 @@ test.describe('Spaced review', () => {
 test.describe('Random mode', () => {
   test('mixes only the chosen techs', async ({ page, randomSetup, session }) => {
     await randomSetup.open();
-    for (const name of ['HTML', 'JavaScript', 'React']) await randomSetup.toggleTech(name);
+    await randomSetup.chooseOnlyTech('CSS');
     await randomSetup.chooseSize('5');
 
-    await expect(randomSetup.startButton).toHaveAttribute('href', /techs=css&.*qtd=5/);
+    await expect(randomSetup.startButton).toHaveAttribute('href', /techs=css&qtd=5/);
     await randomSetup.startButton.click();
 
     await expect(session.title('Aleatório')).toBeVisible();
-    await expect(session.counter).toHaveText('Pergunta 1 de 5');
+    await expect(session.counter).toHaveText('Questão 1 de 5');
   });
 });
 

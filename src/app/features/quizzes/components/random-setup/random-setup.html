@@ -4,11 +4,11 @@
     intro="Perguntas de várias tecnologias misturadas, como numa conversa técnica de verdade. Ótimo para ver o que você ainda lembra."
   />
 
-  <section class="card max-w-2xl p-5 sm:p-6" aria-labelledby="random-heading">
-    <h2 id="random-heading" class="text-xl font-bold">Montar rodada</h2>
+  <section class="sheet max-w-2xl p-5 sm:p-6" aria-labelledby="random-heading">
+    <h2 id="random-heading" class="border-b-2 border-form pb-2 text-xl">Montar rodada</h2>
 
     <fieldset class="mt-6">
-      <legend class="mb-2 text-sm font-semibold">Tecnologias</legend>
+      <legend class="form-caption mb-1">Tecnologias</legend>
       <div class="flex flex-wrap gap-2">
         @for (tech of allTechs; track tech.slug) {
           <button
@@ -25,8 +25,8 @@
     </fieldset>
 
     <fieldset class="mt-6">
-      <legend class="mb-2 text-sm font-semibold">Nível</legend>
-      <div class="segmented">
+      <legend class="form-caption mb-1">Nível</legend>
+      <div class="bubble-choices">
         <label>
           <input
             type="radio"
@@ -53,8 +53,8 @@
     </fieldset>
 
     <fieldset class="mt-6">
-      <legend class="mb-2 text-sm font-semibold">Perguntas por rodada</legend>
-      <div class="segmented">
+      <legend class="form-caption mb-1">Perguntas por rodada</legend>
+      <div class="bubble-choices">
         @for (option of sizes; track option) {
           <label>
             <input
@@ -73,14 +73,14 @@
     <label class="mt-6 flex cursor-pointer items-start gap-3 text-sm">
       <input
         type="checkbox"
-        class="mt-0.5 size-4 accent-pen"
+        class="mt-0.5 size-4 accent-ink"
         [checked]="onlyUnanswered()"
         (click)="onlyUnanswered.set(!onlyUnanswered())"
       />
       <span>Só perguntas que ainda não respondi</span>
     </label>
 
-    <div class="mt-6 border-t border-line pt-5" aria-live="polite">
+    <div class="mt-6 border-t-2 border-form pt-5" aria-live="polite">
       @if (techs().length && availableCount()) {
         <p class="mb-3 text-sm text-ink-muted">
           {{ sessionCount() }} de {{ availableCount() }} perguntas disponíveis

@@ -1,8 +1,8 @@
 @if (category(); as current) {
   <div class="container-page pb-20">
     <app-breadcrumb [parents]="trail" [current]="current.name" />
-    <header class="pt-6 pb-12">
-      <h1 class="text-3xl font-extrabold [font-stretch:78%] sm:text-[3.25rem] sm:leading-none">
+    <header class="mb-10 border-b border-rule pt-8 pb-10">
+      <h1 class="text-3xl sm:text-[3.5rem] sm:leading-[0.95]">
         {{ current.name }}
       </h1>
       <p class="prose-width mt-4 text-lg text-ink-muted">{{ current.description }}</p>

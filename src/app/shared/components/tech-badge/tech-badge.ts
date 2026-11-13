@@ -3,7 +3,7 @@ import { TECH_BADGE_SIZE_CLASSES } from '../../data/tech-badge-sizes.data';
 import type { TechSummary } from '../../interfaces/content.interface';
 import type { TechBadgeSize } from '../../interfaces/tech-badge.interface';
 
-/** Square monogram in the tech brand color. Decorative: the tech name is always shown next to it. */
+/** Label-like tag with the tech monogram in its brand color. Decorative: the tech name is always shown next to it. */
 @Component({
   selector: 'app-tech-badge',
   templateUrl: './tech-badge.html',

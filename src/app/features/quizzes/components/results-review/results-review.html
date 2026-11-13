@@ -1,8 +1,8 @@
-<h3 class="text-xl font-bold">Revisão das perguntas</h3>
-<ol class="mt-4 flex flex-col gap-3">
+<h3 class="border-b-2 border-form pb-2 text-xl">Revisão das perguntas</h3>
+<ol class="ruled">
   @for (item of items(); track item.question.id; let index = $index) {
     <li>
-      <details class="card p-4 sm:p-5" [open]="isMissed(item)">
+      <details class="py-4" [open]="isMissed(item)">
         <summary class="flex cursor-pointer list-none items-start gap-3">
           @if (item.answer?.correct) {
             <app-icon name="check" class="mt-0.5 text-correct" />
@@ -11,13 +11,15 @@
             <app-icon name="cross" class="mt-0.5 text-wrong" />
             <span class="sr-only">Errada:</span>
           }
-          <span class="font-mono text-sm text-ink-muted" aria-hidden="true">{{ index + 1 }}</span>
+          <span class="figure w-6 text-sm font-bold text-form-ink" aria-hidden="true">{{
+            index + 1
+          }}</span>
           <span class="rich-text flex-1 font-medium" [innerHTML]="item.question.promptHtml"></span>
           @if (isLuckyGuess(item)) {
             <span class="chip shrink-0">No chute</span>
           }
         </summary>
-        <div class="mt-4 flex flex-col gap-2 border-t border-line pt-4 text-sm">
+        <div class="mt-4 flex flex-col gap-2 border-t border-rule pt-4 text-sm">
           @if (item.question.code; as code) {
             <div class="code-block mb-2" [innerHTML]="code.html"></div>
           }

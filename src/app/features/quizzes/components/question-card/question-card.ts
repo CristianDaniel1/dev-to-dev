@@ -13,6 +13,7 @@ import { LEVEL_LABELS } from '@/shared/data/content-labels.data';
 import type { QuestionOption } from '@/shared/interfaces/content.interface';
 import { OPTION_LETTERS } from '../../constants/session.constants';
 import {
+  OPTION_BUBBLE_CLASSES,
   OPTION_STATE_CLASSES,
   OPTION_STATE_LABELS,
   OPTION_TEXT_CLASSES,
@@ -22,7 +23,10 @@ import type { AnswerRecord } from '../../interfaces/scoring.interface';
 import type { SessionItem } from '../../interfaces/session.interface';
 import { optionStateFor } from '../../lib/option-state';
 
-/** One question with its options; moves focus to the prompt whenever the question changes. */
+/**
+ * One question printed like an exam sheet, with answer bubbles; moves focus to the prompt
+ * whenever the question changes.
+ */
 @Component({
   selector: 'app-question-card',
   imports: [Icon],
@@ -33,9 +37,12 @@ export class QuestionCard {
   readonly item = input.required<SessionItem>();
   readonly selection = input.required<readonly string[]>();
   readonly answer = input<AnswerRecord | null>(null);
+  /** Position of the question in the session, shown as "Questão 03". */
+  readonly number = input<number | null>(null);
   readonly toggled = output<string>();
 
   protected readonly optionClasses = OPTION_STATE_CLASSES;
+  protected readonly bubbleClasses = OPTION_BUBBLE_CLASSES;
   protected readonly optionTextClasses = OPTION_TEXT_CLASSES;
   protected readonly optionLabels = OPTION_STATE_LABELS;
   protected readonly levelLabels = LEVEL_LABELS;

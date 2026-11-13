@@ -2,10 +2,10 @@
   #dialog
   id="mobile-menu"
   [attr.aria-label]="text.nav.label"
-  class="m-0 h-dvh max-h-none w-full max-w-none bg-paper p-0 text-ink"
+  class="m-0 h-dvh max-h-none w-full max-w-none bg-sheet p-0 text-ink"
   (close)="open.set(false)"
 >
-  <div class="container-page flex h-(--header-h) items-center justify-end">
+  <div class="container-page flex h-(--header-h) items-center justify-end border-b-2 border-form">
     <button
       type="button"
       class="btn-icon"
@@ -16,16 +16,20 @@
     </button>
   </div>
   <nav class="container-page pt-4">
-    <ul class="flex flex-col">
+    <ul class="ruled flex flex-col">
       @for (link of links(); track link.path) {
-        <li class="border-b border-line">
+        <li>
           <a
             [routerLink]="link.path"
-            routerLinkActive="highlight"
+            routerLinkActive="is-active"
             ariaCurrentWhenActive="page"
-            class="inline-block py-5 text-3xl font-bold [font-stretch:82%]"
+            class="group flex items-center gap-4 py-5 font-display text-3xl font-extrabold [font-stretch:115%]"
             (click)="open.set(false)"
           >
+            <span
+              class="size-5 rounded-full border-2 border-form group-[.is-active]:border-ink group-[.is-active]:bg-ink"
+              aria-hidden="true"
+            ></span>
             {{ link.label }}
           </a>
         </li>

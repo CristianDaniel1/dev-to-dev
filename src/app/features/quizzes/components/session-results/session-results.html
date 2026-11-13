@@ -1,52 +1,81 @@
 @let result = summary();
 <section aria-labelledby="results-heading">
-  <div class="card index-card p-6 sm:p-8">
-    <p class="text-sm text-ink-muted">{{ scope().title }}</p>
-    <h2
-      #headingElement
-      id="results-heading"
-      tabindex="-1"
-      class="mt-2 text-3xl font-extrabold [font-stretch:78%] focus:outline-none sm:text-[3.25rem] sm:leading-none"
-    >
-      {{ heading() }}
-    </h2>
-    <p class="mt-4 text-lg">
-      <span class="highlight font-semibold text-highlight-ink"
-        >{{ result.correct }} de {{ result.total }} certas</span
+  <div class="sheet sheet-marks py-7 pr-5 pl-10 sm:py-10 sm:pr-10 sm:pl-14">
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+      <div>
+        <p class="form-caption">Boletim: {{ scope().title }}</p>
+        <h2
+          #headingElement
+          id="results-heading"
+          tabindex="-1"
+          class="mt-2 text-3xl focus:outline-none sm:text-[3rem] sm:leading-none"
+        >
+          {{ heading() }}
+        </h2>
+        <p class="mt-4 text-lg">
+          <span class="font-bold">{{ result.correct }} de {{ result.total }} certas</span>
+          ({{ result.percentage }}%)
+        </p>
+        @if (result.unanswered === 1) {
+          <p class="mt-1 text-sm text-ink-muted">
+            1 pergunta ficou sem resposta e conta como erro.
+          </p>
+        } @else if (result.unanswered > 1) {
+          <p class="mt-1 text-sm text-ink-muted">
+            {{ result.unanswered }} perguntas ficaram sem resposta e contam como erro.
+          </p>
+        }
+        @if (result.luckyGuesses === 1) {
+          <p class="mt-1 text-sm text-ink-muted">1 acerto foi no chute e volta para revisão.</p>
+        } @else if (result.luckyGuesses > 1) {
+          <p class="mt-1 text-sm text-ink-muted">
+            {{ result.luckyGuesses }} acertos foram no chute e voltam para revisão.
+          </p>
+        }
+      </div>
+      <div
+        class="flex shrink-0 flex-col items-center rounded-sheet border-2 border-form px-6 py-3 text-center"
       >
-      ({{ result.percentage }}%)
-    </p>
-    @if (result.unanswered === 1) {
-      <p class="mt-1 text-sm text-ink-muted">1 pergunta ficou sem resposta e conta como erro.</p>
-    } @else if (result.unanswered > 1) {
-      <p class="mt-1 text-sm text-ink-muted">
-        {{ result.unanswered }} perguntas ficaram sem resposta e contam como erro.
-      </p>
-    }
-    @if (result.luckyGuesses === 1) {
-      <p class="mt-1 text-sm text-ink-muted">1 acerto foi no chute e volta para revisão.</p>
-    } @else if (result.luckyGuesses > 1) {
-      <p class="mt-1 text-sm text-ink-muted">
-        {{ result.luckyGuesses }} acertos foram no chute e voltam para revisão.
-      </p>
-    }
+        <span class="form-caption">Nota</span>
+        <span class="figure text-5xl leading-none font-extrabold">{{ grade() }}</span>
+      </div>
+    </div>
 
     @if (result.byGroup.length > 1) {
-      <ul class="mt-6 flex flex-col gap-3">
-        @for (topic of result.byGroup; track topic.key) {
-          <li class="grid grid-cols-[minmax(0,10rem)_1fr_auto] items-center gap-3 text-sm">
-            <span class="truncate">{{ topic.name }}</span>
-            <span class="h-1.5 overflow-hidden rounded-full bg-surface-sunken" aria-hidden="true">
-              <span
-                class="block h-full rounded-full"
-                [style.width.%]="(topic.correct / topic.total) * 100"
-                [style.background-color]="topic.color"
-              ></span>
-            </span>
-            <span class="text-ink-muted tabular-nums">{{ topic.correct }}/{{ topic.total }}</span>
-          </li>
-        }
-      </ul>
+      <table class="mt-8 w-full border-collapse text-sm">
+        <caption class="sr-only">
+          Acertos por grupo
+        </caption>
+        <thead>
+          <tr class="border-b-2 border-form text-left">
+            <th scope="col" class="pb-2 font-semibold text-form-ink">Tópico</th>
+            <th scope="col" class="w-2/5 pb-2 font-semibold text-form-ink">
+              <span class="sr-only">Proporção</span>
+            </th>
+            <th scope="col" class="pb-2 text-right font-semibold text-form-ink">Acertos</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (group of result.byGroup; track group.key) {
+            <tr class="border-b border-rule">
+              <th scope="row" class="py-2.5 pr-4 text-left font-medium">{{ group.name }}</th>
+              <td class="py-2.5">
+                <span
+                  class="block h-2 overflow-hidden rounded-[2px] border border-rule bg-sheet-sunken"
+                  aria-hidden="true"
+                >
+                  <span
+                    class="block h-full"
+                    [style.width.%]="(group.correct / group.total) * 100"
+                    [style.background-color]="group.color"
+                  ></span>
+                </span>
+              </td>
+              <td class="figure py-2.5 pl-4 text-right">{{ group.correct }}/{{ group.total }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
     }
 
     <div class="mt-8 flex flex-wrap gap-3">

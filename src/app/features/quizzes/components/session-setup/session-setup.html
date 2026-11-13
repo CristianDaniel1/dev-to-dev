@@ -1,9 +1,9 @@
-<section class="card p-5 sm:p-6" aria-labelledby="setup-heading">
-  <h2 id="setup-heading" class="text-xl font-bold">Montar sessão</h2>
+<section class="sheet p-5 sm:p-6" aria-labelledby="setup-heading">
+  <h2 id="setup-heading" class="border-b-2 border-form pb-2 text-xl">Montar sessão</h2>
 
   <fieldset class="mt-5">
-    <legend class="mb-2 text-sm font-semibold">Modo</legend>
-    <div class="segmented">
+    <legend class="form-caption mb-1">Modo</legend>
+    <div class="bubble-choices">
       @for (option of modes; track option.value) {
         <label>
           <input
@@ -21,7 +21,7 @@
   </fieldset>
 
   <fieldset class="mt-6">
-    <legend class="mb-2 text-sm font-semibold">Tópicos</legend>
+    <legend class="form-caption mb-1">Tópicos</legend>
     <div class="flex flex-wrap gap-2">
       <button
         type="button"
@@ -47,8 +47,8 @@
   </fieldset>
 
   <fieldset class="mt-6">
-    <legend class="mb-2 text-sm font-semibold">Nível</legend>
-    <div class="segmented">
+    <legend class="form-caption mb-1">Nível</legend>
+    <div class="bubble-choices">
       <label>
         <input
           type="radio"
@@ -75,8 +75,8 @@
   </fieldset>
 
   <fieldset class="mt-6">
-    <legend class="mb-2 text-sm font-semibold">Perguntas por sessão</legend>
-    <div class="segmented">
+    <legend class="form-caption mb-1">Perguntas por sessão</legend>
+    <div class="bubble-choices">
       @for (option of sizes; track option) {
         <label>
           <input
@@ -94,8 +94,8 @@
 
   @if (isExam()) {
     <fieldset class="mt-6">
-      <legend class="mb-2 text-sm font-semibold">Tempo</legend>
-      <div class="segmented">
+      <legend class="form-caption mb-1">Tempo</legend>
+      <div class="bubble-choices">
         @for (option of durations; track option) {
           <label>
             <input
@@ -115,14 +115,14 @@
   <label class="mt-6 flex cursor-pointer items-start gap-3 text-sm">
     <input
       type="checkbox"
-      class="mt-0.5 size-4 accent-pen"
+      class="mt-0.5 size-4 accent-ink"
       [checked]="onlyUnanswered()"
       (click)="onlyUnanswered.set(!onlyUnanswered())"
     />
     <span>Só perguntas que ainda não respondi</span>
   </label>
 
-  <div class="mt-6 border-t border-line pt-5" aria-live="polite">
+  <div class="mt-6 border-t-2 border-form pt-5" aria-live="polite">
     @if (availableCount()) {
       <p class="mb-3 text-sm text-ink-muted">
         {{ sessionCount() }} de {{ availableCount() }} perguntas disponíveis

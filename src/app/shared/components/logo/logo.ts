@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-/** Dev to Dev mark: two chevrons facing each other over a highlighter stroke, plus the name. */
+/** Dev to Dev mark: a tiny answer grid with one bubble filled in, plus the name. */
 @Component({
   selector: 'app-logo',
   templateUrl: './logo.html',

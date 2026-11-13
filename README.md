@@ -38,4 +38,4 @@ O `vercel.json` já define o comando de build, a pasta de saída (`dist/dev-to-d
 
 ## Licenças das fontes
 
-Bricolage Grotesque e JetBrains Mono são distribuídas sob a SIL Open Font License (veja `public/fonts/`).
+Archivo, Atkinson Hyperlegible Next e Atkinson Hyperlegible Mono são distribuídas sob a SIL Open Font License (veja `public/fonts/`).

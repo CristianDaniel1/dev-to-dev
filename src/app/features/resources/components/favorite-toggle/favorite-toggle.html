@@ -7,5 +7,8 @@
   [title]="isSaved() ? 'Remover dos favoritos' : 'Salvar nos favoritos'"
   (click)="toggle()"
 >
-  <app-icon [name]="isSaved() ? 'bookmark-filled' : 'bookmark'" />
+  <app-icon
+    [name]="isSaved() ? 'bookmark-filled' : 'bookmark'"
+    [class.animate-pop]="hasToggled() && isSaved()"
+  />
 </button>

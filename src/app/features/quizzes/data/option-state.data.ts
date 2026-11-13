@@ -12,7 +12,7 @@ export const OPTION_STATE_CLASSES: Record<OptionState, string> = {
 
 /** Answer bubble classes: the pencil mark, or the grading pen once revealed. */
 export const OPTION_BUBBLE_CLASSES: Record<OptionState, string> = {
-  idle: 'group-hover:border-ink',
+  idle: 'group-hover:border-ink group-hover:bg-form-soft',
   selected: 'bubble-filled',
   correct: 'bubble-correct',
   missed: 'border-correct border-dashed text-correct',

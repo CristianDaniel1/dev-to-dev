@@ -76,7 +76,8 @@
       (click)="toggle()"
     >
       <span
-        class="flex size-6 items-center justify-center rounded-[3px] border-[1.5px] transition-colors"
+        class="pen-draw flex size-6 items-center justify-center rounded-[3px] border-[1.5px] transition-colors"
+        [class.animate-pencil]="isDone()"
         [class.border-form]="!isDone()"
         [class.border-ink]="isDone()"
         [class.bg-ink]="isDone()"

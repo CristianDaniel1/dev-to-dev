@@ -35,7 +35,7 @@
           @if (neighbors().previous; as previous) {
             <a
               [routerLink]="['/glossario', previous.slug]"
-              class="sheet flex flex-col px-5 py-4 hover:border-ink"
+              class="sheet flex flex-col px-5 py-4 transition-[translate,border-color] duration-200 hover:-translate-y-0.5 hover:border-ink"
             >
               <span class="form-caption">Anterior</span>
               <span class="font-display font-bold">{{ previous.term }}</span>
@@ -44,7 +44,7 @@
           @if (neighbors().next; as next) {
             <a
               [routerLink]="['/glossario', next.slug]"
-              class="sheet flex flex-col px-5 py-4 text-right hover:border-ink sm:col-start-2"
+              class="sheet flex flex-col px-5 py-4 text-right transition-[translate,border-color] duration-200 hover:-translate-y-0.5 hover:border-ink sm:col-start-2"
             >
               <span class="form-caption">Próximo</span>
               <span class="font-display font-bold">{{ next.term }}</span>

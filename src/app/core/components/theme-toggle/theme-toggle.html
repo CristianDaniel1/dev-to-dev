@@ -1,11 +1,17 @@
 <button
   type="button"
-  class="btn-icon"
+  class="group btn-icon"
   [attr.aria-pressed]="isHydrated() ? theme.isDark() : null"
   [attr.aria-label]="text.toggle"
   [title]="text.toggle"
   (click)="theme.toggle()"
 >
-  <span class="inline-flex dark:hidden"><app-icon name="moon" /></span>
-  <span class="hidden dark:inline-flex"><app-icon name="sun" /></span>
+  <span
+    class="inline-flex animate-turn transition-transform duration-300 group-hover:-rotate-12 dark:hidden"
+    ><app-icon name="moon"
+  /></span>
+  <span
+    class="hidden animate-turn transition-transform duration-300 group-hover:rotate-45 dark:inline-flex"
+    ><app-icon name="sun"
+  /></span>
 </button>

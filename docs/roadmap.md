@@ -35,6 +35,10 @@ phases) was approved at the start of the project; this file tracks where we are.
   in `content/paths/` (26 steps), each step joining a quiz topic, glossary terms and resources,
   with a checklist saved in the browser and Course JSON-LD. Both in the command palette and the
   main navigation ("Sobre" moved to the mobile menu and the footer).
+- **Home and motion**: exam-pile hero with tech tabs and a filled-in answer sheet; carbon dark
+  palette. Motion follows the answer sheet: pencil marks on bubbles, the grader's pen drawing
+  checks and crosses, a stamped grade, meters filling in, ruled rows printed on scroll
+  (scroll-driven, no JS) and a page transition that keeps the header; all off with reduced motion.
 - **Deploy**: live at https://devtodev.vercel.app (`SITE_URL` updated). Headers checked with
   `curl -I`: security headers, HSTS, brotli, immutable cache for hashed JS and fonts, a week for
   favicons, real 404, clean URLs. Lighthouse on the live site (mobile): accessibility, best

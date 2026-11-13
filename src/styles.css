@@ -86,6 +86,100 @@
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 
   --shadow-sheet: 0 1px 0 rgb(30 32 29 / 0.06), 0 2px 0 rgb(30 32 29 / 0.04);
+
+  /* Motion vocabulary: pencil marks, the grader's pen, a stamp and the printer. */
+  --animate-pencil: pencil-mark 280ms var(--ease-out-soft);
+  --animate-stamp: stamp 560ms var(--ease-out-soft) both;
+  --animate-meter: meter-fill 800ms var(--ease-out-soft) both;
+  --animate-pop: pop 320ms var(--ease-out-soft);
+  --animate-turn: turn-in 360ms var(--ease-out-soft);
+
+  @keyframes pencil-mark {
+    0% {
+      scale: 0.6;
+    }
+    55% {
+      scale: 1.12;
+    }
+    100% {
+      scale: 1;
+    }
+  }
+
+  @keyframes pen-draw {
+    from {
+      stroke-dashoffset: 1;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes stamp {
+    0% {
+      opacity: 0;
+      transform: scale(1.8) rotate(-14deg);
+    }
+    60% {
+      opacity: 1;
+      transform: scale(0.94) rotate(-1deg);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) rotate(-3deg);
+    }
+  }
+
+  @keyframes meter-fill {
+    from {
+      scale: 0 1;
+    }
+  }
+
+  @keyframes pop {
+    40% {
+      scale: 1.3;
+    }
+  }
+
+  @keyframes turn-in {
+    from {
+      opacity: 0;
+      rotate: -90deg;
+      scale: 0.6;
+    }
+  }
+
+  @keyframes print-in {
+    from {
+      opacity: 0.2;
+      clip-path: inset(0 100% 0 0);
+    }
+    to {
+      opacity: 1;
+      clip-path: inset(-1rem);
+    }
+  }
+
+  @keyframes reveal-up {
+    from {
+      opacity: 0;
+      translate: 0 1.5rem;
+    }
+  }
+
+  @keyframes page-out {
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes page-in {
+    from {
+      opacity: 0;
+      translate: 0 0.75rem;
+    }
+  }
 }
 
 :root[data-theme='dark'] {
@@ -172,6 +266,11 @@
     overflow: hidden;
   }
 
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']) {
+    cursor: pointer;
+  }
+
   dialog::backdrop {
     background: rgb(19 20 22 / 0.6);
   }
@@ -198,11 +297,27 @@
   }
 
   .btn-primary {
-    @apply bg-ink text-on-ink hover:bg-form-ink;
+    @apply bg-ink text-on-ink;
   }
 
   .btn-secondary {
-    @apply border-[1.5px] border-ink bg-sheet text-ink hover:bg-sheet-sunken;
+    @apply border-[1.5px] border-ink bg-sheet text-ink;
+  }
+
+  /* Misregistered print: on hover the button lifts off a salmon copy of itself. */
+  .btn-primary,
+  .btn-secondary {
+    transition-property: color, background-color, translate, box-shadow;
+
+    &:hover:not(:disabled) {
+      translate: -2px -2px;
+      box-shadow: 3px 3px 0 var(--color-form);
+    }
+
+    &:active:not(:disabled) {
+      translate: 0 0;
+      box-shadow: 0 0 0 var(--color-form);
+    }
   }
 
   .btn-ghost {
@@ -219,7 +334,10 @@
   }
 
   .link {
-    @apply font-semibold text-ink underline decoration-form decoration-2 underline-offset-4 transition-colors hover:text-form-ink;
+    @apply font-semibold text-ink underline decoration-form decoration-2 underline-offset-4 hover:text-form-ink hover:decoration-[3px];
+    transition:
+      color 150ms,
+      text-decoration-thickness 150ms;
   }
 
   /* Small rectangular tag; with `.chip-active` (or as a pressed toggle) it is filled in. */
@@ -278,6 +396,15 @@
       border-radius: var(--radius-sheet);
       background: var(--color-sheet);
       pointer-events: none;
+      transition: transform 400ms var(--ease-out-soft);
+    }
+
+    &:hover::before {
+      transform: rotate(-1.3deg) translate(-8px, 16px);
+    }
+
+    &:hover::after {
+      transform: rotate(0.9deg) translate(10px, 10px);
     }
 
     &::before {
@@ -300,6 +427,18 @@
   .bubble {
     @apply inline-flex size-8 shrink-0 items-center justify-center rounded-full border-[1.5px] border-form bg-sheet text-xs font-bold text-form-ink transition-colors;
     font-family: var(--font-display);
+  }
+
+  .bubble-filled,
+  .bubble-correct,
+  .bubble-wrong {
+    animation: var(--animate-pencil);
+  }
+
+  /* The grader's pen: check and cross icons draw themselves inside a mark. */
+  :is(.bubble, .pen-draw) path[pathLength] {
+    stroke-dasharray: 1;
+    animation: pen-draw 320ms 120ms var(--ease-out-soft) both;
   }
 
   .bubble-filled {
@@ -336,6 +475,7 @@
     }
 
     & input:checked + span::before {
+      animation: var(--animate-pencil);
       @apply border-ink bg-ink;
       box-shadow: inset 0 0 0 2px var(--color-sheet);
     }
@@ -372,6 +512,32 @@
   /* Ruled lines of a form, for tables and lists that read like an answer grid. */
   .ruled > * + * {
     @apply border-t border-rule;
+  }
+}
+
+/* Scroll and page motion, only for people who did not ask for less motion. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    /* Rows of a ruled list are printed line by line as they scroll in. */
+    .ruled > * {
+      animation: print-in linear backwards;
+      animation-timeline: view();
+      animation-range: entry 10% entry 90%;
+    }
+
+    .reveal {
+      animation: reveal-up linear backwards;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+  }
+
+  ::view-transition-old(root) {
+    animation: page-out 140ms ease-in both;
+  }
+
+  ::view-transition-new(root) {
+    animation: page-in 300ms 60ms var(--ease-out-soft) both;
   }
 }
 

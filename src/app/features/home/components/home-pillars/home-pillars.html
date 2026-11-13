@@ -1,5 +1,5 @@
 <div class="container-page grid gap-14 py-16 lg:grid-cols-[1.35fr_1fr] lg:gap-16 lg:py-20">
-  <section aria-labelledby="quizzes-heading">
+  <section class="reveal" aria-labelledby="quizzes-heading">
     <div class="flex flex-wrap items-baseline justify-between gap-3">
       <h2 id="quizzes-heading" class="text-2xl">Quizzes disponíveis</h2>
       <a routerLink="/quizzes" class="link text-sm">Ver todas</a>
@@ -30,7 +30,11 @@
                 [routerLink]="['/quizzes', tech.slug]"
                 class="group inline-flex items-center gap-3 font-semibold"
               >
-                <app-tech-badge [tech]="tech" size="sm" />
+                <app-tech-badge
+                  [tech]="tech"
+                  size="sm"
+                  class="transition-transform duration-200 group-hover:-rotate-6"
+                />
                 <span class="group-hover:underline">{{ tech.name }}</span>
               </a>
             </th>
@@ -49,7 +53,7 @@
     }
   </section>
 
-  <section aria-labelledby="resources-heading">
+  <section class="reveal" aria-labelledby="resources-heading">
     <div class="flex flex-wrap items-baseline justify-between gap-3">
       <h2 id="resources-heading" class="text-2xl">Material de apoio</h2>
       <a routerLink="/recursos" class="link text-sm">Ver tudo</a>
@@ -67,7 +71,7 @@
           >
             <span class="group-hover:underline">{{ category.name }}</span>
             <span
-              class="min-w-4 flex-1 -translate-y-1 border-b border-dotted border-rule-strong"
+              class="min-w-4 flex-1 -translate-y-1 border-b border-dotted border-rule-strong transition-colors group-hover:border-form"
               aria-hidden="true"
             ></span>
             <span class="figure text-sm font-normal text-ink-muted">

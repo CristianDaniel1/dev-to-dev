@@ -1,13 +1,6 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  afterNextRender,
-  computed,
-  inject,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { injectIsHydrated } from '@/core/lib/hydration';
+import { injectHydrationTime, injectIsHydrated } from '@/core/lib/hydration';
 import { ProgressStore } from '@/core/services/progress.store';
 import { LeitnerBoxes, TechProgress, leitnerBoxes } from '@/features/quizzes';
 import { PageHeader } from '@/shared/components/page-header/page-header';
@@ -40,7 +33,7 @@ import { SessionHistory } from '../session-history/session-history';
 export class ProgressPage {
   private readonly progress = inject(ProgressStore);
   protected readonly isHydrated = injectIsHydrated();
-  private readonly now = signal(0);
+  private readonly now = injectHydrationTime();
 
   protected readonly techs = CATALOG.techs;
   protected readonly overview = computed(() =>
@@ -50,8 +43,4 @@ export class ProgressPage {
   protected readonly history = computed(() =>
     historyEntries(this.progress.sessions(), this.techs, HISTORY_LIMIT),
   );
-
-  constructor() {
-    afterNextRender(() => this.now.set(Date.now()));
-  }
 }

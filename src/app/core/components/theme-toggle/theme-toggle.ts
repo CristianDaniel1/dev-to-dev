@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, afterNextRender, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Icon } from '@/shared/components/icon/icon';
 import { UI_TEXT } from '../../data/ui-text.data';
+import { injectIsHydrated } from '../../lib/hydration';
 import { ThemeStore } from '../../services/theme.store';
 
 /**
@@ -16,9 +17,5 @@ import { ThemeStore } from '../../services/theme.store';
 export class ThemeToggle {
   protected readonly theme = inject(ThemeStore);
   protected readonly text = UI_TEXT.theme;
-  protected readonly isHydrated = signal(false);
-
-  constructor() {
-    afterNextRender(() => this.isHydrated.set(true));
-  }
+  protected readonly isHydrated = injectIsHydrated();
 }

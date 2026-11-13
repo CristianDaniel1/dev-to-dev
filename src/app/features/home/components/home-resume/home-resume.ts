@@ -1,13 +1,6 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  afterNextRender,
-  computed,
-  inject,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { injectIsHydrated } from '@/core/lib/hydration';
+import { injectHydrationTime, injectIsHydrated } from '@/core/lib/hydration';
 import { dueQuestions } from '@/core/lib/review-queue';
 import { ProgressStore } from '@/core/services/progress.store';
 import { CATALOG } from '@/shared/generated/catalog';
@@ -26,7 +19,7 @@ import { resumeTarget } from '../../lib/resume-target';
 export class HomeResume {
   private readonly progress = inject(ProgressStore);
   protected readonly isHydrated = injectIsHydrated();
-  private readonly now = signal(0);
+  private readonly now = injectHydrationTime();
 
   protected readonly dueCount = computed(() =>
     this.now() ? dueQuestions(this.progress.questions(), this.now()).length : 0,
@@ -37,8 +30,4 @@ export class HomeResume {
   protected readonly isVisible = computed(
     () => this.isHydrated() && (this.dueCount() > 0 || this.last() !== null),
   );
-
-  constructor() {
-    afterNextRender(() => this.now.set(Date.now()));
-  }
 }

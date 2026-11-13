@@ -1,6 +1,7 @@
 import { LEVELS } from '../constants/content.constants';
 import { LEVEL_PARAMS } from '../data/content-labels.data';
 import type { Level } from '../interfaces/content.interface';
+import { valueFromParam } from './param-value';
 
 /**
  * Parses a level from its URL query value.
@@ -9,4 +10,4 @@ import type { Level } from '../interfaces/content.interface';
  * @returns The level, or `null` for "all levels" and unknown values.
  */
 export const levelFromParam = (param: string | undefined): Level | null =>
-  LEVELS.find((level) => LEVEL_PARAMS[level] === param) ?? null;
+  valueFromParam(LEVELS, LEVEL_PARAMS, param);

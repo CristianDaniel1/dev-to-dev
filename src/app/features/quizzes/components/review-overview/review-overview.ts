@@ -1,13 +1,6 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  afterNextRender,
-  computed,
-  inject,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { injectIsHydrated } from '@/core/lib/hydration';
+import { injectHydrationTime, injectIsHydrated } from '@/core/lib/hydration';
 import { dueQuestions, nextReviewTime } from '@/core/lib/review-queue';
 import { ProgressStore } from '@/core/services/progress.store';
 import { EmptyState } from '@/shared/components/empty-state/empty-state';
@@ -28,7 +21,7 @@ import { LeitnerBoxes } from '../leitner-boxes/leitner-boxes';
 export class ReviewOverview {
   private readonly progress = inject(ProgressStore);
   protected readonly isHydrated = injectIsHydrated();
-  private readonly now = signal(0);
+  private readonly now = injectHydrationTime();
 
   private readonly due = computed(() =>
     this.isHydrated() ? dueQuestions(this.progress.questions(), this.now()) : [],
@@ -51,8 +44,4 @@ export class ReviewOverview {
   protected readonly boxes = computed(() =>
     leitnerBoxes(this.isHydrated() ? this.progress.questions() : null),
   );
-
-  constructor() {
-    afterNextRender(() => this.now.set(Date.now()));
-  }
 }

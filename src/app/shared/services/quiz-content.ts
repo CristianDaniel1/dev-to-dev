@@ -16,9 +16,7 @@ export class QuizContent {
    */
   async loadBank(slug: string): Promise<QuizBank | null> {
     const loader = QUIZ_LOADERS[slug];
-    if (!loader) return null;
-    const bank = await loader();
-    return bank;
+    return loader ? loader() : null;
   }
 
   /**

@@ -17,18 +17,7 @@
       crossorigin
     />
     <link rel="preload" href="/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin />
-    <script>
-      (function () {
-        var preference = 'system';
-        try {
-          preference = localStorage.getItem('d2d:theme') || 'system';
-        } catch (error) {}
-        var dark =
-          preference === 'dark' ||
-          (preference === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      })();
-    </script>
+    <script src="/theme.js"></script>
   </head>
   <body>
     <app-root></app-root>

@@ -16,7 +16,7 @@ import { isThemePreference } from '../lib/theme';
 import { PersistentStorage } from './persistent-storage';
 
 /**
- * Light/dark theme. The inline script in index.html applies the theme before the first paint;
+ * Light/dark theme. `public/theme.js`, loaded by index.html, applies the theme before the first paint;
  * this store takes over after hydration.
  */
 @Injectable({ providedIn: 'root' })

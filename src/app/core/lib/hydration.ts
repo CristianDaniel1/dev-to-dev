@@ -12,3 +12,15 @@ export const injectIsHydrated = (): Signal<boolean> => {
   afterNextRender(() => isHydrated.set(true));
   return isHydrated.asReadonly();
 };
+
+/**
+ * Creates a signal with the time the page was hydrated, for date-dependent views (due reviews,
+ * relative days) that must not render during prerendering. Call it in an injection context.
+ *
+ * @returns A read-only signal in milliseconds; 0 until hydration and on the server.
+ */
+export const injectHydrationTime = (): Signal<number> => {
+  const time = signal(0);
+  afterNextRender(() => time.set(Date.now()));
+  return time.asReadonly();
+};

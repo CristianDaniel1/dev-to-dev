@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, DOCUMENT, inject, signal } from '@angular/core';
 import type { ProgressState } from '@/core/interfaces/progress.interface';
 import { parseProgressBackup } from '@/core/lib/progress-backup';
+import { reportError } from '@/core/lib/report-error';
 import { ProgressStore } from '@/core/services/progress.store';
 import type { PendingImport } from '../../interfaces/progress-overview.interface';
 import { backupFileName } from '../../lib/backup-file-name';
@@ -39,7 +40,15 @@ export class ProgressBackup {
     const file = input.files?.[0];
     input.value = '';
     if (!file) return;
-    const state = parseProgressBackup(await file.text());
+    let text: string;
+    try {
+      text = await file.text();
+    } catch (error) {
+      reportError('backup: read file', error);
+      this.notify('Não foi possível ler esse arquivo.', true);
+      return;
+    }
+    const state = parseProgressBackup(text);
     if (!state) {
       this.notify('Esse arquivo não é um backup válido do Dev to Dev.', true);
       return;

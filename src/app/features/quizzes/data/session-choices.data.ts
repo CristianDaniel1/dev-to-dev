@@ -15,14 +15,17 @@ export const RESULT_BANDS: readonly ResultBand[] = [
   { minPercentage: 0, heading: 'Hora de revisar.' },
 ];
 
+/** Practice mode, the one selected when the setup form opens. */
+export const PRACTICE_MODE_CHOICE: ModeChoice = {
+  value: 'practice',
+  label: 'Prática',
+  description: 'Sem cronômetro, com explicação a cada resposta.',
+  action: 'Começar a praticar',
+};
+
 /** Session modes of a tech, as offered in the setup form. */
 export const MODE_CHOICES: readonly ModeChoice[] = [
-  {
-    value: 'practice',
-    label: 'Prática',
-    description: 'Sem cronômetro, com explicação a cada resposta.',
-    action: 'Começar a praticar',
-  },
+  PRACTICE_MODE_CHOICE,
   {
     value: 'exam',
     label: 'Simulado',

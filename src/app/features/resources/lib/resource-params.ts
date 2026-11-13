@@ -22,11 +22,6 @@ import type {
   ResourceQueryParams,
 } from '../interfaces/resource-filters.interface';
 
-const TECH_PARAMS = Object.fromEntries(RESOURCE_TECHS.map((tech) => [tech, tech])) as Record<
-  (typeof RESOURCE_TECHS)[number],
-  string
->;
-
 /**
  * Turns the query params of a resource list page into filters. Unknown values are ignored.
  *
@@ -38,7 +33,7 @@ export const toResourceFilters = (query: ResourceQueryInput): ResourceFilters =>
   type: valueFromParam(RESOURCE_TYPES, RESOURCE_TYPE_PARAMS, query.tipo),
   pricing: valueFromParam(PRICINGS, PRICING_PARAMS, query.preco),
   language: valueFromParam(RESOURCE_LANGUAGES, LANGUAGE_PARAMS, query.idioma),
-  tech: valueFromParam(RESOURCE_TECHS, TECH_PARAMS, query.tech),
+  tech: RESOURCE_TECHS.find((tech) => tech === query.tech) ?? null,
   onlyFavorites: query.favoritos === ONLY_FAVORITES_PARAM,
   sort: valueFromParam(RESOURCE_SORTS, SORT_PARAMS, query.ordem) ?? EMPTY_RESOURCE_FILTERS.sort,
 });

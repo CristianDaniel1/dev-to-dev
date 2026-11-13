@@ -18,7 +18,6 @@ import { MAX_SEARCH_RESULTS } from '../../constants/search.constants';
 import { SEARCH_KIND_LABELS } from '../../data/search-labels.data';
 import { SEARCH_PAGES } from '../../data/search-pages.data';
 import { nextListIndex } from '../../lib/list-navigation';
-import { isPaletteShortcut } from '../../lib/palette-shortcut';
 import { reportError } from '../../lib/report-error';
 import { searchEntries } from '../../lib/search';
 import { CommandPaletteStore } from '../../services/command-palette.store';
@@ -32,7 +31,6 @@ import { CommandPaletteStore } from '../../services/command-palette.store';
   imports: [Icon],
   templateUrl: './command-palette.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '(document:keydown)': 'onShortcut($event)' },
 })
 export class CommandPalette {
   protected readonly store = inject(CommandPaletteStore);
@@ -58,7 +56,7 @@ export class CommandPalette {
       ? searchEntries(this.entries(), this.query(), MAX_SEARCH_RESULTS)
       : SEARCH_PAGES,
   );
-  protected readonly activeIndex = linkedSignal(() => (this.matches(), 0));
+  protected readonly activeIndex = linkedSignal({ source: this.matches, computation: () => 0 });
   protected readonly activeId = computed(() =>
     this.matches().length ? `palette-option-${this.activeIndex()}` : null,
   );
@@ -77,12 +75,6 @@ export class CommandPalette {
         ?.nativeElement.querySelector(`#palette-option-${index}`)
         ?.scrollIntoView({ block: 'nearest' });
     });
-  }
-
-  protected onShortcut(event: KeyboardEvent): void {
-    if (!isPaletteShortcut(event)) return;
-    event.preventDefault();
-    this.store.toggle();
   }
 
   /** Arrow keys, Home, End and Enter from the search box (they bubble up to the dialog). */

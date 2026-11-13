@@ -13,4 +13,6 @@
 
 <app-footer />
 
-<app-command-palette />
+@defer (on idle; when palette.isOpen()) {
+  <app-command-palette />
+}

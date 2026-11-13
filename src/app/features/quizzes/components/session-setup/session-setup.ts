@@ -8,7 +8,7 @@ import {
   DEFAULT_SESSION_SIZE,
   EXAM_DURATIONS,
 } from '../../constants/session.constants';
-import { MODE_CHOICES, SESSION_SIZES } from '../../data/session-choices.data';
+import { MODE_CHOICES, PRACTICE_MODE_CHOICE, SESSION_SIZES } from '../../data/session-choices.data';
 import type { ModeChoice } from '../../interfaces/choice.interface';
 import { countAvailable } from '../../lib/available-count';
 import { toSessionQuery } from '../../lib/session-params';
@@ -33,7 +33,7 @@ export class SessionSetup {
   protected readonly level = signal<Level | null>(null);
   protected readonly size = signal<number | null>(DEFAULT_SESSION_SIZE);
   protected readonly onlyUnanswered = signal(false);
-  protected readonly mode = signal<ModeChoice>(MODE_CHOICES[0] as ModeChoice);
+  protected readonly mode = signal<ModeChoice>(PRACTICE_MODE_CHOICE);
   protected readonly minutes = signal<number | null>(null);
   protected readonly isExam = computed(() => this.mode().value === 'exam');
   protected readonly route = computed(() => [

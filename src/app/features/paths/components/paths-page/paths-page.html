@@ -1,0 +1,39 @@
+<div class="container-page pb-20">
+  <app-page-header
+    heading="Trilhas de estudo"
+    intro="Sequências de etapas para aprender um assunto do começo: cada etapa junta um tópico de quiz para praticar, termos do glossário e materiais para estudar."
+  />
+
+  <ul class="ruled border-b border-rule">
+    @for (path of paths; track path.slug) {
+      @let done = isHydrated() ? doneCount(path) : 0;
+      <li class="grid gap-4 py-7 sm:grid-cols-[minmax(0,1fr)_14rem] sm:items-center sm:gap-10">
+        <div>
+          <h2 class="text-2xl">
+            <a
+              [routerLink]="['/trilhas', path.slug]"
+              class="decoration-form decoration-2 underline-offset-4 hover:underline"
+              >{{ path.name }}</a
+            >
+          </h2>
+          <p class="prose-width mt-2 text-ink-muted">{{ path.description }}</p>
+          <ul class="mt-3 flex flex-wrap gap-1.5" aria-label="Detalhes">
+            <li class="chip">{{ levelLabels[path.level] }}</li>
+            <li class="chip">{{ path.steps.length }} etapas</li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-sm text-ink-muted">
+            {{ done }} de {{ path.steps.length }} etapas concluídas
+          </p>
+          <div class="mt-2 h-2 rounded-[2px] bg-rule" aria-hidden="true">
+            <div
+              class="h-full rounded-[2px] bg-ink"
+              [style.width.%]="(done / path.steps.length) * 100"
+            ></div>
+          </div>
+        </div>
+      </li>
+    }
+  </ul>
+</div>

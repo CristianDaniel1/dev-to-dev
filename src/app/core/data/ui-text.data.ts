@@ -7,6 +7,7 @@ export const UI_TEXT = {
     home: 'Início',
     homeLabel: 'Início, Dev to Dev',
     quizzes: 'Quizzes',
+    paths: 'Trilhas',
     resources: 'Recursos',
     glossary: 'Glossário',
     progress: 'Progresso',

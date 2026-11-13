@@ -1,6 +1,6 @@
 /** What a search entry points to; also its order of importance in results. */
 export type SearchKind =
-  'page' | 'tech' | 'topic' | 'term' | 'category' | 'collection' | 'resource' | 'question';
+  'page' | 'tech' | 'path' | 'topic' | 'term' | 'category' | 'collection' | 'resource' | 'question';
 
 export interface SearchEntry {
   kind: SearchKind;

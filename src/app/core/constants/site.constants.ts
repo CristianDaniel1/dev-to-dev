@@ -1,5 +1,5 @@
 /** Public site origin used for canonical, Open Graph and sitemap URLs. */
-export const SITE_URL = 'https://dev-to-dev.vercel.app';
+export const SITE_URL = 'https://devtodev.vercel.app';
 
 /** Product name used in page titles and Open Graph. */
 export const SITE_NAME = 'Dev to Dev';

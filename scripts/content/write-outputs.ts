@@ -10,6 +10,7 @@ import type {
   ResourceLibrary,
 } from '../../src/app/shared/interfaces/resource.interface';
 import type { Glossary } from '../../src/app/shared/interfaces/glossary.interface';
+import type { LearningPath } from '../../src/app/shared/interfaces/path.interface';
 import type { SearchEntry } from '../../src/app/shared/interfaces/search.interface';
 import { GENERATED_CSS_HEADER, GENERATED_DIR, GENERATED_TS_HEADER } from './content.constants';
 
@@ -43,6 +44,12 @@ const glossaryGroupsModule = (glossary: Glossary): string =>
 export const GLOSSARY_GROUPS: readonly GlossaryGroup[] = ${JSON.stringify(glossary.groups, null, 2)};
 `;
 
+const pathsModule = (paths: readonly LearningPath[]): string =>
+  `${GENERATED_TS_HEADER}import type { LearningPath } from '../interfaces/path.interface';
+
+export const LEARNING_PATHS: readonly LearningPath[] = ${JSON.stringify(paths)};
+`;
+
 const searchIndexModule = (entries: readonly SearchEntry[]): string =>
   `${GENERATED_TS_HEADER}import type { SearchEntry } from '../interfaces/search.interface';\n\nexport const SEARCH_INDEX: readonly SearchEntry[] = ${JSON.stringify(entries)};\n`;
 
@@ -67,13 +74,14 @@ export interface ContentOutputs {
   resourceIndex: ResourceIndex;
   resourceLibrary: ResourceLibrary;
   glossary: Glossary;
+  paths: readonly LearningPath[];
   /** Entries of the command palette. */
   searchIndex: readonly SearchEntry[];
 }
 
 /**
  * Replaces the generated folder with the quiz catalog, one module per question bank, the loader
- * registry, the resource index and library, the glossary, the search index and the code highlight
+ * registry, the resource index and library, the glossary, the learning paths, the search index and the code highlight
  * stylesheet.
  *
  * @param outputs - Built content.
@@ -100,6 +108,7 @@ export const writeOutputs = async (outputs: ContentOutputs): Promise<void> => {
     join(GENERATED_DIR, 'glossary-groups.ts'),
     glossaryGroupsModule(outputs.glossary),
   );
+  await writeFile(join(GENERATED_DIR, 'paths.ts'), pathsModule(outputs.paths));
   await writeFile(join(GENERATED_DIR, 'search-index.ts'), searchIndexModule(outputs.searchIndex));
   await writeFile(
     join(GENERATED_DIR, 'code-highlight.css'),

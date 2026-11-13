@@ -30,32 +30,30 @@ phases) was approved at the start of the project; this file tracks where we are.
   shown after each answer ("Para se aprofundar"), overridable per question; `npm run check-links`
   checks every resource and reading URL.
 
-- **Phase 4 (part) – Glossary**: 104 terms in `content/glossary/` (one file per tech plus `geral`),
-  validated links to related terms, quiz topics and resources; `/glossario` with A–Z index and tech
-  filter, a prerendered page per term with DefinedTerm JSON-LD, terms in the command palette, a
-  glossary link on each quiz page and "Glossário" in the main navigation.
+- **Phase 4 – Glossary and learning paths**: 104 glossary terms in `content/glossary/` with an
+  A–Z index, a tech filter and a prerendered page per term (DefinedTerm JSON-LD); 4 learning paths
+  in `content/paths/` (26 steps), each step joining a quiz topic, glossary terms and resources,
+  with a checklist saved in the browser and Course JSON-LD. Both in the command palette and the
+  main navigation ("Sobre" moved to the mobile menu and the footer).
+- **Deploy**: live at https://devtodev.vercel.app (`SITE_URL` updated). Headers checked with
+  `curl -I`: security headers, HSTS, brotli, immutable cache for hashed JS and fonts, a week for
+  favicons, real 404, clean URLs. Lighthouse on the live site (mobile): accessibility, best
+  practices and SEO 100 on every page; performance 93–97 in most runs (TBT varies with the CPU).
 
-## Next
+## Next (needs a person)
 
-1. **Phase 4 – Learning paths**: sequences of quiz topics, glossary terms and resources with a
-   local checklist.
-
-## Last step (the user chose to leave the deploy for the end)
-
-1. **Deploy**: import the repository on Vercel (needs the user's account), confirm `SITE_URL`,
-   check headers with `curl -I`.
-2. **Audit items that need the deployed site or a person**:
-   - Lighthouse on the Vercel preview (HTTP/2 and brotli; local runs cap FCP near 2 s).
-   - Screen reader pass (NVDA) on a full session, the palette and the resource filters.
-   - Check resource pricing by hand (URLs were checked; pricing claims were not).
-   - Submit the sitemap in Google Search Console and test a page in the Rich Results Test.
+- Screen reader pass (NVDA) on a full session, the palette, the resource filters, the glossary
+  and a learning path.
+- Check resource pricing by hand (URLs were checked; pricing claims were not).
+- Submit https://devtodev.vercel.app/sitemap.xml in Google Search Console and test a quiz, a
+  glossary term and a path in the Rich Results Test.
 
 ## Later (v1.1+)
 
-- **Phase 4**: glossary (~100 terms linked to questions and resources) and learning paths
-  (sequences of quiz topics and resources with a checklist).
 - **Phase 5**: new areas (backend, databases, DevOps, engineering), interview mode, cheat
   sheets, `CONTRIBUTING.md` for question contributions through pull requests.
+- More learning paths (React, Angular, CSS layout) and glossary terms as content grows.
+- Include the learning path checklist in the progress backup (today it only covers quiz progress).
 - **Needs a backend**: accounts and sync, user-made quizzes with moderation, rankings.
 
 ## Known follow-ups

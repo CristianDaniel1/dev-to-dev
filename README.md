@@ -7,6 +7,7 @@ Quizzes comentados de desenvolvimento de software e uma central de recursos sele
 - **Quizzes comentados**: 277 perguntas de HTML, CSS, JavaScript, TypeScript, React, Angular, Tailwind CSS, Git e SQL, em três níveis. Cada alternativa tem explicação, inclusive as erradas.
 - **Modos de prática**: prática com feedback imediato, simulado com cronômetro opcional, revisão espaçada (caixas de Leitner) e rodada aleatória misturando tecnologias.
 - **Pergunta de confiança**: antes de ver a resposta, você diz se tinha certeza, achava ou chutou. Acertos no chute também voltam para revisão.
+- **Trilhas de estudo**: 4 trilhas em etapas (web do zero, JavaScript ao TypeScript, Git e SQL); cada etapa junta um tópico de quiz, termos do glossário e materiais, com checklist salvo no navegador.
 - **Glossário**: 104 termos explicados em poucas linhas, com exemplos, termos relacionados, links para praticar o tópico no quiz e recursos para estudar.
 - **Material de apoio**: 135 recursos em 16 categorias e coleções montadas por objetivo, cada um com o motivo da recomendação. Filtros na URL e favoritos.
 - **Progresso local**: tudo fica no navegador, sem conta. Dá para exportar e importar um backup em JSON.
@@ -47,7 +48,7 @@ npm start          # http://localhost:4200
 
 ## Conteúdo
 
-As perguntas ficam em `content/quizzes/<tecnologia>/`: um `meta.yaml` com nome, cor e tópicos, e um arquivo por tópico. Os recursos ficam em `content/resources/`, e os termos do glossário em `content/glossary/` (um arquivo por tecnologia, mais `geral.yaml`). O build falha com uma mensagem clara se algo estiver fora do formato (id repetido, nenhuma alternativa correta, linguagem de código não suportada, contraste insuficiente na cor da tecnologia).
+As perguntas ficam em `content/quizzes/<tecnologia>/`: um `meta.yaml` com nome, cor e tópicos, e um arquivo por tópico. Os recursos ficam em `content/resources/`, os termos do glossário em `content/glossary/` (um arquivo por tecnologia, mais `geral.yaml`) e as trilhas em `content/paths/`. O build falha com uma mensagem clara se algo estiver fora do formato (id repetido, nenhuma alternativa correta, linguagem de código não suportada, contraste insuficiente na cor da tecnologia).
 
 ```yaml
 - id: css-layout-001
@@ -68,7 +69,7 @@ Os ids são estáveis: o progresso salvo no navegador depende deles, então não
 
 ## Deploy
 
-O `vercel.json` já define o comando de build, a pasta de saída (`dist/dev-to-dev/browser`), os headers de segurança e o cache. Basta importar o repositório na Vercel. Se o domínio for diferente de `dev-to-dev.vercel.app`, ajuste `SITE_URL` em `src/app/core/constants/site.constants.ts`: ele é usado nas URLs canônicas, no Open Graph, no JSON-LD e no sitemap.
+O `vercel.json` já define o comando de build, a pasta de saída (`dist/dev-to-dev/browser`), os headers de segurança e o cache. Basta importar o repositório na Vercel. O site está em [devtodev.vercel.app](https://devtodev.vercel.app/). Se o domínio mudar, ajuste `SITE_URL` em `src/app/core/constants/site.constants.ts`: ele é usado nas URLs canônicas, no Open Graph, no JSON-LD e no sitemap.
 
 ## Licenças das fontes
 

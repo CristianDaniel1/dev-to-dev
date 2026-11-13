@@ -1,0 +1,48 @@
+slug: javascript-ao-typescript
+name: Do JavaScript ao TypeScript
+description: 'Firme as partes do JavaScript que mais confundem e passe a escrevê-las com tipos.'
+level: intermediate
+order: 20
+steps:
+  - id: funcoes
+    title: 'Funções, escopo e closures'
+    description: 'Entenda onde cada variável existe e por que uma função lembra o escopo em que nasceu.'
+    topic: javascript/funcoes
+    terms: [escopo, closure, hoisting, this]
+    resources: [javascript-info]
+  - id: dados
+    title: 'Arrays e objetos sem efeitos colaterais'
+    description: 'Transforme dados com map, filter e spread, sem alterar o original.'
+    topic: javascript/arrays-e-objetos
+    terms: [desestruturacao, spread, imutabilidade]
+    resources: [javascript-info]
+  - id: assincrono
+    title: 'Código assíncrono'
+    description: 'Promises, async/await e a ordem em que o event loop executa as coisas.'
+    topic: javascript/assincrono
+    terms: [promise, async-await, event-loop]
+    resources: [javascript-info]
+  - id: tipos
+    title: 'Primeiros tipos'
+    description: 'Anotações, inferência e a diferença entre any e unknown.'
+    topic: typescript/fundamentos
+    terms: [inferencia-de-tipos, unknown, never]
+    resources: [typescript-handbook, typescript-playground]
+  - id: objetos
+    title: 'Interfaces e tipagem estrutural'
+    description: 'Descreva a forma dos seus objetos e entenda quando dois tipos são compatíveis.'
+    topic: typescript/objetos-e-interfaces
+    terms: [tipagem-estrutural]
+    resources: [typescript-handbook]
+  - id: unioes
+    title: 'Uniões e narrowing'
+    description: 'Modele valores que podem ter mais de uma forma e deixe o compilador acompanhar.'
+    topic: typescript/unioes-e-narrowing
+    terms: [tipo-uniao, narrowing, type-guard]
+    resources: [typescript-handbook]
+  - id: genericos
+    title: 'Funções genéricas e tipos derivados'
+    description: 'Escreva funções reutilizáveis sem perder tipos e derive tipos novos dos existentes.'
+    topic: typescript/funcoes-e-genericos
+    terms: [generico, tipo-utilitario, satisfies]
+    resources: [typescript-handbook]

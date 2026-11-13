@@ -3,6 +3,7 @@ import { blockThirdPartyRequests } from '../helpers/external-requests';
 import { trackPageErrors } from '../helpers/page-errors';
 import { CommandPalettePage } from '../pages/command-palette.page';
 import { GlossaryPage } from '../pages/glossary.page';
+import { PathsPage } from '../pages/paths.page';
 import { HomePage } from '../pages/home.page';
 import { LayoutPage } from '../pages/layout.page';
 import { QuizCatalogPage } from '../pages/quiz-catalog.page';
@@ -31,6 +32,7 @@ interface Fixtures {
   progressPage: ProgressPage;
   palette: CommandPalettePage;
   glossary: GlossaryPage;
+  paths: PathsPage;
 }
 
 export const test = base.extend<Fixtures>({
@@ -53,6 +55,10 @@ export const test = base.extend<Fixtures>({
     },
     { auto: true },
   ],
+
+  paths: async ({ page }, use) => {
+    await use(new PathsPage(page));
+  },
 
   glossary: async ({ page }, use) => {
     await use(new GlossaryPage(page));

@@ -15,6 +15,8 @@ export const PRERENDERED_PAGES = [
   '/recursos',
   '/recursos/ferramentas',
   '/recursos/colecoes/primeiro-projeto-frontend',
+  '/trilhas',
+  '/trilhas/git-do-zero',
   '/glossario',
   '/glossario/closure',
   '/sobre',

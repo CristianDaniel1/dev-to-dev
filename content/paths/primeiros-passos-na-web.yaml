@@ -1,0 +1,60 @@
+slug: primeiros-passos-na-web
+name: Primeiros passos na web
+description: 'Do primeiro arquivo HTML a uma página com layout responsivo e interação em JavaScript.'
+level: beginner
+order: 10
+steps:
+  - id: estrutura
+    title: 'Estrutura de uma página'
+    description: 'Monte o esqueleto de um documento HTML e entenda tags, atributos e o papel do head.'
+    topic: html/fundamentos
+    terms: [doctype, meta-viewport]
+    resources: [mdn, web-dev-learn]
+  - id: semantica
+    title: 'HTML com significado'
+    description: 'Use os elementos certos para cada parte da página, pensando em quem navega por leitor de tela.'
+    topic: html/semantica
+    terms: [elemento-semantico, landmark, acessibilidade]
+    resources: [web-dev-learn]
+  - id: formularios
+    title: 'Formulários que funcionam'
+    description: 'Campos com rótulo, tipos certos e validação do próprio navegador.'
+    topic: html/formularios
+    terms: [rotulo, validacao-nativa]
+    resources: [web-dev-learn]
+  - id: css-basico
+    title: 'Primeiros estilos'
+    description: 'Seletores, cores, tipografia e como o CSS decide qual regra vence.'
+    topic: css/fundamentos
+    terms: [cascata, especificidade, heranca]
+    resources: [mdn, josh-comeau]
+  - id: caixas
+    title: 'Pensando em caixas'
+    description: 'Padding, borda, margem e o box-sizing que deixa os tamanhos previsíveis.'
+    topic: css/box-model
+    terms: [box-model, box-sizing]
+    resources: [mdn]
+  - id: layout
+    title: 'Layout com Flexbox e Grid'
+    description: 'Alinhe itens numa linha com Flexbox e monte grades com Grid.'
+    topic: css/layout
+    terms: [flexbox, css-grid]
+    resources: [flexbox-froggy, grid-garden]
+  - id: responsivo
+    title: 'Uma página para qualquer tela'
+    description: 'Comece pelo celular e adapte com media queries e unidades relativas.'
+    topic: css/responsivo
+    terms: [mobile-first, media-query, rem]
+    resources: [web-dev-learn]
+  - id: javascript
+    title: 'Primeiros passos com JavaScript'
+    description: 'Tipos, comparações e as surpresas da conversão automática de valores.'
+    topic: javascript/fundamentos
+    terms: [coercao, igualdade-estrita, truthy-falsy]
+    resources: [javascript-info]
+  - id: dom
+    title: 'Dando vida à página'
+    description: 'Selecione elementos, reaja a cliques e altere o conteúdo pelo JavaScript.'
+    topic: javascript/dom
+    terms: [dom, delegacao-de-eventos]
+    resources: [javascript-info, javascript30]

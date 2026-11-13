@@ -63,3 +63,6 @@ export const GLOSSARY_GENERAL_GROUP = 'geral';
 
 /** Display name of the general glossary group. */
 export const GLOSSARY_GENERAL_GROUP_NAME = 'Geral';
+
+/** Folder with one YAML file per learning path. */
+export const PATH_CONTENT_DIR = join('content', 'paths');

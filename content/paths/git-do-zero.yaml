@@ -1,0 +1,36 @@
+slug: git-do-zero
+name: Git do zero
+description: 'Do primeiro commit ao pull request, incluindo como desfazer o que deu errado.'
+level: beginner
+order: 30
+steps:
+  - id: commits
+    title: 'Primeiros commits'
+    description: 'Entenda a staging area e o que um commit guarda.'
+    topic: git/fundamentos
+    terms: [commit, staging-area, head]
+    resources: [pro-git]
+  - id: branches
+    title: 'Trabalhando com branches'
+    description: 'Crie branches, integre com merge e resolva conflitos sem medo.'
+    topic: git/branches
+    terms: [branch, merge, conflito-de-merge]
+    resources: [learn-git-branching]
+  - id: desfazer
+    title: 'Desfazendo mudanças'
+    description: 'Descarte edições, corrija o último commit e saiba quando usar revert ou reset.'
+    topic: git/desfazer-mudancas
+    terms: [head]
+    resources: [oh-shit-git, pro-git]
+  - id: remotos
+    title: 'Colaborando pelo GitHub'
+    description: 'Clone, envie e receba commits, e abra o seu primeiro pull request.'
+    topic: git/remotos
+    terms: [remoto, pull-request]
+    resources: [github-skills, github-docs]
+  - id: fluxo
+    title: 'Um fluxo de trabalho limpo'
+    description: 'Mensagens de commit claras, stash, rebase e um .gitignore bem feito.'
+    topic: git/fluxo-de-trabalho
+    terms: [stash, rebase]
+    resources: [conventional-commits, gitignore-generator]

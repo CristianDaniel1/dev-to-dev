@@ -21,6 +21,10 @@ export const routes: Routes = [
     loadChildren: () => import('@/features/quizzes').then((module) => module.RANDOM_ROUTES),
   },
   {
+    path: 'trilhas',
+    loadChildren: () => import('@/features/paths').then((module) => module.PATH_ROUTES),
+  },
+  {
     path: 'glossario',
     loadChildren: () => import('@/features/glossary').then((module) => module.GLOSSARY_ROUTES),
   },

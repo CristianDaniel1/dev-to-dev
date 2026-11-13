@@ -1,5 +1,6 @@
 import type { ResourceIndex } from '../../src/app/shared/interfaces/resource.interface';
 import type { Glossary } from '../../src/app/shared/interfaces/glossary.interface';
+import type { LearningPath } from '../../src/app/shared/interfaces/path.interface';
 import { LEVELS } from '../../src/app/shared/constants/content.constants';
 import type { TechSummary } from '../../src/app/shared/interfaces/content.interface';
 
@@ -46,4 +47,14 @@ export const printResourceReport = (index: ResourceIndex): void => {
 export const printGlossaryReport = (glossary: Glossary): void => {
   const groups = glossary.groups.map((group) => `${group.slug} ${group.termCount}`).join(', ');
   console.log(`glossary: ${glossary.terms.length} terms (${groups})`);
+};
+
+/**
+ * Prints the learning paths and their step counts.
+ *
+ * @param paths - Built paths.
+ */
+export const printPathReport = (paths: readonly LearningPath[]): void => {
+  const rows = paths.map((path) => `${path.slug} ${path.steps.length}`).join(', ');
+  console.log(`paths: ${paths.length} (${rows})`);
 };

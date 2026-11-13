@@ -9,3 +9,6 @@ export const PROGRESS_STORAGE_KEY = 'v1:progress';
 
 /** Favorite resources key, versioned like the progress. */
 export const FAVORITES_STORAGE_KEY = 'v1:favorites';
+
+/** Learning path checklist key, versioned like the progress. */
+export const PATHS_STORAGE_KEY = 'v1:paths';

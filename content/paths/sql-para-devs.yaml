@@ -1,0 +1,36 @@
+slug: sql-para-devs
+name: SQL para quem programa
+description: 'Consultas, joins e agregações até modelar tabelas e escrever SQL seguro.'
+level: beginner
+order: 40
+steps:
+  - id: consultas
+    title: 'Consultando dados'
+    description: 'SELECT, WHERE, ORDER BY e LIMIT para encontrar exatamente o que precisa.'
+    topic: sql/consultas
+    terms: []
+    resources: [sqlbolt, db-fiddle]
+  - id: filtros
+    title: 'Filtros e o famoso NULL'
+    description: 'LIKE, IN, BETWEEN e por que comparar com NULL nunca dá verdadeiro.'
+    topic: sql/filtros-e-null
+    terms: ['null']
+    resources: [sqlbolt]
+  - id: joins
+    title: 'Combinando tabelas'
+    description: 'INNER e LEFT JOIN, e como evitar linhas duplicadas ou sumidas.'
+    topic: sql/joins
+    terms: [join, chave-estrangeira]
+    resources: [sqlbolt, postgresql-docs]
+  - id: agregacao
+    title: 'Resumindo dados'
+    description: 'COUNT, AVG, GROUP BY e HAVING para responder perguntas sobre os dados.'
+    topic: sql/agregacao
+    terms: [funcao-de-agregacao, group-by]
+    resources: [sqlbolt]
+  - id: modelagem
+    title: 'Modelando e alterando com segurança'
+    description: 'Chaves, transações, índices e consultas protegidas contra SQL injection.'
+    topic: sql/alteracao-e-modelagem
+    terms: [chave-primaria, transacao, indice, normalizacao, sql-injection]
+    resources: [use-the-index-luke, dbdiagram]

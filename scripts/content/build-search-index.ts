@@ -4,6 +4,7 @@ import type {
   ResourceLibrary,
 } from '../../src/app/shared/interfaces/resource.interface';
 import type { Glossary } from '../../src/app/shared/interfaces/glossary.interface';
+import type { LearningPath } from '../../src/app/shared/interfaces/path.interface';
 import type { SearchEntry, SearchKind } from '../../src/app/shared/interfaces/search.interface';
 import { normalizeText } from '../../src/app/shared/lib/normalize-text';
 
@@ -38,10 +39,11 @@ export interface SearchSources {
   resourceIndex: ResourceIndex;
   resourceLibrary: ResourceLibrary;
   glossary: Glossary;
+  paths: readonly LearningPath[];
 }
 
 /**
- * Builds the entries of the command palette: techs, topics, glossary terms, questions, resource
+ * Builds the entries of the command palette: techs, learning paths, topics, glossary terms, questions, resource
  * categories, collections and resources. Static pages are added by the app.
  *
  * @param sources - Published content.
@@ -72,6 +74,13 @@ export const buildSearchIndex = (sources: SearchSources): SearchEntry[] => {
           },
           topic.description,
         ),
+      ),
+    ),
+    ...sources.paths.map((path) =>
+      entry(
+        'path',
+        { title: path.name, subtitle: path.description, link: `/trilhas/${path.slug}` },
+        path.steps.map((step) => step.title).join(' '),
       ),
     ),
     ...sources.glossary.terms.map((term) =>

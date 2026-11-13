@@ -1,0 +1,93 @@
+@let current = step();
+@let practice = current.practice;
+<article
+  class="grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-5 py-8"
+  [attr.aria-labelledby]="'etapa-' + current.id"
+>
+  <span class="bubble size-10 text-base" [class.bubble-filled]="isDone()" aria-hidden="true">{{
+    position()
+  }}</span>
+  <div class="min-w-0">
+    <h2 [id]="'etapa-' + current.id" class="text-xl">
+      <span class="sr-only">Etapa {{ position() }}: </span>{{ current.title }}
+    </h2>
+    <p class="prose-width mt-1 text-ink-muted">{{ current.description }}</p>
+
+    <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+      <a
+        class="btn btn-secondary"
+        [routerLink]="['/quizzes', practice.techSlug, 'praticar']"
+        [queryParams]="{ topico: practice.topicSlug }"
+        >Praticar {{ practice.topicName }}</a
+      >
+      <p class="text-sm text-ink-muted">
+        Quiz de {{ practice.techName }}:
+        @if (isHydrated()) {
+          {{ answered() }} de {{ practice.questionCount }} perguntas respondidas
+        } @else {
+          {{ practice.questionCount }} perguntas
+        }
+      </p>
+    </div>
+
+    @if (current.terms.length) {
+      <div class="mt-5">
+        <p class="form-caption">No glossário</p>
+        <ul class="mt-2 flex flex-wrap gap-2">
+          @for (term of current.terms; track term.slug) {
+            <li>
+              <a
+                [routerLink]="['/glossario', term.slug]"
+                class="chip min-h-8 px-2.5 text-sm hover:border-ink hover:text-ink"
+                >{{ term.term }}</a
+              >
+            </li>
+          }
+        </ul>
+      </div>
+    }
+
+    @if (current.resources.length) {
+      <div class="mt-5">
+        <p class="form-caption">Para estudar</p>
+        <ul class="mt-2 flex flex-col gap-1.5 text-sm">
+          @for (resource of current.resources; track resource.url) {
+            <li>
+              <a
+                class="link inline-flex items-baseline gap-1.5"
+                [href]="resource.url"
+                target="_blank"
+                rel="noopener"
+              >
+                {{ resource.label }}
+                <app-icon name="external" [size]="12" class="text-form-ink" />
+                <span class="sr-only">(abre em nova aba)</span>
+              </a>
+            </li>
+          }
+        </ul>
+      </div>
+    }
+
+    <button
+      type="button"
+      class="mt-6 inline-flex min-h-11 cursor-pointer items-center gap-2.5 rounded-control pr-2 text-sm font-bold"
+      [attr.aria-pressed]="isDone()"
+      (click)="toggle()"
+    >
+      <span
+        class="flex size-6 items-center justify-center rounded-[3px] border-[1.5px] transition-colors"
+        [class.border-form]="!isDone()"
+        [class.border-ink]="isDone()"
+        [class.bg-ink]="isDone()"
+        [class.text-on-ink]="isDone()"
+        aria-hidden="true"
+      >
+        @if (isDone()) {
+          <app-icon name="check" [size]="14" />
+        }
+      </span>
+      Concluí esta etapa
+    </button>
+  </div>
+</article>

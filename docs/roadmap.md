@@ -7,10 +7,9 @@ phases) was approved at the start of the project; this file tracks where we are.
 
 - **Phase 0 – Foundation**: Angular 22 static prerendering, Tailwind v4, light/dark theme without
   flash, SEO title strategy, sitemap/robots/404, ESLint/Prettier, Vitest, Playwright + axe, CI.
-- **Phase 1 – Quiz engine**: YAML content pipeline (zod, Shiki), 114 questions at the time (HTML, CSS,
-  JavaScript, React; Tailwind as draft), practice mode with confidence and per-option
-  explanations, results by topic, local progress with Leitner boxes.
-- **Phase 2 – Resource hub**: 136 resources in 16 categories, 3 collections, filters in the URL,
+- **Phase 1 – Quiz engine**: YAML content pipeline (zod, Shiki), practice mode with confidence
+  and per-option explanations, results by topic, local progress with Leitner boxes.
+- **Phase 2 – Resource hub**: 135 resources in 16 categories, 3 collections, filters in the URL,
   favorites, category and collection pages, "to study" section on quiz pages.
 - **Phase 3 (part)**: exam mode with optional timer, spaced review, random mode, progress page
   with JSON backup, command palette (Ctrl+K), resume block on the home page.
@@ -18,22 +17,23 @@ phases) was approved at the start of the project; this file tracks where we are.
   bubbles, timing marks, grade out of 10) with a blackboard dark theme; Archivo, Atkinson
   Hyperlegible Next and Atkinson Hyperlegible Mono. Lists replace card grids in the catalog and
   the resource hub.
+- **Content for launch**: 277 questions in 9 techs (HTML, CSS, JavaScript, TypeScript, React,
+  Angular, Tailwind, Git, SQL), about 30 each across three levels.
+- **Launch audit (automatable part)**: JSON-LD (WebSite, Quiz, CollectionPage with ItemList,
+  BreadcrumbList) on 29 pages; new OG image; resource URLs checked (one site down removed, four
+  URLs fixed); README rewritten; display and text fonts subset to the axes in use (121 KB → 75 KB
+  preloaded). Local Lighthouse (mobile, `npx serve`): accessibility, best practices and SEO 100;
+  performance 91–95, almost all of the initial JS is Angular itself.
 
 ## Next
 
-1. **Content for launch** (one tech at a time, user reviews the style of each):
-   - Done: TypeScript (31), Angular (30), Git (30) and SQL (30). 235 questions in 8 techs.
-   - Expand React to about 30.
-   - Decide whether Tailwind leaves draft.
-2. **Launch audit**:
-   - Lighthouse ≥ 95 on home, a tech page and a resource page (Vercel preview).
-   - Screen reader pass (NVDA) on a full session, the palette and the resource filters.
-   - SEO: JSON-LD (ItemList on resource pages, Quiz/LearningResource where it fits).
-   - Redraw `public/og-default.png` in the new identity (it still shows the old look).
-   - Check every resource URL and pricing (some were written without visiting the site).
-   - Update the README (it still says only Phase 0 is done).
-3. **Deploy**: import the repository on Vercel (needs the user's account), confirm `SITE_URL`,
+1. **Deploy**: import the repository on Vercel (needs the user's account), confirm `SITE_URL`,
    check headers with `curl -I`.
+2. **Audit items that need the deployed site or a person**:
+   - Lighthouse on the Vercel preview (HTTP/2 and brotli; local runs cap FCP near 2 s).
+   - Screen reader pass (NVDA) on a full session, the palette and the resource filters.
+   - Check resource pricing by hand (URLs were checked; pricing claims were not).
+   - Submit the sitemap in Google Search Console and test a page in the Rich Results Test.
 
 ## Later (v1.1+)
 

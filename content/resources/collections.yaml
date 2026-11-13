@@ -47,8 +47,8 @@ collections:
         note: 'Os princípios que explicam por que uma interface parece fácil.'
       - resource: utopia
         note: 'Tipografia e espaçamento que se adaptam a qualquer tela.'
-      - resource: realtime-colors
-        note: 'Teste a paleta em uma página de verdade.'
+      - resource: webaim-contrast-checker
+        note: 'Confira o contraste das cores antes de fechar a paleta.'
       - resource: wcag-quickref
         note: 'Os critérios que a interface precisa atender.'
       - resource: aria-apg

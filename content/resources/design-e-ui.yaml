@@ -10,7 +10,7 @@ resources:
     featured: true
   - id: refactoring-ui
     name: Refactoring UI
-    url: https://www.refactoringui.com/
+    url: https://refactoringui.com/
     description: 'Livro pago com dicas práticas de design de interface para desenvolvedores, dos criadores do Tailwind.'
     why: 'Transforma "está feio mas não sei por quê" em regras concretas de espaçamento, hierarquia e cor.'
     type: reference

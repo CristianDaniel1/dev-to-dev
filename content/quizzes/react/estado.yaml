@@ -91,3 +91,58 @@ questions:
       - text: 'Em um Context na raiz da aplicação'
         explanation: 'Funciona, mas é mais complexo do que o necessário quando o pai comum está logo acima.'
     explanation: 'Comece elevando o estado. Recorra a Context só quando o valor precisar atravessar muitos níveis.'
+
+  - id: react-estado-006
+    level: beginner
+    prompt: 'O estado `usuario` é um objeto com `nome` e `email`. Como mudar só o `nome`?'
+    options:
+      - text: "`setUsuario({ ...usuario, nome: 'Bia' })`"
+        correct: true
+        explanation: 'O spread copia as propriedades atuais, e `nome` é sobrescrito no objeto novo.'
+      - text: "`usuario.nome = 'Bia'`"
+        explanation: 'Alterar o objeto direto não avisa o React, então a tela não atualiza.'
+      - text: "`setUsuario({ nome: 'Bia' })`"
+        explanation: 'O `set` substitui o estado inteiro, sem mesclar. O `email` seria perdido.'
+      - text: "`setUsuario.nome('Bia')`"
+        explanation: 'A função `set` não tem métodos por propriedade.'
+    explanation: 'O React compara a referência para saber se o estado mudou. Por isso, objetos e arrays no estado são sempre substituídos por cópias, nunca alterados.'
+
+  - id: react-estado-007
+    level: beginner
+    prompt: 'Como se chama este padrão de campo de formulário?'
+    code:
+      lang: jsx
+      source: |
+        const [texto, setTexto] = useState('');
+
+        return <input value={texto} onChange={(e) => setTexto(e.target.value)} />;
+    options:
+      - text: 'Input controlado: o estado do React é a fonte do valor exibido'
+        correct: true
+        explanation: 'Cada tecla chama `setTexto`, e o React redesenha o campo com o valor novo.'
+      - text: 'Input não controlado'
+        explanation: 'Num input não controlado, o DOM guarda o valor, e você o lê com uma ref ou no envio do formulário.'
+      - text: 'Two-way binding automático'
+        explanation: 'O React não liga os dois lados sozinho: você escreve o `onChange` explicitamente.'
+      - text: 'Um erro, porque `value` não pode vir do estado'
+        explanation: 'É o uso mais comum de `value` em React.'
+    explanation: 'Se você passar `value` sem `onChange`, o campo fica travado e o React avisa no console. Para só definir o valor inicial, use `defaultValue`.'
+
+  - id: react-estado-008
+    level: advanced
+    prompt: 'Por que passar `key={usuarioId}` para este formulário?'
+    code:
+      lang: jsx
+      source: |
+        <FormularioPerfil key={usuarioId} usuarioId={usuarioId} />
+    options:
+      - text: 'Para o React descartar o componente e criar outro, com estado zerado, quando o usuário muda'
+        correct: true
+        explanation: 'Uma `key` diferente faz o React tratar o elemento como outro componente.'
+      - text: 'Porque todo componente precisa de `key`'
+        explanation: '`key` só é obrigatória em listas. Aqui ela é usada de propósito, fora de uma lista.'
+      - text: 'Para o componente ler `usuarioId` com `props.key`'
+        explanation: '`key` não chega ao componente como prop. Por isso `usuarioId` é passado separado.'
+      - text: 'Para melhorar o desempenho, evitando renderizações'
+        explanation: 'O efeito é o contrário: quando a `key` muda, o componente é recriado do zero.'
+    explanation: 'Sem a `key`, o React reaproveitaria o componente e o rascunho do usuário anterior continuaria nos campos. É mais simples do que limpar cada estado num `useEffect`.'

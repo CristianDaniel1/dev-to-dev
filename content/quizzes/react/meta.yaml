@@ -15,3 +15,6 @@ topics:
   - slug: estado
     name: Estado
     description: 'Atualizações de estado e compartilhamento entre componentes.'
+  - slug: renderizacao
+    name: Renderização e desempenho
+    description: 'Quando o React renderiza, memo, useMemo, lazy e estado inicial.'

@@ -37,7 +37,7 @@ export const NOT_FOUND_RESPONSE_ERROR = /status of 404/;
 export const MISSING_QUESTION_ID = 'missing-question-000';
 
 /** Tech, topic and level with no question yet (update when such questions are written). */
-export const EMPTY_FILTER = { tech: 'react', topic: 'Estado', level: 'Avançado' } as const;
+export const EMPTY_FILTER = { tech: 'tailwind', topic: 'Utilitários', level: 'Avançado' } as const;
 
 /** Favicon service the resource cards load icons from; stubbed so tests stay offline. */
 export const FAVICON_SERVICE_PATTERN = 'https://icons.duckduckgo.com/**';

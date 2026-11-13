@@ -1,0 +1,112 @@
+questions:
+  - id: tailwind-layout-001
+    level: beginner
+    prompt: 'Qual combinação cria uma grade de 3 colunas iguais com espaço entre os itens?'
+    options:
+      - text: '`grid grid-cols-3 gap-4`'
+        correct: true
+        explanation: '`grid` ativa o Grid, `grid-cols-3` cria as três colunas e `gap-4` separa linhas e colunas.'
+      - text: '`flex cols-3 gap-4`'
+        explanation: '`cols-3` não existe, e colunas fixas são trabalho do Grid.'
+      - text: '`grid-cols-3 gap-4`'
+        explanation: 'Sem `grid`, o elemento não vira grade, e `grid-cols-3` não tem efeito.'
+      - text: '`grid columns-3 space-4`'
+        explanation: '`columns-3` cria colunas de texto, como num jornal, e `space-4` não existe.'
+    explanation: 'Junte com breakpoints para uma grade responsiva: `grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4`.'
+
+  - id: tailwind-layout-002
+    level: beginner
+    prompt: 'Num cabeçalho com `flex`, qual classe empurra o logo para a esquerda e o menu para a direita?'
+    options:
+      - text: '`justify-between`'
+        correct: true
+        explanation: 'Distribui o espaço livre entre os itens, no eixo principal.'
+      - text: '`items-center`'
+        explanation: '`items-center` alinha os itens no eixo cruzado, a vertical num flex em linha.'
+      - text: '`justify-center`'
+        explanation: 'Junta todos os itens no centro.'
+      - text: '`content-between`'
+        explanation: '`content-` alinha linhas inteiras quando o flex quebra em várias. Aqui só há uma.'
+    explanation: '`flex items-center justify-between` é a combinação clássica de cabeçalho: centraliza na vertical e separa nas pontas.'
+
+  - id: tailwind-layout-003
+    level: intermediate
+    prompt: 'Num `flex` com uma barra lateral `w-64` e um conteúdo, qual classe faz o conteúdo ocupar todo o espaço restante?'
+    options:
+      - text: '`flex-1`'
+        correct: true
+        explanation: '`flex-1` deixa o item crescer e encolher para preencher o espaço livre.'
+      - text: '`w-full`'
+        explanation: 'Pede 100% da largura do pai, o que espreme a barra lateral.'
+      - text: '`grow-0`'
+        explanation: '`grow-0` impede o item de crescer.'
+      - text: '`flex`'
+        explanation: '`flex` transforma o próprio item num container flex, sem mudar o tamanho dele.'
+    explanation: 'Se a barra lateral estiver encolhendo, adicione `shrink-0` a ela.'
+
+  - id: tailwind-layout-004
+    level: intermediate
+    prompt: 'Qual é a vantagem de `flex flex-col gap-4` sobre `space-y-4` para separar itens empilhados?'
+    options:
+      - text: 'O `gap` separa os itens sem mexer na margem deles, e funciona mesmo quando itens são escondidos ou quebram de linha'
+        correct: true
+        explanation: '`space-y-4` aplica margem nos filhos, o que pode entrar em conflito com margens próprias deles.'
+      - text: 'Nenhuma: as duas geram o mesmo CSS'
+        explanation: '`gap` é uma propriedade do container. `space-y` aplica margem em cada filho.'
+      - text: '`space-y-4` não existe no Tailwind v4'
+        explanation: 'Continua existindo, mas o `gap` costuma ser a escolha mais previsível.'
+      - text: '`gap` só funciona em grids'
+        explanation: '`gap` funciona em flex e em grid em todos os navegadores atuais.'
+    explanation: 'Use `space-y` quando o container não pode ser flex ou grid, como num texto com parágrafos.'
+
+  - id: tailwind-layout-005
+    level: intermediate
+    prompt: 'Um selo deve cobrir toda a área de uma imagem. O que é necessário além de `absolute inset-0` no selo?'
+    code:
+      lang: html
+      source: |
+        <div class="???">
+          <img src="capa.jpg" alt="Capa do curso" />
+          <span class="absolute inset-0">Novo</span>
+        </div>
+    options:
+      - text: '`relative` no `<div>`'
+        correct: true
+        explanation: 'Um elemento `absolute` se posiciona em relação ao ancestral posicionado mais próximo.'
+      - text: 'Nada: `absolute` sempre usa o pai direto'
+        explanation: 'Sem `relative` no pai, o selo se posiciona em relação a outro ancestral, possivelmente a página inteira.'
+      - text: '`flex` no `<div>`'
+        explanation: '`flex` não cria referência de posicionamento.'
+      - text: '`z-10` no `<span>`'
+        explanation: '`z-10` define o que fica na frente, não onde o elemento é posicionado.'
+    explanation: '`inset-0` é o mesmo que `top-0 right-0 bottom-0 left-0`: o elemento estica até as quatro bordas da referência.'
+
+  - id: tailwind-layout-006
+    level: advanced
+    prompt: 'Um cabeçalho com `sticky top-0` não gruda no topo ao rolar. Qual é a causa mais provável?'
+    options:
+      - text: 'Um ancestral tem `overflow-hidden` ou `overflow-auto`, e o cabeçalho gruda dentro dele, e não na página'
+        correct: true
+        explanation: 'Um elemento sticky gruda no ancestral mais próximo que rola. Com `overflow` num ancestral, a referência muda.'
+      - text: 'Falta `z-50`'
+        explanation: '`z-50` resolve o cabeçalho ficar atrás do conteúdo, mas não faz ele grudar.'
+      - text: '`sticky` só funciona com `fixed`'
+        explanation: 'São posicionamentos diferentes. `sticky` não depende de `fixed`.'
+      - text: 'Falta `absolute` no cabeçalho'
+        explanation: 'Um elemento só pode ter um tipo de posicionamento, e `absolute` anularia o `sticky`.'
+    explanation: 'Outra causa comum: o pai do cabeçalho tem a mesma altura que ele, e então não sobra espaço para grudar.'
+
+  - id: tailwind-layout-007
+    level: advanced
+    prompt: 'Qual é a diferença entre `size-10` e `w-10 h-10`?'
+    options:
+      - text: 'Nenhuma no resultado: `size-10` define largura e altura de uma vez'
+        correct: true
+        explanation: 'As duas formas geram largura e altura de 2,5rem.'
+      - text: '`size-10` define o tamanho da fonte'
+        explanation: 'Tamanho de fonte é `text-`, como `text-lg`.'
+      - text: '`size-10` define a área em pixels quadrados'
+        explanation: 'Não existe utilitário de área.'
+      - text: '`size-10` só funciona em imagens'
+        explanation: 'Funciona em qualquer elemento.'
+    explanation: '`size-` é prático para ícones, avatares e botões quadrados. Na escala padrão, cada unidade vale 0,25rem.'

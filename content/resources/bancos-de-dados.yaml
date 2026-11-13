@@ -20,12 +20,12 @@ resources:
     techs: [sql]
   - id: use-the-index-luke
     name: Use The Index, Luke
-    url: https://use-the-index-luke.com/pt
+    url: https://use-the-index-luke.com/
     description: 'Guia sobre índices e performance de SQL para desenvolvedores.'
     why: 'Explica por que uma consulta está lenta e como um índice resolve, para vários bancos.'
     type: reference
     pricing: free
-    languages: [pt, en]
+    languages: [en]
     techs: [sql]
   - id: supabase
     name: Supabase

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Router, TitleStrategy, provideRouter } from '@angular/router';
-import { SITE_URL } from '../constants/site.constants';
+import { JSON_LD_SCRIPT_ID, SITE_URL } from '../constants/site.constants';
 import { SeoTitleStrategy } from './seo-title-strategy';
 
 const metaContent = (selector: string): string | null =>
@@ -19,6 +19,12 @@ describe('SeoTitleStrategy', () => {
             data: { seo: { description: 'Quiz list' } },
           },
           { path: 'hidden', title: 'Hidden', children: [], data: { seo: { noIndex: true } } },
+          {
+            path: 'site',
+            title: 'Site',
+            children: [],
+            data: { seo: { jsonLd: [{ '@type': 'WebSite', name: 'Dev to Dev' }] } },
+          },
         ]),
         { provide: TitleStrategy, useExisting: SeoTitleStrategy },
       ],
@@ -49,5 +55,19 @@ describe('SeoTitleStrategy', () => {
     await TestBed.inject(Router).navigateByUrl('/hidden');
 
     expect(metaContent('meta[name="robots"]')).toBe('noindex');
+  });
+
+  it('writes the route JSON-LD and removes it on pages without any', async () => {
+    const router = TestBed.inject(Router);
+    await router.navigateByUrl('/site');
+
+    const script = document.getElementById(JSON_LD_SCRIPT_ID);
+    expect(script?.getAttribute('type')).toBe('application/ld+json');
+    expect(JSON.parse(script?.textContent ?? '{}')).toMatchObject({
+      '@graph': [{ '@type': 'WebSite', name: 'Dev to Dev' }],
+    });
+
+    await router.navigateByUrl('/quizzes');
+    expect(document.getElementById(JSON_LD_SCRIPT_ID)).toBeNull();
   });
 });

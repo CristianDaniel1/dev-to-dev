@@ -1,10 +1,11 @@
 import type { Routes } from '@angular/router';
-import { ABOUT_SEO, NOT_FOUND_SEO, PROGRESS_SEO } from '@/core/data/route-seo.data';
+import { ABOUT_SEO, HOME_SEO, NOT_FOUND_SEO, PROGRESS_SEO } from '@/core/data/route-seo.data';
 
 export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
+    data: { seo: HOME_SEO },
     loadComponent: () => import('@/features/home').then((module) => module.Home),
   },
   {

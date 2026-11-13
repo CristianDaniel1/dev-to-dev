@@ -19,7 +19,7 @@ resources:
     languages: [en]
   - id: cloudflare-pages
     name: Cloudflare Pages
-    url: https://pages.cloudflare.com/
+    url: https://www.cloudflare.com/products/pages/
     description: 'Hospedagem de sites estáticos e full stack na rede global da Cloudflare.'
     why: 'Banda ilimitada no plano gratuito, ótima para sites com muito tráfego.'
     type: service

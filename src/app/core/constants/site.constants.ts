@@ -13,3 +13,9 @@ export const SITE_DESCRIPTION =
 
 /** Default social sharing image, as a path from the site root. */
 export const SITE_OG_IMAGE = '/og-default.png';
+
+/** Language of the content, as a BCP 47 tag. */
+export const SITE_LANGUAGE = 'pt-BR';
+
+/** Id of the `<script>` that holds the current page's JSON-LD. */
+export const JSON_LD_SCRIPT_ID = 'route-json-ld';

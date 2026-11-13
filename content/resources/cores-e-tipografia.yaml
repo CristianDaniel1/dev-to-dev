@@ -9,16 +9,6 @@ resources:
     languages: [pt, en]
     techs: [css]
     featured: true
-  - id: realtime-colors
-    name: Realtime Colors
-    url: https://www.realtimecolors.com/
-    description: 'Testa uma paleta e um par de fontes aplicados a um site de exemplo, ao vivo.'
-    why: 'Você vê a paleta funcionando em uma página real, não em quadradinhos soltos, e exporta o CSS.'
-    type: tool
-    pricing: free
-    languages: [en]
-    techs: [css, tailwind]
-    featured: true
   - id: webaim-contrast-checker
     name: WebAIM Contrast Checker
     url: https://webaim.org/resources/contrastchecker/

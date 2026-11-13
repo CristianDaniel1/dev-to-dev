@@ -1,12 +1,20 @@
 name: Tailwind CSS
-description: 'Classes utilitárias para espaçamento, tipografia, cores e layout.'
+description: 'Classes utilitárias, responsividade, estados, layout e a configuração do Tailwind v4.'
 area: frontend
 badge: Tw
 color: '#38bdf8'
 onColor: '#0c1229'
 order: 60
-draft: true
 topics:
   - slug: utilitarios
     name: Utilitários
-    description: 'Espaçamento, tipografia, cores e layout com classes.'
+    description: 'Espaçamento, tipografia, cores, tamanhos e valores arbitrários.'
+  - slug: responsivo-e-estados
+    name: Responsivo e estados
+    description: 'Breakpoints mobile-first, hover, focus, dark mode e variantes de grupo.'
+  - slug: layout
+    name: Layout
+    description: 'Flexbox, Grid, espaçamento entre itens e posicionamento.'
+  - slug: configuracao
+    name: Configuração e v4
+    description: '@theme, detecção de classes, conflitos e o modificador important.'

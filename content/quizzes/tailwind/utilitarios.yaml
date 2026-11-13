@@ -45,19 +45,19 @@ questions:
     explanation: 'O prefixo `text-` também é usado para tamanho (`text-lg`) e cor (`text-blue-500`).'
 
   - id: tailwind-utilitarios-004
-    level: beginner
-    prompt: 'Qual classe aplica padding de 2 unidades em cima e embaixo?'
+    level: intermediate
+    prompt: 'O layout pede uma largura de exatamente 350px, que não existe na escala. Como escrever isso com Tailwind?'
     options:
-      - text: '`py-2`'
+      - text: '`w-[350px]`'
         correct: true
-        explanation: '`py` é o padding no eixo vertical (y): topo e base.'
-      - text: '`px-2`'
-        explanation: '`px` aplica padding na horizontal.'
-      - text: '`ptb-2`'
+        explanation: 'Os colchetes criam um valor arbitrário: o Tailwind gera `width: 350px` só para essa classe.'
+      - text: '`w-350`'
+        explanation: 'Números sem unidade usam a escala de espaçamento: `w-350` seria 350 × 0,25rem, ou 87,5rem.'
+      - text: '`w-350px`'
+        explanation: 'Sem colchetes, o Tailwind não reconhece o valor e não gera nenhuma classe.'
+      - text: '`style-w-350px`'
         explanation: 'Essa classe não existe no Tailwind.'
-      - text: '`padding-y-2`'
-        explanation: 'O Tailwind abrevia padding como `p`.'
-    explanation: 'x é horizontal e y é vertical, como nos eixos de um gráfico.'
+    explanation: 'Valores arbitrários servem para exceções, como `bg-[#1da1f2]` ou `top-[117px]`. Se o mesmo valor se repete, vale criar um token no `@theme`.'
 
   - id: tailwind-utilitarios-005
     level: beginner
@@ -135,16 +135,16 @@ questions:
     explanation: '`rounded-full` é útil para avatares e badges circulares.'
 
   - id: tailwind-utilitarios-010
-    level: beginner
-    prompt: 'Qual classe aplica margem horizontal de 6 unidades?'
+    level: intermediate
+    prompt: 'Qual é a diferença entre as classes `hidden` e `invisible`?'
     options:
-      - text: '`mx-6`'
+      - text: '`hidden` remove o elemento do layout. `invisible` esconde, mas mantém o espaço ocupado'
         correct: true
-        explanation: '`mx` é a margem no eixo x: esquerda e direita.'
-      - text: '`my-6`'
-        explanation: '`my` aplica margem na vertical.'
-      - text: '`mh-6`'
-        explanation: 'Essa classe não existe no Tailwind.'
-      - text: '`margin-x-6`'
-        explanation: 'O Tailwind abrevia margem como `m`.'
-    explanation: '`mx-auto` centraliza um bloco com largura definida.'
+        explanation: '`hidden` aplica `display: none`. `invisible` aplica `visibility: hidden`.'
+      - text: 'São equivalentes'
+        explanation: 'Com `invisible`, o espaço do elemento continua reservado na página.'
+      - text: '`invisible` esconde só de leitores de tela'
+        explanation: 'É o contrário: para esconder só visualmente e manter para leitores de tela, use `sr-only`.'
+      - text: '`hidden` deixa o elemento transparente, mas clicável'
+        explanation: 'Isso seria `opacity-0`. Com `hidden`, o elemento nem existe no layout.'
+    explanation: 'Os dois escondem o conteúdo de leitores de tela. Para um texto que só leitores de tela devem anunciar, como o rótulo de um botão com ícone, use `sr-only`.'

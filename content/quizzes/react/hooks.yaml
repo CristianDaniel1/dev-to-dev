@@ -127,3 +127,68 @@ questions:
       - text: 'Apenas em desenvolvimento'
         explanation: 'A limpeza roda em produção também.'
     explanation: 'Todo efeito que assina, agenda ou conecta algo deve devolver a limpeza correspondente: cancelar a assinatura, `clearInterval`, fechar a conexão.'
+
+  - id: react-hooks-008
+    level: intermediate
+    prompt: 'Quando `useReducer` costuma ser uma escolha melhor que vários `useState`?'
+    options:
+      - text: 'Quando várias partes do estado mudam juntas, seguindo ações como "adicionar", "remover" e "limpar"'
+        correct: true
+        explanation: 'O reducer concentra as transições num só lugar: `(estado, acao) => novoEstado`.'
+      - text: 'Sempre, porque `useState` está obsoleto'
+        explanation: '`useState` continua sendo a escolha certa para estados simples e independentes.'
+      - text: 'Quando o estado precisa ser compartilhado com o app inteiro'
+        explanation: '`useReducer` é local ao componente. Para compartilhar, combine com Context ou use uma biblioteca de estado.'
+      - text: 'Quando o estado não deve causar nova renderização'
+        explanation: 'Cada `dispatch` que muda o estado também renderiza de novo. Para valores sem renderização, use `useRef`.'
+    explanation: 'Um reducer é uma função pura, então dá para testá-lo sem renderizar nada: basta chamar com um estado e uma ação.'
+
+  - id: react-hooks-009
+    level: advanced
+    prompt: 'Dois componentes chamam o hook customizado `useContador()`. Eles compartilham o mesmo contador?'
+    code:
+      lang: jsx
+      source: |
+        const useContador = () => {
+          const [valor, setValor] = useState(0);
+          const incrementar = () => setValor((v) => v + 1);
+          return { valor, incrementar };
+        };
+    options:
+      - text: 'Não: cada componente que chama o hook tem o seu próprio estado'
+        correct: true
+        explanation: 'Hooks customizados compartilham a lógica, não o estado. Cada chamada cria um `useState` novo.'
+      - text: 'Sim, porque o hook é a mesma função'
+        explanation: 'Seria como esperar que duas chamadas de `useState(0)` compartilhassem o valor.'
+      - text: 'Sim, se os dois componentes estiverem na mesma página'
+        explanation: 'A posição na página não importa: o estado pertence a cada componente.'
+      - text: 'Um erro, porque hooks customizados não podem usar `useState`'
+        explanation: 'Podem: hooks customizados são justamente funções que combinam outros hooks.'
+    explanation: 'Para compartilhar o mesmo estado, suba-o para um componente pai comum ou coloque-o num Context.'
+
+  - id: react-hooks-010
+    level: advanced
+    prompt: 'Por que este efeito roda depois de toda renderização, mesmo com a lista de dependências?'
+    code:
+      lang: jsx
+      source: |
+        const Busca = ({ termo }) => {
+          const opcoes = { termo, limite: 10 };
+
+          useEffect(() => {
+            buscar(opcoes);
+          }, [opcoes]);
+
+          // ...
+        };
+    options:
+      - text: 'Porque `opcoes` é um objeto novo a cada renderização, e o React compara dependências por referência'
+        correct: true
+        explanation: 'Dois objetos com o mesmo conteúdo são diferentes para `Object.is`.'
+      - text: 'Porque objetos não podem ser dependências'
+        explanation: 'Podem, mas precisam manter a referência entre renderizações.'
+      - text: 'Porque faltou incluir `buscar` nas dependências'
+        explanation: 'Funções importadas de fora do componente não mudam e não precisam estar na lista.'
+      - text: 'Porque `useEffect` sempre ignora as dependências em desenvolvimento'
+        explanation: 'No Strict Mode, o efeito roda uma vez a mais ao montar, mas as dependências continuam valendo.'
+    explanation: 'Dependa dos valores primitivos (`[termo]`) e crie o objeto dentro do efeito. Se o objeto precisar existir fora dele, `useMemo` mantém a referência.'

@@ -1,0 +1,112 @@
+questions:
+  - id: tailwind-responsivo-e-estados-001
+    level: beginner
+    prompt: 'Como fica o texto com `class="text-sm md:text-lg"`?'
+    options:
+      - text: 'Pequeno em telas estreitas e grande a partir de 48rem (768px) de largura'
+        correct: true
+        explanation: 'Classes sem prefixo valem para todas as larguras, e `md:` sobrescreve a partir do breakpoint.'
+      - text: 'Grande em telas estreitas e pequeno em telas largas'
+        explanation: 'O Tailwind é mobile-first: o prefixo indica a partir de qual largura a classe vale.'
+      - text: 'Grande só em tablets, entre 768px e 1024px'
+        explanation: '`md:` não tem limite superior. Para um intervalo, combine com `max-lg:`.'
+      - text: 'Sempre pequeno, porque a primeira classe ganha'
+        explanation: 'A regra de `md:` vem dentro de uma media query, gerada depois no CSS, e ganha quando a tela é larga.'
+    explanation: 'Escreva primeiro o estilo do celular, sem prefixo, e adicione `sm:`, `md:`, `lg:` para telas maiores. Para o contrário, existem as variantes `max-md:` e similares.'
+
+  - id: tailwind-responsivo-e-estados-002
+    level: beginner
+    prompt: 'O que `hover:bg-sky-700` faz?'
+    options:
+      - text: 'Aplica o fundo `sky-700` enquanto o ponteiro está sobre o elemento'
+        correct: true
+        explanation: 'Variantes de estado funcionam como prefixos: a classe só vale naquele estado.'
+      - text: 'Aplica o fundo depois do primeiro clique'
+        explanation: 'Para estilos de clique, existe `active:`, que vale enquanto o botão está pressionado.'
+      - text: 'Aplica o fundo com uma animação'
+        explanation: 'A transição precisa ser pedida, com classes como `transition-colors`.'
+      - text: 'Cria um tooltip com fundo azul'
+        explanation: 'O Tailwind não cria elementos. Ele só gera CSS.'
+    explanation: 'Dá para empilhar variantes: `md:hover:bg-sky-700` só vale em telas médias ou maiores e com o ponteiro em cima.'
+
+  - id: tailwind-responsivo-e-estados-003
+    level: intermediate
+    prompt: 'Por que usar `focus-visible:` em vez de `focus:` para o contorno de foco de um botão?'
+    options:
+      - text: 'Porque `focus-visible` mostra o contorno para quem navega pelo teclado, sem aparecer a cada clique do mouse'
+        correct: true
+        explanation: 'O navegador decide quando o foco precisa ser visível, e normalmente é na navegação por teclado.'
+      - text: 'Porque `focus:` não funciona em botões'
+        explanation: '`focus:` funciona, mas aparece também quando o botão é clicado com o mouse.'
+      - text: 'Porque `focus-visible` esconde o contorno de leitores de tela'
+        explanation: 'Leitores de tela não usam o contorno visual. A diferença é entre teclado e mouse.'
+      - text: 'Porque `focus-visible` deixa o elemento sempre visível na tela'
+        explanation: 'O nome se refere ao indicador de foco ficar visível, não ao elemento.'
+    explanation: 'Nunca remova o contorno de foco sem colocar outro no lugar: quem usa teclado depende dele para saber onde está.'
+
+  - id: tailwind-responsivo-e-estados-004
+    level: intermediate
+    prompt: 'Sem nenhuma configuração extra, quando `dark:bg-black` é aplicado no Tailwind v4?'
+    options:
+      - text: 'Quando o sistema operacional do usuário está no modo escuro'
+        correct: true
+        explanation: 'Por padrão, a variante `dark:` usa a media query `prefers-color-scheme: dark`.'
+      - text: 'Quando o elemento `<html>` tem a classe `dark`'
+        explanation: 'Isso exige configurar a variante com `@custom-variant`. Não é o padrão.'
+      - text: 'Sempre, porque o modo escuro vem ligado'
+        explanation: 'A classe só vale quando a condição do modo escuro é atendida.'
+      - text: 'Só depois de chamar uma função JavaScript do Tailwind'
+        explanation: 'O Tailwind não tem JavaScript em tempo de execução. Tudo é CSS.'
+    explanation: 'Para um botão de troca de tema, redefina a variante: `@custom-variant dark (&:where(.dark, .dark *));`. Assim o JavaScript só precisa colocar ou tirar a classe `dark`.'
+
+  - id: tailwind-responsivo-e-estados-005
+    level: intermediate
+    prompt: 'Como sublinhar o título de um card quando o ponteiro passa sobre qualquer parte do card?'
+    code:
+      lang: html
+      source: |
+        <a href="/curso" class="group block p-4">
+          <h3 class="font-bold">Curso de CSS</h3>
+          <p>Layout com Grid e Flexbox.</p>
+        </a>
+    options:
+      - text: 'Adicionar `group-hover:underline` ao `<h3>`'
+        correct: true
+        explanation: 'A classe `group` marca o pai, e `group-hover:` aplica o estilo no filho quando o pai está em hover.'
+      - text: 'Adicionar `hover:underline` ao `<h3>`'
+        explanation: 'Só sublinharia com o ponteiro sobre o próprio título.'
+      - text: 'Adicionar `hover:underline` ao `<a>`'
+        explanation: 'Sublinharia o texto do card inteiro, inclusive o parágrafo.'
+      - text: 'Não é possível sem JavaScript'
+        explanation: 'É só CSS: o Tailwind gera um seletor do tipo `.group:hover .group-hover\:underline`.'
+    explanation: 'Para estilizar um elemento conforme o estado de um irmão anterior, como um input inválido, use `peer` e `peer-invalid:`.'
+
+  - id: tailwind-responsivo-e-estados-006
+    level: advanced
+    prompt: 'No Tailwind v4, por que `hover:bg-sky-700` não fica "grudado" depois de tocar num botão pelo celular?'
+    options:
+      - text: 'Porque a variante `hover:` só é aplicada em dispositivos com ponteiro que suporta hover'
+        correct: true
+        explanation: 'O v4 envolve as regras de hover em `@media (hover: hover)`, então telas de toque ignoram esses estilos.'
+      - text: 'Porque o Tailwind remove o hover com JavaScript após o toque'
+        explanation: 'O Tailwind não roda JavaScript na página.'
+      - text: 'Porque o celular não dispara eventos de toque em botões'
+        explanation: 'Dispara normalmente. A diferença está na media query que envolve o estilo.'
+      - text: 'Fica grudado, sim: é preciso usar `active:` no lugar'
+        explanation: 'Isso acontecia no Tailwind v3. No v4, a media query resolve.'
+    explanation: 'Por isso, informação importante não deve depender só de hover: em telas de toque ela nunca aparece. Para feedback ao tocar, use `active:`.'
+
+  - id: tailwind-responsivo-e-estados-007
+    level: advanced
+    prompt: 'O que `has-checked:bg-sky-50` faz quando aplicado a um `<label>` que contém um checkbox?'
+    options:
+      - text: 'Aplica o fundo ao `<label>` enquanto o checkbox dentro dele estiver marcado'
+        correct: true
+        explanation: 'A variante gera `:has(:checked)`: o pai é estilizado conforme o estado de um descendente.'
+      - text: 'Marca o checkbox automaticamente'
+        explanation: 'Variantes só aplicam estilos. Não mudam o estado de nada.'
+      - text: 'Aplica o fundo ao próprio checkbox'
+        explanation: 'Para estilizar o checkbox, a classe iria nele, com `checked:`.'
+      - text: 'Só funciona se o checkbox vier antes do label'
+        explanation: 'Essa restrição é do `peer`. Com `has-`, o checkbox fica dentro do elemento estilizado.'
+    explanation: 'Com `has-`, cards de opção que mudam de cor quando escolhidos saem só com CSS, sem estado em JavaScript.'

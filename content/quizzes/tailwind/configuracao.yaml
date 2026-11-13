@@ -1,0 +1,108 @@
+questions:
+  - id: tailwind-configuracao-001
+    level: intermediate
+    prompt: 'No Tailwind v4, o que este CSS permite fazer?'
+    code:
+      lang: css
+      source: |
+        @import 'tailwindcss';
+
+        @theme {
+          --color-marca: #e46a43;
+        }
+    options:
+      - text: 'Usar classes como `bg-marca`, `text-marca` e `border-marca`'
+        correct: true
+        explanation: 'Variáveis do namespace `--color-*` no `@theme` viram cores em todos os utilitários de cor.'
+      - text: 'Só usar `var(--color-marca)` em CSS escrito à mão'
+        explanation: 'A variável também fica disponível, mas o principal é que as classes são geradas.'
+      - text: 'Nada, porque as cores precisam ficar no `tailwind.config.js`'
+        explanation: 'No v4, a configuração mora no CSS. O arquivo JavaScript é opcional.'
+      - text: 'Trocar todas as cores laranja do Tailwind por essa'
+        explanation: 'A paleta padrão continua. Você só acrescentou uma cor.'
+    explanation: 'O mesmo vale para outros namespaces: `--font-*` gera classes `font-`, `--breakpoint-*` gera variantes responsivas, e assim por diante.'
+
+  - id: tailwind-configuracao-002
+    level: advanced
+    prompt: 'Por que esta classe pode não ter estilo nenhum em produção?'
+    code:
+      lang: jsx
+      source: |
+        const Alerta = ({ cor }) => <div className={`bg-${cor}-500 p-4`}>Atenção</div>;
+    options:
+      - text: 'Porque o Tailwind lê os arquivos como texto e nunca encontra `bg-red-500` escrito por inteiro'
+        correct: true
+        explanation: 'O Tailwind não executa o seu código: ele procura classes completas nos arquivos e gera só essas.'
+      - text: 'Porque o Tailwind não funciona com JSX'
+        explanation: 'Funciona com qualquer arquivo de texto, incluindo JSX.'
+      - text: 'Porque template strings não podem ser usadas em `className`'
+        explanation: 'O React aceita qualquer string. O problema é o Tailwind não saber que a classe existe.'
+      - text: 'Porque `p-4` precisa vir antes de `bg-`'
+        explanation: 'A ordem das classes não importa.'
+    explanation: "Mapeie para classes completas: `const CORES = { erro: 'bg-red-500', sucesso: 'bg-green-500' }`. Assim cada classe aparece escrita no código."
+
+  - id: tailwind-configuracao-003
+    level: advanced
+    prompt: 'Qual padding o elemento recebe com `class="p-4 p-2"`?'
+    options:
+      - text: 'O de `p-4`, porque vale a regra que vem depois no CSS gerado, e não a ordem no atributo'
+        correct: true
+        explanation: 'As duas classes têm a mesma especificidade, e o Tailwind gera `p-2` antes de `p-4`.'
+      - text: 'O de `p-2`, porque é a última classe do atributo'
+        explanation: 'A ordem das classes no HTML não muda a cascata. O que conta é a ordem das regras no CSS.'
+      - text: 'A soma dos dois'
+        explanation: 'Uma propriedade CSS só tem um valor. Quem ganha a cascata define.'
+      - text: 'Nenhum, porque classes em conflito se anulam'
+        explanation: 'Uma das regras sempre ganha.'
+    explanation: 'Evite classes em conflito. Em componentes que aceitam classes de fora, bibliotecas como `tailwind-merge` removem a classe conflitante.'
+
+  - id: tailwind-configuracao-004
+    level: intermediate
+    prompt: 'O que `@apply` faz neste CSS?'
+    code:
+      lang: css
+      source: |
+        .btn {
+          @apply rounded-sm px-4 py-2 font-bold;
+        }
+    options:
+      - text: 'Copia as declarações dessas classes para dentro de `.btn`'
+        correct: true
+        explanation: 'Você usa os tokens do Tailwind num seletor próprio, sem repetir as classes no HTML.'
+      - text: 'Aplica as classes ao elemento via JavaScript'
+        explanation: 'Tudo acontece no build. Nenhum JavaScript roda na página.'
+      - text: 'Cria classes novas chamadas `.btn-rounded-sm`, `.btn-px-4`...'
+        explanation: 'Nenhuma classe nova é criada além de `.btn`.'
+      - text: 'Só funciona em arquivos de componente Vue'
+        explanation: 'Funciona em qualquer CSS processado pelo Tailwind.'
+    explanation: 'Use com moderação: para repetição no HTML, um componente (React, Angular, Vue) costuma ser melhor do que uma classe CSS.'
+
+  - id: tailwind-configuracao-005
+    level: advanced
+    prompt: 'Como marcar uma classe como `!important` no Tailwind v4?'
+    options:
+      - text: '`bg-red-500!`'
+        correct: true
+        explanation: 'No v4, o `!` vem no fim da classe e gera a declaração com `!important`.'
+      - text: '`important:bg-red-500`'
+        explanation: 'Não existe a variante `important:`.'
+      - text: '`bg-red-500-important`'
+        explanation: 'Essa classe não existe.'
+      - text: 'Não é possível marcar uma classe só'
+        explanation: 'É possível, com o `!`.'
+    explanation: 'O `!` no início (`!bg-red-500`) era a forma do v3 e ainda é aceito por compatibilidade. Se você precisa muito dele, provavelmente há classes em conflito para resolver.'
+
+  - id: tailwind-configuracao-006
+    level: intermediate
+    prompt: 'O que `bg-black/50` gera?'
+    options:
+      - text: 'Um fundo preto com 50% de opacidade, sem afetar o texto do elemento'
+        correct: true
+        explanation: 'O `/50` mistura a cor com transparência. Só o fundo fica translúcido.'
+      - text: 'Um fundo cinza 500'
+        explanation: 'Seria `bg-gray-500`. O número depois da barra é opacidade.'
+      - text: 'O elemento inteiro com 50% de opacidade'
+        explanation: 'Isso seria `opacity-50`, que também deixa o texto e os filhos translúcidos.'
+      - text: 'Um fundo preto em metade do elemento'
+        explanation: 'A barra não define tamanho.'
+    explanation: 'O modificador de opacidade funciona com qualquer cor: `text-sky-700/80`, `border-white/10`. É ótimo para camadas sobre imagens e bordas sutis.'

@@ -2,17 +2,20 @@ import { DOCUMENT, Injectable, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { type RouterStateSnapshot, TitleStrategy } from '@angular/router';
 import {
+  JSON_LD_SCRIPT_ID,
   SITE_DESCRIPTION,
   SITE_HOME_TITLE,
   SITE_NAME,
   SITE_OG_IMAGE,
   SITE_URL,
 } from '../constants/site.constants';
+import type { JsonLdNode } from '../interfaces/json-ld.interface';
 import type { RouteSeo } from '../interfaces/route-seo.interface';
+import { serializeJsonLd } from '../lib/json-ld';
 import { deepestChild, toAbsoluteUrl } from '../lib/seo-url';
 
 /**
- * Besides `<title>`, applies description, canonical, Open Graph and Twitter Card tags on every
+ * Besides `<title>`, applies description, canonical, Open Graph, Twitter Card and JSON-LD on every
  * navigation. It also runs during prerendering, so the static HTML ships complete.
  */
 @Injectable({ providedIn: 'root' })
@@ -45,6 +48,7 @@ export class SeoTitleStrategy extends TitleStrategy {
     this.meta.updateTag({ property: 'og:image', content: `${SITE_URL}${SITE_OG_IMAGE}` });
     this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
     this.setCanonical(url);
+    this.setJsonLd(seo.jsonLd ?? []);
   }
 
   private setCanonical(url: string): void {
@@ -55,5 +59,23 @@ export class SeoTitleStrategy extends TitleStrategy {
       this.document.head.appendChild(link);
     }
     link.href = url;
+  }
+
+  private setJsonLd(nodes: readonly JsonLdNode[]): void {
+    const existing = this.document.getElementById(JSON_LD_SCRIPT_ID);
+    if (!nodes.length) {
+      existing?.remove();
+      return;
+    }
+    const script = existing ?? this.createJsonLdScript();
+    script.textContent = serializeJsonLd(nodes);
+  }
+
+  private createJsonLdScript(): HTMLScriptElement {
+    const script = this.document.createElement('script');
+    script.type = 'application/ld+json';
+    script.id = JSON_LD_SCRIPT_ID;
+    this.document.head.appendChild(script);
+    return script;
   }
 }

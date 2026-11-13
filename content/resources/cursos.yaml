@@ -83,9 +83,9 @@ resources:
     languages: [en]
     techs: [css]
   - id: frontend-masters
-    name: Frontend Masters
-    url: https://frontendmasters.com/
-    description: 'Cursos em vídeo por assinatura, ministrados por profissionais experientes.'
+    name: Master.dev
+    url: https://master.dev/
+    description: 'Antigo Frontend Masters. Cursos em vídeo por assinatura, ministrados por profissionais experientes.'
     why: 'Vai fundo em temas avançados, como performance, arquitetura e internals de frameworks.'
     type: course
     pricing: paid

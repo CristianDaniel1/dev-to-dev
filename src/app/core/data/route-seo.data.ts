@@ -1,4 +1,5 @@
 import type { RouteSeo } from '../interfaces/route-seo.interface';
+import { websiteJsonLd } from '../lib/json-ld';
 
 /** SEO data of the about page. */
 export const ABOUT_SEO: RouteSeo = {
@@ -10,3 +11,6 @@ export const PROGRESS_SEO: RouteSeo = { noIndex: true };
 
 /** SEO data of the not-found page, which stays out of search results. */
 export const NOT_FOUND_SEO: RouteSeo = { noIndex: true };
+
+/** SEO data of the home page: the default description plus the site's structured data. */
+export const HOME_SEO: RouteSeo = { jsonLd: [websiteJsonLd()] };

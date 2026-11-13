@@ -1,0 +1,133 @@
+questions:
+  - id: react-renderizacao-001
+    level: intermediate
+    prompt: 'Quais situações fazem um componente renderizar de novo?'
+    options:
+      - text: 'O estado do próprio componente muda'
+        correct: true
+        explanation: 'Chamar o `set` com um valor diferente agenda uma nova renderização.'
+      - text: 'O componente pai renderiza de novo'
+        correct: true
+        explanation: 'Por padrão, os filhos renderizam junto com o pai, mesmo que as props sejam iguais.'
+      - text: 'O valor de uma ref muda'
+        explanation: 'Alterar `ref.current` não avisa o React.'
+      - text: 'Uma variável comum, declarada dentro do componente, é reatribuída'
+        explanation: 'Variáveis comuns são recriadas a cada renderização e não disparam nada.'
+    explanation: 'Renderizar não é o mesmo que mexer no DOM: o React compara o resultado e só altera o que mudou. Na maioria dos casos, renderizações extras são baratas.'
+
+  - id: react-renderizacao-002
+    level: advanced
+    prompt: 'O `Item` está envolvido em `memo`. Por que ele continua renderizando toda vez que a `Lista` renderiza?'
+    code:
+      lang: jsx
+      source: |
+        const Item = memo(({ texto, onRemover }) => (
+          <li>
+            {texto} <button onClick={onRemover}>Remover</button>
+          </li>
+        ));
+
+        const Lista = ({ itens, remover }) => (
+          <ul>
+            {itens.map((item) => (
+              <Item key={item.id} texto={item.texto} onRemover={() => remover(item.id)} />
+            ))}
+          </ul>
+        );
+    options:
+      - text: 'Porque `onRemover` recebe uma função nova a cada renderização da `Lista`'
+        correct: true
+        explanation: 'O `memo` compara as props por referência, e uma arrow function criada no render nunca é a mesma.'
+      - text: 'Porque `memo` não funciona dentro de listas'
+        explanation: 'Funciona, desde que as props mantenham a referência.'
+      - text: 'Porque `texto` é uma string'
+        explanation: 'Strings iguais passam na comparação. O problema é a função.'
+      - text: 'Porque a `key` muda a cada renderização'
+        explanation: 'A `key` vem de `item.id`, que é estável.'
+    explanation: 'Uma solução é passar o `id` e uma função estável (`onRemover={remover}` com `useCallback` no pai) e chamar `onRemover(id)` dentro do `Item`. Mas meça antes: muitas vezes o `memo` nem é necessário.'
+
+  - id: react-renderizacao-003
+    level: advanced
+    prompt: 'O que `useMemo(() => filtrar(itens, busca), [itens, busca])` faz?'
+    options:
+      - text: 'Guarda o resultado do cálculo e só refaz quando `itens` ou `busca` mudam'
+        correct: true
+        explanation: 'Em renderizações causadas por outros motivos, o resultado anterior é reaproveitado.'
+      - text: 'Executa o cálculo numa thread separada'
+        explanation: 'O cálculo roda normalmente, durante a renderização.'
+      - text: 'Impede que o componente renderize de novo'
+        explanation: '`useMemo` memoriza um valor. Quem evita renderizações de um componente é o `memo`.'
+      - text: 'Guarda o resultado para sempre, mesmo se as dependências mudarem'
+        explanation: 'Quando uma dependência muda, o cálculo roda de novo.'
+    explanation: 'Use para cálculos realmente caros ou para manter a referência de um objeto passado a um componente com `memo`. O React Compiler, quando ativado, faz essa memorização automaticamente.'
+
+  - id: react-renderizacao-004
+    level: intermediate
+    prompt: 'O que o `fallback` do `Suspense` mostra neste código?'
+    code:
+      lang: jsx
+      source: |
+        const Grafico = lazy(() => import('./Grafico'));
+
+        const Painel = () => (
+          <Suspense fallback={<p>Carregando gráfico...</p>}>
+            <Grafico />
+          </Suspense>
+        );
+    options:
+      - text: 'O texto de carregamento, enquanto o código do `Grafico` é baixado'
+        correct: true
+        explanation: '`lazy` divide o `Grafico` num arquivo separado, e o `Suspense` mostra o fallback até ele chegar.'
+      - text: 'Uma mensagem de erro, se o gráfico falhar'
+        explanation: 'Para erros, use um Error Boundary. O `fallback` é para carregamento.'
+      - text: 'O texto de carregamento, sempre antes do gráfico, mesmo já baixado'
+        explanation: 'Depois do primeiro carregamento, o componente já está em memória e aparece direto.'
+      - text: 'Nada, porque `lazy` não funciona com `Suspense`'
+        explanation: '`lazy` precisa de um `Suspense` acima dele.'
+    explanation: 'Dividir o código por rota ou por componentes pesados (gráficos, editores) deixa o carregamento inicial menor.'
+
+  - id: react-renderizacao-005
+    level: advanced
+    prompt: 'O pai passa `valorInicial` = 5 e depois muda para 10. O que o campo mostra?'
+    code:
+      lang: jsx
+      source: |
+        const Quantidade = ({ valorInicial }) => {
+          const [valor, setValor] = useState(valorInicial);
+
+          return <input value={valor} onChange={(e) => setValor(e.target.value)} />;
+        };
+    options:
+      - text: '5: o argumento de `useState` só é usado na primeira renderização'
+        correct: true
+        explanation: 'Depois de criado, o estado pertence ao componente e ignora a prop.'
+      - text: '10: o estado acompanha a prop'
+        explanation: 'O estado não é ligado à prop que o inicializou.'
+      - text: 'Um erro, porque props não podem inicializar estado'
+        explanation: 'Podem, e o nome `valorInicial` deixa claro que é só o começo.'
+      - text: 'O campo fica vazio'
+        explanation: 'O estado mantém o 5 da primeira renderização.'
+    explanation: 'Se o campo deve seguir a prop, não crie estado: use a prop direto. Se deve reiniciar quando ela muda, use uma `key` no componente.'
+
+  - id: react-renderizacao-006
+    level: advanced
+    prompt: 'Qual é a diferença entre estas duas formas de criar o estado?'
+    code:
+      lang: jsx
+      source: |
+        // Primeira forma
+        const [itens, setItens] = useState(lerDoStorage());
+
+        // Segunda forma
+        const [itens, setItens] = useState(() => lerDoStorage());
+    options:
+      - text: 'A primeira chama `lerDoStorage` em toda renderização. A segunda, só na primeira'
+        correct: true
+        explanation: 'Com uma função, o React só a chama para criar o estado inicial.'
+      - text: 'Nenhuma: o resultado e o custo são iguais'
+        explanation: 'O estado inicial é o mesmo, mas a primeira forma repete a leitura a cada renderização e descarta o resultado.'
+      - text: 'A segunda guarda a função no estado, e não o resultado'
+        explanation: 'Isso não acontece: quando `useState` recebe uma função, ele a chama e guarda o retorno.'
+      - text: 'A primeira dá erro, porque `useState` só aceita funções'
+        explanation: '`useState` aceita valores e funções.'
+    explanation: 'Use a forma de função (inicialização preguiçosa) quando o valor inicial for caro de calcular, como ler o localStorage ou processar uma lista grande.'
